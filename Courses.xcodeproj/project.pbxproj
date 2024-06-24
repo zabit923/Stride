@@ -7,14 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */; };
+		44064C772C26ED9500AB5227 /* Commissioner-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */; };
+		44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */; };
+		44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C7A2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf */; };
+		44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C7C2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf */; };
+		44064C7F2C26EEF200AB5227 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C7E2C26EEF200AB5227 /* Montserrat-Bold.ttf */; };
+		44064C812C26F0E800AB5227 /* Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C802C26F0E800AB5227 /* Border.swift */; };
+		44064C842C26F80700AB5227 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */; };
+		44064C862C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */; };
+		44064C892C27042100AB5227 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C882C27042100AB5227 /* StartViewController.swift */; };
+		44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C8A2C28516C00AB5227 /* VhodViewController.swift */; };
+		44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C8C2C285DA600AB5227 /* RegistrViewController.swift */; };
+		44064C8F2C285F7C00AB5227 /* TextFieldFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C8E2C285F7C00AB5227 /* TextFieldFormat.swift */; };
+		44064C922C2861B900AB5227 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 44064C912C2861B900AB5227 /* Alamofire */; };
+		44064C972C2861CA00AB5227 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 44064C962C2861CA00AB5227 /* SwiftyJSON */; };
+		44064C9A2C2861D700AB5227 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 44064C992C2861D700AB5227 /* SDWebImage */; };
+		44064C9C2C2861D700AB5227 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 44064C9B2C2861D700AB5227 /* SDWebImageMapKit */; };
+		44064C9E2C28628000AB5227 /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C9D2C28628000AB5227 /* Sign.swift */; };
+		44064CA02C28634C00AB5227 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C9F2C28634C00AB5227 /* Model.swift */; };
+		44064CA42C2876F200AB5227 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064CA32C2876F200AB5227 /* Errors.swift */; };
+		44064CA62C28773E00AB5227 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064CA52C28773E00AB5227 /* Error.swift */; };
 		440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DAB332C1748D400C576FB /* AppDelegate.swift */; };
 		440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DAB352C1748D400C576FB /* SceneDelegate.swift */; };
 		440DAB3B2C1748D400C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3A2C1748D400C576FB /* Base */; };
 		440DAB3D2C1748D600C576FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3C2C1748D600C576FB /* Assets.xcassets */; };
 		440DAB402C1748D600C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3F2C1748D600C576FB /* Base */; };
+		44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906332C29A59B00FFA6DD /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		44064CA22C2869A800AB5227 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Medium.ttf"; sourceTree = "<group>"; };
+		44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-SemiBold.ttf"; sourceTree = "<group>"; };
+		44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Regular.ttf"; sourceTree = "<group>"; };
+		44064C7A2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Semibold.otf"; sourceTree = "<group>"; };
+		44064C7C2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
+		44064C7E2C26EEF200AB5227 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		44064C802C26F0E800AB5227 /* Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Border.swift; sourceTree = "<group>"; };
+		44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Commissioner-Bold.ttf"; path = "../../../../../../Downloads/Commissioner/static/Commissioner-Bold.ttf"; sourceTree = "<group>"; };
+		44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		44064C882C27042100AB5227 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		44064C8A2C28516C00AB5227 /* VhodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VhodViewController.swift; sourceTree = "<group>"; };
+		44064C8C2C285DA600AB5227 /* RegistrViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrViewController.swift; sourceTree = "<group>"; };
+		44064C8E2C285F7C00AB5227 /* TextFieldFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFormat.swift; sourceTree = "<group>"; };
+		44064C9D2C28628000AB5227 /* Sign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sign.swift; sourceTree = "<group>"; };
+		44064C9F2C28634C00AB5227 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		44064CA32C2876F200AB5227 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		44064CA52C28773E00AB5227 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		440DAB302C1748D400C576FB /* Courses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Courses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440DAB332C1748D400C576FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		440DAB352C1748D400C576FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -22,6 +74,7 @@
 		440DAB3C2C1748D600C576FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440DAB3F2C1748D600C576FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		440DAB412C1748D600C576FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,12 +82,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44064C972C2861CA00AB5227 /* SwiftyJSON in Frameworks */,
+				44064C9C2C2861D700AB5227 /* SDWebImageMapKit in Frameworks */,
+				44064C922C2861B900AB5227 /* Alamofire in Frameworks */,
+				44064C9A2C2861D700AB5227 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44064C712C26ED4F00AB5227 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */,
+				44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */,
+				44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */,
+				44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */,
+				44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */,
+				44064C7A2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf */,
+				44064C7C2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf */,
+				44064C7E2C26EEF200AB5227 /* Montserrat-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		44064C872C27040B00AB5227 /* StartScreen */ = {
+			isa = PBXGroup;
+			children = (
+				44064C882C27042100AB5227 /* StartViewController.swift */,
+				44064C8A2C28516C00AB5227 /* VhodViewController.swift */,
+				44064C8C2C285DA600AB5227 /* RegistrViewController.swift */,
+			);
+			path = StartScreen;
+			sourceTree = "<group>";
+		};
 		440DAB272C1748D400C576FB = {
 			isa = PBXGroup;
 			children = (
@@ -63,6 +145,7 @@
 				440DAB352C1748D400C576FB /* SceneDelegate.swift */,
 				440DAB412C1748D600C576FB /* Info.plist */,
 				440DAB3E2C1748D600C576FB /* LaunchScreen.storyboard */,
+				44064C712C26ED4F00AB5227 /* Fonts */,
 			);
 			path = Courses;
 			sourceTree = "<group>";
@@ -70,6 +153,9 @@
 		440DAB472C17491600C576FB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				44064C9D2C28628000AB5227 /* Sign.swift */,
+				44064C9F2C28634C00AB5227 /* Model.swift */,
+				44064CA52C28773E00AB5227 /* Error.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -77,6 +163,9 @@
 		440DAB482C17491D00C576FB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				44064C802C26F0E800AB5227 /* Border.swift */,
+				44064C8E2C285F7C00AB5227 /* TextFieldFormat.swift */,
+				44064CA32C2876F200AB5227 /* Errors.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -84,8 +173,18 @@
 		440DAB492C17492900C576FB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				44E906322C29A59000FFA6DD /* MainScreen */,
+				44064C872C27040B00AB5227 /* StartScreen */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		44E906322C29A59000FFA6DD /* MainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				44E906332C29A59B00FFA6DD /* HomeViewController.swift */,
+			);
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -98,12 +197,19 @@
 				440DAB2C2C1748D400C576FB /* Sources */,
 				440DAB2D2C1748D400C576FB /* Frameworks */,
 				440DAB2E2C1748D400C576FB /* Resources */,
+				44064CA22C2869A800AB5227 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Courses;
+			packageProductDependencies = (
+				44064C912C2861B900AB5227 /* Alamofire */,
+				44064C962C2861CA00AB5227 /* SwiftyJSON */,
+				44064C992C2861D700AB5227 /* SDWebImage */,
+				44064C9B2C2861D700AB5227 /* SDWebImageMapKit */,
+			);
 			productName = Courses;
 			productReference = 440DAB302C1748D400C576FB /* Courses.app */;
 			productType = "com.apple.product-type.application";
@@ -132,6 +238,11 @@
 				Base,
 			);
 			mainGroup = 440DAB272C1748D400C576FB;
+			packageReferences = (
+				44064C902C2861B900AB5227 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				44064C952C2861CA00AB5227 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				44064C982C2861D700AB5227 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 440DAB312C1748D400C576FB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -146,9 +257,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44064C7F2C26EEF200AB5227 /* Montserrat-Bold.ttf in Resources */,
 				440DAB3D2C1748D600C576FB /* Assets.xcassets in Resources */,
 				440DAB402C1748D600C576FB /* Base in Resources */,
 				440DAB3B2C1748D400C576FB /* Base in Resources */,
+				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				44064C842C26F80700AB5227 /* Commissioner-Bold.ttf in Resources */,
+				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
+				44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */,
+				44064C862C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf in Resources */,
+				44064C772C26ED9500AB5227 /* Commissioner-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +279,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */,
+				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
+				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
+				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
+				44064C892C27042100AB5227 /* StartViewController.swift in Sources */,
+				44064C812C26F0E800AB5227 /* Border.swift in Sources */,
+				44064C8F2C285F7C00AB5227 /* TextFieldFormat.swift in Sources */,
+				44064CA42C2876F200AB5227 /* Errors.swift in Sources */,
 				440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */,
+				44064C9E2C28628000AB5227 /* Sign.swift in Sources */,
+				44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */,
+				44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +444,7 @@
 				DEVELOPMENT_TEAM = DKHFV79UK7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -325,7 +455,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.course.Courses;
+				PRODUCT_BUNDLE_IDENTIFIER = com.course.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -347,6 +477,7 @@
 				DEVELOPMENT_TEAM = DKHFV79UK7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -357,7 +488,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.course.Courses;
+				PRODUCT_BUNDLE_IDENTIFIER = com.course.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -391,6 +522,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		44064C902C2861B900AB5227 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+		44064C952C2861CA00AB5227 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
+		44064C982C2861D700AB5227 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		44064C912C2861B900AB5227 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44064C902C2861B900AB5227 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		44064C962C2861CA00AB5227 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44064C952C2861CA00AB5227 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		44064C992C2861D700AB5227 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44064C982C2861D700AB5227 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		44064C9B2C2861D700AB5227 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44064C982C2861D700AB5227 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 440DAB282C1748D400C576FB /* Project object */;
 }
