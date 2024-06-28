@@ -55,6 +55,7 @@ class AddCourseViewController: UIViewController {
         textView.textColor = .white
         textView.delegate = self
         imagePickerController.delegate = self
+        view.overrideUserInterfaceStyle = .dark
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -220,8 +221,16 @@ extension AddCourseViewController: UITextViewDelegate {
         if let font = textView.typingAttributes[.font] as? UIFont {
             fontSelect = font
             sizeFontSelect = font.pointSize
+        }else {
+            let font = fontSelect
+            fontSelect = font
+            let size = sizeFont
+            sizeFont = size
         }
         if let color = textView.typingAttributes[.foregroundColor] as? UIColor {
+            colorSelect = color
+        }else {
+            let color = colorSelect
             colorSelect = color
         }
         if let align = textView.typingAttributes[.paragraphStyle] as? NSParagraphStyle {
@@ -258,6 +267,7 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
         combinedString.append(attributedString)
         combinedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: combinedString.length))
         self.textView.attributedText = combinedString
+        
     }
     
 }
