@@ -16,3 +16,10 @@ enum Role: String {
     case user = "User"
     case admin = "Admin"
 }
+
+enum Alignment {
+    case left
+    case center
+    case right
+    case defaultCenter
+}
