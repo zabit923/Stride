@@ -20,19 +20,41 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var leftAlingment: UIButton!
     @IBOutlet weak var textView: UITextView!
     
-    private let stringTextViewArray = NSMutableAttributedString()
+    
     private let imagePickerController = UIImagePickerController()
-    private var colorSelect = UIColor.white
-    private var fontSelect = UIFont.systemFont(ofSize: 16)
-    private var alignment = NSMutableParagraphStyle().alignment
-    private var sizeFontSelect = 16.0
+    private var colorSelect = UIColor.white {
+        didSet {
+            colorView.backgroundColor = colorSelect
+            textView.typingAttributes[.foregroundColor] = colorSelect
+        }
+    }
+    private var fontSelect = UIFont.systemFont(ofSize: 16) {
+        didSet {
+            fontTitle.text = fontSelect.fontName
+            textView.typingAttributes[.font] = fontSelect
+        }
+    }
+    private var alignment = NSMutableParagraphStyle().alignment {
+        didSet {
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.alignment = alignment
+            textView.typingAttributes[.paragraphStyle] = paragraph
+            clearTextAlingment()
+            changedAlignment(alignment)
+        }
+    }
+    private var sizeFontSelect = 16.0 {
+        didSet {
+            fontSelect = UIFont(descriptor: fontSelect.fontDescriptor, size: sizeFontSelect)
+            sizeFont.text = "\(sizeFontSelect) пт"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        textView.textColor = .white
         textView.delegate = self
         imagePickerController.delegate = self
-        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +93,21 @@ class AddCourseViewController: UIViewController {
         }
     }
     
+    private func changedAlignment(_ alignment: NSTextAlignment) {
+        switch alignment {
+        case .left:
+            leftAlingment.setImage(UIImage.leftTextFull, for: .normal)
+        case .center:
+            centerAlingment.setImage(UIImage.centerTextFull, for: .normal)
+        case .right:
+            rightAligment.setImage(UIImage.rightTextFull, for: .normal)
+        case .natural:
+            defaultAligment.setImage(UIImage.defaulTextFull, for: .normal)
+        default:
+            break
+        }
+    }
+    
     private func clearTextAlingment() {
         leftAlingment.setImage(UIImage.leftText, for: .normal)
         centerAlingment.setImage(UIImage.centerText, for: .normal)
@@ -85,15 +122,15 @@ class AddCourseViewController: UIViewController {
         let nsRange = textView.convertUITextRangeToNSRange(range: selectedRange)
         textView.textStorage.addAttributes(attributes, range: nsRange)
         textView.selectedTextRange = selectedRange
-        let font = textView.textStorage.attribute(.font, at: nsRange.location, effectiveRange: nil)  as? UIFont
     }
+    
     
     // MARK: - UIButton
 
     @IBAction func okFont(_ sender: Any) {
         fontView.isHidden = true
         textView.isEditable = true
-        fontSelect.withSize(sizeFontSelect)
+        textView.becomeFirstResponder()
         selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
     }
     
@@ -120,8 +157,9 @@ class AddCourseViewController: UIViewController {
     
     @IBAction func changedText(_ sender: UIButton) {
         textView.resignFirstResponder()
-        fontView.isHidden = false
         textView.isEditable = false
+        fontView.isHidden = false
+        textStyleBar()
     }
     
     @IBAction func fontBtn(_ sender: UIButton) {
@@ -136,23 +174,19 @@ class AddCourseViewController: UIViewController {
         clearTextAlingment()
         switch sender.tag {
         case 0:
-            sender.setImage(UIImage.leftTextFull, for: .normal)
             alignment = .left
         case 1:
-            sender.setImage(UIImage.centerTextFull, for: .normal)
             alignment = .center
         case 2:
-            sender.setImage(UIImage.rightTextFull, for: .normal)
             alignment = .right
         case 3:
-            sender.setImage(UIImage.defaulTextFull, for: .normal)
             alignment = .natural
         default:
             break
         }
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = alignment
-        selectText(attributes: [.paragraphStyle: paragraphStyle])
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = alignment
+        selectText(attributes: [.paragraphStyle: paragraph])
     }
 
     @IBAction func stepper(_ sender: UIButton) {
@@ -161,8 +195,6 @@ class AddCourseViewController: UIViewController {
         }else {
             sizeFontSelect += 1
         }
-        sizeFont.text = "\(sizeFontSelect) пт"
-        fontSelect = UIFont(descriptor: fontSelect.fontDescriptor, size: sizeFontSelect)
     }
     
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
@@ -174,47 +206,26 @@ class AddCourseViewController: UIViewController {
 // MARK: - TextView
 extension AddCourseViewController: UITextViewDelegate {
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        alignmentStyle()
-        textStyle()
-        textChanged()
-        return true
-    }
-    
-    func textChanged() {
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = alignment
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: fontSelect,
-            .foregroundColor: colorSelect,
-            .paragraphStyle: paragraph
-        ]
-        textView.typingAttributes = attributes
-    }
-    
-    func textStyle() {
-        if let color = textView.typingAttributes[.foregroundColor] as? UIColor {
-            colorView.backgroundColor = color
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.typingAttributes[.font] as? UIFont != fontSelect {
+            textView.typingAttributes[.font] = fontSelect
         }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        textStyleBar()
+    }
+    
+    private func textStyleBar() {
         if let font = textView.typingAttributes[.font] as? UIFont {
-            fontTitle.text = font.fontName
-            sizeFont.text = "\(font.pointSize) пт"
+            fontSelect = font
+            sizeFontSelect = font.pointSize
         }
-    }
-    
-    func alignmentStyle() {
-        clearTextAlingment()
-        switch textView.textAlignment.rawValue {
-        case 0:
-            leftAlingment.setImage(UIImage.leftTextFull, for: .normal)
-        case 1:
-            centerAlingment.setImage(UIImage.centerTextFull, for: .normal)
-        case 2:
-            rightAligment.setImage(UIImage.rightTextFull, for: .normal)
-        case 4:
-            defaultAligment.setImage(UIImage.defaulTextFull, for: .normal)
-        default:
-            break
+        if let color = textView.typingAttributes[.foregroundColor] as? UIColor {
+            colorSelect = color
+        }
+        if let align = textView.typingAttributes[.paragraphStyle] as? NSParagraphStyle {
+            alignment = align.alignment
         }
     }
     
@@ -227,7 +238,6 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
             let screenWidth = UIScreen.main.bounds.width - 30
             let maxSize = CGSize(width: screenWidth, height: 400)
             let scaledImage = image.scaleImage(toSize: maxSize)
-
             addImageInTextView(image: scaledImage)
             picker.dismiss(animated: true)
         }
@@ -260,7 +270,6 @@ extension AddCourseViewController: UIFontPickerViewControllerDelegate {
     
     func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
         guard let descriptor = viewController.selectedFontDescriptor else {return}
-        fontTitle.text = descriptor.postscriptName
         fontSelect = UIFont(descriptor: descriptor, size: sizeFontSelect)
         viewController.dismiss(animated: true)
     }
@@ -270,7 +279,6 @@ extension AddCourseViewController: UIColorPickerViewControllerDelegate {
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         colorSelect = viewController.selectedColor
-        colorView.backgroundColor = colorSelect
     }
     
 }
