@@ -264,7 +264,7 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
         paragraphStyle.alignment = .center
         let attributedString =  NSAttributedString(attachment: attachment)
         let combinedString = NSMutableAttributedString(attributedString: self.textView.attributedText)
-        combinedString.append(attributedString)
+        combinedString.insert(attributedString, at: textView.selectedRange.location)
         combinedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: combinedString.length))
         self.textView.attributedText = combinedString
         
