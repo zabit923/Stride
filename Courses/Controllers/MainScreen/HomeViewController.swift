@@ -17,10 +17,22 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        bannersCollectionView.delegate = self
-        bannersCollectionView.dataSource = self
+        collectionViewSettings()
     }
     
+    private func collectionViewSettings() {
+        bannersCollectionView.delegate = self
+        bannersCollectionView.dataSource = self
+        let itemWidth = UIScreen.main.bounds.width - 60
+        let layout = PageLayout()
+        layout.itemSize = CGSize(width: itemWidth, height: 180)
+        print(UIScreen.main.bounds.width - 60)
+        layout.minimumInteritemSpacing = 12
+        layout.minimumLineSpacing = 12
+        layout.sectionInset.left = -(itemWidth - 15)
+        layout.scrollDirection = .horizontal
+        bannersCollectionView.collectionViewLayout = layout
+    }
 
 
 }
@@ -44,31 +56,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let screenWidth = UIScreen.main.bounds.width
-        
-        if collectionView == bannersCollectionView {
-            let resultWidth = screenWidth - 60
-            return CGSize(width: resultWidth, height: 180)
-        }else {
-            let resultWidth = screenWidth - 60
-            return CGSize(width: resultWidth, height: 180)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-        let bannersWidth = UIScreen.main.bounds.width - 60
-        let indexPath = round(collectionView.contentOffset.x / bannersWidth)
-        let result = indexPath * 12
-        print("bannersWidth: \(bannersWidth)")
-        print("indexPath: \(indexPath)")
-        print("result: \(result)")
-        let target = CGPoint(x: indexPath * bannersWidth + result, y: 0)
-        print("targetContentOffset: \(target)")
-        return target
-    }
-    
     
     
     
