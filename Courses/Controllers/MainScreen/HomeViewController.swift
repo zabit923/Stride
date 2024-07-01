@@ -11,10 +11,8 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var bannersCollectionView: UICollectionView!
     @IBOutlet weak var imProfile: UIImageView!
-    @IBOutlet weak var recomendCollectionView: UICollectionView!
     
     private var banners = [String]()
-    private var recomendCourses = [String]()
     private let layout = PageLayout()
     
     override func viewDidLoad() {
@@ -42,19 +40,6 @@ class HomeViewController: UIViewController {
         layout.scrollDirection = .horizontal
         bannersCollectionView.collectionViewLayout = layout
         bannersCollectionView.decelerationRate = .fast
-        
-        recomendCollectionView.delegate = self
-        recomendCollectionView.dataSource = self
-        let layoutRecomendCollection = PageLayout()
-        let itemWidthRecomend = UIScreen.main.bounds.width - 60
-        layoutRecomendCollection.itemSize = CGSize(width: itemWidthRecomend, height: 80)
-        layoutRecomendCollection.minimumInteritemSpacing = 0
-        layoutRecomendCollection.minimumLineSpacing = 20
-        layoutRecomendCollection.sectionInset.left = 15
-        layoutRecomendCollection.sectionInset.right = 15
-        layoutRecomendCollection.scrollDirection = .horizontal
-        recomendCollectionView.collectionViewLayout = layoutRecomendCollection
-        recomendCollectionView.decelerationRate = .fast
     }
     
     func getBanners() {
@@ -71,17 +56,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == bannersCollectionView {
             return Int.max
         }else {
-            return 5
+            return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == bannersCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "banner", for: indexPath) as! BannerCollectionViewCell
-            cell.im.image = UIImage(named: banners[indexPath.row % banners.count])
+            cell.im.image = UIImage(named: banners[indexPath.row % banners.count]) 
             return cell
         }else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recomend", for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "banner", for: indexPath) as! BannerCollectionViewCell
             return cell
         }
     }
