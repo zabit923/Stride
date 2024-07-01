@@ -14,7 +14,6 @@
 		44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C7C2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf */; };
 		44064C7F2C26EEF200AB5227 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C7E2C26EEF200AB5227 /* Montserrat-Bold.ttf */; };
 		44064C812C26F0E800AB5227 /* Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C802C26F0E800AB5227 /* Border.swift */; };
-		44064C842C26F80700AB5227 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */; };
 		44064C862C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */; };
 		44064C892C27042100AB5227 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C882C27042100AB5227 /* StartViewController.swift */; };
 		44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C8A2C28516C00AB5227 /* VhodViewController.swift */; };
@@ -35,6 +34,11 @@
 		440DAB402C1748D600C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3F2C1748D600C576FB /* Base */; };
 		4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442F3D72C31BFDB00203A36 /* PageLayout.swift */; };
 		444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A07002C2B9D6C008F4E68 /* Extension.swift */; };
+		449CF0D72C33706B000D4528 /* CoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D62C33706B000D4528 /* CoursesViewController.swift */; };
+		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
+		449CF0DB2C3370CA000D4528 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CatalogCollectionViewCell.swift */; };
+		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
+		449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */; };
 		44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906332C29A59B00FFA6DD /* HomeViewController.swift */; };
 		44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */; };
 		44E906392C2B647200FFA6DD /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906382C2B647200FFA6DD /* AddCourseViewController.swift */; };
@@ -61,7 +65,6 @@
 		44064C7C2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
 		44064C7E2C26EEF200AB5227 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		44064C802C26F0E800AB5227 /* Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Border.swift; sourceTree = "<group>"; };
-		44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Commissioner-Bold.ttf"; path = "../../../../../../Downloads/Commissioner/static/Commissioner-Bold.ttf"; sourceTree = "<group>"; };
 		44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		44064C882C27042100AB5227 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		44064C8A2C28516C00AB5227 /* VhodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VhodViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +83,11 @@
 		440DAB412C1748D600C576FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4442F3D72C31BFDB00203A36 /* PageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayout.swift; sourceTree = "<group>"; };
 		444A07002C2B9D6C008F4E68 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		449CF0D62C33706B000D4528 /* CoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesViewController.swift; sourceTree = "<group>"; };
+		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		449CF0DA2C3370CA000D4528 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
+		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Bold.ttf"; sourceTree = "<group>"; };
 		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		44E906382C2B647200FFA6DD /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
@@ -104,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */,
-				44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */,
+				449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */,
 				44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */,
 				44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */,
 				44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */,
@@ -195,6 +203,8 @@
 			children = (
 				44E906332C29A59B00FFA6DD /* HomeViewController.swift */,
 				44E906382C2B647200FFA6DD /* AddCourseViewController.swift */,
+				449CF0D62C33706B000D4528 /* CoursesViewController.swift */,
+				449CF0D82C337099000D4528 /* CatalogViewController.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -203,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */,
+				449CF0DA2C3370CA000D4528 /* CatalogCollectionViewCell.swift */,
+				449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -280,9 +292,9 @@
 				44064C7F2C26EEF200AB5227 /* Montserrat-Bold.ttf in Resources */,
 				440DAB3D2C1748D600C576FB /* Assets.xcassets in Resources */,
 				440DAB402C1748D600C576FB /* Base in Resources */,
+				449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */,
 				440DAB3B2C1748D400C576FB /* Base in Resources */,
 				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
-				44064C842C26F80700AB5227 /* Commissioner-Bold.ttf in Resources */,
 				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
 				44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */,
@@ -302,13 +314,17 @@
 				440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */,
 				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
 				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
+				449CF0D72C33706B000D4528 /* CoursesViewController.swift in Sources */,
 				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
+				449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */,
+				449CF0DB2C3370CA000D4528 /* CatalogCollectionViewCell.swift in Sources */,
 				44064C892C27042100AB5227 /* StartViewController.swift in Sources */,
 				4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */,
 				44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */,
 				44064C812C26F0E800AB5227 /* Border.swift in Sources */,
 				44064C8F2C285F7C00AB5227 /* TextFieldFormat.swift in Sources */,
 				44064CA42C2876F200AB5227 /* Errors.swift in Sources */,
+				449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */,
 				440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */,
 				44064C9E2C28628000AB5227 /* Sign.swift in Sources */,
 				44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */,
