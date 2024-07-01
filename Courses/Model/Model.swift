@@ -23,3 +23,16 @@ enum Alignment {
     case right
     case defaultCenter
 }
+
+struct Category {
+    let nameCategory: String
+    let image: String
+}
+
+struct Catalog {
+    let nameCourse: String
+    let nameAuthor: String
+    let price: Int
+    let image: String
+    let rating: Float
+}

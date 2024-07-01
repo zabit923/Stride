@@ -14,7 +14,6 @@
 		44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C7C2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf */; };
 		44064C7F2C26EEF200AB5227 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C7E2C26EEF200AB5227 /* Montserrat-Bold.ttf */; };
 		44064C812C26F0E800AB5227 /* Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C802C26F0E800AB5227 /* Border.swift */; };
-		44064C842C26F80700AB5227 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */; };
 		44064C862C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */; };
 		44064C892C27042100AB5227 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C882C27042100AB5227 /* StartViewController.swift */; };
 		44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44064C8A2C28516C00AB5227 /* VhodViewController.swift */; };
@@ -38,6 +37,12 @@
 		44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906332C29A59B00FFA6DD /* HomeViewController.swift */; };
 		44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */; };
 		44E906392C2B647200FFA6DD /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906382C2B647200FFA6DD /* AddCourseViewController.swift */; };
+		7561BFD12C333D4C00C1002F /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561BFD02C333D4C00C1002F /* CatalogViewController.swift */; };
+		7561BFD32C333D7500C1002F /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561BFD22C333D7500C1002F /* CategoriesCollectionViewCell.swift */; };
+		7561BFD52C333D8800C1002F /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561BFD42C333D8800C1002F /* CatalogCollectionViewCell.swift */; };
+		7561BFD72C3347DB00C1002F /* CoursesFromStarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7561BFD62C3347DB00C1002F /* CoursesFromStarsViewController.swift */; };
+		7565B01D2C3215FA0069E4A2 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7565B01C2C3215FA0069E4A2 /* Commissioner-Bold.ttf */; };
+		7565B01F2C3218BA0069E4A2 /* TabBarStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7565B01E2C3218BA0069E4A2 /* TabBarStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,7 +66,6 @@
 		44064C7C2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
 		44064C7E2C26EEF200AB5227 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		44064C802C26F0E800AB5227 /* Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Border.swift; sourceTree = "<group>"; };
-		44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Commissioner-Bold.ttf"; path = "../../../../../../Downloads/Commissioner/static/Commissioner-Bold.ttf"; sourceTree = "<group>"; };
 		44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		44064C882C27042100AB5227 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		44064C8A2C28516C00AB5227 /* VhodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VhodViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +87,12 @@
 		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		44E906382C2B647200FFA6DD /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
+		7561BFD02C333D4C00C1002F /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
+		7561BFD22C333D7500C1002F /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		7561BFD42C333D8800C1002F /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
+		7561BFD62C3347DB00C1002F /* CoursesFromStarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesFromStarsViewController.swift; sourceTree = "<group>"; };
+		7565B01C2C3215FA0069E4A2 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Bold.ttf"; sourceTree = "<group>"; };
+		7565B01E2C3218BA0069E4A2 /* TabBarStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBarStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */,
-				44064C822C26F72000AB5227 /* Commissioner-Bold.ttf */,
+				7565B01C2C3215FA0069E4A2 /* Commissioner-Bold.ttf */,
 				44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */,
 				44064C852C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf */,
 				44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */,
@@ -115,14 +125,14 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		44064C872C27040B00AB5227 /* StartScreen */ = {
+		44064C872C27040B00AB5227 /* StartScreens */ = {
 			isa = PBXGroup;
 			children = (
 				44064C882C27042100AB5227 /* StartViewController.swift */,
 				44064C8A2C28516C00AB5227 /* VhodViewController.swift */,
 				44064C8C2C285DA600AB5227 /* RegistrViewController.swift */,
 			);
-			path = StartScreen;
+			path = StartScreens;
 			sourceTree = "<group>";
 		};
 		440DAB272C1748D400C576FB = {
@@ -148,12 +158,13 @@
 				440DAB482C17491D00C576FB /* Views */,
 				440DAB492C17492900C576FB /* Controllers */,
 				440DAB392C1748D400C576FB /* Main.storyboard */,
+				7565B01E2C3218BA0069E4A2 /* TabBarStoryboard.storyboard */,
 				440DAB3C2C1748D600C576FB /* Assets.xcassets */,
 				440DAB332C1748D400C576FB /* AppDelegate.swift */,
 				440DAB352C1748D400C576FB /* SceneDelegate.swift */,
 				440DAB412C1748D600C576FB /* Info.plist */,
 				440DAB3E2C1748D600C576FB /* LaunchScreen.storyboard */,
-				44E906352C2ADE5900FFA6DD /* CollectionViewCell */,
+				44E906352C2ADE5900FFA6DD /* CollectionViewCells */,
 				44064C712C26ED4F00AB5227 /* Fonts */,
 			);
 			path = Courses;
@@ -184,27 +195,39 @@
 		440DAB492C17492900C576FB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				44E906322C29A59000FFA6DD /* MainScreen */,
-				44064C872C27040B00AB5227 /* StartScreen */,
+				7561BFCF2C333D3000C1002F /* TabBarScreens */,
+				44E906322C29A59000FFA6DD /* OtherScreens */,
+				44064C872C27040B00AB5227 /* StartScreens */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		44E906322C29A59000FFA6DD /* MainScreen */ = {
+		44E906322C29A59000FFA6DD /* OtherScreens */ = {
 			isa = PBXGroup;
 			children = (
-				44E906332C29A59B00FFA6DD /* HomeViewController.swift */,
 				44E906382C2B647200FFA6DD /* AddCourseViewController.swift */,
+				7561BFD62C3347DB00C1002F /* CoursesFromStarsViewController.swift */,
 			);
-			path = MainScreen;
+			path = OtherScreens;
 			sourceTree = "<group>";
 		};
-		44E906352C2ADE5900FFA6DD /* CollectionViewCell */ = {
+		44E906352C2ADE5900FFA6DD /* CollectionViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */,
+				7561BFD22C333D7500C1002F /* CategoriesCollectionViewCell.swift */,
+				7561BFD42C333D8800C1002F /* CatalogCollectionViewCell.swift */,
 			);
-			path = CollectionViewCell;
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		7561BFCF2C333D3000C1002F /* TabBarScreens */ = {
+			isa = PBXGroup;
+			children = (
+				7561BFD02C333D4C00C1002F /* CatalogViewController.swift */,
+				44E906332C29A59B00FFA6DD /* HomeViewController.swift */,
+			);
+			path = TabBarScreens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,14 +303,15 @@
 				44064C7F2C26EEF200AB5227 /* Montserrat-Bold.ttf in Resources */,
 				440DAB3D2C1748D600C576FB /* Assets.xcassets in Resources */,
 				440DAB402C1748D600C576FB /* Base in Resources */,
+				7565B01D2C3215FA0069E4A2 /* Commissioner-Bold.ttf in Resources */,
 				440DAB3B2C1748D400C576FB /* Base in Resources */,
 				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
-				44064C842C26F80700AB5227 /* Commissioner-Bold.ttf in Resources */,
 				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
 				44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */,
 				44064C862C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf in Resources */,
 				44064C772C26ED9500AB5227 /* Commissioner-SemiBold.ttf in Resources */,
+				7565B01F2C3218BA0069E4A2 /* TabBarStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,15 +322,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7561BFD32C333D7500C1002F /* CategoriesCollectionViewCell.swift in Sources */,
 				444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */,
 				440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */,
+				7561BFD72C3347DB00C1002F /* CoursesFromStarsViewController.swift in Sources */,
 				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
 				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
 				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
 				44064C892C27042100AB5227 /* StartViewController.swift in Sources */,
+				7561BFD52C333D8800C1002F /* CatalogCollectionViewCell.swift in Sources */,
 				4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */,
 				44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */,
 				44064C812C26F0E800AB5227 /* Border.swift in Sources */,
+				7561BFD12C333D4C00C1002F /* CatalogViewController.swift in Sources */,
 				44064C8F2C285F7C00AB5227 /* TextFieldFormat.swift in Sources */,
 				44064CA42C2876F200AB5227 /* Errors.swift in Sources */,
 				440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */,
@@ -471,7 +499,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -504,7 +532,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
