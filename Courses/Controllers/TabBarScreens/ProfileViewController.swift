@@ -24,6 +24,18 @@ class ProfileViewController: UIViewController {
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
     }
+  
+    var user: User?
+    var courses = [Course]()
+    
+    func design() {
+        avatar.sd_setImage(with: URL(string: user!.avatar))
+        characteristic.text = user?.characteristic
+        name.text = user?.name
+        rating.text = "\(user?.rating)"
+        coursesCount.text = "\(user?.countCourses)"
+        
+    }
     
 }
 

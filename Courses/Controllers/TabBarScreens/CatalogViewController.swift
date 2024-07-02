@@ -38,18 +38,18 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == categoryCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as! CategoriesCollectionViewCell
-//            cell.image.sd_setImage(with: URL(string: categories[indexPath.row].image))
-//            cell.nameCategory.text = categories[indexPath.row].nameCategory
+            let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as! CategoriesCollectionViewCell
+            cell.image.sd_setImage(with: URL(string: categories[indexPath.row].image))
+            cell.nameCategory.text = categories[indexPath.row].nameCategory
             return cell
         }else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-//            cell.image.sd_setImage(with: URL(string: course[indexPath.row].image))
-//            cell.nameAuthor.text = course[indexPath.row].nameAuthor
-//            cell.nameCourse.text = course[indexPath.row].nameCourse
-//            cell.price.text = "\(course[indexPath.row].price)"
-//            cell.rating.text = "\(course[indexPath.row].rating)"
-//            cell.daysCount.text = "\(course[indexPath.row].daysCount)"
+            let cell = catalogCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+            cell.image.sd_setImage(with: URL(string: course[indexPath.row].image))
+            cell.nameAuthor.text = course[indexPath.row].nameAuthor
+            cell.nameCourse.text = course[indexPath.row].nameCourse
+            cell.price.text = "\(course[indexPath.row].price)"
+            cell.rating.text = "\(course[indexPath.row].rating)"
+            cell.daysCount.text = "\(course[indexPath.row].daysCount)"
             return cell
         }
         

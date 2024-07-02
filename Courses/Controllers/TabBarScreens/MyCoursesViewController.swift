@@ -13,8 +13,6 @@ class MyCoursesViewController: UIViewController {
     @IBOutlet weak var myCoursesCollectionView: UICollectionView!
     
     var course = [Course]()
-    var customView: UIView!
-    var textField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +21,6 @@ class MyCoursesViewController: UIViewController {
     }
 
     @IBAction func search(_ sender: UIButton) {
-        customView.isHidden = true
     }
 }
 
@@ -33,9 +30,9 @@ extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+        let cell = myCoursesCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: URL(string: course[indexPath.row].image))
-        cell.nameAuthor.text = course[indexPath.row].nameAuthor
+        cell.nameAuthor.text = "Тренер:\(course[indexPath.row].nameAuthor)"
         cell.nameCourse.text = course[indexPath.row].nameCourse
         cell.price.text = "\(course[indexPath.row].price)"
         cell.rating.text = "\(course[indexPath.row].rating)"
