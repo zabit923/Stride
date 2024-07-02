@@ -6,6 +6,12 @@
 //
 
 import Foundation
+import UIKit
+
+struct Objects {
+    let name: String
+    let image: String
+}
 
 class Constants {
     static let url = "http://127.0.0.1:8080/"

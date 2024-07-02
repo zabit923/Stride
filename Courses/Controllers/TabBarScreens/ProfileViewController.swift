@@ -25,16 +25,26 @@ class ProfileViewController: UIViewController {
     }
     var user: User?
     var courses = [Course]()
+    
+    func design() {
+        avatar.sd_setImage(with: URL(string: user!.avatar))
+        characteristic.text = user?.characteristic
+        name.text = user?.name
+        rating.text = "\(user?.rating)"
+        coursesCount.text = "\(user?.countCourses)"
+        
+    }
+    
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user!.countCourses
+        return user?.countCourses ?? 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-        cell.image.sd_setImage(with: URL(string: courses[indexPath.row].image))
+        let cell = coursesCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+//        cell.image.sd_setImage(with: URL(string: courses[indexPath.row].image))
         return cell
     }
     
