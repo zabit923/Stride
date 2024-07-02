@@ -10,44 +10,45 @@ import SDWebImage
 
 class CatalogViewController: UIViewController {
 
-    @IBOutlet weak var CatalogCollectionView: UICollectionView!
-    @IBOutlet weak var CategoryCollectionView: UICollectionView!
-    
+    @IBOutlet weak var catalogCollectionView: UICollectionView!
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CategoryCollectionView.dataSource = self
-        CategoryCollectionView.delegate = self
-        CatalogCollectionView.dataSource = self
-        CatalogCollectionView.delegate = self
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.delegate = self
+        catalogCollectionView.dataSource = self
+        catalogCollectionView.delegate = self
     }
     
     var categories = [Category]()
-    var catalog = [Catalog]()
+    var course = [Course]()
+    
 }
 
 extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == CategoryCollectionView {
+        if collectionView == categoryCollectionView {
             return categories.count
         }else {
-            return catalog.count
+            return course.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == CategoryCollectionView {
+        if collectionView == categoryCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as! CategoriesCollectionViewCell
             cell.image.sd_setImage(with: URL(string: categories[indexPath.row].image))
             cell.nameCategory.text = categories[indexPath.row].nameCategory
             return cell
         }else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "catalog", for: indexPath) as! CatalogCollectionViewCell
-            cell.image.sd_setImage(with: URL(string: catalog[indexPath.row].image))
-            cell.nameAuthor.text = catalog[indexPath.row].nameAuthor
-            cell.nameCourse.text = catalog[indexPath.row].nameCourse
-            cell.price.text = "\(catalog[indexPath.row].price)"
-            cell.rating.text = "\(catalog[indexPath.row].rating)"
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+            cell.image.sd_setImage(with: URL(string: course[indexPath.row].image))
+            cell.nameAuthor.text = course[indexPath.row].nameAuthor
+            cell.nameCourse.text = course[indexPath.row].nameCourse
+            cell.price.text = "\(course[indexPath.row].price)"
+            cell.rating.text = "\(course[indexPath.row].rating)"
+            cell.daysCount.text = "\(course[indexPath.row].daysCount)"
             return cell
         }
         

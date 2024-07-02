@@ -5,6 +5,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Commissioner-Medium.ttf</string>
+		<string>Inter-Medium.ttf</string>
 		<string>Commissioner-Bold.ttf</string>
 		<string>Commissioner-VariableFont_wght.ttf</string>
 		<string>Commissioner-SemiBold.ttf</string>

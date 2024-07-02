@@ -29,10 +29,21 @@ struct Category {
     let image: String
 }
 
-struct Catalog {
+struct Course {
+    let daysCount: Int
+    let progressInPercents: Int
+    let progressInDays: Int
     let nameCourse: String
     let nameAuthor: String
     let price: Int
     let image: String
+    let rating: Float
+}
+
+struct User {
+    let name: String
+    let avatar: String
+    let characteristic: String
+    let countCourses: Int
     let rating: Float
 }
