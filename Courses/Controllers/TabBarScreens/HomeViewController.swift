@@ -78,7 +78,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == bannersCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "banner", for: indexPath) as! BannerCollectionViewCell
-            cell.im.image = UIImage(named: banners[indexPath.row % banners.count])
+            cell.im.image = UIImage(named: banners[indexPath.row % banners.count]) 
             return cell
         }else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recomend", for: indexPath)
