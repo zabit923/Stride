@@ -31,25 +31,33 @@ enum Alignment {
 }
 
 struct Category {
-    let nameCategory: String
-    let image: String
+    var nameCategory: String
+    var image: String
 }
 
 struct Course {
-    let daysCount: Int
-    let progressInPercents: Int
-    let progressInDays: Int
-    let nameCourse: String
-    let nameAuthor: String
-    let price: Int
-    let image: String
-    let rating: Float
+    var daysCount: Int
+    var progressInPercents: Int
+    var progressInDays: Int
+    var nameCourse: String
+    var nameAuthor: String
+    var price: Int
+    var image: String
+    var rating: Float
 }
 
 struct User {
-    let name: String
-    let avatar: String
-    let characteristic: String
-    let countCourses: Int
-    let rating: Float
+    var name: String
+    var avatar: String
+    var myCourses = [Course]()
 }
+
+struct Coach {
+    var name: String
+    var avatar: String
+    var description: String
+    var countCourses: Int
+    var rating: Float
+    var myCourses = [Course]()
+}
+
