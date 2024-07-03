@@ -13,6 +13,9 @@ class CatalogViewController: UIViewController {
     @IBOutlet weak var catalogCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
+    var categories = [Category]()
+    var course = [Course]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryCollectionView.dataSource = self
@@ -21,17 +24,15 @@ class CatalogViewController: UIViewController {
         catalogCollectionView.delegate = self
     }
     
-    var categories = [Category]()
-    var course = [Course]()
     
 }
 
 extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == categoryCollectionView {
-            return categories.count
+            return 5
         }else {
-            return course.count
+            return 10
         }
     }
     

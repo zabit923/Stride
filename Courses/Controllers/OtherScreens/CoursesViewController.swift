@@ -24,6 +24,7 @@ class CoursesViewController: UIViewController {
     
 }
 extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return course.count
     }

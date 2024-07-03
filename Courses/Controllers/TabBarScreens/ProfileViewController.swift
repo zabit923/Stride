@@ -17,12 +17,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
     
+    var coach: Coach?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
-       
     }
+  
     var user: User?
     var courses = [Course]()
     
@@ -38,13 +40,14 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user?.countCourses ?? 1
+        return coach!.myCourses.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = coursesCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-//        cell.image.sd_setImage(with: URL(string: courses[indexPath.row].image))
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+        cell.image.sd_setImage(with: URL(string: coach!.myCourses[indexPath.row].image))
         return cell
     }
     
