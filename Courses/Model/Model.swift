@@ -48,16 +48,16 @@ struct Course {
 
 struct User {
     var name: String
-    var avatar: String
+    var avatar: String?
     var myCourses = [Course]()
 }
 
 struct Coach {
     var name: String
-    var avatar: String
-    var description: String
-    var countCourses: Int
-    var rating: Float
+    var avatar: String?
+    var description: String?
+    var countCourses: Int = 0
+    var rating: Float = 0.0
     var myCourses = [Course]()
 }
 

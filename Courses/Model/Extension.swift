@@ -47,6 +47,17 @@ extension UIImage {
         
         return scaledImage ?? self
     }
+    
+    func withRoundedCorners(radius: CGFloat) -> UIImage {
+        let rect = CGRect(origin: .zero, size: self.size)
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        UIBezierPath(roundedRect: rect, cornerRadius: radius).addClip()
+        self.draw(in: rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
 }
 
 extension UITextView {

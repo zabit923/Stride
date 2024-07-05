@@ -36,6 +36,9 @@ class VhodViewController: UIViewController {
         if error == .invalidPassword || error == .invalidLogin {
             ErrorsView().create(descriptionText: "Неправильный логин или пароль", mainText: "Ошибка", errorView, errorDescription, errorMainText)
         }
+        if error == .tryAgainLater {
+            ErrorsView().create(descriptionText: error.rawValue, mainText: "Неизвестная ошибка", errorView, errorDescription, errorMainText)
+        }
     }
     
     func checkInfo() throws {

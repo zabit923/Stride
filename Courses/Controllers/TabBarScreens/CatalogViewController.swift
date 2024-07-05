@@ -14,7 +14,7 @@ class CatalogViewController: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
     var categories = [Category]()
-    var course = [Course]()
+    var courses = [Course]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +30,9 @@ class CatalogViewController: UIViewController {
 extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == categoryCollectionView {
-            return 5
+            return categories.count
         }else {
-            return 10
+            return courses.count
         }
     }
     
@@ -44,12 +44,12 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         }else {
             let cell = catalogCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-            cell.image.sd_setImage(with: URL(string: course[indexPath.row].image))
-            cell.nameAuthor.text = course[indexPath.row].nameAuthor
-            cell.nameCourse.text = course[indexPath.row].nameCourse
-            cell.price.text = "\(course[indexPath.row].price)"
-            cell.rating.text = "\(course[indexPath.row].rating)"
-            cell.daysCount.text = "\(course[indexPath.row].daysCount)"
+            cell.image.sd_setImage(with: URL(string: courses[indexPath.row].image))
+            cell.nameAuthor.text = courses[indexPath.row].nameAuthor
+            cell.nameCourse.text = courses[indexPath.row].nameCourse
+            cell.price.text = "\(courses[indexPath.row].price)"
+            cell.rating.text = "\(courses[indexPath.row].rating)"
+            cell.daysCount.text = "\(courses[indexPath.row].daysCount)"
             return cell
         }
         
