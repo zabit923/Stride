@@ -247,7 +247,8 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
             let screenWidth = UIScreen.main.bounds.width - 30
             let maxSize = CGSize(width: screenWidth, height: 400)
             let scaledImage = image.scaleImage(toSize: maxSize)
-            addImageInTextView(image: scaledImage)
+            let roundedImage = scaledImage.withRoundedCorners(radius: 10)
+            addImageInTextView(image: roundedImage)
             picker.dismiss(animated: true)
         }
     }

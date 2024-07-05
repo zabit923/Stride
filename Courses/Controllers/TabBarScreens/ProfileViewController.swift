@@ -17,24 +17,22 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
     
-    var coach: Coach?
+    var coach = Coach(name: "Ruslan")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
+        design()
     }
-  
-    var user: User?
-    var courses = [Course]()
+
     
     func design() {
-        avatar.sd_setImage(with: URL(string: user!.avatar))
-        characteristic.text = user?.characteristic
-        name.text = user?.name
-        rating.text = "\(user?.rating)"
-        coursesCount.text = "\(user?.countCourses)"
-        
+        avatar.sd_setImage(with: URL(string: coach.avatar ?? ""))
+        characteristic.text = coach.description
+        name.text = coach.name
+        rating.text = "\(coach.rating)"
+        coursesCount.text = "\(coach.countCourses)"
     }
     
 }
@@ -42,12 +40,12 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return coach!.myCourses.count
+        return coach.myCourses.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-        cell.image.sd_setImage(with: URL(string: coach!.myCourses[indexPath.row].image))
+        cell.image.sd_setImage(with: URL(string: coach.myCourses[indexPath.row].image))
         return cell
     }
     
