@@ -11,6 +11,11 @@ import SDWebImage
 class MyCoursesViewController: UIViewController {
 
     @IBOutlet weak var myCoursesCollectionView: UICollectionView!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewForSearch: UIView!
+    @IBOutlet weak var searchBtn: UIButton!
+    @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var textField: UITextField!
     
     var course = [Course]()
     
@@ -18,10 +23,33 @@ class MyCoursesViewController: UIViewController {
         super.viewDidLoad()
         myCoursesCollectionView.delegate = self
         myCoursesCollectionView.dataSource = self
+        design()
+    }
+    
+    func design() {
+        cancelBtn.isHidden = true
+        viewForSearch.isHidden = true
+        let font = UIFont(name: "Commissioner-SemiBold", size: 12)
+        textField.attributedPlaceholder = NSAttributedString(string: "Поиск...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.grayMain, NSAttributedString.Key.font: font!])
     }
 
     @IBAction func search(_ sender: UIButton) {
+        topConstraint.constant = 95
+        viewForSearch.isHidden = false
+        searchBtn.isHidden = true
+        cancelBtn.isHidden = false
+        textField.becomeFirstResponder()
     }
+    
+    @IBAction func cancel(_ sender: UIButton) {
+        topConstraint.constant = 30
+        viewForSearch.isHidden = true
+        searchBtn.isHidden = false
+        cancelBtn.isHidden = true
+        textField.resignFirstResponder()
+    }
+    
+    
 }
 
 extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource {

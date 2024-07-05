@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController {
     
     var arrayObjects = [Objects]()
     var arrayObjects2 = [Objects]()
+    var user = User(role: .user)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +27,15 @@ class SettingsViewController: UIViewController {
     }
     
     
+    
     func addObjects() {
-        arrayObjects = [Objects(name: "Информация о себе", image: "next"), Objects(name: "История курсов", image: "next"), Objects(name: "Конфиденциальность", image: "next"), Objects(name: "Добавить курс", image: "next")]
-        arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "next"), Objects(name: "Политика конфиденциальности", image: "next")]
+        if user.role == .coach {
+            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "История курсов", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Добавить курс", image: "confirmAccount")]
+            arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
+        }else if user.role == .user {
+            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "История курсов", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Подтвердить аккаунт", image: "confirmAccount"), Objects(name: "Стать тренером", image: "becomeCoach")]
+            arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
+        }
     }
 
 }
@@ -58,6 +65,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
+    }
    
     
     

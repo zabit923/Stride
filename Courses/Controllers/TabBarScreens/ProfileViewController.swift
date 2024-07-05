@@ -18,6 +18,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var coursesCollectionView: UICollectionView!
     
     var coach = Coach(name: "Ruslan")
+    var user = User(role: .user)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,17 @@ class ProfileViewController: UIViewController {
         coursesCollectionView.dataSource = self
         design()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        whoVisiter()
+    }
 
+    func whoVisiter() {
+        if user.role == .user {
+            performSegue(withIdentifier: "goToSettings", sender: self)
+        }
+    }
     
     func design() {
         avatar.sd_setImage(with: URL(string: coach.avatar ?? ""))
@@ -33,6 +45,13 @@ class ProfileViewController: UIViewController {
         name.text = coach.name
         rating.text = "\(coach.rating)"
         coursesCount.text = "\(coach.countCourses)"
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToSettings" {
+            let vc = segue.destination as! SettingsViewController
+            vc.user.role = user.role
+        }
     }
     
 }
@@ -51,3 +70,5 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     
 }
+
+

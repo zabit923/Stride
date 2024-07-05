@@ -11,6 +11,7 @@ import SDWebImage
 class CoursesViewController: UIViewController {
 
     @IBOutlet weak var catalogCollectionView: UICollectionView!
+    @IBOutlet weak var textField: UITextField!
     
     var course = [Course]()
     
@@ -21,6 +22,14 @@ class CoursesViewController: UIViewController {
         
     }
     
+    func design() {
+        let font = UIFont(name: "Commissioner-SemiBold", size: 12)
+        textField.attributedPlaceholder = NSAttributedString(string: "Поиск...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: font!])
+    }
+    
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
