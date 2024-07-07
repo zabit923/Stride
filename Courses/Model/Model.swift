@@ -47,7 +47,8 @@ struct Course {
 }
 
 struct User {
-    var name: String
+    var role: Role
+    var name: String?
     var avatar: String?
     var myCourses = [Course]()
 }
