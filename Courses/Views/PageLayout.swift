@@ -18,7 +18,7 @@ class PageLayout: UICollectionViewFlowLayout {
         }
 
         // Page width used for estimating and calculating paging.
-        let pageWidth = self.itemSize.width + self.minimumInteritemSpacing
+        let pageWidth = self.itemSize.width + self.minimumLineSpacing
         
         // Make an estimation of the current page position.
         let approximatePage = collectionView.contentOffset.x/pageWidth

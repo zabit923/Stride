@@ -9,6 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var avatar: UIImageView!
+    @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var bannersCollectionView: UICollectionView!
     @IBOutlet weak var imProfile: UIImageView!
     @IBOutlet weak var recomendCollectionView: UICollectionView!
@@ -22,6 +24,7 @@ class HomeViewController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
         getBanners()
+        addProfile()
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,11 +60,17 @@ class HomeViewController: UIViewController {
         recomendCollectionView.decelerationRate = .fast
     }
     
+    func addProfile() {
+        avatar.image = UIImage.defaultLogo
+        nameLbl.text = "Эльдар Ибрагимов"
+    }
+    
     func getBanners() {
         banners.append("first")
         banners.append("second")
         bannersCollectionView.reloadData()
     }
+    
 
 
 }
@@ -81,9 +90,26 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             cell.im.image = UIImage(named: banners[indexPath.row % banners.count]) 
             return cell
         }else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recomend", for: indexPath)
+            var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recomend", for: indexPath) as! RecomendationCollectionViewCell
+            
+            cell.bottomView.isHidden = false
+            if (indexPath.row + 2) % 3 == 0 {
+                cell.layer.cornerRadius = 0
+            }else if (indexPath.row + 1) % 3 == 1 {
+                cell = cornerRadius(view: cell, position: [.layerMaxXMinYCorner, .layerMinXMinYCorner]) as! RecomendationCollectionViewCell
+            }else if (indexPath.row + 1) % 3 == 0 {
+                cell = cornerRadius(view: cell, position: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]) as! RecomendationCollectionViewCell
+                cell.bottomView.isHidden = true
+            }
             return cell
         }
+    }
+    
+    private func cornerRadius(view: UIView, position: CACornerMask) -> UIView {
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 15
+        view.layer.maskedCorners = position
+        return view
     }
     
 }
