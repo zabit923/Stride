@@ -8,18 +8,39 @@
 import UIKit
 
 class InfoAboutMeViewController: UIViewController {
-    @IBOutlet weak var viewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var mainView: UIView!
+    
+    private var startPosition = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        design()
-        
+        startPosition = mainView.center
     }
 
-    func design() {
-        viewHeight.constant = UIScreen.main.bounds.height / 2 + UIScreen.main.bounds.height / 10
+    
+    @IBAction func pan(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: mainView)
+        switch sender.state {
+        case .changed:
+            guard translation.y > 0 else { return }
+            mainView.center = CGPoint(x: mainView.center.x, y: mainView.center.y +  translation.y)
+            sender.setTranslation(CGPoint.zero, in: mainView)
+        case .ended:
+            if sender.velocity(in: mainView).y > 500 {
+                dismiss(animated: false)
+            }else {
+                UIView.animate(withDuration: 0.5) {
+                    self.mainView.center = self.startPosition
+                }
+            }
+        default:
+            break
+        }
     }
     
-    
+    @IBAction func dissmis(_ sender: UIButton) {
+        dismiss(animated: false)
+    }
     
 }

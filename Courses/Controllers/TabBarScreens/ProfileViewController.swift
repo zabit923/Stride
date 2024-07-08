@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
         design()
