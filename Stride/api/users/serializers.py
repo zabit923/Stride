@@ -17,9 +17,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email',
-            'first_name', 'last_name', 'about_me',
-            'link', 'tg_link', 'linkedin_link',
-            'image', 'password', 'password_again'
+            'first_name', 'last_name', 'is_coach',
+            'phone', 'password', 'password_again',
         ]
 
     def validate(self, attrs):
@@ -29,19 +28,27 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password_again')
-        image = validated_data.pop('image', None)
         user = User.objects.create(
+            phone=validated_data['phone'],
+            is_coach=validated_data['is_coach'],
             username=validated_data['username'],
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
-            about_me=validated_data['about_me'],
-            link=validated_data['link'],
-            tg_link=validated_data['tg_link'],
-            linkedin_link=validated_data['linkedin_link'],
+
         )
-        if image:
-            user.image = image
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id', 'username', 'email',
+            'phone', 'height', 'weight',
+            'first_name', 'last_name', 'date_of_birth',
+            'image', 'desc', 'gender', 'level',
+            'target', 'is_coach',
+        ]
