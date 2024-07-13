@@ -1809,7 +1809,7 @@
                                 <rect key="frame" x="0.0" y="-5" width="393" height="862"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STRIDE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t6H-Fu-ogK">
-                                        <rect key="frame" x="143" y="85" width="107" height="34.666666666666657"/>
+                                        <rect key="frame" x="143.33333333333334" y="85" width="106.66666666666666" height="34.333333333333343"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4373,17 +4373,17 @@
                                 <rect key="frame" x="21.666666666666657" y="123" width="350" height="65"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lAt-jD-y2y">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="65"/>
+                                        <rect key="frame" x="0.0" y="12" width="350" height="41"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Qk0-tX-Rx2">
                                             <size key="itemSize" width="40" height="40"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="day" id="wkc-GQ-VES" customClass="DaysCourseCollectionViewCell" customModule="Courses" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="12.666666666666666" width="40" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.66666666666666663" width="40" height="40"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Nya-dd-HvA">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -4419,17 +4419,21 @@
                                     </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" name="LightBlackMain"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="lAt-jD-y2y" secondAttribute="trailing" id="34g-P2-ova"/>
-                                    <constraint firstItem="lAt-jD-y2y" firstAttribute="top" secondItem="Dq4-sD-KCt" secondAttribute="top" id="Lbq-Kp-JBM"/>
+                                    <constraint firstItem="lAt-jD-y2y" firstAttribute="top" secondItem="Dq4-sD-KCt" secondAttribute="top" constant="12" id="Lbq-Kp-JBM"/>
                                     <constraint firstItem="lAt-jD-y2y" firstAttribute="leading" secondItem="Dq4-sD-KCt" secondAttribute="leading" id="Pbq-n3-v1a"/>
-                                    <constraint firstAttribute="bottom" secondItem="lAt-jD-y2y" secondAttribute="bottom" id="bXz-4z-SEg"/>
+                                    <constraint firstAttribute="bottom" secondItem="lAt-jD-y2y" secondAttribute="bottom" constant="12" id="bXz-4z-SEg"/>
                                     <constraint firstAttribute="height" constant="65" id="ji5-Z1-D40"/>
                                     <constraint firstAttribute="width" constant="350" id="lYJ-hL-Q3X"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="20"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ehH-k7-Un2" appends="YES" id="bnd-Xb-B1g"/>
+                                </connections>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kzU-OR-fK9">
                                 <rect key="frame" x="20" y="208" width="353" height="644"/>
@@ -4452,7 +4456,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="336" height="120"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="20F-6M-EZF">
-                                                    <rect key="frame" x="10" y="10" width="185" height="82.666666666666671"/>
+                                                    <rect key="frame" x="10" y="10" width="185" height="81.666666666666671"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 минут" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BzJ-q3-vhL">
                                                             <rect key="frame" x="15" y="10" width="30" height="10"/>
@@ -4461,7 +4465,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название модуля" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrO-bU-bcK">
-                                                            <rect key="frame" x="15" y="32" width="145" height="18.666666666666671"/>
+                                                            <rect key="frame" x="15" y="32" width="145" height="17.666666666666671"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="145" id="LWA-d8-se1"/>
                                                             </constraints>
@@ -4470,7 +4474,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpV-nq-yPm">
-                                                            <rect key="frame" x="15" y="62.666666666666671" width="145" height="10"/>
+                                                            <rect key="frame" x="15" y="61.666666666666671" width="145" height="10"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="145" id="kBF-3h-QwT"/>
                                                             </constraints>
@@ -4524,7 +4528,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 минут" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjq-h2-6v6">
-                                                    <rect key="frame" x="24.999999999999996" y="20" width="37.666666666666657" height="12.666666666666664"/>
+                                                    <rect key="frame" x="25.000000000000004" y="20" width="36.333333333333343" height="12.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="10"/>
                                                     <color key="textColor" red="0.7725490196" green="0.77647058820000003" blue="0.78039215689999997" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -4617,10 +4621,17 @@
                     <navigationItem key="navigationItem" id="jeZ-va-1Le"/>
                     <connections>
                         <outlet property="daysCollectionView" destination="lAt-jD-y2y" id="JFM-tg-hAY"/>
+                        <outlet property="heightViewDays" destination="ji5-Z1-D40" id="ZXv-81-ayF"/>
                         <outlet property="modulesCollectionView" destination="kzU-OR-fK9" id="v0G-hO-0Pe"/>
+                        <outlet property="viewDays" destination="Dq4-sD-KCt" id="QS4-fM-Un7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wNA-g8-2Yg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ehH-k7-Un2">
+                    <connections>
+                        <action selector="longClickInView:" destination="bdF-Md-SrY" id="OGJ-5Z-Yd6"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3373.8461538461538" y="2763.9810426540284"/>
         </scene>

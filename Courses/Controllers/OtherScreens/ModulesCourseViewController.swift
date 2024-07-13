@@ -9,10 +9,14 @@ import UIKit
 
 class ModulesCourseViewController: UIViewController {
     
+    
+    @IBOutlet weak var heightViewDays: NSLayoutConstraint!
+    @IBOutlet weak var viewDays: UIView!
     @IBOutlet weak var daysCollectionView: UICollectionView!
     @IBOutlet weak var modulesCollectionView: UICollectionView!
     
     private let layout = PageModuleLayout()
+    private var scaleView = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +40,37 @@ class ModulesCourseViewController: UIViewController {
         daysCollectionView.decelerationRate = .fast
     }
     
+    @IBAction func longClickInView(_ sender: UILongPressGestureRecognizer) {
+        if scaleView == false {
+            if sender.state == .began {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+            } else if sender.state == .ended {
+                UIView.animate(withDuration: 0.5) {
+                    self.layout.scrollDirection = .vertical
+                    self.daysCollectionView.collectionViewLayout = self.layout
+                    self.view.layoutIfNeeded()
+                    var size = self.daysCollectionView.contentSize.height + 25
+                    if size < 65 {size = 65}
+                    self.heightViewDays.constant = size
+                }
+                scaleView = true
+            }
+        }else {
+            if sender.state == .began {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+            } else if sender.state == .ended {
+                UIView.animate(withDuration: 0.5) {
+                    self.heightViewDays.constant = 65
+                }
+                self.layout.scrollDirection = .horizontal
+                self.daysCollectionView.collectionViewLayout = self.layout
+                self.view.layoutIfNeeded()
+                scaleView = false
+            }
+        }
+        
+    }
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -45,7 +80,7 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == daysCollectionView {
-            return 30
+            return 15
         }else {
             return 10
         }
@@ -55,6 +90,7 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
         if collectionView == daysCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "day", for: indexPath) as! DaysCourseCollectionViewCell
             cell.before()
+            cell.lbl.text = "\(indexPath.row + 1)"
             return cell
         }else {
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module", for: indexPath) as! ModuleCourseCollectionViewCell
