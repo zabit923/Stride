@@ -21,7 +21,6 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     
     
-    private let imagePickerController = UIImagePickerController()
     private var colorSelect = UIColor.white {
         didSet {
             colorView.backgroundColor = colorSelect
@@ -54,8 +53,8 @@ class AddCourseViewController: UIViewController {
         super.viewDidLoad()
         textView.textColor = .white
         textView.delegate = self
-        imagePickerController.delegate = self
         view.overrideUserInterfaceStyle = .dark
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,15 +81,9 @@ class AddCourseViewController: UIViewController {
     }
     
     private func getData() {
-        DispatchQueue.global(qos: .userInteractive).async {
-            if let text = UserDefaults.standard.string(forKey: "text") {
-                if let dataText = Data(base64Encoded: text) {
-                    let result = dataText.retrieveDataToString()
-                    DispatchQueue.main.async {
-                        self.textView.attributedText = result
-                    }
-                }
-            }
+        if let data = UserDefaults.standard.data(forKey: "text") {
+            let result = data.retrieveDataToString()
+            self.textView.attributedText = result
         }
     }
     
@@ -139,10 +132,10 @@ class AddCourseViewController: UIViewController {
     
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
-//        let data = textView.attributedText.attributedStringToData()
-//        let base64 = data!.base64EncodedString()
-//        print(base64)
-//        UserDefaults.standard.set(base64, forKey: "text")
+        let data = textView.attributedText.attributedStringToData()
+        //let base64 = data!.base64EncodedString()
+        print(data)
+        UserDefaults.standard.set(data, forKey: "text")
     }
     
     @IBAction func color(_ sender: UIButton) {
@@ -153,6 +146,8 @@ class AddCourseViewController: UIViewController {
     }
     
     @IBAction func addImage(_ sender: UIButton) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
         present(imagePickerController, animated: true)
     }
     
@@ -247,7 +242,7 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
             let screenWidth = UIScreen.main.bounds.width - 30
             let maxSize = CGSize(width: screenWidth, height: 400)
             let scaledImage = image.scaleImage(toSize: maxSize)
-            let roundedImage = scaledImage.withRoundedCorners(radius: 10)
+            let roundedImage = scaledImage.withRoundedCorners(radius: 7)
             addImageInTextView(image: roundedImage)
             picker.dismiss(animated: true)
         }
@@ -258,18 +253,19 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
     }
     
     
+    
     private func addImageInTextView(image: UIImage) {
         let attachment = NSTextAttachment()
         attachment.image = image
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        let attributedString =  NSAttributedString(attachment: attachment)
+        let attributedString = NSMutableAttributedString(attachment: attachment)
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
         let combinedString = NSMutableAttributedString(attributedString: self.textView.attributedText)
         combinedString.insert(attributedString, at: textView.selectedRange.location)
-        combinedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: combinedString.length))
         self.textView.attributedText = combinedString
-        
     }
+
     
 }
 // MARK: - Font
