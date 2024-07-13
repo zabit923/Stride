@@ -25,12 +25,18 @@ class HomeViewController: UIViewController {
         collectionViewSettings()
         getBanners()
         addProfile()
+        tabbar()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let x = (layout.itemSize.width + layout.minimumInteritemSpacing) * 1000000
         bannersCollectionView.setContentOffset(CGPoint(x: x, y: 0), animated: false)
+    }
+    
+    private func tabbar() {
+        self.tabBarController?.viewControllers?.remove(at: 3) // 3 - USER | 4 - COACH
+        self.tabBarController?.setViewControllers(self.tabBarController?.viewControllers, animated: false)
     }
     
     

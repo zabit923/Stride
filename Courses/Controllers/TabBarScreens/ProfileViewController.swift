@@ -29,17 +29,6 @@ class ProfileViewController: UIViewController {
         design()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        whoVisiter()
-    }
-
-    func whoVisiter() {
-        if user.role == .user {
-            performSegue(withIdentifier: "goToSettings", sender: self)
-        }
-    }
-    
     func design() {
         avatar.sd_setImage(with: URL(string: coach.avatar ?? ""))
         characteristic.text = coach.description
