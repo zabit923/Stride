@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bdF-Md-SrY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NAm-LK-wo0">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -2483,7 +2483,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="m4r-cP-Loh">
             <objects>
-                <tabBarController id="lQZ-Pc-J9j" customClass="TabBarController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="lQZ-Pc-J9j" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="rl5-Jq-FZ8"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="150-qw-rk4">
@@ -4600,7 +4600,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="0B2-ml-wjG"/>
         <segue reference="KMx-c0-CAq"/>
-        <segue reference="VGc-2D-XSj"/>
+        <segue reference="eaT-yL-Yiu"/>
         <segue reference="AOP-mt-L4O"/>
         <segue reference="iWm-3v-hYp"/>
     </inferredMetricsTieBreakers>
