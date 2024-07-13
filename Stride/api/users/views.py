@@ -38,3 +38,4 @@ class UserViewSet(viewsets.ModelViewSet):
         user = request.user
         serialized_data = UserSerializer(user).data
         return Response(serialized_data)
+

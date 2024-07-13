@@ -14,9 +14,7 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    # path('oauth/authorize/', oauth2_views.AuthorizedTokenDeleteView.as_view(), name='authorize'),
-    # path('oauth/token/', oauth2_views.TokenView.as_view(), name='token'),
-    # path('oauth/revoke-token/', oauth2_views.RevokeTokenView.as_view(), name='revoke-token'),
+    path('api/v1/oauth/', include('oauth.urls')),
 
     path('api/v1/users/', include('users.urls')),
 ]
