@@ -23,6 +23,12 @@ enum Role: String {
     case admin = "Admin"
 }
 
+enum Picker {
+    case birthday
+    case levelPreparation
+    case intention
+}
+
 enum Alignment {
     case left
     case center

@@ -54,6 +54,7 @@
 		751510412C34586D009978E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751510402C34586D009978E6 /* SettingsViewController.swift */; };
 		753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */; };
 		753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */; };
+		75D7F3562C4299EF0083DBEF /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7F3552C4299EF0083DBEF /* UD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -114,6 +115,7 @@
 		751510402C34586D009978E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoursesViewController.swift; sourceTree = "<group>"; };
 		753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
+		75D7F3552C4299EF0083DBEF /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +203,7 @@
 				44064C9F2C28634C00AB5227 /* Model.swift */,
 				44064CA52C28773E00AB5227 /* Error.swift */,
 				444A07002C2B9D6C008F4E68 /* Extension.swift */,
+				75D7F3552C4299EF0083DBEF /* UD.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				449CF0D72C33706B000D4528 /* CoursesViewController.swift in Sources */,
 				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
 				7515103C2C343146009978E6 /* ProfileViewController.swift in Sources */,
+				75D7F3562C4299EF0083DBEF /* UD.swift in Sources */,
 				449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */,
 				44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */,
 				449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */,
