@@ -6,7 +6,7 @@ from django.contrib.auth.password_validation import validate_password
 User = get_user_model()
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserCreateSerializer(serializers.ModelSerializer):
     """
     Сериализатор пользователя.
     """
@@ -40,6 +40,18 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class UserGetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id', 'username', 'email',
+            'phone', 'height', 'weight',
+            'first_name', 'last_name', 'date_of_birth',
+            'image', 'desc', 'gender', 'level',
+            'target', 'is_coach',
+        ]
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):

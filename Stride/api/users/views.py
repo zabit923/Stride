@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
-from .serializers import UserSerializer, UserUpdateSerializer
+from .serializers import UserCreateSerializer, UserUpdateSerializer, UserGetSerializer
 from .permissions import IsAdminOrSelf, IsOwner
 
 
@@ -13,7 +13,7 @@ User = get_user_model()
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserCreateSerializer
 
     def get_permissions(self):
         if self.action == 'destroy':
@@ -29,13 +29,15 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'update':
             self.serializer_class = UserUpdateSerializer
+        elif self.action == 'list' or self.action == 'get_me':
+            self.serializer_class = UserGetSerializer
         else:
-            self.serializer_class = UserSerializer
+            self.serializer_class = UserCreateSerializer
         return super().get_serializer_class()
 
     @action(detail=False, methods=['GET'], url_path='me', pagination_class=None)
     def get_me(self, request):
         user = request.user
-        serialized_data = UserSerializer(user).data
+        serialized_data = UserGetSerializer(user).data
         return Response(serialized_data)
 

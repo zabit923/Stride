@@ -1,8 +1,8 @@
-from django.urls import path, include
+from django.urls import path
 
-from .views import google_login
+from .views import google_auth
 
 
 urlpatterns = [
-    path('google_login/', google_login),
+    path('google/', google_auth),
 ]

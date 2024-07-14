@@ -21,8 +21,8 @@ class User(AbstractUser):
 
     first_name = models.CharField(verbose_name='Имя', max_length=150)
     last_name = models.CharField(verbose_name='Фамилия', max_length=150)
-    phone = models.IntegerField(verbose_name='Номер телефона', unique=True)
-    email = models.EmailField(verbose_name='email', blank=True, null=True, unique=True)
+    phone = models.IntegerField(verbose_name='Номер телефона', null=True, unique=True)
+    email = models.EmailField(verbose_name='email', unique=True)
     desc = models.TextField(verbose_name='Описание', max_length=300, blank=True, null=True)
     image = models.ImageField(verbose_name='Аватар', upload_to='avatars/', default='images/pngegg.png', null=True, blank=True)
 
