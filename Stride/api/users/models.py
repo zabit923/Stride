@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class User(AbstractUser):
@@ -19,31 +21,52 @@ class User(AbstractUser):
         HEALTH = 'HL', 'Health'
         OTHER = 'OT', 'Other'
 
-    first_name = models.CharField(verbose_name='Имя', max_length=150)
-    last_name = models.CharField(verbose_name='Фамилия', max_length=150)
-    phone = models.IntegerField(verbose_name='Номер телефона', null=True, unique=True)
-    email = models.EmailField(verbose_name='email', unique=True)
-    desc = models.TextField(verbose_name='Описание', max_length=300, blank=True, null=True)
-    image = models.ImageField(verbose_name='Аватар', upload_to='avatars/', default='images/pngegg.png', null=True, blank=True)
+    first_name = models.CharField(_('first_name'), max_length=150)
+    last_name = models.CharField(_('last_name'), max_length=150)
+    phone = PhoneNumberField(
+        _("Phone number"),
+        region="RU",
+        blank=True, null=True,
+        help_text="+7 (123) 123-45-67",
+    )
+    email = models.EmailField(_('email'), unique=True)
+    desc = models.TextField(
+        _('description'),
+        max_length=300,
+        blank=True, null=True
+    )
+    image = models.ImageField(
+        _('avatar'),
+        upload_to='avatars/',
+        default='images/pngegg.png',
+        null=True, blank=True
+    )
 
-    height = models.IntegerField(verbose_name='Рост в см.', null=True, blank=True)
-    weight = models.IntegerField(verbose_name='Вес в кг.', null=True, blank=True)
-    date_of_birth = models.DateField(verbose_name='Дата рождения', null=True, blank=True)
+    height = models.IntegerField(_('height in centimeters'), null=True, blank=True)
+    weight = models.IntegerField(_('weight in kilograms'), null=True, blank=True)
+    date_of_birth = models.DateField(_('date of Birth'), null=True, blank=True)
 
     gender = models.CharField(
-        verbose_name='Пол', max_length=1,
-        choices=GenderChoises.choices, null=True, blank=True
+        _('gender'),
+        max_length=1,
+        choices=GenderChoises.choices,
+        null=True,
+        blank=True
     )
     level = models.CharField(
-        verbose_name='Уровень подготовки',
-        max_length=3, choices=LevelChoises.choices, null=True, blank=True
+        _('level'),
+        max_length=3,
+        choices=LevelChoises.choices,
+        null=True, blank=True
     )
     target = models.CharField(
-        verbose_name='Цель', max_length=2,
-        choices=TargetChoises.choices, null=True, blank=True
+        _('target'),
+        max_length=2,
+        choices=TargetChoises.choices,
+        null=True, blank=True
     )
 
-    is_coach = models.BooleanField(verbose_name='Тренер', default=False)
+    is_coach = models.BooleanField(_('is_coach'), default=False)
 
     def __str__(self):
         return f'{self.username} | {self.weight} кг | {self.height} см | {self.gender}, {self.target}, {self.level}'
