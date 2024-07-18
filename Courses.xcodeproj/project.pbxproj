@@ -60,6 +60,7 @@
 		753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */; };
 		753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */; };
 		75D7F3562C4299EF0083DBEF /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7F3552C4299EF0083DBEF /* UD.swift */; };
+		75EBED242C497B0F000ECC8B /* AddInfoAboutCourseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EBED232C497B0F000ECC8B /* AddInfoAboutCourseVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -126,6 +127,7 @@
 		753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoursesViewController.swift; sourceTree = "<group>"; };
 		753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
 		75D7F3552C4299EF0083DBEF /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
+		75EBED232C497B0F000ECC8B /* AddInfoAboutCourseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoAboutCourseVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +294,7 @@
 				44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */,
 				44BD6CE12C4407E4001645A0 /* CourseTextViewController.swift */,
 				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
+				75EBED232C497B0F000ECC8B /* AddInfoAboutCourseVC.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
 				449CF0D72C33706B000D4528 /* CoursesViewController.swift in Sources */,
 				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
+				75EBED242C497B0F000ECC8B /* AddInfoAboutCourseVC.swift in Sources */,
 				7515103C2C343146009978E6 /* ProfileViewController.swift in Sources */,
 				44BD6CE22C4407E4001645A0 /* CourseTextViewController.swift in Sources */,
 				75D7F3562C4299EF0083DBEF /* UD.swift in Sources */,
