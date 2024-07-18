@@ -1,8 +1,8 @@
 FROM python:3.11-alpine3.16
 
-COPY ./requirements.txt /temp/requirements.txt
-COPY ./api /stride
-WORKDIR /stride
+COPY requirements.txt /temp/requirements.txt
+COPY ./api /api
+WORKDIR /api
 
 EXPOSE 8000
 
