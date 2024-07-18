@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var bannersCollectionView: UICollectionView!
@@ -18,6 +19,7 @@ class HomeViewController: UIViewController {
     private var banners = [String]()
     private var recomendCourses = [String]()
     private let layout = PageLayout()
+    var startPosition = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,7 @@ class HomeViewController: UIViewController {
         getBanners()
         addProfile()
         tabbar()
+        startPosition = errorView.center
     }
     
     override func viewDidLayoutSubviews() {
@@ -75,6 +78,29 @@ class HomeViewController: UIViewController {
         banners.append("first")
         banners.append("second")
         bannersCollectionView.reloadData()
+    }
+    
+    
+    @IBAction func coursesFromStars(_ sender: UIButton) {
+        errorView.isHidden = false
+    }
+    
+    @IBAction func swipeError(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: errorView)
+        switch sender.state {
+        case .changed:
+            errorView.center = CGPoint(x: errorView.center.x, y: errorView.center.y +  translation.y)
+            sender.setTranslation(CGPoint.zero, in: errorView)
+        case .ended:
+            if errorView.center.y <= 40 {
+                self.errorView.isHidden = true
+            }
+            UIView.animate(withDuration: 0.5) {
+                self.errorView.center = self.startPosition
+            }
+        default:
+            break
+        }
     }
     
 
