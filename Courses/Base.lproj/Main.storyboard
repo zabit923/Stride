@@ -4951,13 +4951,16 @@
                                     <constraint firstItem="XAJ-ZM-ACs" firstAttribute="centerX" secondItem="MIX-cA-SB4" secondAttribute="centerX" id="uYq-xQ-Bje"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBD-0Q-ymi">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBD-0Q-ymi" customClass="Border" customModule="Courses" customModuleProvider="target">
                                 <rect key="frame" x="146.66666666666666" y="113" width="100" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neD-Rj-aTF">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="photo"/>
+                                        <connections>
+                                            <action selector="addImage:" destination="Zof-OM-ayt" eventType="touchUpInside" id="2Ym-hX-gWr"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="LightBlackMain"/>
@@ -4971,29 +4974,28 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="20"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="border">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" name="ExtraLightBlackMain"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Txy-Lg-ZE6">
-                                <rect key="frame" x="30" y="233" width="333" height="286.66666666666674"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Txy-Lg-ZE6">
+                                <rect key="frame" x="30" y="233" width="333" height="288"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eg9-gE-NJl">
-                                        <rect key="frame" x="0.0" y="0.0" width="333" height="95.333333333333329"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eg9-gE-NJl">
+                                        <rect key="frame" x="0.0" y="0.0" width="333" height="96"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNn-Bx-dOY">
-                                                <rect key="frame" x="20" y="21" width="57" height="14.333333333333336"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Название">
-                                                        <attributes>
-                                                            <color key="NSColor" name="GrayMain"/>
-                                                            <font key="NSFont" metaFont="cellTitle"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNn-Bx-dOY">
+                                                <rect key="frame" x="20" y="21" width="54" height="15"/>
+                                                <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="12"/>
+                                                <color key="textColor" name="GrayMain"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BBd-W3-38k" customClass="Border" customModule="Courses" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="45.333333333333314" width="333" height="50"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBd-W3-38k" customClass="Border" customModule="Courses" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="46" width="333" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yLt-Eg-eiY">
                                                         <rect key="frame" x="15" y="0.0" width="303" height="50"/>
@@ -5031,24 +5033,17 @@
                                             <constraint firstItem="gNn-Bx-dOY" firstAttribute="top" secondItem="eg9-gE-NJl" secondAttribute="top" constant="21" id="wHX-iE-fTo"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ql9-NP-HJJ">
-                                        <rect key="frame" x="0.0" y="95.333333333333314" width="333" height="95.333333333333314"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ql9-NP-HJJ">
+                                        <rect key="frame" x="0.0" y="96" width="333" height="96"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGV-0V-8hc">
-                                                <rect key="frame" x="20" y="21" width="59" height="14.333333333333336"/>
-                                                <attributedString key="attributedText">
-                                                    <fragment content="Описание">
-                                                        <attributes>
-                                                            <color key="NSColor" name="GrayMain"/>
-                                                            <font key="NSFont" metaFont="cellTitle"/>
-                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                        </attributes>
-                                                    </fragment>
-                                                </attributedString>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGV-0V-8hc">
+                                                <rect key="frame" x="20" y="21" width="56" height="15"/>
+                                                <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="12"/>
+                                                <color key="textColor" name="GrayMain"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Zp-lc-F2J" customClass="Border" customModule="Courses" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="45.333333333333371" width="333" height="50"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zp-lc-F2J" customClass="Border" customModule="Courses" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="46" width="333" height="50"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gpw-d5-kqP">
                                                         <rect key="frame" x="15" y="0.0" width="303" height="50"/>
@@ -5086,15 +5081,15 @@
                                             <constraint firstItem="2Zp-lc-F2J" firstAttribute="leading" secondItem="Ql9-NP-HJJ" secondAttribute="leading" id="sqH-9j-SAn"/>
                                         </constraints>
                                     </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="3jL-QQ-jcs">
-                                        <rect key="frame" x="0.0" y="190.66666666666669" width="333" height="96"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="3jL-QQ-jcs">
+                                        <rect key="frame" x="0.0" y="192" width="333" height="96"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkc-UF-fka">
                                                 <rect key="frame" x="0.0" y="0.0" width="160.66666666666666" height="96"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цена" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APU-Vl-h9K">
-                                                        <rect key="frame" x="20" y="21" width="30.333333333333329" height="15"/>
-                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
+                                                        <rect key="frame" x="20" y="21" width="29" height="15"/>
+                                                        <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="12"/>
                                                         <color key="textColor" name="GrayMain"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -5141,28 +5136,16 @@
                                                 <rect key="frame" x="172.66666666666663" y="0.0" width="160.33333333333337" height="96"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Категория" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBU-09-PCP">
-                                                        <rect key="frame" x="20" y="21" width="61" height="15"/>
-                                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
+                                                        <rect key="frame" x="20.000000000000004" y="21" width="59.333333333333343" height="15"/>
+                                                        <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="12"/>
                                                         <color key="textColor" name="GrayMain"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="luk-3S-cJP" customClass="Border" customModule="Courses" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="46" width="160.33333333333334" height="50"/>
-                                                        <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EbU-go-UtU">
-                                                                <rect key="frame" x="15" y="0.0" width="130.33333333333334" height="50"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
-                                                                <textInputTraits key="textInputTraits"/>
-                                                            </textField>
-                                                        </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="EbU-go-UtU" secondAttribute="bottom" id="40S-QM-SfM"/>
-                                                            <constraint firstAttribute="trailing" secondItem="EbU-go-UtU" secondAttribute="trailing" constant="15" id="9Rw-V7-PAA"/>
                                                             <constraint firstAttribute="height" constant="50" id="NJE-ej-dJp"/>
-                                                            <constraint firstItem="EbU-go-UtU" firstAttribute="top" secondItem="luk-3S-cJP" secondAttribute="top" id="pCo-iy-eqM"/>
-                                                            <constraint firstItem="EbU-go-UtU" firstAttribute="leading" secondItem="luk-3S-cJP" secondAttribute="leading" constant="15" id="pbc-ct-Caw"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="border">
@@ -5189,54 +5172,35 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Предпросмотр" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08m-FP-BWm">
-                                <rect key="frame" x="40" y="529.66666666666663" width="343" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предпросмотр" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08m-FP-BWm">
+                                <rect key="frame" x="40" y="531" width="343" height="22"/>
                                 <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="17"/>
                                 <color key="textColor" name="GrayMain"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S55-V3-XkN">
-                                <rect key="frame" x="40" y="572" width="165" height="170"/>
+                                <rect key="frame" x="40" y="573" width="165" height="170"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q0K-LA-fjD">
-                                        <rect key="frame" x="0.0" y="0.0" width="165" height="119.33333333333333"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="165" height="118.66666666666667"/>
+                                        <color key="backgroundColor" name="LightBlackMain"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEq-ge-ypX">
-                                        <rect key="frame" x="0.0" y="121.33333333333337" width="155" height="16"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Label">
-                                                <attributes>
-                                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <font key="NSFont" size="13" name="Commissioner-SemiBold"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEq-ge-ypX">
+                                        <rect key="frame" x="0.0" y="120.66666666666663" width="155" height="16"/>
+                                        <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jen-lM-ni6">
-                                        <rect key="frame" x="0.0" y="142.33333333333337" width="155" height="9.6666666666666572"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Label">
-                                                <attributes>
-                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" metaFont="system" size="8"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Тренер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jen-lM-ni6">
+                                        <rect key="frame" x="0.0" y="141.66666666666663" width="155" height="10"/>
+                                        <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="8"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4S-DL-Euy">
-                                        <rect key="frame" x="0.0" y="157" width="122" height="11"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Label">
-                                                <attributes>
-                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                                    <font key="NSFont" metaFont="miniSystem"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цена: 0$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4S-DL-Euy">
+                                        <rect key="frame" x="0.0" y="156.66666666666663" width="122" height="11.333333333333343"/>
+                                        <fontDescription key="fontDescription" name="Commissioner-Thin_Bold" family="Commissioner" pointSize="9"/>
+                                        <color key="textColor" name="GrayMain"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="74G-kg-eZL">
@@ -5258,7 +5222,7 @@
                                                     <fragment content="5.0">
                                                         <attributes>
                                                             <color key="NSColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" metaFont="system" size="8"/>
+                                                            <font key="NSFont" size="8" name="Commissioner-Thin_Bold"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
@@ -5290,7 +5254,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHg-KX-Xbj">
-                                <rect key="frame" x="30" y="767" width="333" height="50"/>
+                                <rect key="frame" x="30" y="768" width="333" height="50"/>
                                 <color key="backgroundColor" name="BlueMain"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8MR-AM-aDY"/>
@@ -5303,10 +5267,14 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="25"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="save:" destination="Zof-OM-ayt" eventType="touchUpInside" id="5by-S5-uEP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YLL-3h-eTi"/>
                         <color key="backgroundColor" name="BlackMain"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="YLL-3h-eTi" firstAttribute="trailing" secondItem="MIX-cA-SB4" secondAttribute="trailing" id="0Og-Yk-poP"/>
                             <constraint firstItem="MIX-cA-SB4" firstAttribute="leading" secondItem="Uvk-C3-ZSW" secondAttribute="leading" id="1C4-9u-RZF"/>
@@ -5324,15 +5292,31 @@
                             <constraint firstItem="Txy-Lg-ZE6" firstAttribute="leading" secondItem="YLL-3h-eTi" secondAttribute="leading" constant="30" id="uda-d3-mDh"/>
                             <constraint firstItem="MIX-cA-SB4" firstAttribute="top" secondItem="YLL-3h-eTi" secondAttribute="top" id="x10-hG-BLK"/>
                             <constraint firstItem="S55-V3-XkN" firstAttribute="top" secondItem="08m-FP-BWm" secondAttribute="bottom" constant="20" id="yYX-YN-0Hb"/>
-                            <constraint firstAttribute="bottom" secondItem="DHg-KX-Xbj" secondAttribute="bottom" constant="35" id="ypY-is-cti"/>
+                            <constraint firstItem="YLL-3h-eTi" firstAttribute="bottom" secondItem="DHg-KX-Xbj" secondAttribute="bottom" id="ypY-is-cti"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="dXe-fa-EXI" appends="YES" id="SFu-dW-ewE"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Mjv-6J-u1g"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="viewPhoto" destination="vBD-0Q-ymi" id="h6e-Fc-hF3"/>
+                        <outlet property="coachPred" destination="jen-lM-ni6" id="aeN-Xj-Etq"/>
+                        <outlet property="descriptionCourse" destination="Gpw-d5-kqP" id="JJZ-ZV-R8f"/>
+                        <outlet property="imageBtn" destination="neD-Rj-aTF" id="9oF-w9-kbx"/>
+                        <outlet property="imagePred" destination="Q0K-LA-fjD" id="NbQ-a2-Cmv"/>
+                        <outlet property="name" destination="yLt-Eg-eiY" id="Dvg-E6-YNe"/>
+                        <outlet property="namePred" destination="YEq-ge-ypX" id="hed-4s-gBa"/>
+                        <outlet property="price" destination="Qpe-Wh-hB3" id="OQ4-cr-7SQ"/>
+                        <outlet property="pricePred" destination="d4S-DL-Euy" id="crK-Pu-poV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rlG-3u-O91" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="dXe-fa-EXI">
+                    <connections>
+                        <action selector="tap:" destination="Zof-OM-ayt" id="xdr-QK-pEk"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3629.770992366412" y="1096.4788732394368"/>
         </scene>

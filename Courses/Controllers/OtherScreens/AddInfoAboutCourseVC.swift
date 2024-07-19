@@ -9,17 +9,31 @@ import UIKit
 
 class AddInfoAboutCourseVC: UIViewController {
 
-    @IBOutlet weak var viewPhoto: UIView!
+    @IBOutlet weak var imageBtn: UIButton!
+    @IBOutlet weak var pricePred: UILabel!
+    @IBOutlet weak var coachPred: UILabel!
+    @IBOutlet weak var namePred: UILabel!
+    @IBOutlet weak var imagePred: UIImageView!
+    @IBOutlet weak var price: UITextField!
+    @IBOutlet weak var descriptionCourse: UITextField!
+    @IBOutlet weak var name: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        design()
+        
         
     }
     
-    func design() {
-        viewPhoto.layer.borderWidth = 2
-        viewPhoto.layer.borderColor = UIColor(named: "ExtraLightBlackMain")?.cgColor
+    @IBAction func save(_ sender: UIButton) {
     }
-
+    
+    @IBAction func addImage(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        price.resignFirstResponder()
+        descriptionCourse.resignFirstResponder()
+        name.resignFirstResponder()
+    }
 }
