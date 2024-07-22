@@ -18,7 +18,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'username', 'email',
             'first_name', 'last_name', 'is_coach',
-            'phone', 'password', 'password_again',
+            'password', 'password_again',
         ]
 
     def validate(self, attrs):
@@ -29,7 +29,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('password_again')
         user = User.objects.create(
-            phone=validated_data['phone'],
             is_coach=validated_data['is_coach'],
             username=validated_data['username'],
             email=validated_data['email'],
@@ -47,7 +46,7 @@ class UserGetSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email',
-            'phone', 'height', 'weight',
+            'height', 'weight',
             'first_name', 'last_name', 'date_of_birth',
             'image', 'desc', 'gender', 'level',
             'target', 'is_coach',
@@ -59,7 +58,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'id', 'username', 'email',
-            'phone', 'height', 'weight',
+            'height', 'weight',
             'first_name', 'last_name', 'date_of_birth',
             'image', 'desc', 'gender', 'level',
             'target', 'is_coach',
