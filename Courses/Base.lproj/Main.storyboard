@@ -5215,7 +5215,7 @@
                                                     <fragment content="5.0">
                                                         <attributes>
                                                             <color key="NSColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="8" name="Commissioner-Thin_Bold"/>
+                                                            <font key="NSFont" metaFont="system" size="8"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
