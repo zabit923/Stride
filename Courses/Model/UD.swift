@@ -9,6 +9,15 @@ import Foundation
 
 class UD {
     
+    func saveCurrent(_ current:Bool) {
+        UserDefaults.standard.set(current, forKey: "current")
+    }
+    
+    func getCurrent() -> Bool {
+        let current = UserDefaults.standard.bool(forKey: "current")
+        return current
+    }
+    
     func saveBirthday(_ birthday: String) {
         UserDefaults.standard.set(birthday, forKey: "birthday")
     }

@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var coursesCollectionView: UICollectionView!
     
     var coach = Coach(name: "Ruslan")
-    var user = User(role: .user)
+    var user = UserStruct()
     
     
     override func viewDidLoad() {

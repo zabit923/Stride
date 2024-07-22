@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
     
     var arrayObjects = [Objects]()
     var arrayObjects2 = [Objects]()
-    var user = User(role: .coach)
+    var user = UserStruct()
     
     override func viewDidLoad() {
         super.viewDidLoad()

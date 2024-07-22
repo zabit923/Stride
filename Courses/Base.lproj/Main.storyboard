@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Zof-OM-ayt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NAm-LK-wo0">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -1937,18 +1937,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="180-na-gEX">
-                                        <rect key="frame" x="159" y="413.66666666666669" width="75" height="35"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                        <connections>
-                                            <segue destination="lQZ-Pc-J9j" kind="show" id="VGc-2D-XSj"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.1215686275" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="180-na-gEX" firstAttribute="centerY" secondItem="syk-dP-HIz" secondAttribute="centerY" id="271-l8-qj3"/>
                                     <constraint firstItem="Ukh-3k-e0w" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="30" id="2CJ-PP-Xqk"/>
                                     <constraint firstItem="948-2G-HmO" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="40" id="5Z7-CJ-WaR"/>
                                     <constraint firstItem="Ukh-3k-e0w" firstAttribute="top" secondItem="6sV-CB-PqV" secondAttribute="bottom" constant="30" id="6eX-dj-7ch"/>
@@ -1958,7 +1949,6 @@
                                     <constraint firstItem="t6H-Fu-ogK" firstAttribute="centerX" secondItem="syk-dP-HIz" secondAttribute="centerX" id="Mkr-sd-2VZ"/>
                                     <constraint firstAttribute="trailing" secondItem="Ukh-3k-e0w" secondAttribute="trailing" constant="30" id="TdK-9o-8NN"/>
                                     <constraint firstItem="45u-xj-r8s" firstAttribute="top" secondItem="Ukh-3k-e0w" secondAttribute="bottom" constant="15" id="VeJ-bX-UiB"/>
-                                    <constraint firstItem="180-na-gEX" firstAttribute="centerX" secondItem="syk-dP-HIz" secondAttribute="centerX" id="bYP-aF-Jct"/>
                                     <constraint firstAttribute="trailing" secondItem="948-2G-HmO" secondAttribute="trailing" constant="30" id="iVh-Ce-pD4"/>
                                     <constraint firstItem="45u-xj-r8s" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="30" id="jc8-hx-fkg"/>
                                     <constraint firstItem="6sV-CB-PqV" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="40" id="mXm-uY-6C5"/>
@@ -1981,6 +1971,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9SU-gP-7X0"/>
+                    <connections>
+                        <segue destination="lQZ-Pc-J9j" kind="show" identifier="current" animates="NO" id="hAk-ad-GZt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3VB-0l-Kh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -5654,9 +5647,9 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="0B2-ml-wjG"/>
-        <segue reference="eaT-yL-Yiu"/>
-        <segue reference="3aH-yg-pXb"/>
-        <segue reference="7iD-6h-6hO"/>
+        <segue reference="hAk-ad-GZt"/>
+        <segue reference="AOP-mt-L4O"/>
+        <segue reference="iWm-3v-hYp"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="apple" width="15.333333015441895" height="18"/>

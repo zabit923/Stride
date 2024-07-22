@@ -13,7 +13,13 @@ class StartViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.navigationController?.navigationBar.isHidden = true
-        
+        current()
+    }
+    
+    func current() {
+        if UD().getCurrent() == true {
+            performSegue(withIdentifier: "current", sender: self)
+        }
     }
     
 

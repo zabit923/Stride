@@ -13,15 +13,18 @@ import SwiftyJSON
 class Sign {
     
     func vhod(phoneNumber: String, password:String) async throws {
-        let url = Constants.url + "auth"
+        let url = Constants.url + "api/token/"
         let parameters: Parameters = [
-            "phoneNumber": phoneNumber,
+            "username": phoneNumber,
             "password": password
         ]
         
         let data = AF.request(url, method: .post, parameters: parameters).serializingData()
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
-        if code != 200 {
+        print(code)
+        if code == 200 {
+            UD().saveCurrent(true)
+        }else {
             throw ErrorNetwork.statusCode(code)
         }
         
@@ -29,18 +32,24 @@ class Sign {
     
     func registr(phoneNumber:String, password:String, name:String, lastName:String, mail:String) async throws {
         
-        let url = Constants.url + "auth" + "/create"
-        let parameters: Parameters = [
-            "phoneNumber": phoneNumber,
-            "password": password,
-            "role": Role.user.rawValue,
-            "firstName": name,
-            "lastName": lastName
-        ]
+        let url = Constants.url + "api/v1/users/"
+        let parameters = [
+          "username": phoneNumber,
+          "email": mail,
+          "first_name": name,
+          "last_name": lastName,
+          "is_coach": false,
+          "phone": phoneNumber,
+          "password": password,
+          "password_again": password
+        ] as [String : Any]
         
-        let data = AF.request(url, method: .post, parameters: parameters).serializingData()
+        let data = AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).serializingData()
+        print(JSON(try await data.value))
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
-        if code != 200 {
+        if code == 201 {
+            UD().saveCurrent(true)
+        }else {
             throw ErrorNetwork.statusCode(code)
         }
     }
