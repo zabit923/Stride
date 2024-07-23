@@ -21,14 +21,17 @@ class Sign {
         
         let data = AF.request(url, method: .post, parameters: parameters).serializingData()
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
-        print(code)
+        let json = try await JSON(data.value)
         if code == 200 {
+            try await User().getMyInfo(token: json["access"].stringValue)
             UD().saveCurrent(true)
         }else {
-            throw ErrorNetwork.statusCode(code)
+            throw ErrorNetwork.runtimeError("Неправильный номер или пароль")
         }
         
     }
+    
+    
     
     func registr(phoneNumber:String, password:String, name:String, lastName:String, mail:String) async throws {
         
@@ -45,12 +48,16 @@ class Sign {
         ] as [String : Any]
         
         let data = AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).serializingData()
-        print(JSON(try await data.value))
+        let value = try await data.value
+        let json = JSON(value)
+        print(json)
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
         if code == 201 {
+            UD().saveMyInfo(UserStruct(role: .user, name: name, surname: lastName, email: mail, phone: phoneNumber))
             UD().saveCurrent(true)
         }else {
-            throw ErrorNetwork.statusCode(code)
+            let error = json.dictionary!.first!.value[0].stringValue
+            throw ErrorNetwork.runtimeError(error)
         }
     }
     

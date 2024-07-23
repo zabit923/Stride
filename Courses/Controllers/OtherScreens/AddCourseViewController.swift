@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class AddCourseViewController: UIViewController {
     
@@ -132,8 +133,7 @@ class AddCourseViewController: UIViewController {
     
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
-        let data = textView.attributedText.attributedStringToData()
-        //let base64 = data!.base64EncodedString()
+        guard let data = textView.attributedText.attributedStringToData() else {return}
         print(data)
         UserDefaults.standard.set(data, forKey: "text")
     }

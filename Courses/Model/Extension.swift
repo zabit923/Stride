@@ -8,6 +8,7 @@
 import UIKit
 
 extension NSAttributedString {
+
     
     func attributedStringToData() -> Data? {
         guard let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) else {

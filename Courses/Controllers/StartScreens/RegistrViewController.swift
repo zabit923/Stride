@@ -43,21 +43,8 @@ class RegistrViewController: UIViewController {
         ErrorsView().delete(errorView)
     }
     
-    func addError(error: ErrorNetwork) {
-        if error == .invalidPassword {
-            ErrorsView().create(descriptionText: error.rawValue, mainText: "Неверный пароль", errorView, descriptionError, mainTextError)
-            passwordBorder.color = .errorRed
-        }
-        if error == .invalidLogin {
-            phoneBorder.color = .errorRed
-        }
-        if error == .tryAgainLater {
-            ErrorsView().create(descriptionText: error.rawValue, mainText: "Неизвестная ошибка", errorView, descriptionError, mainTextError)
-        }
-        if error == .userAlredyIsRegistr {
-            ErrorsView().create(descriptionText: error.rawValue, mainText: "Ошибка", errorView, descriptionError, mainTextError)
-        }
-
+    func addError(error: String) {
+        ErrorsView().create(descriptionText: error, mainText: "Ошибка", errorView, descriptionError, mainTextError)
     }
     
     func checkInfo() throws {
@@ -88,7 +75,7 @@ class RegistrViewController: UIViewController {
                 let phoneNumberFormat = phoneNumber.text!.format(with: "+XXXXXXXXXXX")
                 try await Sign().registr(phoneNumber: phoneNumberFormat, password: password.text!, name: name.text!, lastName: lastName.text!, mail: mail.text!)
                 performSegue(withIdentifier: "success", sender: self)
-            }catch let error as ErrorNetwork {
+            }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
             }
         }

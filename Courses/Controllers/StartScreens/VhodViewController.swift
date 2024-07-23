@@ -32,13 +32,8 @@ class VhodViewController: UIViewController {
         ErrorsView().delete(errorView)
     }
     
-    func addError(error: ErrorNetwork) {
-        if error == .invalidPassword || error == .invalidLogin {
-            ErrorsView().create(descriptionText: "Неправильный логин или пароль", mainText: "Ошибка", errorView, errorDescription, errorMainText)
-        }
-        if error == .tryAgainLater {
-            ErrorsView().create(descriptionText: error.rawValue, mainText: "Неизвестная ошибка", errorView, errorDescription, errorMainText)
-        }
+    func addError(error: String) {
+        ErrorsView().create(descriptionText: error, mainText: "Ошибка", errorView, errorDescription, errorMainText)
     }
     
     func checkInfo() throws {
@@ -58,7 +53,7 @@ class VhodViewController: UIViewController {
                 let phoneNumberFormat = phone.text!.format(with: "+XXXXXXXXXXX")
                 try await Sign().vhod(phoneNumber: phoneNumberFormat, password: password.text!)
                 performSegue(withIdentifier: "success", sender: self)
-            }catch let error as ErrorNetwork {
+            }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
             }
         }
