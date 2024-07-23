@@ -1,7 +1,7 @@
 from drf_spectacular.utils import (
     extend_schema_view,
     extend_schema,
-    OpenApiParameter, OpenApiResponse, inline_serializer
+    OpenApiResponse, inline_serializer
 )
 from rest_framework import serializers
 from rest_framework.decorators import api_view

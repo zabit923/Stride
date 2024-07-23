@@ -21,12 +21,19 @@ class User(AbstractUser):
         HEALTH = 'HL', 'Health'
         OTHER = 'OT', 'Other'
 
+    username = models.CharField(
+        _("username"),
+        max_length=150,
+        unique=True,
+        blank=True,
+        null=True
+    )
     first_name = models.CharField(_('first_name'), max_length=150)
     last_name = models.CharField(_('last_name'), max_length=150)
-    phone = PhoneNumberField(
-        _("Phone number"),
+    phone_number = PhoneNumberField(
+        _("phone number"),
         region="RU",
-        blank=True, null=True,
+        null=True,
         help_text="+7 (123) 123-45-67",
     )
     email = models.EmailField(_('email'), unique=True)

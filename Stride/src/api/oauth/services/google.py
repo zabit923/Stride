@@ -3,7 +3,7 @@ from django.conf import settings
 from google.oauth2 import id_token
 from google.auth.transport import requests
 
-from users.models import User
+from api.users.models import User
 from .. import serializers
 from .base_auth import create_token
 

@@ -3,16 +3,22 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import (
     UserCreateSerializer,
     UserUpdateSerializer,
-    UserGetSerializer
+    UserGetSerializer,
+    CustomTokenObtainPairSerializer
 )
 from .permissions import IsAdminOrSelf, IsOwner
 
 
 User = get_user_model()
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -31,7 +37,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().get_permissions()
 
     def get_serializer_class(self):
-        if self.action == 'update':
+        if self.request.method in {'PATCH', 'PUT'}:
             self.serializer_class = UserUpdateSerializer
         elif self.action == 'list' or self.action == 'get_me':
             self.serializer_class = UserGetSerializer

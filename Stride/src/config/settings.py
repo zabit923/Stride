@@ -23,10 +23,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_spectacular',
 
-    'users',
-    'courses',
-    'oauth',
-    'comments'
+    'api.users',
+    # 'api.courses',
+    'api.oauth',
+    # 'api.comments',
 ]
 
 MIDDLEWARE = [
@@ -123,9 +123,12 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
 
 AUTHENTICATION_BACKENDS = [
+    'api.users.auth_backend.CustomAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
