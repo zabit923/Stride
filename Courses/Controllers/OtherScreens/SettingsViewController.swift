@@ -103,7 +103,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             case "Информация о себе":
                 performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
             case "История курсов":
-                performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
+                performSegue(withIdentifier: "goToAddCourse", sender: self)
             case "Конфиденциальность":
                 performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
             case "Добавить курс":

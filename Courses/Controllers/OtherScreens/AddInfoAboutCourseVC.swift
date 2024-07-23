@@ -9,6 +9,10 @@ import UIKit
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var categoryBorder: Border!
+    @IBOutlet weak var priceBorder: Border!
+    @IBOutlet weak var descriptionBorder: Border!
+    @IBOutlet weak var nameBorder: Border!
     @IBOutlet weak var imageBtn: UIButton!
     @IBOutlet weak var pricePred: UILabel!
     @IBOutlet weak var coachPred: UILabel!
@@ -20,6 +24,14 @@ class AddInfoAboutCourseVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        price.delegate = self
+        descriptionCourse.delegate = self
+        name.delegate = self
+        
+    }
+    
+    @IBAction func save(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToAddModule", sender: self)
         name.delegate = self
         price.delegate = self
         descriptionCourse.delegate = self
@@ -41,10 +53,15 @@ class AddInfoAboutCourseVC: UIViewController {
         present(imagePicker, animated: true)
     }
     
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         price.resignFirstResponder()
         descriptionCourse.resignFirstResponder()
         name.resignFirstResponder()
+        
     }
     
 }
@@ -71,4 +88,8 @@ extension AddInfoAboutCourseVC: UITextFieldDelegate {
             pricePred.text = "\(textField.text!)$"
         }
     }
+}
+
+extension AddInfoAboutCourseVC: UITextFieldDelegate {
+    
 }

@@ -197,6 +197,9 @@ class AddCourseViewController: UIViewController {
         textView.resignFirstResponder()
     }
     
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 // MARK: - TextView

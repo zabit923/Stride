@@ -21,6 +21,9 @@ class StartViewController: UIViewController {
             performSegue(withIdentifier: "current", sender: self)
         }
     }
+    @IBAction func gogogo(_ sender: UIButton) {
+        performSegue(withIdentifier: "gogogo", sender: self)
+    }
     
 
 }

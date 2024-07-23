@@ -41,6 +41,14 @@ struct Category {
     var image: String
 }
 
+struct Modules {
+    var text: Data?
+    var name: String
+    var minutes: Int
+    var image: UIImage?
+    var description: String?
+}
+
 struct Course {
     var daysCount: Int
     var progressInPercents: Int
@@ -50,6 +58,11 @@ struct Course {
     var price: Int
     var image: String
     var rating: Float
+}
+
+struct CourseInfo {
+    var day: Int
+    var modules = [Modules]()
 }
 
 struct UserStruct {
