@@ -27,15 +27,11 @@ class AddInfoAboutCourseVC: UIViewController {
         price.delegate = self
         descriptionCourse.delegate = self
         name.delegate = self
-        
+        addCoach()
     }
     
     @IBAction func save(_ sender: UIButton) {
         performSegue(withIdentifier: "goToAddModule", sender: self)
-        name.delegate = self
-        price.delegate = self
-        descriptionCourse.delegate = self
-        addCoach()
     }
     
     func addCoach() {
@@ -43,9 +39,6 @@ class AddInfoAboutCourseVC: UIViewController {
         coachPred.text = "\(coach.name) \(coach.surname)"
     }
     
-    @IBAction func save(_ sender: UIButton) {
-        
-    }
     
     @IBAction func addImage(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
@@ -90,6 +83,3 @@ extension AddInfoAboutCourseVC: UITextFieldDelegate {
     }
 }
 
-extension AddInfoAboutCourseVC: UITextFieldDelegate {
-    
-}
