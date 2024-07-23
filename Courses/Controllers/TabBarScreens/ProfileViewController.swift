@@ -57,10 +57,6 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.image.sd_setImage(with: URL(string: coach.myCourses[indexPath.row].image))
         return cell
     }
-    
-    
-    
-    
 }
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NAm-LK-wo0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CYc-fi-Vn6">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
@@ -369,6 +369,7 @@
                                         <state key="normal" image="back"/>
                                         <buttonConfiguration key="configuration" style="plain" image="back"/>
                                         <connections>
+                                            <action selector="back:" destination="bKb-Fe-dxw" eventType="touchUpInside" id="b0A-PZ-rl8"/>
                                             <action selector="back:" destination="CYc-fi-Vn6" eventType="touchUpInside" id="cQf-EK-T1i"/>
                                         </connections>
                                     </button>
@@ -405,6 +406,7 @@
                             <outletCollection property="gestureRecognizers" destination="0kc-EV-TZb" appends="YES" id="eJa-Cc-h6B"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="5AV-dE-caE"/>
                     <connections>
                         <outlet property="bottomConsoleView" destination="e27-Hi-dfQ" id="LxE-2H-sB8"/>
                         <outlet property="centerAlingment" destination="0rk-ys-PTG" id="wGu-MW-D8d"/>
@@ -1937,11 +1939,20 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSm-GH-XwD">
+                                        <rect key="frame" x="159" y="413.66666666666669" width="75" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="gogogo:" destination="O46-z7-WsV" eventType="touchUpInside" id="xUn-cB-t6B"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.062745098040000002" green="0.086274509799999996" blue="0.1215686275" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Ukh-3k-e0w" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="30" id="2CJ-PP-Xqk"/>
                                     <constraint firstItem="948-2G-HmO" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="40" id="5Z7-CJ-WaR"/>
+                                    <constraint firstItem="fSm-GH-XwD" firstAttribute="centerX" secondItem="syk-dP-HIz" secondAttribute="centerX" id="65C-TD-dfg"/>
                                     <constraint firstItem="Ukh-3k-e0w" firstAttribute="top" secondItem="6sV-CB-PqV" secondAttribute="bottom" constant="30" id="6eX-dj-7ch"/>
                                     <constraint firstItem="6sV-CB-PqV" firstAttribute="top" secondItem="948-2G-HmO" secondAttribute="bottom" constant="20" id="7kN-PD-hi9"/>
                                     <constraint firstAttribute="bottom" secondItem="45u-xj-r8s" secondAttribute="bottom" constant="35" id="Kwu-rK-ETt"/>
@@ -1949,6 +1960,7 @@
                                     <constraint firstItem="t6H-Fu-ogK" firstAttribute="centerX" secondItem="syk-dP-HIz" secondAttribute="centerX" id="Mkr-sd-2VZ"/>
                                     <constraint firstAttribute="trailing" secondItem="Ukh-3k-e0w" secondAttribute="trailing" constant="30" id="TdK-9o-8NN"/>
                                     <constraint firstItem="45u-xj-r8s" firstAttribute="top" secondItem="Ukh-3k-e0w" secondAttribute="bottom" constant="15" id="VeJ-bX-UiB"/>
+                                    <constraint firstItem="fSm-GH-XwD" firstAttribute="centerY" secondItem="syk-dP-HIz" secondAttribute="centerY" id="d2P-5P-SjA"/>
                                     <constraint firstAttribute="trailing" secondItem="948-2G-HmO" secondAttribute="trailing" constant="30" id="iVh-Ce-pD4"/>
                                     <constraint firstItem="45u-xj-r8s" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="30" id="jc8-hx-fkg"/>
                                     <constraint firstItem="6sV-CB-PqV" firstAttribute="leading" secondItem="syk-dP-HIz" secondAttribute="leading" constant="40" id="mXm-uY-6C5"/>
@@ -1973,6 +1985,7 @@
                     <navigationItem key="navigationItem" id="9SU-gP-7X0"/>
                     <connections>
                         <segue destination="lQZ-Pc-J9j" kind="show" identifier="current" animates="NO" id="hAk-ad-GZt"/>
+                        <segue destination="lQZ-Pc-J9j" kind="show" identifier="gogogo" id="cs8-Z9-fOz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3VB-0l-Kh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3010,7 +3023,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BC3-gd-Noy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4600" y="1953"/>
+            <point key="canvasLocation" x="4598" y="1954"/>
         </scene>
         <!--Профиль-->
         <scene sceneID="S4c-82-x2h">
@@ -3423,7 +3436,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="50"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" translatesAutoresizingMaskIntoConstraints="NO" id="ud0-Fk-ODP">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo2" translatesAutoresizingMaskIntoConstraints="NO" id="ud0-Fk-ODP">
                                                         <rect key="frame" x="76" y="75" width="18" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="xvA-9y-5Iz"/>
@@ -3796,7 +3809,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="6908" y="1954"/>
+            <point key="canvasLocation" x="6880" y="1954"/>
         </scene>
         <!--Info Courses View Controller-->
         <scene sceneID="5Fw-C8-AjN">
@@ -4931,6 +4944,7 @@
                                         <state key="normal" image="back"/>
                                         <buttonConfiguration key="configuration" style="plain" image="back"/>
                                         <connections>
+                                            <action selector="back:" destination="Zof-OM-ayt" eventType="touchUpInside" id="H7T-QM-cbD"/>
                                             <action selector="back:" destination="CYc-fi-Vn6" eventType="touchUpInside" id="Pml-Od-pSq"/>
                                         </connections>
                                     </button>
@@ -5294,14 +5308,19 @@
                     <navigationItem key="navigationItem" id="Mjv-6J-u1g"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="categoryBorder" destination="luk-3S-cJP" id="BSe-m3-r3l"/>
                         <outlet property="coachPred" destination="jen-lM-ni6" id="aeN-Xj-Etq"/>
+                        <outlet property="descriptionBorder" destination="2Zp-lc-F2J" id="wu4-ye-EJA"/>
                         <outlet property="descriptionCourse" destination="Gpw-d5-kqP" id="JJZ-ZV-R8f"/>
                         <outlet property="imageBtn" destination="neD-Rj-aTF" id="9oF-w9-kbx"/>
                         <outlet property="imagePred" destination="Q0K-LA-fjD" id="NbQ-a2-Cmv"/>
                         <outlet property="name" destination="yLt-Eg-eiY" id="Dvg-E6-YNe"/>
+                        <outlet property="nameBorder" destination="BBd-W3-38k" id="wKG-u3-Kza"/>
                         <outlet property="namePred" destination="YEq-ge-ypX" id="hed-4s-gBa"/>
                         <outlet property="price" destination="Qpe-Wh-hB3" id="OQ4-cr-7SQ"/>
+                        <outlet property="priceBorder" destination="3Af-o0-LYD" id="jTF-pF-2dl"/>
                         <outlet property="pricePred" destination="d4S-DL-Euy" id="crK-Pu-poV"/>
+                        <segue destination="CYc-fi-Vn6" kind="show" identifier="goToAddModule" id="nzc-9n-Ktz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rlG-3u-O91" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5391,6 +5410,30 @@
                                                 <connections>
                                                     <outlet property="lbl" destination="Kun-EC-7f0" id="VZp-hm-i4e"/>
                                                 </connections>
+                                            </collectionViewCell>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="addDayCell" id="PhB-ex-sri" customClass="DaysCourseCollectionViewCell" customModule="Courses" customModuleProvider="target">
+                                                <rect key="frame" x="50" y="0.66666666666666663" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qm1-7M-cIj">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cj-2C-RvE">
+                                                            <rect key="frame" x="15.333333333333336" y="10.333333333333334" width="9.6666666666666643" height="19.666666666666664"/>
+                                                            <fontDescription key="fontDescription" name="Commissioner-Medium" family="Commissioner" pointSize="16"/>
+                                                            <color key="textColor" red="0.82352941176470584" green="0.83137254901960778" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="1cj-2C-RvE" firstAttribute="centerX" secondItem="qm1-7M-cIj" secondAttribute="centerX" id="7KX-qB-u9H"/>
+                                                        <constraint firstItem="1cj-2C-RvE" firstAttribute="centerY" secondItem="qm1-7M-cIj" secondAttribute="centerY" id="Y18-z5-5TG"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                                <color key="backgroundColor" name="ExtraLightBlackMain"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="20"/>
+                                                </userDefinedRuntimeAttributes>
                                             </collectionViewCell>
                                         </cells>
                                         <userDefinedRuntimeAttributes>
@@ -5528,23 +5571,26 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-Dg-XWn" customClass="Border" customModule="Courses" customModuleProvider="target">
                                                     <rect key="frame" x="231" y="76" width="85" height="24"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJb-G3-sC1">
-                                                            <rect key="frame" x="0.0" y="0.0" width="85" height="24"/>
-                                                            <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="8"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="Приступить">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                        </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0X-Q7-4Ll">
+                                                            <rect key="frame" x="26.333333333333318" y="7" width="32.333333333333343" height="10"/>
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="Перейти">
+                                                                    <attributes>
+                                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <font key="NSFont" size="8" name="Commissioner-Medium"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="85" id="5Ez-Yq-qGj"/>
                                                         <constraint firstAttribute="height" constant="24" id="5xi-E9-vWM"/>
-                                                        <constraint firstItem="ZJb-G3-sC1" firstAttribute="leading" secondItem="PmG-Dg-XWn" secondAttribute="leading" id="7hb-nj-cvS"/>
-                                                        <constraint firstAttribute="bottom" secondItem="ZJb-G3-sC1" secondAttribute="bottom" id="EDa-Ho-Gh6"/>
-                                                        <constraint firstItem="ZJb-G3-sC1" firstAttribute="top" secondItem="PmG-Dg-XWn" secondAttribute="top" id="S2k-tr-zht"/>
-                                                        <constraint firstAttribute="trailing" secondItem="ZJb-G3-sC1" secondAttribute="trailing" id="q7d-jI-jbY"/>
+                                                        <constraint firstItem="N0X-Q7-4Ll" firstAttribute="centerY" secondItem="PmG-Dg-XWn" secondAttribute="centerY" id="I7A-Kx-XNZ"/>
+                                                        <constraint firstItem="N0X-Q7-4Ll" firstAttribute="centerX" secondItem="PmG-Dg-XWn" secondAttribute="centerX" id="R4y-bb-Yza"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="border">
@@ -5633,6 +5679,7 @@
                         <outlet property="modulesCollectionView" destination="Pmt-PI-6gP" id="lrs-A5-mdV"/>
                         <outlet property="nameCourses" destination="IhO-it-7s0" id="1j9-J0-AFp"/>
                         <outlet property="viewDays" destination="byh-Eq-B64" id="Ftr-W8-lXf"/>
+                        <segue destination="bKb-Fe-dxw" kind="show" identifier="goToAddCourse2" id="Rxi-7t-ga1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="faR-6j-tts" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5647,7 +5694,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="0B2-ml-wjG"/>
-        <segue reference="hAk-ad-GZt"/>
+        <segue reference="cs8-Z9-fOz"/>
         <segue reference="AOP-mt-L4O"/>
         <segue reference="iWm-3v-hYp"/>
     </inferredMetricsTieBreakers>
@@ -5679,6 +5726,7 @@
         <image name="orDesign" width="330" height="30"/>
         <image name="peoples" width="18" height="18"/>
         <image name="photo" width="100" height="100"/>
+        <image name="photo2" width="18" height="18"/>
         <image name="playHome" width="30" height="30"/>
         <image name="profile" width="16" height="20"/>
         <image name="profileBlue" width="16" height="20"/>
