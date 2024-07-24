@@ -1,25 +1,9 @@
 from rest_framework import serializers
-from django.contrib.auth import get_user_model, authenticate
+from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 User = get_user_model()
-
-
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    phone_number = serializers.CharField(required=True)
-
-    def validate(self, attrs):
-        phone_number = attrs.get('phone_number')
-        password = attrs.get('password')
-
-        user = authenticate(phone_number=phone_number, password=password)
-
-        if user is not None:
-            data = super().validate(attrs)
-            return data
-        else:
-            raise serializers.ValidationError('Неверный номер телефона или пароль.')
 
 
 class UserCreateSerializer(serializers.ModelSerializer):

@@ -1,8 +1,8 @@
 FROM python:3.11-alpine3.16
 
 COPY requirements.txt /temp/requirements.txt
-COPY ./api /api
-WORKDIR /api
+COPY src /src
+WORKDIR /src
 
 EXPOSE 8000
 
