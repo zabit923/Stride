@@ -8,32 +8,15 @@
 import Foundation
 import UIKit
 
-struct Objects {
-    let name: String
-    let image: String
-}
 
 class Constants {
     static let url = "http://127.0.0.1:8000/"
 }
 
-enum Role: String {
-    case coach = "Coach"
-    case user = "User"
-    case admin = "Admin"
-}
-
-enum Picker {
-    case birthday
-    case levelPreparation
-    case intention
-}
-
-enum Alignment {
-    case left
-    case center
-    case right
-    case defaultCenter
+// MARK: - Collection
+struct Objects {
+    let name: String
+    let image: String
 }
 
 struct Category {
@@ -41,6 +24,7 @@ struct Category {
     var image: String
 }
 
+// MARK: - Course
 struct Modules {
     var text: Data?
     var name: String
@@ -65,6 +49,7 @@ struct CourseInfo {
     var modules = [Modules]()
 }
 
+// MARK: - User
 struct UserStruct {
     var role: Role
     var name: String
@@ -74,13 +59,14 @@ struct UserStruct {
     var height: Double?
     var weight: Double?
     var birthday: String?
-    var description: String?
     var avatar: String?
     var level: Level?
     var goal: Goal?
+    var coach = Coach()
     var myCourses = [Course]()
+    var id = 0
     
-    init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "") {
+    init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "", id: Int = 0) {
         self.role = role
         self.name = name
         self.surname = surname
@@ -88,7 +74,7 @@ struct UserStruct {
         self.phone = phone
     }
     
-    init(role: Role, name: String, surname: String, email: String, phone: String, height: Double? = nil, weight: Double? = nil, birthday: String? = nil, description: String? = nil, avatar: String? = nil, level: Level? = nil, goal: Goal? = nil, myCourses: [Course] = [Course]()) {
+    init(role: Role, name: String, surname: String, email: String, phone: String, height: Double? = nil, weight: Double? = nil, birthday: String? = nil, description: String? = nil, avatar: String? = nil, level: Level? = nil, goal: Goal? = nil, myCourses: [Course] = [Course](), id: Int = 0) {
         self.role = role
         self.name = name
         self.surname = surname
@@ -97,7 +83,6 @@ struct UserStruct {
         self.height = height
         self.weight = weight
         self.birthday = birthday
-        self.description = description
         self.avatar = avatar
         self.level = level
         self.goal = goal
@@ -105,6 +90,15 @@ struct UserStruct {
     }
 }
 
+struct Coach {
+    var description: String?
+    var countCourses: Int = 0
+    var rating: Float = 0.0
+    var myCourses = [Course]()
+}
+
+
+// MARK: - enum
 enum Level {
     case beginner
     case middle
@@ -119,12 +113,22 @@ enum Goal {
     case other
 }
 
-struct Coach {
-    var name: String
-    var avatar: String?
-    var description: String?
-    var countCourses: Int = 0
-    var rating: Float = 0.0
-    var myCourses = [Course]()
+enum Role: String {
+    case coach = "Coach"
+    case user = "User"
+    case admin = "Admin"
+}
+
+enum Picker {
+    case birthday
+    case levelPreparation
+    case intention
+}
+
+enum Alignment {
+    case left
+    case center
+    case right
+    case defaultCenter
 }
 

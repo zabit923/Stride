@@ -65,7 +65,7 @@ class VhodViewController: UIViewController {
     }
     
     @IBAction func google(_ sender: UIButton) {
-        
+        Sign().signGoogle(self)
     }
     
     @IBAction func passwordHidden(_ sender: UIButton) {

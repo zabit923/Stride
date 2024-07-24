@@ -15,6 +15,7 @@ class UD {
         UserDefaults.standard.set(user.role.rawValue, forKey: "myRole")
         UserDefaults.standard.set(user.email, forKey: "myEmail")
         UserDefaults.standard.set(user.phone, forKey: "myPhoneNumber")
+        UserDefaults.standard.set(user.id, forKey: "myID")
     }
     
     func getMyInfo() -> UserStruct {
@@ -24,6 +25,7 @@ class UD {
         user.role = Role(rawValue: UserDefaults.standard.string(forKey: "myRole") ?? "user") ?? .user
         user.email = UserDefaults.standard.string(forKey: "myEmail") ?? ""
         user.phone = UserDefaults.standard.string(forKey: "myPhoneNumber") ?? ""
+        user.id = UserDefaults.standard.integer(forKey: "myID")
         return user
     }
     

@@ -53,8 +53,9 @@ class SettingsViewController: UIViewController {
     }
     
     private func addProfile() {
-        name.text = "Эльдар Ибрагимов"
-        mail.text = "ruha20444@mail.ru"
+        let user = UD().getMyInfo()
+        name.text = "\(user.name) \(user.surname)"
+        mail.text = user.email
         avatar.image = UIImage.defaultLogo
     }
     
