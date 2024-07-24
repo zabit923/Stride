@@ -30,13 +30,32 @@ class AddInfoAboutCourseVC: UIViewController {
         addCoach()
     }
     
-    @IBAction func save(_ sender: UIButton) {
-        performSegue(withIdentifier: "goToAddModule", sender: self)
+    func checkError() -> Bool {
+        var result = true
+        if name.text!.isEmpty {
+            nameBorder.layer.borderColor = UIColor.errorRed.cgColor
+            result = false
+        }else {
+            nameBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
+        }
+        if price.text!.isEmpty {
+            result = false
+            priceBorder.layer.borderColor = UIColor.errorRed.cgColor
+        }else {
+            priceBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
+        }
+        return result
     }
     
     func addCoach() {
         let coach = UD().getMyInfo()
         coachPred.text = "\(coach.name) \(coach.surname)"
+    }
+    
+    @IBAction func save(_ sender: UIButton) {
+        if checkError() {
+            performSegue(withIdentifier: "goToAddModule", sender: self)
+        }
     }
     
     

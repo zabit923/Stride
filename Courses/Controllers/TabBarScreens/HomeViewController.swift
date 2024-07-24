@@ -19,15 +19,15 @@ class HomeViewController: UIViewController {
     private var banners = [String]()
     private var recomendCourses = [String]()
     private let layout = PageLayout()
-    var startPosition = CGPoint()
+    private var user = UD().getMyInfo()
+    private var startPosition = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
-        getBanners()
-        addProfile()
         tabbar()
+        design()
         startPosition = errorView.center
     }
     
@@ -69,12 +69,23 @@ class HomeViewController: UIViewController {
         recomendCollectionView.decelerationRate = .fast
     }
     
-    func addProfile() {
-        avatar.image = UIImage.defaultLogo
-        nameLbl.text = "Эльдар Ибрагимов"
+    private func design() {
+        getBanners()
+        addProfile()
     }
     
-    func getBanners() {
+    private func addProfile() {
+        Task {
+            user = try await User().getUserByID(id: user.id)
+            nameLbl.text = "\(user.name) \(user.surname)"
+            avatar.image = UIImage.defaultLogo
+        }
+        nameLbl.text = "\(user.name) \(user.surname)"
+        avatar.image = UIImage.defaultLogo
+    }
+    
+    
+    private func getBanners() {
         banners.append("first")
         banners.append("second")
         bannersCollectionView.reloadData()

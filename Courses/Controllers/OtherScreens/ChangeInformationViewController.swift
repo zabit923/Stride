@@ -19,6 +19,7 @@ class ChangeInformationViewController: UIViewController {
     
     private var avatarImage = UIImage.defaultLogo
     private var activateTF: UITextField?
+    private var user = UD().getMyInfo()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +59,14 @@ class ChangeInformationViewController: UIViewController {
                                             y: 0), animated: true)
     }
     
+    
     private func addText() {
         avatar.image = avatarImage
+        name.text = user.name
+        surname.text = user.surname
+        mail.text = user.email
+        phoneNumber.text = user.phone
+        descriptionTF.text = user.coach.description
     }
     
     @IBAction func addImage(_ sender: UIButton) {

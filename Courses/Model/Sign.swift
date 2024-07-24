@@ -8,10 +8,49 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import GoogleSignIn
 
 
 class Sign {
     
+    // MARK: - Google
+    
+    func signGoogle(_ viewController: UIViewController) {
+        let clientID = "482402539160-53ekod0ftpr6jp0ttmdnb5e4flpf88sv.apps.googleusercontent.com"
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: viewController) { result, error in
+            guard error == nil else { return }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString else { return }
+            
+            let accessToken = user.accessToken.tokenString
+            
+            guard let name = user.profile?.name else {return}
+            guard let email = user.profile?.email else {return}
+            
+            Task {
+                try await self.saveInBD(token: accessToken, name: name, email: email)
+            }
+        }
+    }
+    
+    private func saveInBD(token: String, name: String, email: String) async throws {
+        let url = Constants.url + ""
+        let parameters = [
+              "username": name,
+              "email": email,
+              "token": token
+        ]
+        let value = try await AF.request(url, method: .post, parameters: parameters).serializingData().value
+        let json = JSON(value)
+        print(json)
+    }
+    
+    
+    // MARK: - Base Sign
     func vhod(phoneNumber: String, password:String) async throws {
         let url = Constants.url + "api/token/"
         let parameters: Parameters = [
@@ -20,10 +59,14 @@ class Sign {
         ]
         
         let data = AF.request(url, method: .post, parameters: parameters).serializingData()
-        guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
+        
         let json = try await JSON(data.value)
+        let tokenAccess = json["access"].stringValue
+        
+        guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
+        
         if code == 200 {
-            try await User().getMyInfo(token: json["access"].stringValue)
+            try await User().getMyInfo(token: tokenAccess)
             UD().saveCurrent(true)
         }else {
             throw ErrorNetwork.runtimeError("Неправильный номер или пароль")
@@ -34,7 +77,6 @@ class Sign {
     
     
     func registr(phoneNumber:String, password:String, name:String, lastName:String, mail:String) async throws {
-        
         let url = Constants.url + "api/v1/users/"
         let parameters = [
           "username": phoneNumber,
@@ -49,16 +91,22 @@ class Sign {
         
         let data = AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default).serializingData()
         let value = try await data.value
+        
         let json = JSON(value)
-        print(json)
+        let id = json["id"].intValue
+        
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
+        
         if code == 201 {
-            UD().saveMyInfo(UserStruct(role: .user, name: name, surname: lastName, email: mail, phone: phoneNumber))
-            UD().saveCurrent(true)
+            Task {
+                try await User().getUserByID(id: id)
+                UD().saveCurrent(true)
+            }
         }else {
             let error = json.dictionary!.first!.value[0].stringValue
             throw ErrorNetwork.runtimeError(error)
         }
+        
     }
     
 }

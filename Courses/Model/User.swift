@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class User {
     
-    func getMyInfo(token: String) async throws {
+    func getMyInfo(token: String) async throws  {
         let url = Constants.url + "api/v1/users/me/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(token)"]
         let value = try await AF.request(
@@ -25,15 +25,22 @@ class User {
         user.surname = json["last_name"].stringValue
         user.email = json["email"].stringValue
         user.phone = json["username"].stringValue
+        user.id = json["id"].intValue
         UD().saveMyInfo(user)
     }
     
-    func getUserByID(id:String) async throws {
+    func getUserByID(id: Int) async throws -> UserStruct {
         let url = Constants.url + "api/v1/users/\(id)"
         let value = try await AF.request(url).serializingData().value
         let json = JSON(value)
-        let name = json["first_name"]
-        let surname = json["last_name"]
-        let email = json["email"]
+        print(json, id)
+        var user = UserStruct()
+        user.name = json["first_name"].stringValue
+        user.surname = json["last_name"].stringValue
+        user.email = json["email"].stringValue
+        user.phone = json["username"].stringValue
+        user.id = json["id"].intValue
+        UD().saveMyInfo(user)
+        return user
     }
 }
