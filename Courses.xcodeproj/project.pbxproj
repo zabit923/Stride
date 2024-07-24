@@ -237,6 +237,7 @@
 		440DAB492C17492900C576FB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7532A61E2C5006B500B0F860 /* AboutCourseScreens */,
 				753A4F7A2C340C73007A8194 /* OtherScreens */,
 				753A4F792C340A90007A8194 /* TabBarScreens */,
 				44064C872C27040B00AB5227 /* StartScreens */,
@@ -274,6 +275,18 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		7532A61E2C5006B500B0F860 /* AboutCourseScreens */ = {
+			isa = PBXGroup;
+			children = (
+				44E906382C2B647200FFA6DD /* AddCourseViewController.swift */,
+				449CF0D62C33706B000D4528 /* CoursesViewController.swift */,
+				44DFB11F2C4018FF005C8F44 /* InfoCoursesViewController.swift */,
+				44BD6CE12C4407E4001645A0 /* CourseTextViewController.swift */,
+				75EBED232C497B0F000ECC8B /* AddInfoAboutCourseVC.swift */,
+			);
+			path = AboutCourseScreens;
+			sourceTree = "<group>";
+		};
 		753A4F792C340A90007A8194 /* TabBarScreens */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,16 +301,11 @@
 		753A4F7A2C340C73007A8194 /* OtherScreens */ = {
 			isa = PBXGroup;
 			children = (
-				449CF0D62C33706B000D4528 /* CoursesViewController.swift */,
-				44E906382C2B647200FFA6DD /* AddCourseViewController.swift */,
 				751510402C34586D009978E6 /* SettingsViewController.swift */,
 				7508513A2C38763A00F5C0DC /* ChangeInformationViewController.swift */,
 				75106D782C38AFDB0036042B /* InfoAboutMeViewController.swift */,
-				44DFB11F2C4018FF005C8F44 /* InfoCoursesViewController.swift */,
 				44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */,
-				44BD6CE12C4407E4001645A0 /* CourseTextViewController.swift */,
 				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
-				75EBED232C497B0F000ECC8B /* AddInfoAboutCourseVC.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";

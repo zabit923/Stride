@@ -9,8 +9,9 @@ import UIKit
 
 class ModuleCourseCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var btn2: UIButton!
-    @IBOutlet weak var btn: UIButton!
+    
+    @IBOutlet weak var settingsBtn2: UIButton!
+    @IBOutlet weak var settingsBtn: UIButton!
     @IBOutlet weak var im: UIImageView!
     @IBOutlet weak var descrLbl: UILabel!
     @IBOutlet weak var name: UILabel!
