@@ -76,8 +76,6 @@ class User(AbstractUser):
 
     is_coach = models.BooleanField(_('is_coach'), default=False)
 
-    USERNAME_FIELD = 'phone_number'
-
     def __str__(self):
         return f'{self.username} | {self.weight} кг | {self.height} см | {self.gender}, {self.target}, {self.level}'
 

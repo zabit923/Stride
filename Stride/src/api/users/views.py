@@ -3,16 +3,27 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .serializers import (
     UserCreateSerializer,
     UserUpdateSerializer,
     UserGetSerializer,
+    CustomTokenObtainPairSerializer,
 )
 from .permissions import IsAdminOrSelf, IsOwner
 
 
 User = get_user_model()
+
+
+class CustomTokenObtainPairView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = CustomTokenObtainPairSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        tokens = serializer.get_tokens_for_user(user)
+        return Response(tokens, status=status.HTTP_200_OK)
 
 
 class UserViewSet(viewsets.ModelViewSet):
