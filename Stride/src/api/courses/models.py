@@ -42,7 +42,7 @@ class Module(models.Model):
     )
 
     def __str__(self):
-        return f'{self.title} - {self.author} | {self.price}'
+        return f'{self.title} - {self.day.id} - {self.day.course.title}'
 
     class Meta:
         verbose_name = 'Модуль'
@@ -50,7 +50,6 @@ class Module(models.Model):
 
 
 class Day(models.Model):
-    title = models.CharField(_('Название'), max_length=50)
     course = models.ForeignKey(
         'Course',
         verbose_name=_('Курс'),
@@ -60,7 +59,7 @@ class Day(models.Model):
     )
 
     def __str__(self):
-        return f'{self.title} - {self.course}'
+        return f'{self.id}й день | курс: {self.course.title}'
 
     class Meta:
         verbose_name = 'День'
@@ -68,7 +67,7 @@ class Day(models.Model):
 
 
 class Course(models.Model):
-    title = models.CharField(_('Название'), max_length=50)
+    title = models.CharField(_('Название'), max_length=50, unique=True)
     author = models.ForeignKey(
         User,
         verbose_name=_('Автор'),
@@ -93,7 +92,7 @@ class Course(models.Model):
     created_at = models.DateField(_('Дата создания'), auto_now_add=True)
 
     def __str__(self):
-        return f'{self.title} - {self.author} | {self.price}'
+        return f'{self.title} | автор: {self.author.username} | {self.price} руб.'
 
     class Meta:
         verbose_name = 'Курс'

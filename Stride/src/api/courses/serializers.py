@@ -29,7 +29,6 @@ class DaySerializer(serializers.ModelSerializer):
         model = Day
         fields = (
             'id',
-            'title',
             'modules',
         )
 
@@ -60,8 +59,16 @@ class CourseSerializer(serializers.ModelSerializer):
         for day_data in days_data:
             modules_data = day_data.pop('modules', [])
             day = Day.objects.create(course=course, **day_data)
-
             for module_data in modules_data:
                 Module.objects.create(day=day, **module_data)
-
         return course
+
+    def update(self, instance, validated_data):
+        days_data = validated_data.pop('days', [])
+
+        for day_data in days_data:
+            modules_data = day_data.pop('modules', [])
+            day = Day.objects.create(course=instance, **day_data)
+            for module_data in modules_data:
+                Module.objects.create(day=day, **module_data)
+        return instance
