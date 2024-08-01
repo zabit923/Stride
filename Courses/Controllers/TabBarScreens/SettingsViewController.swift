@@ -29,8 +29,11 @@ class SettingsViewController: UIViewController {
         settingsTableView2.dataSource = self
         settingsTableView2.delegate = self
         addObjects()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         design()
-        
     }
     
     override func viewDidLayoutSubviews() {

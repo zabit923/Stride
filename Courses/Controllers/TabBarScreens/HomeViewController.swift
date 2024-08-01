@@ -27,8 +27,12 @@ class HomeViewController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
         tabbar()
-        design()
         startPosition = errorView.center
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        design()
     }
     
     override func viewDidLayoutSubviews() {
@@ -38,7 +42,11 @@ class HomeViewController: UIViewController {
     }
     
     private func tabbar() {
-        self.tabBarController?.viewControllers?.remove(at: 3) // 3 - USER | 4 - COACH
+        var deleteUser = 3
+        if user.isCoach == true {
+            deleteUser = 4
+        }
+        self.tabBarController?.viewControllers?.remove(at: deleteUser) // 3 - USER | 4 - COACH
         self.tabBarController?.setViewControllers(self.tabBarController?.viewControllers, animated: false)
     }
     
@@ -76,7 +84,7 @@ class HomeViewController: UIViewController {
     
     private func addProfile() {
         Task {
-            user = try await User().getUserByID(id: user.id)
+            user = try await User().getMyInfo()
             nameLbl.text = "\(user.name) \(user.surname)"
             avatar.image = UIImage.defaultLogo
         }

@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import Alamofire
 
 class AddCourseViewController: UIViewController {
     
@@ -55,7 +56,7 @@ class AddCourseViewController: UIViewController {
         textView.textColor = .white
         textView.delegate = self
         view.overrideUserInterfaceStyle = .dark
-        getData()
+        getCourse()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,13 +80,6 @@ class AddCourseViewController: UIViewController {
 
     @objc func keyboardWillDisappear() {
         bottomConsoleView.constant = 0
-    }
-    
-    private func getData() {
-        if let data = UserDefaults.standard.data(forKey: "text") {
-            let result = data.retrieveDataToString()
-            self.textView.attributedText = result
-        }
     }
     
     private func changedAlignment(_ alignment: NSTextAlignment) {
@@ -119,6 +113,42 @@ class AddCourseViewController: UIViewController {
         textView.selectedTextRange = selectedRange
     }
     
+    private func getCourse() {
+        Task {
+            let url = Constants.url + "api/v1/courses/"
+            let value = try await AF.request(url,method: .get, headers: User.headers).serializingData().value
+            let json = JSON(value)
+            print(json)
+        }
+    }
+    
+    private func addCourse(data:Data) async throws {
+        let url = Constants.url + "api/v1/courses/6/"
+        let parameters: [String: Any] = [
+            "title": "string",
+            "price": 2147483647,
+            "desc": "string",
+            "days": [
+                [
+                    "title": "string",
+                    "modules": [
+                        [
+                            "title": "string",
+                            "desc": "string",
+                            "time_to_pass": 2147483647
+                        ]
+                    ]
+                ]
+            ]
+        ]
+        let value = try await AF.request(url,
+                                         method: .patch,
+                                         parameters: parameters,
+                                         encoding: JSONEncoding.default,
+                                         headers: User.headers).serializingData().value
+        let json = JSON(value)
+        print(json)
+    }
     
     // MARK: - UIButton
 
@@ -135,7 +165,10 @@ class AddCourseViewController: UIViewController {
         textView.resignFirstResponder()
         guard let data = textView.attributedText.attributedStringToData() else {return}
         print(data)
-        UserDefaults.standard.set(data, forKey: "text")
+        Task {
+            try await addCourse(data: data)
+        }
+//        UserDefaults.standard.set(data, forKey: "text")
     }
     
     @IBAction func color(_ sender: UIButton) {

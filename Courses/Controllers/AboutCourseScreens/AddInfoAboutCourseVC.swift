@@ -27,6 +27,10 @@ class AddInfoAboutCourseVC: UIViewController {
         price.delegate = self
         descriptionCourse.delegate = self
         name.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         addCoach()
     }
     

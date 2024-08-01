@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
     
-    var user = UserStruct()
+    var user = UD().getMyInfo()
     
     
     override func viewDidLoad() {
@@ -25,11 +25,16 @@ class ProfileViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         design()
     }
     
     func design() {
-        avatar.sd_setImage(with: URL(string: user.avatar ?? ""))
+        print(user)
+        avatar.image = UIImage.defaultLogo
         characteristic.text = user.coach.description
         name.text = user.name
         rating.text = "\(0.0)"

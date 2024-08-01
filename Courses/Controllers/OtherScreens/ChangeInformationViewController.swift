@@ -9,6 +9,7 @@ import UIKit
 
 class ChangeInformationViewController: UIViewController {
     
+    @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var descriptionTF: UITextField!
     @IBOutlet weak var phoneNumber: UITextField!
@@ -18,6 +19,7 @@ class ChangeInformationViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     
     private var avatarImage = UIImage.defaultLogo
+    private var avatarURL: String?
     private var activateTF: UITextField?
     private var user = UD().getMyInfo()
     
@@ -26,7 +28,7 @@ class ChangeInformationViewController: UIViewController {
         phoneNumber.delegate = self
         descriptionTF.delegate = self
         mail.delegate = self
-        addText()
+        design()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,14 +61,39 @@ class ChangeInformationViewController: UIViewController {
                                             y: 0), animated: true)
     }
     
+    private func design() {
+        if user.role == .user {
+            descriptionView.isHidden = true
+        }else {
+            descriptionView.isHidden = false
+        }
+        addText()
+    }
+    
     
     private func addText() {
         avatar.image = avatarImage
         name.text = user.name
         surname.text = user.surname
         mail.text = user.email
-        phoneNumber.text = user.phone
+        phoneNumber.text = user.phone.format(with: "+X (XXX) XXX-XXXX")
         descriptionTF.text = user.coach.description
+    }
+    
+    private func changeUserInfo() {
+        user.name = name.text ?? user.name
+        user.surname = surname.text ?? user.surname
+        user.phone = phoneNumber.text ?? user.phone
+        user.email = mail.text ?? user.email
+        user.coach.description = descriptionTF.text ?? user.coach.description
+        user.avatar = avatarURL ?? user.avatar
+    }
+    
+    @IBAction func save(_ sender: UIButton) {
+        Task{
+            changeUserInfo()
+            try await User().changeInfoUser(id:user.id ,user: user)
+        }
     }
     
     @IBAction func addImage(_ sender: UIButton) {
@@ -86,12 +113,14 @@ class ChangeInformationViewController: UIViewController {
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
+    
 }
 extension ChangeInformationViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             avatarImage = image
+            avatarURL = "\(url)"
             addText()
             picker.dismiss(animated: true)
         }

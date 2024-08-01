@@ -16,7 +16,7 @@ class Sign {
     // MARK: - Google
     
     func signGoogle(_ viewController: UIViewController) {
-        let clientID = "482402539160-53ekod0ftpr6jp0ttmdnb5e4flpf88sv.apps.googleusercontent.com"
+        let clientID = "477842031879-ts6fncapcq8u6nvb4p0237i4kk2tnlgp.apps.googleusercontent.com"
         let config = GIDConfiguration(clientID: clientID)
         GIDSignIn.sharedInstance.configuration = config
         
@@ -32,13 +32,14 @@ class Sign {
             guard let email = user.profile?.email else {return}
             
             Task {
-                try await self.saveInBD(token: accessToken, name: name, email: email)
+                try await self.saveInBD(token: idToken, name: name, email: email)
             }
         }
     }
     
     private func saveInBD(token: String, name: String, email: String) async throws {
-        let url = Constants.url + ""
+        let url = Constants.url + "api/v1/oauth/google/"
+        print(name,email,token)
         let parameters = [
               "username": name,
               "email": email,
@@ -54,7 +55,7 @@ class Sign {
     func vhod(phoneNumber: String, password:String) async throws {
         let url = Constants.url + "api/token/"
         let parameters: Parameters = [
-            "username": phoneNumber,
+            "phone_number": phoneNumber,
             "password": password
         ]
         
@@ -62,11 +63,12 @@ class Sign {
         
         let json = try await JSON(data.value)
         let tokenAccess = json["access"].stringValue
-        
+        print(tokenAccess)
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
         
         if code == 200 {
-            try await User().getMyInfo(token: tokenAccess)
+            UD().saveToken(tokenAccess)
+            let _ = try await User().getMyInfo()
             UD().saveCurrent(true)
         }else {
             throw ErrorNetwork.runtimeError("Неправильный номер или пароль")
@@ -79,12 +81,11 @@ class Sign {
     func registr(phoneNumber:String, password:String, name:String, lastName:String, mail:String) async throws {
         let url = Constants.url + "api/v1/users/"
         let parameters = [
-          "username": phoneNumber,
+          "phone_number": phoneNumber,
           "email": mail,
           "first_name": name,
           "last_name": lastName,
           "is_coach": false,
-          "phone": phoneNumber,
           "password": password,
           "password_again": password
         ] as [String : Any]
@@ -93,15 +94,12 @@ class Sign {
         let value = try await data.value
         
         let json = JSON(value)
-        let id = json["id"].intValue
         
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
         
         if code == 201 {
-            Task {
-                try await User().getUserByID(id: id)
-                UD().saveCurrent(true)
-            }
+            try await vhod(phoneNumber: phoneNumber,password: password)
+            UD().saveCurrent(true)
         }else {
             let error = json.dictionary!.first!.value[0].stringValue
             throw ErrorNetwork.runtimeError(error)

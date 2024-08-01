@@ -46,7 +46,6 @@
 		44D68AF32C4ACC0C00F8F476 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D68AF22C4ACC0C00F8F476 /* User.swift */; };
 		44D68AF62C5051E100F8F476 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 44D68AF52C5051E100F8F476 /* GoogleSignIn */; };
 		44D68AF82C5051E100F8F476 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 44D68AF72C5051E100F8F476 /* GoogleSignInSwift */; };
-		44D68AFA2C5056D200F8F476 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44D68AF92C5056D200F8F476 /* credentials.plist */; };
 		44D68B012C51B3EF00F8F476 /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D68AFB2C51B3EF00F8F476 /* AddCourseViewController.swift */; };
 		44D68B022C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D68AFC2C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift */; };
 		44D68B032C51B3EF00F8F476 /* CoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D68AFD2C51B3EF00F8F476 /* CoursesViewController.swift */; };
@@ -55,6 +54,8 @@
 		44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DFB1152C3B199A005C8F44 /* RecomendationCollectionViewCell.swift */; };
 		44DFB11B2C3B2637005C8F44 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 44DFB11A2C3B2637005C8F44 /* loading.json */; };
 		44DFB11E2C3BE46B005C8F44 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 44DFB11D2C3BE46B005C8F44 /* Lottie */; };
+		44E244062C578A2900EADF3D /* defaultLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E244052C578A2900EADF3D /* defaultLogo.png */; };
+		44E2440A2C5A6A3900EADF3D /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44E244092C5A6A3900EADF3D /* credentials.plist */; };
 		44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906332C29A59B00FFA6DD /* HomeViewController.swift */; };
 		44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */; };
 		7508513B2C38763A00F5C0DC /* ChangeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7508513A2C38763A00F5C0DC /* ChangeInformationViewController.swift */; };
@@ -116,7 +117,6 @@
 		44BD6CDF2C432C82001645A0 /* ModuleCourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCourseCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddModuleCoursesViewController.swift; sourceTree = "<group>"; };
 		44D68AF22C4ACC0C00F8F476 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		44D68AF92C5056D200F8F476 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		44D68AFB2C51B3EF00F8F476 /* AddCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
 		44D68AFC2C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddInfoAboutCourseVC.swift; sourceTree = "<group>"; };
 		44D68AFD2C51B3EF00F8F476 /* CoursesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoursesViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +124,8 @@
 		44D68AFF2C51B3EF00F8F476 /* InfoCoursesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCoursesViewController.swift; sourceTree = "<group>"; };
 		44DFB1152C3B199A005C8F44 /* RecomendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationCollectionViewCell.swift; sourceTree = "<group>"; };
 		44DFB11A2C3B2637005C8F44 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		44E244052C578A2900EADF3D /* defaultLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defaultLogo.png; path = Courses/Assets.xcassets/defaultLogo.imageset/defaultLogo.png; sourceTree = SOURCE_ROOT; };
+		44E244092C5A6A3900EADF3D /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = credentials.plist; path = ../../../../../Downloads/credentials.plist; sourceTree = "<group>"; };
 		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		7508513A2C38763A00F5C0DC /* ChangeInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInformationViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		44064C712C26ED4F00AB5227 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				44E244052C578A2900EADF3D /* defaultLogo.png */,
 				44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */,
 				449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */,
 				44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */,
@@ -206,7 +209,7 @@
 				440DAB3C2C1748D600C576FB /* Assets.xcassets */,
 				440DAB332C1748D400C576FB /* AppDelegate.swift */,
 				440DAB352C1748D400C576FB /* SceneDelegate.swift */,
-				44D68AF92C5056D200F8F476 /* credentials.plist */,
+				44E244092C5A6A3900EADF3D /* credentials.plist */,
 				440DAB412C1748D600C576FB /* Info.plist */,
 				440DAB3E2C1748D600C576FB /* LaunchScreen.storyboard */,
 				7515103D2C345816009978E6 /* TableViewCells */,
@@ -397,11 +400,12 @@
 				440DAB402C1748D600C576FB /* Base in Resources */,
 				449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */,
 				440DAB3B2C1748D400C576FB /* Base in Resources */,
-				44D68AFA2C5056D200F8F476 /* credentials.plist in Resources */,
 				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
 				44DFB11B2C3B2637005C8F44 /* loading.json in Resources */,
+				44E2440A2C5A6A3900EADF3D /* credentials.plist in Resources */,
 				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
 				44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				44E244062C578A2900EADF3D /* defaultLogo.png in Resources */,
 				753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */,
 				44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */,
 				44064C862C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf in Resources */,

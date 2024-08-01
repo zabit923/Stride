@@ -9,6 +9,9 @@ import UIKit
 
 class InfoAboutMeViewController: UIViewController {
     
+    @IBOutlet weak var closeBirthdayBtn: UIButton!
+    @IBOutlet weak var closeGoalBtn: UIButton!
+    @IBOutlet weak var closeLevelBtn: UIButton!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewPV: UIView!
     @IBOutlet weak var mainView: UIView!
@@ -19,11 +22,40 @@ class InfoAboutMeViewController: UIViewController {
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
-    private var startPosition = CGPoint()
     
+    private var startPosition = CGPoint()
+    private var selectBirthday: String? {
+        didSet {
+            if selectBirthday == nil {
+                closeBirthdayBtn.isHidden = true
+            }else {
+                closeBirthdayBtn.isHidden = false
+            }
+        }
+    }
+    private var selectLevel: String? {
+        didSet {
+            if selectLevel == nil {
+                closeLevelBtn.isHidden = true
+            }else {
+                closeLevelBtn.isHidden = false
+            }
+        }
+    }
+    private var selectGoal: String? {
+        didSet {
+            if selectGoal == nil {
+                closeGoalBtn.isHidden = true
+            }else {
+                closeGoalBtn.isHidden = false
+            }
+        }
+    }
     var picker: Picker?
     var intentionArray = [String]()
     var levelPreparationArray = [String]()
+    var user = UserStruct()
+    private let meInfo = UD().getMyInfo()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,17 +87,12 @@ class InfoAboutMeViewController: UIViewController {
     
     @objc func datePickerValueChanged (sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        birthdayLbl.text = formatter.string(from: sender.date)
+        formatter.dateFormat = "yyyy-MM-dd"
+        addText(text: formatter.string(from: sender.date), currentLbl: birthdayLbl)
     }
     
 
     func datePickerDesign() {
-        let date = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy"
-        birthdayLbl.text = formatter.string (from: date)
-        birthdayLbl.textColor = .white
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(sender:)), for: UIControl.Event.valueChanged)
         datePicker.setValue(UIColor.white, forKey: "textColor")
@@ -76,24 +103,106 @@ class InfoAboutMeViewController: UIViewController {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
         heightTextField.attributedPlaceholder = NSAttributedString(string: "Рост", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
         weightTextField.attributedPlaceholder = NSAttributedString(string: "Вес", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
-        intentionArray = ["Похудеть", "Набрать мышечную массу", "Сбросить вес", "Подсушиться"]
-        levelPreparationArray = ["Плохой", "Средний", "Хороший"]
-        pickerViewDesign()
+        intentionArray = [Goal.loseWeight.thirdString(), Goal.gainWeight.thirdString(), Goal.health.thirdString(), Goal.other.thirdString()]
+        levelPreparationArray = [Level.beginner.thirdString(), Level.middle.thirdString(), Level.advanced.thirdString(), Level.professional.thirdString()]
         datePickerDesign()
+        pickerViewDesign()
+        addInfo()
     }
     
     func pickerViewDesign() {
         pickerView.setValue(UIColor.white, forKey: "textColor")
         viewPV.isHidden = true
-        if UD().getBirthday() != "" {
-            birthdayLbl.text = UD().getBirthday()
-        }else if UD().getLevelPreparation() != "" {
-            levelPreparationLbl.text = UD().getLevelPreparation()
-        }else if UD().getIntention() != "" {
-            intentionLbl.text = UD().getIntention()
+    }
+    
+    private func addInfo() {
+        print(meInfo)
+        if let birthday = meInfo.birthday {
+            addText(text: birthday, currentLbl: birthdayLbl)
+        }
+        if let level = meInfo.level {
+            addText(text: level.thirdString(), currentLbl: levelPreparationLbl)
+        }
+        if let goal = meInfo.goal {
+            addText(text: goal.thirdString(), currentLbl: intentionLbl)
+        }
+        if let height = meInfo.height {
+            heightTextField.text = "\(height)"
+        }
+        if let weight = meInfo.weight {
+            weightTextField.text = "\(weight)"
         }
     }
-
+    
+    private func openPicker() {
+        viewPV.isHidden = false
+        datePicker.isHidden = true
+        pickerView.isHidden = false
+        pickerView.reloadAllComponents()
+    }
+    
+    private func changeUser() {
+        user.height = Double(heightTextField.text!)
+        user.weight = Double(weightTextField.text!)
+        user.birthday = selectBirthday
+        if selectGoal != nil {
+            user.goal = Goal.thirdGoal(selectGoal!)
+        }else {
+            user.goal = nil
+        }
+        if selectLevel != nil {
+            user.level = Level.thirdLevel(selectLevel!)
+        }else {
+            user.level = nil
+        }
+    }
+    
+    private func addText(text:String, currentLbl: UILabel) {
+        switch currentLbl {
+        case birthdayLbl:
+            selectBirthday = text
+        case levelPreparationLbl:
+            selectLevel = text
+        case intentionLbl:
+            selectGoal = text
+        default:
+            break
+        }
+        currentLbl.textColor = .white
+        currentLbl.text = text
+    }
+    
+    private func clearText(currentLbl:UILabel) {
+        switch currentLbl {
+        case birthdayLbl:
+            birthdayLbl.text = "Дата Рождения"
+            selectBirthday = nil
+        case levelPreparationLbl:
+            levelPreparationLbl.text = "Уровень подготовки"
+            selectLevel = nil
+        case intentionLbl:
+            intentionLbl.text = "Цель"
+            selectGoal = nil
+        default:
+            break
+        }
+        currentLbl.textColor = UIColor.forTextFields
+    }
+    
+    
+    @IBAction func clearInfo(_ sender: UIButton) {
+        switch sender.tag {
+        case 0:
+            clearText(currentLbl: birthdayLbl)
+        case 1:
+            clearText(currentLbl: levelPreparationLbl)
+        case 2:
+            clearText(currentLbl: intentionLbl)
+        default:
+            break
+        }
+    }
+    
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: mainView)
         switch sender.state {
@@ -126,7 +235,11 @@ class InfoAboutMeViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
-        dismiss(animated: false)
+        Task {
+            changeUser()
+            try await User().changeInfoAboutMe(id: meInfo.id,user: user)
+            dismiss(animated: false)
+        }
     }
     
     @IBAction func dissmis(_ sender: UIButton) {
@@ -142,24 +255,16 @@ class InfoAboutMeViewController: UIViewController {
     
     @IBAction func levelPreparation(_ sender: UIButton) {
         pickerView.selectRow(0, inComponent: 0, animated: false)
-        levelPreparationLbl.text = levelPreparationArray[0]
-        levelPreparationLbl.textColor = .white
+        addText(text: levelPreparationArray[0], currentLbl: levelPreparationLbl)
         picker = .levelPreparation
-        viewPV.isHidden = false
-        datePicker.isHidden = true
-        pickerView.isHidden = false
-        pickerView.reloadAllComponents()
+        openPicker()
     }
     
     @IBAction func intention(_ sender: UIButton) {
         pickerView.selectRow(0, inComponent: 0, animated: false)
-        intentionLbl.text = intentionArray[0]
-        intentionLbl.textColor = .white
+        addText(text: intentionArray[0], currentLbl: intentionLbl)
         picker = .intention
-        viewPV.isHidden = false
-        datePicker.isHidden = true
-        pickerView.isHidden = false
-        pickerView.reloadAllComponents()
+        openPicker()
     }
     
 }
@@ -189,13 +294,9 @@ extension InfoAboutMeViewController: UIPickerViewDelegate, UIPickerViewDataSourc
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if picker == .levelPreparation {
-            levelPreparationLbl.text = levelPreparationArray[row]
-            UD().saveLevelPraparation(levelPreparationLbl.text!)
-            levelPreparationLbl.textColor = .white
+            addText(text: levelPreparationArray[row], currentLbl: levelPreparationLbl)
         }else {
-            intentionLbl.text = intentionArray[row]
-            UD().saveIntention(intentionLbl.text!)
-            intentionLbl.textColor = .white
+            addText(text: intentionArray[row], currentLbl: intentionLbl)
         }
     }
     

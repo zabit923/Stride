@@ -3138,20 +3138,14 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CS8-IT-W3d">
-                                <rect key="frame" x="170.66666666666666" y="276" width="52" height="26.333333333333314"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Label">
-                                        <attributes>
-                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <font key="NSFont" metaFont="system" size="22"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CS8-IT-W3d">
+                                <rect key="frame" x="169" y="276" width="55" height="27"/>
+                                <fontDescription key="fontDescription" name="Commissioner-Thin_Bold" family="Commissioner" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPO-oR-U3J">
-                                <rect key="frame" x="35" y="317.33333333333331" width="323" height="59.666666666666686"/>
+                                <rect key="frame" x="35" y="318" width="323" height="59.666666666666686"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">Я тренер по смешенным единоборствам. опыт работы больше 10 лет. Тренировал таких чемпионов как Ислам махачев чемпион полулегкого веса.</string>
@@ -3165,7 +3159,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QbG-zK-eJ2">
-                                <rect key="frame" x="15" y="412" width="363" height="357"/>
+                                <rect key="frame" x="15" y="412.66666666666674" width="363" height="356.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="30S-BA-Kjd">
                                     <size key="itemSize" width="120" height="120"/>
@@ -4017,6 +4011,9 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="25"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="save:" destination="xp8-FY-DrM" eventType="touchUpInside" id="Tht-Lb-gzb"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4GV-Wh-i4s"/>
@@ -4043,6 +4040,7 @@
                     <connections>
                         <outlet property="avatar" destination="0PE-Ml-1Ej" id="c8i-TI-Hre"/>
                         <outlet property="descriptionTF" destination="dO6-Df-yUn" id="eRM-Dc-DRn"/>
+                        <outlet property="descriptionView" destination="sWm-nu-Xq2" id="koK-xk-SKo"/>
                         <outlet property="mail" destination="vCc-wJ-dFm" id="zk7-oz-A2U"/>
                         <outlet property="name" destination="xqj-zb-sd3" id="XsX-vy-aG3"/>
                         <outlet property="phoneNumber" destination="FiO-if-OhK" id="g5u-Ks-vJo"/>
@@ -4807,7 +4805,7 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Рост" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6eT-Rw-gc8">
                                                         <rect key="frame" x="25.000000000000007" y="0.0" width="121.66666666666669" height="50"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" name="ForTextFields"/>
                                                         <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -4829,7 +4827,7 @@
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Вес" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QNe-u9-Q30">
                                                         <rect key="frame" x="24.999999999999993" y="0.0" width="121.33333333333331" height="50"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="textColor" name="ForTextFields"/>
                                                         <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
@@ -4856,14 +4854,28 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата Рождения" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXn-sQ-7pM">
                                                         <rect key="frame" x="25" y="0.0" width="298" height="50"/>
                                                         <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="ForTextFields"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1kV-7y-njm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="333" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <connections>
                                                             <action selector="birthday:" destination="3vT-ek-bP6" eventType="touchUpInside" id="LaM-ba-B7Q"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39w-54-gMN">
+                                                        <rect key="frame" x="288" y="0.0" width="40" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="40" id="oNs-h7-GoX"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="BlueMain"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="" image="close">
+                                                            <color key="titleColor" name="BlueMain"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clearInfo:" destination="3vT-ek-bP6" eventType="touchUpInside" id="cwP-V2-X95"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -4871,11 +4883,14 @@
                                                 <constraints>
                                                     <constraint firstItem="nXn-sQ-7pM" firstAttribute="leading" secondItem="c17-1F-HhA" secondAttribute="leading" constant="25" id="1Ug-Nj-0Ye"/>
                                                     <constraint firstItem="nXn-sQ-7pM" firstAttribute="top" secondItem="c17-1F-HhA" secondAttribute="top" id="7pg-io-Xhy"/>
-                                                    <constraint firstAttribute="trailing" secondItem="1kV-7y-njm" secondAttribute="trailing" id="9D7-cQ-jCX"/>
                                                     <constraint firstAttribute="bottom" secondItem="nXn-sQ-7pM" secondAttribute="bottom" id="Lq6-me-rek"/>
                                                     <constraint firstAttribute="bottom" secondItem="1kV-7y-njm" secondAttribute="bottom" id="Raq-4e-cyL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="39w-54-gMN" secondAttribute="bottom" id="VRR-oy-hkh"/>
                                                     <constraint firstAttribute="trailing" secondItem="nXn-sQ-7pM" secondAttribute="trailing" constant="10" id="WKR-Z4-AKM"/>
+                                                    <constraint firstItem="39w-54-gMN" firstAttribute="leading" secondItem="1kV-7y-njm" secondAttribute="trailing" id="XXH-A1-qat"/>
                                                     <constraint firstAttribute="height" constant="50" id="eBs-nE-E5O"/>
+                                                    <constraint firstAttribute="trailing" secondItem="39w-54-gMN" secondAttribute="trailing" constant="5" id="eXV-XW-VDV"/>
+                                                    <constraint firstItem="39w-54-gMN" firstAttribute="top" secondItem="c17-1F-HhA" secondAttribute="top" id="hYN-dv-fXC"/>
                                                     <constraint firstItem="1kV-7y-njm" firstAttribute="leading" secondItem="c17-1F-HhA" secondAttribute="leading" id="rCv-ef-uiV"/>
                                                     <constraint firstItem="1kV-7y-njm" firstAttribute="top" secondItem="c17-1F-HhA" secondAttribute="top" id="upZ-ed-bXd"/>
                                                 </constraints>
@@ -4889,11 +4904,25 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Уровень подготовки" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b16-7M-ba4">
                                                         <rect key="frame" x="25" y="0.0" width="298" height="50"/>
                                                         <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="ForTextFields"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button hidden="YES" opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN9-13-DAP">
+                                                        <rect key="frame" x="288" y="0.0" width="40" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="40" id="vQ9-WF-a3N"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="BlueMain"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="" image="close">
+                                                            <color key="titleColor" name="BlueMain"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clearInfo:" destination="3vT-ek-bP6" eventType="touchUpInside" id="bGW-ee-CxR"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOZ-eU-pOf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="333" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <connections>
                                                             <action selector="levelPreparation:" destination="3vT-ek-bP6" eventType="touchUpInside" id="RuH-Zi-IB9"/>
@@ -4902,15 +4931,18 @@
                                                 </subviews>
                                                 <color key="backgroundColor" name="LightBlackMain"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="yOZ-eU-pOf" secondAttribute="trailing" id="6nx-Ou-VYn"/>
                                                     <constraint firstItem="yOZ-eU-pOf" firstAttribute="leading" secondItem="762-Gg-TC6" secondAttribute="leading" id="8AI-Xf-nMq"/>
                                                     <constraint firstAttribute="bottom" secondItem="b16-7M-ba4" secondAttribute="bottom" id="8Z6-iG-2lp"/>
                                                     <constraint firstAttribute="height" constant="50" id="9ET-hM-VjO"/>
+                                                    <constraint firstAttribute="bottom" secondItem="zN9-13-DAP" secondAttribute="bottom" id="G3h-tQ-4bf"/>
+                                                    <constraint firstItem="zN9-13-DAP" firstAttribute="leading" secondItem="yOZ-eU-pOf" secondAttribute="trailing" id="KdD-Ig-hLy"/>
                                                     <constraint firstAttribute="bottom" secondItem="yOZ-eU-pOf" secondAttribute="bottom" id="PU0-12-YqV"/>
                                                     <constraint firstItem="yOZ-eU-pOf" firstAttribute="top" secondItem="762-Gg-TC6" secondAttribute="top" id="acy-yi-sZo"/>
                                                     <constraint firstAttribute="trailing" secondItem="b16-7M-ba4" secondAttribute="trailing" constant="10" id="nbD-jj-1u5"/>
+                                                    <constraint firstAttribute="trailing" secondItem="zN9-13-DAP" secondAttribute="trailing" constant="5" id="oic-b5-NoG"/>
                                                     <constraint firstItem="b16-7M-ba4" firstAttribute="top" secondItem="762-Gg-TC6" secondAttribute="top" id="srl-qu-Htw"/>
                                                     <constraint firstItem="b16-7M-ba4" firstAttribute="leading" secondItem="762-Gg-TC6" secondAttribute="leading" constant="25" id="tYh-Jr-v9Z"/>
+                                                    <constraint firstItem="zN9-13-DAP" firstAttribute="top" secondItem="762-Gg-TC6" secondAttribute="top" id="uYb-k7-6Nm"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="20"/>
@@ -4922,22 +4954,39 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цель" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRf-QN-XPU">
                                                         <rect key="frame" x="25" y="0.0" width="298" height="50"/>
                                                         <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
-                                                        <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="ForTextFields"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPn-xk-E7M">
-                                                        <rect key="frame" x="0.0" y="0.0" width="333" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="288" height="50"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <connections>
                                                             <action selector="intention:" destination="3vT-ek-bP6" eventType="touchUpInside" id="rhK-tD-nMt"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLH-2J-1dd">
+                                                        <rect key="frame" x="288" y="0.0" width="40" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="40" id="F54-gz-Zvh"/>
+                                                        </constraints>
+                                                        <color key="tintColor" name="BlueMain"/>
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                        <state key="normal" title="" image="close">
+                                                            <color key="titleColor" name="BlueMain"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="clearInfo:" destination="3vT-ek-bP6" eventType="touchUpInside" id="4gI-Vx-vvd"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" name="LightBlackMain"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="0WQ-Yv-egf"/>
-                                                    <constraint firstAttribute="trailing" secondItem="cPn-xk-E7M" secondAttribute="trailing" id="OBF-P8-adx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pLH-2J-1dd" secondAttribute="bottom" id="4UT-si-mhL"/>
                                                     <constraint firstItem="DRf-QN-XPU" firstAttribute="leading" secondItem="Vw3-XT-NAE" secondAttribute="leading" constant="25" id="OrM-By-AeP"/>
+                                                    <constraint firstItem="pLH-2J-1dd" firstAttribute="leading" secondItem="cPn-xk-E7M" secondAttribute="trailing" id="OzU-zh-odc"/>
+                                                    <constraint firstItem="pLH-2J-1dd" firstAttribute="top" secondItem="Vw3-XT-NAE" secondAttribute="top" id="SBE-JK-igO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="pLH-2J-1dd" secondAttribute="trailing" constant="5" id="Stn-bJ-hk0"/>
                                                     <constraint firstAttribute="trailing" secondItem="DRf-QN-XPU" secondAttribute="trailing" constant="10" id="Wf0-P8-RWt"/>
                                                     <constraint firstAttribute="bottom" secondItem="DRf-QN-XPU" secondAttribute="bottom" id="Y1d-60-FNt"/>
                                                     <constraint firstAttribute="bottom" secondItem="cPn-xk-E7M" secondAttribute="bottom" id="ZKP-Zk-Nm6"/>
@@ -5073,6 +5122,9 @@
                     <connections>
                         <outlet property="birthdayLbl" destination="nXn-sQ-7pM" id="2HG-p9-rVm"/>
                         <outlet property="bottomConstraint" destination="jPA-cg-y4J" id="egg-Zr-2Ct"/>
+                        <outlet property="closeBirthdayBtn" destination="39w-54-gMN" id="2xd-Sa-tZa"/>
+                        <outlet property="closeGoalBtn" destination="pLH-2J-1dd" id="8qh-Pa-mqZ"/>
+                        <outlet property="closeLevelBtn" destination="zN9-13-DAP" id="8QO-gu-tJf"/>
                         <outlet property="datePicker" destination="66d-2O-E1R" id="NIN-la-Fpe"/>
                         <outlet property="heightTextField" destination="6eT-Rw-gc8" id="W2L-Ej-Kq1"/>
                         <outlet property="intentionLbl" destination="DRf-QN-XPU" id="JBz-KP-FLu"/>
@@ -5095,7 +5147,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5776" y="2689"/>
+            <point key="canvasLocation" x="5774.8091603053435" y="2688.7323943661972"/>
         </scene>
         <!--Course Text View Controller-->
         <scene sceneID="FGT-7g-wmW">
@@ -6032,6 +6084,7 @@
         <image name="catalogBlue" width="20" height="20"/>
         <image name="centerText" width="23" height="16"/>
         <image name="changer" width="14" height="13"/>
+        <image name="close" width="15" height="15"/>
         <image name="courses" width="20" height="20"/>
         <image name="coursesBlue" width="20" height="20"/>
         <image name="coursesPopular" width="10" height="8"/>
@@ -6078,6 +6131,9 @@
         </namedColor>
         <namedColor name="ExtraLightBlackMain">
             <color red="0.16078431372549021" green="0.20000000000000001" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ForTextFields">
+            <color red="1" green="1" blue="1" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Gray">
             <color red="0.77254901960784317" green="0.77647058823529413" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

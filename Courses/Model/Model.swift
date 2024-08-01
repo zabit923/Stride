@@ -63,8 +63,10 @@ struct UserStruct {
     var level: Level?
     var goal: Goal?
     var coach = Coach()
+    var isCoach: Bool?
     var myCourses = [Course]()
     var id = 0
+    var token = ""
     
     init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "", id: Int = 0) {
         self.role = role
@@ -97,20 +99,84 @@ struct Coach {
     var myCourses = [Course]()
 }
 
-
-// MARK: - enum
-enum Level {
-    case beginner
-    case middle
-    case advanced
-    case professional
+struct InfoMe: Encodable {
+    var level: String?
+    var goal: String?
+    var height: Double?
+    var weight: Double?
+    var date_of_birth: String?
 }
 
-enum Goal {
-    case loseWeight
-    case gainWeight
-    case health
-    case other
+
+// MARK: - enum
+enum Level: String {
+    case beginner = "BEG"
+    case middle = "MID"
+    case advanced = "ADV"
+    case professional = "PRO"
+    
+    func thirdString() -> String {
+        switch self {
+        case .beginner:
+            return "Начинающий"
+        case .middle:
+            return "Средний"
+        case .advanced:
+            return "Прогрессивный"
+        case .professional:
+            return "Профессиональный"
+        }
+    }
+    
+    static func thirdLevel(_ level: String) -> Level? {
+        switch level {
+        case "Начинающий":
+            return .beginner
+        case "Средний":
+            return .middle
+        case "Прогрессивный":
+            return .advanced
+        case "Профессиональный":
+            return .professional
+        default:
+            return nil
+        }
+    }
+}
+
+enum Goal: String {
+    case loseWeight = "LW"
+    case gainWeight = "GW"
+    case health = "HL"
+    case other = "OT"
+    
+    func thirdString() -> String {
+        switch self {
+        case .loseWeight:
+            return "Похудеть"
+        case .gainWeight:
+            return "Набрать мышечную массу"
+        case .health:
+            return "Здоровье"
+        case .other:
+            return "Другое"
+        }
+    }
+    
+    static func thirdGoal(_ goal: String) -> Goal? {
+        switch goal {
+        case "Похудеть":
+            return .loseWeight
+        case "Набрать мышечную массу":
+            return .gainWeight
+        case "Здоровье":
+            return .health
+        case "Другое":
+            return .other
+        default:
+            return nil
+        }
+    }
 }
 
 enum Role: String {
