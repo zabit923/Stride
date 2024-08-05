@@ -54,17 +54,22 @@ class InfoAboutMeViewController: UIViewController {
     var picker: Picker?
     var intentionArray = [String]()
     var levelPreparationArray = [String]()
-    var user = UserStruct()
-    private let meInfo = UD().getMyInfo()
+    private var meInfo = User.info
     
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
-        startPosition = mainView.center
         pickerView.delegate = self
         pickerView.dataSource = self
-        
+        weightTextField.delegate = self
+        heightTextField.delegate = self
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        startPosition = mainView.frame.origin
+    }
+
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -116,7 +121,6 @@ class InfoAboutMeViewController: UIViewController {
     }
     
     private func addInfo() {
-        print(meInfo)
         if let birthday = meInfo.birthday {
             addText(text: birthday, currentLbl: birthdayLbl)
         }
@@ -128,9 +132,11 @@ class InfoAboutMeViewController: UIViewController {
         }
         if let height = meInfo.height {
             heightTextField.text = "\(height)"
+            heightTextField.textColor = UIColor.white
         }
         if let weight = meInfo.weight {
             weightTextField.text = "\(weight)"
+            weightTextField.textColor = UIColor.white
         }
     }
     
@@ -142,18 +148,18 @@ class InfoAboutMeViewController: UIViewController {
     }
     
     private func changeUser() {
-        user.height = Double(heightTextField.text!)
-        user.weight = Double(weightTextField.text!)
-        user.birthday = selectBirthday
+        meInfo.height = Double(heightTextField.text!)
+        meInfo.weight = Double(weightTextField.text!)
+        meInfo.birthday = selectBirthday
         if selectGoal != nil {
-            user.goal = Goal.thirdGoal(selectGoal!)
+            meInfo.goal = Goal.thirdGoal(selectGoal!)
         }else {
-            user.goal = nil
+            meInfo.goal = nil
         }
         if selectLevel != nil {
-            user.level = Level.thirdLevel(selectLevel!)
+            meInfo.level = Level.thirdLevel(selectLevel!)
         }else {
-            user.level = nil
+            meInfo.level = nil
         }
     }
     
@@ -215,7 +221,7 @@ class InfoAboutMeViewController: UIViewController {
                 dismiss(animated: false)
             }else {
                 UIView.animate(withDuration: 0.5) {
-                    self.mainView.center = self.startPosition
+                    self.mainView.frame.origin = self.startPosition
                 }
             }
         default:
@@ -237,7 +243,7 @@ class InfoAboutMeViewController: UIViewController {
     @IBAction func save(_ sender: UIButton) {
         Task {
             changeUser()
-            try await User().changeInfoAboutMe(id: meInfo.id,user: user)
+            try await User().changeInfoAboutMe(id: meInfo.id,user: meInfo)
             dismiss(animated: false)
         }
     }
@@ -300,4 +306,14 @@ extension InfoAboutMeViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         }
     }
     
+}
+extension InfoAboutMeViewController: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text == "" {
+            textField.textColor = UIColor.forTextFields
+        }else {
+            textField.textColor = UIColor.white
+        }
+    }
 }

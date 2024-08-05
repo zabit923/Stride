@@ -104,7 +104,6 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "day", for: indexPath) as! DaysCourseCollectionViewCell
             
             cell.lbl.text = "\(indexPath.row + 1)"
-            print(indexPath.row)
             if selectDay == indexPath.row {
                 cell.current()
             }else {

@@ -35,13 +35,24 @@ struct Modules {
 
 struct Course {
     var daysCount: Int
-    var progressInPercents: Int
-    var progressInDays: Int
     var nameCourse: String
-    var nameAuthor: String
+    var nameAuthor: String?
     var price: Int
     var image: String
-    var rating: Float
+    var rating: Float?
+    var id: Int
+    var description: String
+    var dataCreated: String
+    
+    init(daysCount: Int = 0, nameCourse: String = "", price: Int = 0, image: String = "",  id: Int = 0, description: String = "", dataCreated: String = "") {
+        self.daysCount = daysCount
+        self.nameCourse = nameCourse
+        self.price = price
+        self.image = image
+        self.id = id
+        self.description = description
+        self.dataCreated = dataCreated
+    }
 }
 
 struct CourseInfo {

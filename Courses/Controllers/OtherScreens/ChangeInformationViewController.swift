@@ -21,7 +21,7 @@ class ChangeInformationViewController: UIViewController {
     private var avatarImage = UIImage.defaultLogo
     private var avatarURL: String?
     private var activateTF: UITextField?
-    private var user = UD().getMyInfo()
+    private var user = User.info
     
     override func viewDidLoad() {
         super.viewDidLoad()

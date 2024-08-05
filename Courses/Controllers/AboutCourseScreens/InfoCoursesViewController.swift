@@ -19,6 +19,8 @@ class InfoCoursesViewController: UIViewController {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var im: UIImageView!
     
+    var course = Course()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         reviewsCollectionView.delegate = self
@@ -29,6 +31,16 @@ class InfoCoursesViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         changeCollectionViewHeight()
+        design()
+    }
+    
+    
+    private func design() {
+        price.text = "\(course.price)"
+        descriptionText.text = course.description
+        dateCreate.text = course.dataCreated
+        name.text = course.nameCourse
+        //coachName.setTitle(course.nameAuthor, for: .normal)
     }
     
     private func changeCollectionViewHeight() {
@@ -36,7 +48,7 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func coach(_ sender: UIButton) {
-        
+//        performSegue(withIdentifier: "coach", sender: self)
     }
     
     @IBAction func buy(_ sender: UIButton) {
@@ -45,6 +57,15 @@ class InfoCoursesViewController: UIViewController {
     
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "coach" {
+            let vc = segue.destination as! CoachViewController
+//            vc.idCoach = course
+        }
+        
     }
     
 }
@@ -57,7 +78,6 @@ extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reviews", for: indexPath) as! ReviewsCollectionViewCell
         cell.avatar.image = UIImage.defaultLogo
-        print(55)
         return cell
     }
     

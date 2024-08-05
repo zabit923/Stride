@@ -12,8 +12,9 @@ import SwiftyJSON
 
 class User {
     
-    static let info = UD().getMyInfo()
-    static let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+    static var info: UserStruct {
+        return UD().getMyInfo()
+    }
     
     
     func changeInfoUser(id: Int, user: UserStruct) async throws {
@@ -59,9 +60,10 @@ class User {
     
     func getMyInfo() async throws -> UserStruct  {
         let url = Constants.url + "api/v1/users/me/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(
             url,method: .get,
-            headers: User.headers
+            headers: headers
         ).serializingData().value
         let json = JSON(value)
         var user = UserStruct()
@@ -76,6 +78,7 @@ class User {
         user.goal = Goal(rawValue: json["target"].stringValue)
         user.level = Level(rawValue: json["level"].stringValue)
         user.isCoach = json["is_coach"].boolValue
+        user.coach.description = json["desc"].stringValue
         UD().saveMyInfo(user)
         UD().saveInfoAboutMe(user)
         return user

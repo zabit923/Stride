@@ -52,7 +52,7 @@ class AddInfoAboutCourseVC: UIViewController {
     }
     
     func addCoach() {
-        let coach = UD().getMyInfo()
+        let coach = User.info
         coachPred.text = "\(coach.name) \(coach.surname)"
     }
     
