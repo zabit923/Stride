@@ -116,7 +116,8 @@ class AddCourseViewController: UIViewController {
     private func getCourse() {
         Task {
             let url = Constants.url + "api/v1/courses/"
-            let value = try await AF.request(url,method: .get, headers: User.headers).serializingData().value
+            let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+            let value = try await AF.request(url,method: .get, headers: headers).serializingData().value
             let json = JSON(value)
             print(json)
         }
@@ -141,11 +142,12 @@ class AddCourseViewController: UIViewController {
                 ]
             ]
         ]
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url,
                                          method: .patch,
                                          parameters: parameters,
                                          encoding: JSONEncoding.default,
-                                         headers: User.headers).serializingData().value
+                                         headers: headers).serializingData().value
         let json = JSON(value)
         print(json)
     }
@@ -168,7 +170,6 @@ class AddCourseViewController: UIViewController {
         Task {
             try await addCourse(data: data)
         }
-//        UserDefaults.standard.set(data, forKey: "text")
     }
     
     @IBAction func color(_ sender: UIButton) {

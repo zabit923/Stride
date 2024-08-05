@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     private var banners = [String]()
     private var recomendCourses = [String]()
     private let layout = PageLayout()
-    private var user = UD().getMyInfo()
+    private var user = User.info
     private var startPosition = CGPoint()
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
     
     private func tabbar() {
         var deleteUser = 3
-        if user.isCoach == true {
+        if user.role == .coach {
             deleteUser = 4
         }
         self.tabBarController?.viewControllers?.remove(at: deleteUser) // 3 - USER | 4 - COACH
@@ -83,11 +83,6 @@ class HomeViewController: UIViewController {
     }
     
     private func addProfile() {
-        Task {
-            user = try await User().getMyInfo()
-            nameLbl.text = "\(user.name) \(user.surname)"
-            avatar.image = UIImage.defaultLogo
-        }
         nameLbl.text = "\(user.name) \(user.surname)"
         avatar.image = UIImage.defaultLogo
     }

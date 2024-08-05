@@ -39,7 +39,6 @@ class Sign {
     
     private func saveInBD(token: String, name: String, email: String) async throws {
         let url = Constants.url + "api/v1/oauth/google/"
-        print(name,email,token)
         let parameters = [
               "username": name,
               "email": email,
@@ -63,7 +62,6 @@ class Sign {
         
         let json = try await JSON(data.value)
         let tokenAccess = json["access"].stringValue
-        print(tokenAccess)
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
         
         if code == 200 {

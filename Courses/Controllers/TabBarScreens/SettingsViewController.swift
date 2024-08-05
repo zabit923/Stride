@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
     
     var arrayObjects = [Objects]()
     var arrayObjects2 = [Objects]()
-    var user = UserStruct()
+    var user = User.info
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,6 @@ class SettingsViewController: UIViewController {
     }
     
     private func addProfile() {
-        let user = UD().getMyInfo()
         name.text = "\(user.name) \(user.surname)"
         mail.text = user.email
         avatar.image = UIImage.defaultLogo
@@ -71,7 +70,17 @@ class SettingsViewController: UIViewController {
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
         }
     }
-
+    
+    
+    @IBAction func logOut(_ sender: UIButton) {
+        UD().clearUD()
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @IBAction func back(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
  
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -107,15 +116,15 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             case "Информация о себе":
                 performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
             case "История курсов":
-                performSegue(withIdentifier: "goToAddCourse", sender: self)
+                break
             case "Конфиденциальность":
-                performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
+                break
             case "Добавить курс":
                 performSegue(withIdentifier: "goToAddCourse", sender: self)
             case "Подтвердить аккаунт":
-                performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
+                break
             case "Стать тренером":
-                performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
+                break
             default:
                 break
             }

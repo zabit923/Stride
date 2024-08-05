@@ -17,7 +17,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
     
-    var user = UD().getMyInfo()
+    var user = User.info
     
     
     override func viewDidLoad() {
@@ -33,20 +33,13 @@ class ProfileViewController: UIViewController {
     }
     
     func design() {
-        print(user)
         avatar.image = UIImage.defaultLogo
         characteristic.text = user.coach.description
-        name.text = user.name
+        name.text = "\(user.surname) \(user.name)"
         rating.text = "\(0.0)"
         coursesCount.text = "\(0)"
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToSettings" {
-            let vc = segue.destination as! SettingsViewController
-            vc.user.role = user.role
-        }
-    }
     
 }
 

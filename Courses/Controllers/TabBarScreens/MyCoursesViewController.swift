@@ -64,9 +64,9 @@ extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.nameCourse.text = course[indexPath.row].nameCourse
         cell.price.text = "\(course[indexPath.row].price)"
         cell.rating.text = "\(course[indexPath.row].rating)"
-        cell.progressInDays.text = "\(course[indexPath.row].progressInDays)/\(course[indexPath.row].daysCount)"
-        cell.progressInPercents.text = "\(course[indexPath.row].progressInPercents)%"
-        cell.progressVIew.progress = Float(course[indexPath.row].progressInPercents / 100)
+//        cell.progressInDays.text = "\(course[indexPath.row].progressInDays)/\(course[indexPath.row].daysCount)"
+//        cell.progressInPercents.text = "\(course[indexPath.row].progressInPercents)%"
+//        cell.progressVIew.progress = Float(course[indexPath.row].progressInPercents / 100)
         return cell
     }
 }
