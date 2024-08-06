@@ -1,14 +1,17 @@
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
 from django.contrib.auth import get_user_model
 
 from .permissions import IsCoach, IsAdminOrSelf
 from .models import (
     Course,
     Category,
+    Day,
+    Module,
 )
 from .serializers import (
     CourseSerializer,
@@ -16,6 +19,8 @@ from .serializers import (
     BuyCourseSerializer,
     MyCourses,
     CategorySerializer,
+    DaySerializer,
+    ModuleSerializer,
 )
 
 
@@ -66,4 +71,24 @@ class CourseApiViewSet(ModelViewSet):
 class CategoryApiViewSet(ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+
+class DayApiViewSet(
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet
+):
+    queryset = Day.objects.all()
+    serializer_class = DaySerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+
+
+class ModuleApiViewSet(
+    UpdateModelMixin,
+    DestroyModelMixin,
+    GenericViewSet
+):
+    queryset = Module.objects.all()
+    serializer_class = ModuleSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
