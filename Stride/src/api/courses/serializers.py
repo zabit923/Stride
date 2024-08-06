@@ -4,7 +4,18 @@ from .models import (
     Course,
     Day,
     Module,
+    MyCourses,
+    Category
 )
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = (
+            'title',
+            'image',
+        )
 
 
 class ModuleSerializer(serializers.ModelSerializer):
@@ -31,6 +42,35 @@ class DaySerializer(serializers.ModelSerializer):
             'id',
             'modules',
         )
+
+
+class ShortCourseSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    count_days = serializers.SerializerMethodField()
+    image = serializers.ImageField(required=False)
+    bought = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Course
+        fields = (
+            'id',
+            'author',
+            'title',
+            'price',
+            'image',
+            'desc',
+            'category',
+            'created_at',
+            'count_days',
+            'bought',
+        )
+
+    def get_count_days(self, obj: Course):
+        return obj.days.count()
+
+    def get_bought(self, obj):
+        user = self.context["request"].user
+        return MyCourses.objects.filter(user=user, course=obj).exists()
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -72,3 +112,15 @@ class CourseSerializer(serializers.ModelSerializer):
             for module_data in modules_data:
                 Module.objects.create(day=day, **module_data)
         return instance
+
+
+class BuyCourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyCourses
+        fields = ['course']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        course = validated_data['course']
+        my_course, created = MyCourses.objects.get_or_create(user=user, course=course)
+        return my_course
