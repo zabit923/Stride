@@ -39,13 +39,14 @@ class CustomTokenObtainPairSerializer(serializers.Serializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password_again = serializers.CharField(write_only=True, required=True)
+    token = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = [
             'id', 'email', 'phone_number',
             'first_name', 'last_name', 'is_coach',
-            'password', 'password_again',
+            'password', 'password_again', 'token'
         ]
 
     def validate(self, attrs):
@@ -66,6 +67,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+    def get_token(self, user):
+        refresh = RefreshToken.for_user(user)
+        access = AccessToken.for_user(user)
+        return {
+            'refresh': str(refresh),
+            'access': str(access),
+        }
 
 
 class UserGetSerializer(serializers.ModelSerializer):
