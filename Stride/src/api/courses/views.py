@@ -29,10 +29,9 @@ User = get_user_model()
 
 class CourseApiViewSet(ModelViewSet):
     queryset = Course.objects.all()
-    permission_classes = [IsAuthenticated, IsCoach, IsAdminOrSelf]
 
     def get_serializer_class(self):
-        if self.action in ['list', 'my_course']:
+        if self.action in ['list', 'my_courses', 'my_bought_courses']:
             return ShortCourseSerializer
         elif self.action == 'retrieve':
             user = self.request.user
@@ -44,6 +43,21 @@ class CourseApiViewSet(ModelViewSet):
         elif self.action == 'buy_course':
             return BuyCourseSerializer
         return CourseSerializer
+
+    def get_permissions(self):
+        if self.action in [
+            'list',
+            'retrieve',
+            'buy_course',
+            'my_courses',
+            'my_bought_courses',
+        ]:
+            self.permission_classes = [IsAuthenticated]
+        elif self.action in ['update', 'delete']:
+            self.permission_classes = [IsAdminOrSelf]
+        else:
+            self.permission_classes = [IsCoach]
+        return super().get_permissions()
 
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def buy_course(self, request, pk=None):
@@ -64,7 +78,7 @@ class CourseApiViewSet(ModelViewSet):
     def my_bought_courses(self, request):
         user = request.user
         bought_courses = Course.objects.filter(buyers__user=user)
-        serializer = CourseSerializer(bought_courses, many=True)
+        serializer = self.get_serializer(bought_courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

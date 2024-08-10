@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 from .models import (
     Course,
@@ -7,6 +8,9 @@ from .models import (
     MyCourses,
     Category
 )
+
+
+User = get_user_model()
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -44,8 +48,14 @@ class DaySerializer(serializers.ModelSerializer):
         )
 
 
+class AuthorShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name')
+
+
 class ShortCourseSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    author = AuthorShortSerializer(read_only=True)
     count_days = serializers.SerializerMethodField()
     image = serializers.ImageField(required=False)
     bought = serializers.SerializerMethodField()
