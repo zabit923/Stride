@@ -1,0 +1,20 @@
+services:
+  stride-project:
+    restart: always
+    build:
+      context: .
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./stride:/stride
+      - ./media:/src/media
+    env_file: .pg-env
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - database
+
+  database:
+    restart: always
+    image: postgres:14.6-alpine
+    env_file: .pg-env
