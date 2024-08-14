@@ -92,11 +92,13 @@ class Sign {
         let value = try await data.value
         
         let json = JSON(value)
+        let tokenAccess = json["token"]["access"].stringValue
         
         guard let code = await data.response.response?.statusCode else {throw ErrorNetwork.tryAgainLater}
         
         if code == 201 {
-            try await vhod(phoneNumber: phoneNumber,password: password)
+            UD().saveToken(tokenAccess)
+            let _ = try await User().getMyInfo()
             UD().saveCurrent(true)
         }else {
             let error = json.dictionary!.first!.value[0].stringValue

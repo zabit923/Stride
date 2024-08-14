@@ -20,7 +20,11 @@ class SettingsViewController: UIViewController {
     
     var arrayObjects = [Objects]()
     var arrayObjects2 = [Objects]()
-    var user = User.info
+    var user: UserStruct = User.info {
+        didSet {
+            addProfile()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,14 +46,17 @@ class SettingsViewController: UIViewController {
     }
     
     private func design() {
-        addProfile()
-        if user.role == .user {
-            backBtn.isHidden = true
-        }else {
-            backBtn.isHidden = false
+        Task {
+            user = try await User().getMyInfo()
+            if user.role == .user {
+                backBtn.isHidden = true
+            }else {
+                backBtn.isHidden = false
+            }
+            self.view.layoutSubviews()
         }
-        self.view.layoutSubviews()
     }
+    
     
     private func changeHeightTable() {
         tbvConstant.constant = settingsTableView.contentSize.height
@@ -58,15 +65,17 @@ class SettingsViewController: UIViewController {
     private func addProfile() {
         name.text = "\(user.name) \(user.surname)"
         mail.text = user.email
-        avatar.image = UIImage.defaultLogo
+        if let ava = user.avatarURL {
+            avatar.sd_setImage(with: ava)
+        }
     }
     
     private func addObjects() {
         if user.role == .coach {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "История курсов", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Добавить курс", image: "confirmAccount")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "Мои курсы", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Добавить курс", image: "confirmAccount")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
         }else if user.role == .user {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "История курсов", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Подтвердить аккаунт", image: "confirmAccount"), Objects(name: "Стать тренером", image: "becomeCoach")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "Мои курсы", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Подтвердить аккаунт", image: "confirmAccount"), Objects(name: "Стать тренером", image: "becomeCoach")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
         }
     }
@@ -115,8 +124,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             switch arrayObjects[indexPath.row].name {
             case "Информация о себе":
                 performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
-            case "История курсов":
-                break
+            case "Мои курсы":
+                performSegue(withIdentifier: "myCourse", sender: self)
             case "Конфиденциальность":
                 break
             case "Добавить курс":
@@ -129,6 +138,18 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 break
             }
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "myCourse" {
+            let vc = segue.destination as! CoursesViewController
+            vc.typeCourse = .myCreate
+        }else if segue.identifier == "goToAddCourse" {
+            let vc = segue.destination as! AddInfoAboutCourseVC
+            vc.create = true
+        }
+        
     }
    
     

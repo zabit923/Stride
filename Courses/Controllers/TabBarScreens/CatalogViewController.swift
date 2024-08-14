@@ -54,7 +54,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         }else {
             let cell = catalogCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-            cell.image.sd_setImage(with: URL(string: courses[indexPath.row].image))
+            cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
             cell.nameAuthor.text = courses[indexPath.row].nameAuthor
             cell.nameCourse.text = courses[indexPath.row].nameCourse
             cell.price.text = "Цена: \(courses[indexPath.row].price)$"

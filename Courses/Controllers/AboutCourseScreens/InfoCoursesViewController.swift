@@ -40,7 +40,8 @@ class InfoCoursesViewController: UIViewController {
         descriptionText.text = course.description
         dateCreate.text = course.dataCreated
         name.text = course.nameCourse
-        //coachName.setTitle(course.nameAuthor, for: .normal)
+        coachName.setTitle(course.nameAuthor, for: .normal)
+        im.sd_setImage(with: course.imageURL)
     }
     
     private func changeCollectionViewHeight() {
@@ -48,11 +49,17 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func coach(_ sender: UIButton) {
-//        performSegue(withIdentifier: "coach", sender: self)
+        performSegue(withIdentifier: "coach", sender: self)
     }
     
     @IBAction func buy(_ sender: UIButton) {
-        
+        Task {
+            do {
+                try await Courses().buyCourse(id: course.id)
+            }catch {
+                print("Error buy course")
+            }
+        }
     }
     
     @IBAction func back(_ sender: UIButton) {
@@ -63,7 +70,7 @@ class InfoCoursesViewController: UIViewController {
         
         if segue.identifier == "coach" {
             let vc = segue.destination as! CoachViewController
-//            vc.idCoach = course
+            vc.idCoach = course.idAuthor
         }
         
     }

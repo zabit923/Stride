@@ -35,6 +35,7 @@
 		440DAB402C1748D600C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3F2C1748D600C576FB /* Base */; };
 		4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442F3D72C31BFDB00203A36 /* PageLayout.swift */; };
 		444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A07002C2B9D6C008F4E68 /* Extension.swift */; };
+		4497C2F82C6117D9004E91E8 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4497C2F72C6117D9004E91E8 /* credentials.plist */; };
 		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
 		449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */; };
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
@@ -56,7 +57,6 @@
 		44DFB11B2C3B2637005C8F44 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 44DFB11A2C3B2637005C8F44 /* loading.json */; };
 		44DFB11E2C3BE46B005C8F44 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 44DFB11D2C3BE46B005C8F44 /* Lottie */; };
 		44E244062C578A2900EADF3D /* defaultLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E244052C578A2900EADF3D /* defaultLogo.png */; };
-		44E2440A2C5A6A3900EADF3D /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44E244092C5A6A3900EADF3D /* credentials.plist */; };
 		44E2440C2C5D6C7000EADF3D /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E2440B2C5D6C7000EADF3D /* Courses.swift */; };
 		44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906332C29A59B00FFA6DD /* HomeViewController.swift */; };
 		44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */; };
@@ -67,7 +67,6 @@
 		751510412C34586D009978E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751510402C34586D009978E6 /* SettingsViewController.swift */; };
 		753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */; };
 		753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */; };
-		759578492C5B976E00A9F811 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 759578482C5B976E00A9F811 /* credentials.plist */; };
 		7595784B2C5B9A7E00A9F811 /* AddInfoAboutModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */; };
 		75D7F3562C4299EF0083DBEF /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7F3552C4299EF0083DBEF /* UD.swift */; };
 /* End PBXBuildFile section */
@@ -112,6 +111,7 @@
 		440DAB412C1748D600C576FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4442F3D72C31BFDB00203A36 /* PageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayout.swift; sourceTree = "<group>"; };
 		444A07002C2B9D6C008F4E68 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		4497C2F72C6117D9004E91E8 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = credentials.plist; path = ../../../../../Downloads/credentials.plist; sourceTree = "<group>"; };
 		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -130,7 +130,6 @@
 		44DFB1152C3B199A005C8F44 /* RecomendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationCollectionViewCell.swift; sourceTree = "<group>"; };
 		44DFB11A2C3B2637005C8F44 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		44E244052C578A2900EADF3D /* defaultLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defaultLogo.png; path = Courses/Assets.xcassets/defaultLogo.imageset/defaultLogo.png; sourceTree = SOURCE_ROOT; };
-		44E244092C5A6A3900EADF3D /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = credentials.plist; path = ../../../../../Downloads/credentials.plist; sourceTree = "<group>"; };
 		44E2440B2C5D6C7000EADF3D /* Courses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Courses.swift; sourceTree = "<group>"; };
 		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -141,7 +140,6 @@
 		751510402C34586D009978E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoursesViewController.swift; sourceTree = "<group>"; };
 		753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
-		759578482C5B976E00A9F811 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = credentials.plist; path = ../../../Downloads/credentials.plist; sourceTree = "<group>"; };
 		7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoAboutModuleViewController.swift; sourceTree = "<group>"; };
 		75D7F3552C4299EF0083DBEF /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,7 +216,7 @@
 				440DAB332C1748D400C576FB /* AppDelegate.swift */,
 				440DAB352C1748D400C576FB /* SceneDelegate.swift */,
 				440DAB412C1748D600C576FB /* Info.plist */,
-				759578482C5B976E00A9F811 /* credentials.plist */,
+				4497C2F72C6117D9004E91E8 /* credentials.plist */,
 				440DAB3E2C1748D600C576FB /* LaunchScreen.storyboard */,
 				7515103D2C345816009978E6 /* TableViewCells */,
 				44E906352C2ADE5900FFA6DD /* CollectionViewCells */,
@@ -413,8 +411,8 @@
 				440DAB3B2C1748D400C576FB /* Base in Resources */,
 				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
 				44DFB11B2C3B2637005C8F44 /* loading.json in Resources */,
-				759578492C5B976E00A9F811 /* credentials.plist in Resources */,
 				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
+				4497C2F82C6117D9004E91E8 /* credentials.plist in Resources */,
 				44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				44E244062C578A2900EADF3D /* defaultLogo.png in Resources */,
 				753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */,
@@ -631,6 +629,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -664,6 +663,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

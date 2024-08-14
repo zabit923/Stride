@@ -17,7 +17,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
     
-    var user = User.info
+    var user: UserStruct = User.info {
+        didSet {
+            addProfile()
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -33,13 +37,20 @@ class ProfileViewController: UIViewController {
     }
     
     func design() {
-        avatar.image = UIImage.defaultLogo
+        Task {
+            user = try await User().getMyInfo()
+        }
+    }
+    
+    private func addProfile() {
         characteristic.text = user.coach.description
         name.text = "\(user.surname) \(user.name)"
         rating.text = "\(0.0)"
         coursesCount.text = "\(0)"
+        if let avatar = user.avatarURL {
+            self.avatar.sd_setImage(with: avatar)
+        }
     }
-    
     
 }
 
@@ -51,7 +62,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-        cell.image.sd_setImage(with: URL(string: user.coach.myCourses[indexPath.row].image))
+        cell.image.sd_setImage(with: user.coach.myCourses[indexPath.row].imageURL)
         return cell
     }
 }

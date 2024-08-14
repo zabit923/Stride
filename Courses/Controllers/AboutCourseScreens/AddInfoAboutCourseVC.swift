@@ -9,6 +9,7 @@ import UIKit
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var imageBorder: Border!
     @IBOutlet weak var categoryBorder: Border!
     @IBOutlet weak var priceBorder: Border!
     @IBOutlet weak var descriptionBorder: Border!
@@ -22,6 +23,11 @@ class AddInfoAboutCourseVC: UIViewController {
     @IBOutlet weak var descriptionCourse: UITextField!
     @IBOutlet weak var name: UITextField!
     
+    private var infoCourses = Course()
+    var idCourse = 0
+    private var imageURL: URL?
+    var create = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         price.delegate = self
@@ -31,7 +37,26 @@ class AddInfoAboutCourseVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getCourse()
         addCoach()
+    }
+    
+    private func getCourse() {
+        guard create == false else { return }
+        Task {
+            infoCourses = try await Courses().getCoursesByID(id: idCourse)
+            design()
+        }
+    }
+    
+    private func design() {
+        imagePred.sd_setImage(with: infoCourses.imageURL)
+        namePred.text = infoCourses.nameCourse
+        pricePred.text = "\(infoCourses.price)$"
+        name.text = infoCourses.nameCourse
+        price.text = "\(infoCourses.price)"
+        descriptionCourse.text = infoCourses.description
+        imageURL = infoCourses.imageURL
     }
     
     func checkError() -> Bool {
@@ -48,6 +73,18 @@ class AddInfoAboutCourseVC: UIViewController {
         }else {
             priceBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
         }
+        if descriptionCourse.text!.isEmpty {
+            result = false
+            descriptionBorder.layer.borderColor = UIColor.errorRed.cgColor
+        }else {
+            descriptionBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
+        }
+        if imagePred.image == nil || imageURL == nil{
+            result = false
+            imageBorder.layer.borderColor = UIColor.errorRed.cgColor
+        }else {
+            imageBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
+        }
         return result
     }
     
@@ -56,9 +93,27 @@ class AddInfoAboutCourseVC: UIViewController {
         coachPred.text = "\(coach.name) \(coach.surname)"
     }
     
+    func addInfoInVar() {
+        infoCourses.nameCourse = name.text!
+        infoCourses.price = Int(price.text!) ?? 0
+        infoCourses.description = descriptionCourse.text!
+        infoCourses.imageURL = imageURL
+    }
+    
     @IBAction func save(_ sender: UIButton) {
+        
         if checkError() {
-            performSegue(withIdentifier: "goToAddModule", sender: self)
+            Task {
+                addInfoInVar()
+                if create {
+                    idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .post)
+                }else {
+                    print(idCourse)
+                    idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
+                }
+                print(idCourse)
+                performSegue(withIdentifier: "goToAddModule", sender: self)
+            }
         }
     }
     
@@ -77,6 +132,14 @@ class AddInfoAboutCourseVC: UIViewController {
         price.resignFirstResponder()
         descriptionCourse.resignFirstResponder()
         name.resignFirstResponder()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToAddModule" {
+            let vc = segue.destination as! AddModuleCoursesViewController
+            vc.idCourse = idCourse
+        }
         
     }
     
@@ -88,8 +151,9 @@ extension AddInfoAboutCourseVC: UIImagePickerControllerDelegate & UINavigationCo
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             imagePred.image = image
+            imageURL = url
             dismiss(animated: true)
         }
     }

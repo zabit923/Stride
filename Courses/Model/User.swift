@@ -19,15 +19,15 @@ class User {
     
     func changeInfoUser(id: Int, user: UserStruct) async throws {
         let url = Constants.url + "api/v1/users/\(id)/"
-        let parameters = [
-            "first_name": user.name,
-            "last_name": user.surname,
-            "phone_number": user.phone,
-            "email": user.email,
-            "desc": user.coach.description,
-            //"image": user.avatar
-        ]
-        let value = try await AF.request(url, method: .patch, parameters: parameters).serializingData().value
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(user.avatarURL!, withName: "image")
+            multipartFormData.append(Data(user.name.utf8), withName: "first_name")
+            multipartFormData.append(Data(user.surname.utf8), withName: "last_name")
+            multipartFormData.append(Data(user.phone.utf8), withName: "phone_number")
+            multipartFormData.append(Data(user.email.utf8), withName: "email")
+            multipartFormData.append(Data(user.coach.description!.utf8), withName: "desc")
+        }, to: url, method: .patch, headers: headers).serializingData().value
         UD().saveMyInfo(user)
         let json = JSON(value)
         print(json)
@@ -79,6 +79,12 @@ class User {
         user.level = Level(rawValue: json["level"].stringValue)
         user.isCoach = json["is_coach"].boolValue
         user.coach.description = json["desc"].stringValue
+        user.avatarURL = URL(string: "http://127.0.0.1:8000\(json["image"].stringValue)")
+        if user.isCoach == true {
+            user.role = .coach
+        }else {
+            user.role = .user
+        }
         UD().saveMyInfo(user)
         UD().saveInfoAboutMe(user)
         return user
@@ -94,6 +100,7 @@ class User {
         user.email = json["email"].stringValue
         user.phone = json["phone_number"].stringValue
         user.id = json["id"].intValue
+        user.avatarURL = URL(string: "http://127.0.0.1:8000\(json["image"].stringValue)")
         return user
     }
 }

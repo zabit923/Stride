@@ -31,27 +31,32 @@ struct Modules {
     var minutes: Int
     var image: UIImage?
     var description: String?
+    var id: Int
 }
 
 struct Course {
     var daysCount: Int
     var nameCourse: String
-    var nameAuthor: String?
+    var nameAuthor: String
+    var idAuthor: Int
     var price: Int
-    var image: String
+    var imageURL: URL?
     var rating: Float?
     var id: Int
     var description: String
     var dataCreated: String
-    
-    init(daysCount: Int = 0, nameCourse: String = "", price: Int = 0, image: String = "",  id: Int = 0, description: String = "", dataCreated: String = "") {
+
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float? = nil, id: Int = 0, description: String = "", dataCreated: String = "") {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
+        self.nameAuthor = nameAuthor
         self.price = price
-        self.image = image
+        self.imageURL = imageURL
+        self.rating = rating
         self.id = id
         self.description = description
         self.dataCreated = dataCreated
+        self.idAuthor = idAuthor
     }
 }
 
@@ -70,7 +75,7 @@ struct UserStruct {
     var height: Double?
     var weight: Double?
     var birthday: String?
-    var avatar: String?
+    var avatarURL: URL?
     var level: Level?
     var goal: Goal?
     var coach = Coach()
@@ -87,7 +92,7 @@ struct UserStruct {
         self.phone = phone
     }
     
-    init(role: Role, name: String, surname: String, email: String, phone: String, height: Double? = nil, weight: Double? = nil, birthday: String? = nil, description: String? = nil, avatar: String? = nil, level: Level? = nil, goal: Goal? = nil, myCourses: [Course] = [Course](), id: Int = 0) {
+    init(role: Role, name: String, surname: String, email: String, phone: String, height: Double? = nil, weight: Double? = nil, birthday: String? = nil, description: String? = nil, avatarURL: URL? = nil, level: Level? = nil, goal: Goal? = nil, myCourses: [Course] = [Course](), id: Int = 0) {
         self.role = role
         self.name = name
         self.surname = surname
@@ -96,7 +101,7 @@ struct UserStruct {
         self.height = height
         self.weight = weight
         self.birthday = birthday
-        self.avatar = avatar
+        self.avatarURL = avatarURL
         self.level = level
         self.goal = goal
         self.myCourses = myCourses
@@ -207,5 +212,11 @@ enum Alignment {
     case center
     case right
     case defaultCenter
+}
+
+enum CourseCatalog {
+    case myCreate
+    case recomend
+    case popular
 }
 

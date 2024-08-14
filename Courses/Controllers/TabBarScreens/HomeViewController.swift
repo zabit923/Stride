@@ -19,7 +19,11 @@ class HomeViewController: UIViewController {
     private var banners = [String]()
     private var recomendCourses = [String]()
     private let layout = PageLayout()
-    private var user = User.info
+    private var user: UserStruct = User.info {
+        didSet {
+            addProfile()
+        }
+    }
     private var startPosition = CGPoint()
     
     override func viewDidLoad() {
@@ -78,13 +82,17 @@ class HomeViewController: UIViewController {
     }
     
     private func design() {
+        Task {
+            user = try await User().getMyInfo()
+        }
         getBanners()
-        addProfile()
     }
     
     private func addProfile() {
         nameLbl.text = "\(user.name) \(user.surname)"
-        avatar.image = UIImage.defaultLogo
+        if let ava = user.avatarURL {
+            avatar.sd_setImage(with: ava)
+        }
     }
     
     

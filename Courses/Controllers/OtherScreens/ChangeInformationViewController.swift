@@ -18,10 +18,9 @@ class ChangeInformationViewController: UIViewController {
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var avatar: UIImageView!
     
-    private var avatarImage = UIImage.defaultLogo
-    private var avatarURL: String?
+    private var avatarURL: URL?
     private var activateTF: UITextField?
-    private var user = User.info
+    private var user: UserStruct = User.info
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,17 +61,22 @@ class ChangeInformationViewController: UIViewController {
     }
     
     private func design() {
-        if user.role == .user {
-            descriptionView.isHidden = true
-        }else {
-            descriptionView.isHidden = false
+        Task {
+            user = try await User().getMyInfo()
+            if user.role == .user {
+                descriptionView.isHidden = true
+            }else {
+                descriptionView.isHidden = false
+            }
+            addText()
         }
-        addText()
     }
     
     
     private func addText() {
-        avatar.image = avatarImage
+        if let avatar = user.avatarURL {
+            self.avatar.sd_setImage(with: avatar)
+        }
         name.text = user.name
         surname.text = user.surname
         mail.text = user.email
@@ -86,7 +90,7 @@ class ChangeInformationViewController: UIViewController {
         user.phone = phoneNumber.text ?? user.phone
         user.email = mail.text ?? user.email
         user.coach.description = descriptionTF.text ?? user.coach.description
-        user.avatar = avatarURL ?? user.avatar
+        user.avatarURL = avatarURL
     }
     
     @IBAction func save(_ sender: UIButton) {
@@ -119,9 +123,8 @@ extension ChangeInformationViewController: UIImagePickerControllerDelegate & UIN
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
-            avatarImage = image
-            avatarURL = "\(url)"
-            addText()
+            avatar.image = image
+            avatarURL = url
             picker.dismiss(animated: true)
         }
     }

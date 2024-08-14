@@ -19,6 +19,7 @@ class AddModuleCoursesViewController: UIViewController {
     private var scaleView = false
     private var courseInfo = [CourseInfo]()
     private var selectDay: Int = 0
+    var idCourse = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,13 @@ class AddModuleCoursesViewController: UIViewController {
     private func addCourseInfo() {
         var modules = [Modules]()
         courseInfo.append(CourseInfo(day: 1, modules: modules))
+        
+        Task {
+            let course = try await Courses().getDaysInCourse(id: idCourse)
+            print(course)
+            daysCollectionView.reloadData()
+            modulesCollectionView.reloadData()
+        }
     }
     
     private func collectionSettings() {
@@ -161,7 +169,7 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         }else {
             
             if indexPath.row == courseInfo[selectDay].modules.count {
-                let module = Modules(name: "", minutes: 0)
+                let module = Modules(name: "", minutes: 0, id: indexPath.row)
                 courseInfo[selectDay].modules.append(module)
                 collectionView.insertItems(at: [IndexPath(item: courseInfo[selectDay].modules.count - 1, section: 0)])
             }else {
