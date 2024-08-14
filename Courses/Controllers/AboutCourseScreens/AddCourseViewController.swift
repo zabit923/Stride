@@ -1,0 +1,328 @@
+//
+//  AddCourseViewController.swift
+//  Courses
+//
+//  Created by Руслан on 25.06.2024.
+//
+
+import UIKit
+import SwiftyJSON
+import Alamofire
+
+class AddCourseViewController: UIViewController {
+    
+    @IBOutlet weak var sizeFont: UILabel!
+    @IBOutlet weak var colorView: UIView!
+    @IBOutlet weak var fontTitle: UILabel!
+    @IBOutlet weak var fontView: UIView!
+    @IBOutlet weak var bottomConsoleView: NSLayoutConstraint!
+    @IBOutlet weak var defaultAligment: UIButton!
+    @IBOutlet weak var rightAligment: UIButton!
+    @IBOutlet weak var centerAlingment: UIButton!
+    @IBOutlet weak var leftAlingment: UIButton!
+    @IBOutlet weak var textView: UITextView!
+    
+    
+    private var colorSelect = UIColor.white {
+        didSet {
+            colorView.backgroundColor = colorSelect
+            textView.typingAttributes[.foregroundColor] = colorSelect
+        }
+    }
+    private var fontSelect = UIFont.systemFont(ofSize: 16) {
+        didSet {
+            fontTitle.text = fontSelect.fontName
+            textView.typingAttributes[.font] = fontSelect
+        }
+    }
+    private var alignment = NSMutableParagraphStyle().alignment {
+        didSet {
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.alignment = alignment
+            textView.typingAttributes[.paragraphStyle] = paragraph
+            clearTextAlingment()
+            changedAlignment(alignment)
+        }
+    }
+    private var sizeFontSelect = 16.0 {
+        didSet {
+            fontSelect = UIFont(descriptor: fontSelect.fontDescriptor, size: sizeFontSelect)
+            sizeFont.text = "\(sizeFontSelect) пт"
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        textView.textColor = .white
+        textView.delegate = self
+        view.overrideUserInterfaceStyle = .dark
+        getCourse()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    @objc func keyboardWillAppear(notification:Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            bottomConsoleView.constant = keyboardHeight - 30
+        }
+    }
+
+    @objc func keyboardWillDisappear() {
+        bottomConsoleView.constant = 0
+    }
+    
+    private func changedAlignment(_ alignment: NSTextAlignment) {
+        switch alignment {
+        case .left:
+            leftAlingment.setImage(UIImage.leftTextFull, for: .normal)
+        case .center:
+            centerAlingment.setImage(UIImage.centerTextFull, for: .normal)
+        case .right:
+            rightAligment.setImage(UIImage.rightTextFull, for: .normal)
+        case .natural:
+            defaultAligment.setImage(UIImage.defaulTextFull, for: .normal)
+        default:
+            break
+        }
+    }
+    
+    private func clearTextAlingment() {
+        leftAlingment.setImage(UIImage.leftText, for: .normal)
+        centerAlingment.setImage(UIImage.centerText, for: .normal)
+        rightAligment.setImage(UIImage.rightText, for: .normal)
+        defaultAligment.setImage(UIImage.defaultText, for: .normal)
+    }
+    
+    private func selectText(attributes: [NSAttributedString.Key: Any]) {
+        guard let selectedRange = textView.selectedTextRange else { return }
+        let selectedText = textView.text(in: selectedRange)
+        guard selectedText != "" else {return}
+        let nsRange = textView.convertUITextRangeToNSRange(range: selectedRange)
+        textView.textStorage.addAttributes(attributes, range: nsRange)
+        textView.selectedTextRange = selectedRange
+    }
+    
+    private func getCourse() {
+        Task {
+            let url = Constants.url + "api/v1/courses/"
+            let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+            let value = try await AF.request(url,method: .get, headers: headers).serializingData().value
+            let json = JSON(value)
+            print(json)
+        }
+    }
+    
+    private func addCourse(data:Data) async throws {
+        let url = Constants.url + "api/v1/courses/6/"
+        let parameters: [String: Any] = [
+            "title": "string",
+            "price": 2147483647,
+            "desc": "string",
+            "days": [
+                [
+                    "title": "string",
+                    "modules": [
+                        [
+                            "title": "string",
+                            "desc": "string",
+                            "time_to_pass": 2147483647
+                        ]
+                    ]
+                ]
+            ]
+        ]
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url,
+                                         method: .patch,
+                                         parameters: parameters,
+                                         encoding: JSONEncoding.default,
+                                         headers: headers).serializingData().value
+        let json = JSON(value)
+        print(json)
+    }
+    
+    // MARK: - UIButton
+
+    @IBAction func okFont(_ sender: Any) {
+        fontView.isHidden = true
+        textView.isEditable = true
+        textView.becomeFirstResponder()
+        selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
+    }
+    
+    
+    
+    @IBAction func save(_ sender: UIButton) {
+        textView.resignFirstResponder()
+        guard let data = textView.attributedText.attributedStringToData() else {return}
+        print(data)
+        Task {
+            try await addCourse(data: data)
+        }
+    }
+    
+    @IBAction func color(_ sender: UIButton) {
+        let picker = UIColorPickerViewController()
+        picker.selectedColor = colorView.backgroundColor!
+        picker.delegate = self
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+    @IBAction func addImage(_ sender: UIButton) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
+    }
+    
+    @IBAction func changedText(_ sender: UIButton) {
+        textView.resignFirstResponder()
+        textView.isEditable = false
+        fontView.isHidden = false
+        textStyleBar()
+    }
+    
+    @IBAction func fontBtn(_ sender: UIButton) {
+        let config = UIFontPickerViewController.Configuration()
+        config.includeFaces = false
+        let vc = UIFontPickerViewController()
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    
+    @IBAction func alignment(_ sender: UIButton) {
+        clearTextAlingment()
+        switch sender.tag {
+        case 0:
+            alignment = .left
+        case 1:
+            alignment = .center
+        case 2:
+            alignment = .right
+        case 3:
+            alignment = .natural
+        default:
+            break
+        }
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = alignment
+        selectText(attributes: [.paragraphStyle: paragraph])
+    }
+
+    @IBAction func stepper(_ sender: UIButton) {
+        if sender.tag == 0 {
+            sizeFontSelect -= 1
+        }else {
+            sizeFontSelect += 1
+        }
+    }
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        textView.resignFirstResponder()
+    }
+    
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+}
+// MARK: - TextView
+extension AddCourseViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.typingAttributes[.font] as? UIFont != fontSelect {
+            textView.typingAttributes[.font] = fontSelect
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        textStyleBar()
+    }
+    
+    private func textStyleBar() {
+        if let font = textView.typingAttributes[.font] as? UIFont {
+            fontSelect = font
+            sizeFontSelect = font.pointSize
+        }else {
+            let font = fontSelect
+            fontSelect = font
+            let size = sizeFont
+            sizeFont = size
+        }
+        if let color = textView.typingAttributes[.foregroundColor] as? UIColor {
+            colorSelect = color
+        }else {
+            let color = colorSelect
+            colorSelect = color
+        }
+        if let align = textView.typingAttributes[.paragraphStyle] as? NSParagraphStyle {
+            alignment = align.alignment
+        }
+    }
+    
+}
+// MARK: - Image
+extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            let screenWidth = UIScreen.main.bounds.width - 30
+            let maxSize = CGSize(width: screenWidth, height: 400)
+            let scaledImage = image.scaleImage(toSize: maxSize)
+            let roundedImage = scaledImage.withRoundedCorners(radius: 7)
+            addImageInTextView(image: roundedImage)
+            picker.dismiss(animated: true)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    
+    
+    private func addImageInTextView(image: UIImage) {
+        let attachment = NSTextAttachment()
+        attachment.image = image
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let attributedString = NSMutableAttributedString(attachment: attachment)
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+        let combinedString = NSMutableAttributedString(attributedString: self.textView.attributedText)
+        combinedString.insert(attributedString, at: textView.selectedRange.location)
+        self.textView.attributedText = combinedString
+    }
+
+    
+}
+// MARK: - Font
+extension AddCourseViewController: UIFontPickerViewControllerDelegate {
+    
+    func fontPickerViewControllerDidCancel(_ viewController: UIFontPickerViewController) {
+        viewController.dismiss(animated: true)
+    }
+    
+    func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
+        guard let descriptor = viewController.selectedFontDescriptor else {return}
+        fontSelect = UIFont(descriptor: descriptor, size: sizeFontSelect)
+        viewController.dismiss(animated: true)
+    }
+}
+// MARK: - Color
+extension AddCourseViewController: UIColorPickerViewControllerDelegate {
+    
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        colorSelect = viewController.selectedColor
+    }
+    
+}
