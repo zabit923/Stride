@@ -85,7 +85,7 @@ SPECTACULAR_SETTINGS = {
     "SERVE_PUBLIC": True,
     "SERVE_INCLUDE_SCHEMA": False,
     "SERVE_AUTHENTICATION": ["rest_framework.authentication.SessionAuthentication"],
-    "TITLE": "Stride API",
+    "TITLE": "backend API",
     "VERSION": "1.0.0",
 }
 
