@@ -44,7 +44,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.method in {'PATCH', 'PUT'}:
             self.serializer_class = UserUpdateSerializer
-        elif self.action == 'list' or self.action == 'get_me':
+        elif self.action in ['list', 'get_me', 'retrieve']:
             self.serializer_class = UserGetSerializer
         else:
             self.serializer_class = UserCreateSerializer

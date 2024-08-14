@@ -114,6 +114,13 @@ class CourseSerializer(serializers.ModelSerializer):
         return course
 
     def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.price = validated_data.get('price', instance.price)
+        instance.image = validated_data.get('image', instance.image)
+        instance.desc = validated_data.get('desc', instance.desc)
+        instance.category = validated_data.get('category', instance.category)
+        instance.save()
+
         days_data = validated_data.pop('days', [])
 
         for day_data in days_data:

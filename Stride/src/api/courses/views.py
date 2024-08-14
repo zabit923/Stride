@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -31,7 +32,7 @@ class CourseApiViewSet(ModelViewSet):
     queryset = Course.objects.all()
 
     def get_serializer_class(self):
-        if self.action in ['list', 'my_courses', 'my_bought_courses']:
+        if self.action in ['list', 'my_courses', 'my_bought_courses', 'courses_by_id']:
             return ShortCourseSerializer
         elif self.action == 'retrieve':
             user = self.request.user
@@ -71,6 +72,13 @@ class CourseApiViewSet(ModelViewSet):
     def my_courses(self, request):
         user = request.user
         courses = Course.objects.filter(author=user)
+        serializer = self.get_serializer(courses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
+    def courses_by_id(self, request, pk=None):
+        author = get_object_or_404(User, pk=pk)
+        courses = Course.objects.filter(author=author)
         serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
