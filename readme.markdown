@@ -32,10 +32,10 @@
 
 ---
 <div style="display: grid; grid-template-columns: repeat(2, 300px);; justify-content: center; gap: 10px">
-    <img style="width: 300px; display: inline-block;" src="/images/Start.png">
-    <img style="width: 300px; display: inline-block;" src="/images/Vhod.png">
-    <img style="width: 300px; display: inline-block;" src="/images/catalog.png">
-    <img style="width: 300px; display: inline-block;" src="/images/courses.png">
-    <img style="width: 300px; display: inline-block;" src="/images/Profile.png">
-    <img style="width: 300px; display: inline-block;" src="/images/ProfileSettings.png">
+    <img style="width: 300px; display: inline-block;" src="images/Start.png">
+    <img style="width: 300px; display: inline-block;" src="images/Vhod.png">
+    <img style="width: 300px; display: inline-block;" src="images/catalog.png">
+    <img style="width: 300px; display: inline-block;" src="images/courses.png">
+    <img style="width: 300px; display: inline-block;" src="images/Profile.png">
+    <img style="width: 300px; display: inline-block;" src="images/ProfileSettings.png">
 </div>
