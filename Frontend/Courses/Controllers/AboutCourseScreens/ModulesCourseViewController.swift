@@ -114,7 +114,6 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
             
             cell.lbl.text = "\(indexPath.row + 1)"
             
-            
             switch course.courseDays[indexPath.row].type {
             case .current:
                 cell.current()
@@ -145,13 +144,13 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == daysCollectionView {
-            course = RealmValue().getDaysAndModules(id: course.id)
+            course = RealmValue().addCompletedDays(course: course)
             course.courseDays[indexPath.row].type = .current
             selectDay = indexPath.row
             modulesCollectionView.reloadData()
             daysCollectionView.reloadData()
         }else {
-            RealmValue().moduleCompleted(moduleID: course.courseDays[selectDay].modules[indexPath.row].id, courseID: course.id)
+            RealmValue().addCompletedModule(course: course, module: course.courseDays[selectDay].modules[indexPath.row])
             performSegue(withIdentifier: "goToText", sender: self)
         }
     }

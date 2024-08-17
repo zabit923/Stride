@@ -83,7 +83,6 @@ class SettingsViewController: UIViewController {
     
     @IBAction func logOut(_ sender: UIButton) {
         UD().clearUD()
-        RealmValue().clearRealmAndPhotos()
         self.navigationController?.popToRootViewController(animated: true)
     }
     
