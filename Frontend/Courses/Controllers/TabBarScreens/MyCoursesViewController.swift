@@ -18,6 +18,7 @@ class MyCoursesViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     
     var course = [Course]()
+    private var selectIDCourse = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +42,23 @@ class MyCoursesViewController: UIViewController {
     private func getMyBoughtCourses() {
         Task {
             course = try await Courses().getBoughtCourses()
-            print(course)
+            progressValue()
             myCoursesCollectionView.reloadData()
         }
+    }
+    
+    private func progressValue() {
+        for x in 0...course.count - 1 {
+            course[x].daysCount = course[x].courseDays.count
+            var daysCompleted = 0
+            for y in course[x].courseDays {
+                if y.type == .before {
+                    daysCompleted += 1
+                }
+            }
+            course[x].progressInDays = daysCompleted
+        }
+        
     }
 
     @IBAction func search(_ sender: UIButton) {
@@ -76,13 +91,14 @@ extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.nameAuthor.text = "Тренер: \(course[indexPath.row].nameAuthor)"
         cell.nameCourse.text = course[indexPath.row].nameCourse
         cell.rating.text = "\(course[indexPath.row].rating)"
-//        cell.progressInDays.text = "\(course[indexPath.row].progressInDays)/\(course[indexPath.row].daysCount)"
-//        cell.progressInPercents.text = "\(course[indexPath.row].progressInPercents)%"
-//        cell.progressVIew.progress = Float(course[indexPath.row].progressInPercents / 100)
+        cell.progressInDays.text = "\(course[indexPath.row].progressInDays)/\(course[indexPath.row].daysCount)"
+        cell.progressInPercents.text = "\(course[indexPath.row].progressInPercents)%"
+        cell.progressVIew.progress = Float(course[indexPath.row].progressInPercents / 100)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectIDCourse = course[indexPath.row].id
         performSegue(withIdentifier: "course", sender: self)
     }
     
@@ -90,6 +106,7 @@ extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDat
         
         if segue.identifier == "course" {
             let vc = segue.destination as! ModulesCourseViewController
+            vc.idCourse = selectIDCourse
         }
         
     }

@@ -10,6 +10,7 @@ import UIKit
 class ModulesCourseViewController: UIViewController {
     
     
+    @IBOutlet weak var nameCourse: UILabel!
     @IBOutlet weak var heightViewDays: NSLayoutConstraint!
     @IBOutlet weak var viewDays: UIView!
     @IBOutlet weak var daysCollectionView: UICollectionView!
@@ -17,10 +18,14 @@ class ModulesCourseViewController: UIViewController {
     
     private let layout = PageModuleLayout()
     private var scaleView = false
+    private var course = Course()
+    private var selectDay: Int = 0
+    var idCourse = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionSettings()
+        getCourseInfo()
     }
     
     private func collectionSettings() {
@@ -38,6 +43,18 @@ class ModulesCourseViewController: UIViewController {
         layout.scrollDirection = .horizontal
         daysCollectionView.collectionViewLayout = layout
         daysCollectionView.decelerationRate = .fast
+    }
+    
+    private func getCourseInfo() {
+        Task {
+            course = try await Courses().getDaysInCourse(id: idCourse)
+            if course.courseDays.isEmpty == false {
+                course.courseDays[0].type = .current
+            }
+            nameCourse.text = course.nameCourse
+            daysCollectionView.reloadData()
+            modulesCollectionView.reloadData()
+        }
     }
     
     @IBAction func longClickInView(_ sender: UILongPressGestureRecognizer) {
@@ -80,22 +97,62 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == daysCollectionView {
-            return 15
+            return course.courseDays.count
         }else {
-            return 10
+            if course.courseDays.isEmpty == false {
+                return course.courseDays[selectDay].modules.count
+            }else {
+                return 0
+            }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // Day
         if collectionView == daysCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "day", for: indexPath) as! DaysCourseCollectionViewCell
-            cell.before()
+            
             cell.lbl.text = "\(indexPath.row + 1)"
+            
+            
+            switch course.courseDays[indexPath.row].type {
+            case .current:
+                cell.current()
+            case .before:
+                cell.before()
+            case .noneSee:
+                cell.noneCheck()
+            }
+            
             return cell
         }else {
-            var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module", for: indexPath) as! ModuleCourseCollectionViewCell
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module2", for: indexPath) as! ModuleCourseCollectionViewCell
+            // Modules
+            var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module2", for: indexPath) as! ModuleCourseCollectionViewCell
+        
+            guard course.courseDays.isEmpty == false else { return cell }
+            
+            if let image = course.courseDays[selectDay].modules[indexPath.row].imageURL {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module", for: indexPath) as! ModuleCourseCollectionViewCell
+                cell.im.sd_setImage(with: image)
+            }
+            cell.name.text = course.courseDays[selectDay].modules[indexPath.row].name
+            cell.time.text = "\(course.courseDays[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
+            cell.descrLbl.text = course.courseDays[selectDay].modules[indexPath.row].description
+            
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == daysCollectionView {
+            course = RealmValue().getDaysAndModules(id: course.id)
+            course.courseDays[indexPath.row].type = .current
+            selectDay = indexPath.row
+            modulesCollectionView.reloadData()
+            daysCollectionView.reloadData()
+        }else {
+            RealmValue().moduleCompleted(moduleID: course.courseDays[selectDay].modules[indexPath.row].id, courseID: course.id)
+            performSegue(withIdentifier: "goToText", sender: self)
         }
     }
     

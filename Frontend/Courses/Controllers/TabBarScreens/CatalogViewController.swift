@@ -23,6 +23,10 @@ class CatalogViewController: UIViewController {
         categoryCollectionView.delegate = self
         catalogCollectionView.dataSource = self
         catalogCollectionView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getCourses()
     }
     
@@ -57,7 +61,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
             cell.nameAuthor.text = courses[indexPath.row].nameAuthor
             cell.nameCourse.text = courses[indexPath.row].nameCourse
-            cell.price.text = "Цена: \(courses[indexPath.row].price)$"
+            cell.price.text = "Цена: \(courses[indexPath.row].price)Р"
             cell.rating.text = "\(courses[indexPath.row].rating)"
             cell.daysCount.text = "\(courses[indexPath.row].daysCount)"
             return cell
