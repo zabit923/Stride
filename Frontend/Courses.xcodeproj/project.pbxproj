@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		44049A2E2C6CE0C30014BD9C /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44049A2D2C6CE0C30014BD9C /* credentials.plist */; };
+		44049A352C6F549F0014BD9C /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44049A342C6F549F0014BD9C /* Realm.swift */; };
+		44049A3A2C6F56F60014BD9C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; };
 		44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */; };
 		44064C772C26ED9500AB5227 /* Commissioner-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */; };
 		44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */; };
@@ -86,6 +88,7 @@
 
 /* Begin PBXFileReference section */
 		44049A2D2C6CE0C30014BD9C /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
+		44049A342C6F549F0014BD9C /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Medium.ttf"; sourceTree = "<group>"; };
 		44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-SemiBold.ttf"; sourceTree = "<group>"; };
 		44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Regular.ttf"; sourceTree = "<group>"; };
@@ -152,6 +155,7 @@
 				44DFB11E2C3BE46B005C8F44 /* Lottie in Frameworks */,
 				44064C972C2861CA00AB5227 /* SwiftyJSON in Frameworks */,
 				44D68AF82C5051E100F8F476 /* GoogleSignInSwift in Frameworks */,
+				44049A3A2C6F56F60014BD9C /* RealmSwift in Frameworks */,
 				44064C9C2C2861D700AB5227 /* SDWebImageMapKit in Frameworks */,
 				44064C922C2861B900AB5227 /* Alamofire in Frameworks */,
 				44064C9A2C2861D700AB5227 /* SDWebImage in Frameworks */,
@@ -236,6 +240,7 @@
 				75D7F3552C4299EF0083DBEF /* UD.swift */,
 				44D68AF22C4ACC0C00F8F476 /* User.swift */,
 				44E2440B2C5D6C7000EADF3D /* Courses.swift */,
+				44049A342C6F549F0014BD9C /* Realm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 		44D68B002C51B3EF00F8F476 /* AboutCourseScreens */ = {
 			isa = PBXGroup;
 			children = (
+				44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */,
 				44D68AFB2C51B3EF00F8F476 /* AddCourseViewController.swift */,
 				44D68AFC2C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift */,
 				44D68AFD2C51B3EF00F8F476 /* CoursesViewController.swift */,
@@ -321,7 +327,6 @@
 			children = (
 				7508513A2C38763A00F5C0DC /* ChangeInformationViewController.swift */,
 				75106D782C38AFDB0036042B /* InfoAboutMeViewController.swift */,
-				44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */,
 				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
 				7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */,
 				440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */,
@@ -354,6 +359,7 @@
 				44DFB11D2C3BE46B005C8F44 /* Lottie */,
 				44D68AF52C5051E100F8F476 /* GoogleSignIn */,
 				44D68AF72C5051E100F8F476 /* GoogleSignInSwift */,
+				44049A392C6F56F60014BD9C /* RealmSwift */,
 			);
 			productName = Courses;
 			productReference = 440DAB302C1748D400C576FB /* Courses.app */;
@@ -389,6 +395,7 @@
 				44064C982C2861D700AB5227 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				44DFB11C2C3BE46A005C8F44 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				44D68AF42C5051E100F8F476 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 440DAB312C1748D400C576FB /* Products */;
 			projectDirPath = "";
@@ -446,6 +453,7 @@
 				44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */,
 				449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */,
 				44064C892C27042100AB5227 /* StartViewController.swift in Sources */,
+				44049A352C6F549F0014BD9C /* Realm.swift in Sources */,
 				44BD6CE02C432C82001645A0 /* ModuleCourseCollectionViewCell.swift in Sources */,
 				4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */,
 				44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */,
@@ -705,6 +713,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		44064C902C2861B900AB5227 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -748,6 +764,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		44049A392C6F56F60014BD9C /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		44064C912C2861B900AB5227 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 44064C902C2861B900AB5227 /* XCRemoteSwiftPackageReference "Alamofire" */;

@@ -100,7 +100,7 @@ class User {
         user.email = json["email"].stringValue
         user.phone = json["phone_number"].stringValue
         user.id = json["id"].intValue
-        user.avatarURL = URL(string: "http://127.0.0.1:8000\(json["image"].stringValue)")
+        user.avatarURL = URL(string: json["image"].stringValue)
         return user
     }
 }

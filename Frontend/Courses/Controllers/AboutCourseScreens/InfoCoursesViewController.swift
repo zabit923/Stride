@@ -56,6 +56,7 @@ class InfoCoursesViewController: UIViewController {
         Task {
             do {
                 try await Courses().buyCourse(id: course.id)
+                performSegue(withIdentifier: "goCourse", sender: self)
             }catch {
                 print("Error buy course")
             }
@@ -71,6 +72,9 @@ class InfoCoursesViewController: UIViewController {
         if segue.identifier == "coach" {
             let vc = segue.destination as! CoachViewController
             vc.idCoach = course.idAuthor
+        }else if segue.identifier == "goCourse" {
+            let vc = segue.destination as! ModulesCourseViewController
+            vc.idCourse = course.id
         }
         
     }

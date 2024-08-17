@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    var courses = [Course]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,8 @@ class ProfileViewController: UIViewController {
     func design() {
         Task {
             user = try await User().getMyInfo()
+            courses = try await Courses().getMyCreateCourses()
+            coursesCollectionView.reloadData()
         }
     }
     
@@ -52,19 +55,24 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    
 }
 
-extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return user.coach.myCourses.count
+        return courses.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-        cell.image.sd_setImage(with: user.coach.myCourses[indexPath.row].imageURL)
+        cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = UIScreen.main.bounds.width / 3 - 2
+        return CGSize(width: size, height: size)
+    }
+    
 }
-
-

@@ -16,7 +16,9 @@ class CoachViewController: UIViewController {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var countCourses: UILabel!
     @IBOutlet weak var avatar: UIImageView!
+    
     private var user = UserStruct()
+    private var courses = [Course]()
     var idCoach = 0
     
     override func viewDidLoad() {
@@ -28,6 +30,7 @@ class CoachViewController: UIViewController {
     
     private func design() {
         getCoachInfo()
+        getCoachCourses()
     }
     
     private func getCoachInfo() {
@@ -41,17 +44,38 @@ class CoachViewController: UIViewController {
         }
     }
     
+    private func getCoachCourses() {
+        Task {
+            courses = try await Courses().getCoursesByUserID(id: idCoach)
+            coursesCollectionView.reloadData()
+        }
+    }
+    
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
-extension CoachViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension CoachViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return courses.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+        cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let size = UIScreen.main.bounds.width / 3 - 3
+        return CGSize(width: size, height: size)
+    }
+    
     
     
 }

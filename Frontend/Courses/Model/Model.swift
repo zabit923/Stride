@@ -29,9 +29,10 @@ struct Modules {
     var text: Data?
     var name: String
     var minutes: Int
-    var image: UIImage?
+    var imageURL: URL?
     var description: String?
     var id: Int
+    var isRead: Bool = false
 }
 
 struct Course {
@@ -42,11 +43,14 @@ struct Course {
     var price: Int
     var imageURL: URL?
     var rating: Float?
+    var progressInDays: Int = 0
+    var progressInPercents: Int = 0
     var id: Int
     var description: String
     var dataCreated: String
+    var courseDays = [CourseDays]()
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float? = nil, id: Int = 0, description: String = "", dataCreated: String = "") {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float? = nil, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
@@ -57,11 +61,13 @@ struct Course {
         self.description = description
         self.dataCreated = dataCreated
         self.idAuthor = idAuthor
+        self.progressInDays = progressInDays
     }
 }
 
-struct CourseInfo {
+struct CourseDays {
     var day: Int
+    var type: TypeDays = .noneSee
     var modules = [Modules]()
 }
 
@@ -158,6 +164,22 @@ enum Level: String {
             return nil
         }
     }
+}
+
+enum TypeDays: String {
+    case current = "current"
+    case before = "before"
+    case noneSee = "noneSee"
+    
+    init?(rawValue: String) {
+        switch rawValue {
+        case "current": self = .current
+        case "before": self = .before
+        case "noneSee": self = .noneSee
+        default: return nil
+        }
+    }
+
 }
 
 enum Goal: String {
