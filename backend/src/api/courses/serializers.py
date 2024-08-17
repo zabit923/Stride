@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+from django.db.models import Avg
 
 from .models import (
     Course,
@@ -8,7 +9,7 @@ from .models import (
     MyCourses,
     Category
 )
-
+from ..comments.models import Rating
 
 User = get_user_model()
 
@@ -58,7 +59,10 @@ class ShortCourseSerializer(serializers.ModelSerializer):
     author = AuthorShortSerializer(read_only=True)
     count_days = serializers.SerializerMethodField()
     image = serializers.ImageField(required=False)
-    bought = serializers.SerializerMethodField()
+    bought = serializers.SerializerMethodField(read_only=True)
+    bought_count = serializers.SerializerMethodField(read_only=True)
+    rating = serializers.SerializerMethodField(read_only=True)
+    my_rating = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Course
@@ -73,6 +77,9 @@ class ShortCourseSerializer(serializers.ModelSerializer):
             'created_at',
             'count_days',
             'bought',
+            'bought_count',
+            'rating',
+            'my_rating',
         )
 
     def get_count_days(self, obj: Course):
@@ -82,11 +89,34 @@ class ShortCourseSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         return MyCourses.objects.filter(user=user, course=obj).exists()
 
+    def get_bought_count(self, obj):
+        return obj.buyers.count()
+
+    def get_rating(self, obj):
+        avg_rating = obj.ratings.aggregate(average=Avg('rating'))['average']
+        if avg_rating is not None:
+            return round(avg_rating, 1)
+        return None
+
+    def get_my_rating(self, obj):
+        user = self.context['request'].user
+        try:
+            rating = Rating.objects.get(user=user, course=obj)
+            return {
+                'id': rating.id,
+                'rating': rating.rating
+            }
+        except Rating.DoesNotExist:
+            return None
+
 
 class CourseSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    days = DaySerializer(many=True, required=False)
+    days = DaySerializer(read_only=True)
+    bought_count = serializers.SerializerMethodField(read_only=True)
     image = serializers.ImageField(required=False)
+    rating = serializers.SerializerMethodField(read_only=True)
+    my_rating = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Course
@@ -99,36 +129,28 @@ class CourseSerializer(serializers.ModelSerializer):
             'desc',
             'category',
             'created_at',
-            'days'
+            'days',
+            'bought_count',
+            'rating',
+            'my_rating',
         )
 
-    def create(self, validated_data):
-        days_data = validated_data.pop('days', [])
-        course = Course.objects.create(**validated_data)
+    def get_bought_count(self, obj):
+        return obj.buyers.count()
 
-        for day_data in days_data:
-            modules_data = day_data.pop('modules', [])
-            day = Day.objects.create(course=course, **day_data)
-            for module_data in modules_data:
-                Module.objects.create(day=day, **module_data)
-        return course
+    def get_rating(self, obj):
+        avg_rating = obj.ratings.aggregate(average=Avg('rating'))['average']
+        if avg_rating is not None:
+            return round(avg_rating, 1)
+        return None
 
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        instance.price = validated_data.get('price', instance.price)
-        instance.image = validated_data.get('image', instance.image)
-        instance.desc = validated_data.get('desc', instance.desc)
-        instance.category = validated_data.get('category', instance.category)
-        instance.save()
-
-        days_data = validated_data.pop('days', [])
-
-        for day_data in days_data:
-            modules_data = day_data.pop('modules', [])
-            day = Day.objects.create(course=instance, **day_data)
-            for module_data in modules_data:
-                Module.objects.create(day=day, **module_data)
-        return instance
+    def get_my_rating(self, obj):
+        user = self.context['request'].user
+        rating = Rating.objects.get(user=user, course=obj)
+        return {
+            'id': rating.id,
+            'rating': rating.rating
+        }
 
 
 class BuyCourseSerializer(serializers.ModelSerializer):
