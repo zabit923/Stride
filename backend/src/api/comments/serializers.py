@@ -1,18 +1,27 @@
 from rest_framework import serializers
 
-from .models import Review
+from .models import Comment, Rating
 
 
-class ReviewSerializer(serializers.ModelSerializer):
-    author = serializers.ReadOnlyField(source='author.username')
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
     created_at = serializers.ReadOnlyField()
 
     class Meta:
-        model = Review
-        fields = ['id', 'author', 'post', 'parent', 'text', 'created_at']
+        model = Comment
+        fields = ['id', 'author', 'course', 'parent', 'text', 'created_at']
 
 
-class ReviewUpdate(serializers.ModelSerializer):
+class CommentUpdate(serializers.ModelSerializer):
     class Meta:
-        model = Review
+        model = Comment
         fields = ['id', 'text',]
+
+
+class RatingSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Rating
+        fields = ['id', 'user', 'course', 'rating',]
+        read_only_fields = ['id',]
