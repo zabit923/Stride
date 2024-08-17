@@ -46,7 +46,6 @@ class Sign {
         ]
         let value = try await AF.request(url, method: .post, parameters: parameters).serializingData().value
         let json = JSON(value)
-        print(json)
     }
     
     

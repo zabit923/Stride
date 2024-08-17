@@ -119,7 +119,6 @@ class AddCourseViewController: UIViewController {
             let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
             let value = try await AF.request(url,method: .get, headers: headers).serializingData().value
             let json = JSON(value)
-            print(json)
         }
     }
     

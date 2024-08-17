@@ -52,7 +52,7 @@ class AddInfoAboutCourseVC: UIViewController {
     private func design() {
         imagePred.sd_setImage(with: infoCourses.imageURL)
         namePred.text = infoCourses.nameCourse
-        pricePred.text = "\(infoCourses.price)$"
+        pricePred.text = "\(infoCourses.price)Р"
         name.text = infoCourses.nameCourse
         price.text = "\(infoCourses.price)"
         descriptionCourse.text = infoCourses.description
@@ -108,10 +108,8 @@ class AddInfoAboutCourseVC: UIViewController {
                 if create {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .post)
                 }else {
-                    print(idCourse)
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }
-                print(idCourse)
                 performSegue(withIdentifier: "goToAddModule", sender: self)
             }
         }
@@ -165,7 +163,7 @@ extension AddInfoAboutCourseVC: UITextFieldDelegate {
         if textField == name {
             namePred.text = textField.text
         }else if textField == price {
-            pricePred.text = "\(textField.text!)$"
+            pricePred.text = "\(textField.text!)Р"
         }
     }
 }

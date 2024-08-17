@@ -17,7 +17,7 @@ class AddModuleCoursesViewController: UIViewController {
     
     private let layout = PageModuleLayout()
     private var scaleView = false
-    private var courseInfo = [CourseInfo]()
+    private var course = Course()
     private var selectDay: Int = 0
     var idCourse = 0
     
@@ -28,12 +28,9 @@ class AddModuleCoursesViewController: UIViewController {
     }
     
     private func addCourseInfo() {
-        var modules = [Modules]()
-        courseInfo.append(CourseInfo(day: 1, modules: modules))
-        
         Task {
-            let course = try await Courses().getDaysInCourse(id: idCourse)
-            print(course)
+            course = try await Courses().getDaysInCourse(id: idCourse)
+            nameCourses.text = course.nameCourse
             daysCollectionView.reloadData()
             modulesCollectionView.reloadData()
         }
@@ -54,6 +51,10 @@ class AddModuleCoursesViewController: UIViewController {
         layout.scrollDirection = .horizontal
         daysCollectionView.collectionViewLayout = layout
         daysCollectionView.decelerationRate = .fast
+    }
+    
+    private func addModule() {
+        
     }
     
     @IBAction func longClickInView(_ sender: UILongPressGestureRecognizer) {
@@ -96,12 +97,12 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == daysCollectionView {
-            return courseInfo.count + 1
+            return course.courseDays.count + 1
         }else {
-            if courseInfo.isEmpty == false {
-                return courseInfo[selectDay].modules.count + 1
+            if course.courseDays.isEmpty == false {
+                return course.courseDays[selectDay].modules.count + 1
             }else {
-                return 1
+                return 0
             }
         }
     }
@@ -118,7 +119,7 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
                 cell.before()
             }
             // Add +
-            if indexPath.row == courseInfo.count {
+            if indexPath.row == course.courseDays.count {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addDayCell", for: indexPath) as! DaysCourseCollectionViewCell
                 return cell
             }
@@ -127,15 +128,17 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             // Modules
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module", for: indexPath) as! ModuleCourseCollectionViewCell
         
+            guard course.courseDays.isEmpty == false else { return cell }
+            
             // Add +
-            if indexPath.row == courseInfo[selectDay].modules.count {
+            if indexPath.row == course.courseDays[selectDay].modules.count {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "moduleAdd", for: indexPath) as! ModuleCourseCollectionViewCell
                 return cell
             }
             
-            if courseInfo[selectDay].modules[indexPath.row].image != nil {
+            if let image = course.courseDays[selectDay].modules[indexPath.row].imageURL {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module", for: indexPath) as! ModuleCourseCollectionViewCell
-                cell.im.image = courseInfo[selectDay].modules[indexPath.row].image
+                cell.im.sd_setImage(with: image)
                 cell.settingsBtn.addTarget(self, action: #selector(settings), for: .touchUpInside)
                 cell.settingsBtn.tag = indexPath.row
             }else {
@@ -143,13 +146,9 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
                 cell.settingsBtn2.addTarget(self, action: #selector(settings), for: .touchUpInside)
                 cell.settingsBtn2.tag = indexPath.row
             }
-            cell.name.text = courseInfo[selectDay].modules[indexPath.row].name
-            cell.time.text = "\(courseInfo[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
-            cell.descrLbl.text = courseInfo[selectDay].modules[indexPath.row].description
-            
-            
-            
-            
+            cell.name.text = course.courseDays[selectDay].modules[indexPath.row].name
+            cell.time.text = "\(course.courseDays[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
+            cell.descrLbl.text = course.courseDays[selectDay].modules[indexPath.row].description
             
             return cell
         }
@@ -158,9 +157,9 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == daysCollectionView {
             
-            if indexPath.row == courseInfo.count {
-                courseInfo.append(CourseInfo(day: indexPath.row + 1))
-                daysCollectionView.insertItems(at: [IndexPath(item: courseInfo.count - 1, section: 0)])
+            if indexPath.row == course.courseDays.count {
+                course.courseDays.append(CourseDays(day: indexPath.row + 1, type: .noneSee))
+                daysCollectionView.insertItems(at: [IndexPath(item: course.courseDays.count - 1, section: 0)])
             }else{
                 selectDay = indexPath.row
             }
@@ -168,10 +167,11 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             daysCollectionView.reloadData()
         }else {
             
-            if indexPath.row == courseInfo[selectDay].modules.count {
+            if indexPath.row == course.courseDays[selectDay].modules.count {
                 let module = Modules(name: "", minutes: 0, id: indexPath.row)
-                courseInfo[selectDay].modules.append(module)
-                collectionView.insertItems(at: [IndexPath(item: courseInfo[selectDay].modules.count - 1, section: 0)])
+                course.courseDays[selectDay].modules.append(module)
+                collectionView.insertItems(at: [IndexPath(item: course.courseDays[selectDay].modules.count - 1, section: 0)])
+                
             }else {
                 performSegue(withIdentifier: "goToAddCourse2", sender: self)
             }

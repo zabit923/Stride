@@ -67,16 +67,17 @@ class Courses {
         return courses
     }
     
-    func getDaysInCourse(id: Int) async throws -> [CourseInfo] {
+    func getDaysInCourse(id: Int) async throws -> Course {
         let url = Constants.url + "api/v1/courses/\(id)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
-        print(json)
-        var days = [CourseInfo]()
+        var course = Course()
         var modules = [Modules]()
+        course.nameCourse = json["title"].stringValue
+        course.id = json["id"].intValue
         let daysCount = json["days"].arrayValue.count
-        guard daysCount > 0 else {return [CourseInfo]()}
+        guard daysCount > 0 else {throw ErrorNetwork.runtimeError("Пустой массив")}
         
         for x in 0...daysCount - 1 {
             let idDay = json["days"][x]["id"].intValue
@@ -87,13 +88,16 @@ class Courses {
 //                let text = json["days"][x]["modules"][y]["data"].stringValue
                 let min = json["days"][x]["modules"][y]["time_to_pass"].intValue
                 let title = json["days"][x]["modules"][y]["title"].stringValue
-//                let image = json["days"][x]["modules"][y]["image"].stringValue
+                let image = json["days"][x]["modules"][y]["image"].stringValue
                 let desc = json["days"][x]["modules"][y]["desc"].stringValue
-                modules.append(Modules(text: nil, name: title, minutes: min, description: desc, id: id))
+                modules.append(Modules(text: nil, name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id))
             }
-            days.append(CourseInfo(day: idDay, modules: modules))
+            course.courseDays.append(CourseDays(day: idDay, type: .noneSee, modules: modules))
+            modules.removeAll()
         }
-        return days
+        saveDaysAndModulesInPhone(course: course)
+        return RealmValue().getDaysAndModules(id: id)
+//        return course
     }
     
     
@@ -121,10 +125,11 @@ class Courses {
         if method == .patch {
             url += "\(info.id)/"
         }
-        print(url)
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(info.imageURL!, withName: "image")
+            if "\(info.imageURL!)".starts(with: "file") {
+                multipartFormData.append(info.imageURL!, withName: "image")
+            }
             multipartFormData.append(Data(info.nameCourse.utf8), withName: "title")
             multipartFormData.append(Data("\(info.price)".utf8), withName: "price")
             multipartFormData.append(Data(info.description.utf8), withName: "desc")
@@ -155,7 +160,7 @@ class Courses {
         guard results.isEmpty == false else {return []}
         
         for x in 0...results.count - 1 {
-            let daysCount = json[x]["days"].arrayValue.count
+            let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
             let price = json[x]["price"].intValue
             let id = json[x]["id"].intValue
@@ -165,11 +170,54 @@ class Courses {
             let authorName = json[x]["author"]["first_name"].stringValue
             let authorSurname = json[x]["author"]["last_name"].stringValue
             let authorID = json[x]["author"]["id"].intValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: nil, id: id, description: description, dataCreated: dataCreated))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: nil ,id: id, description: description, dataCreated: dataCreated))
         }
-        print(courses)
+        print(courses, 111)
+        courses = getAllDaysCompleted(courses: courses)
+        saveCourseInPhone(courses: courses)
+        return RealmValue().getCoursesInfo()
+//        return courses
+    }
+    
+    private func getAllDaysCompleted(courses: [Course]) -> [Course] {
+        var result = courses
+        for x in 0...result.count - 1 {
+            var countCompletedDays = 0
+            for y in result[x].courseDays {
+                if y.type == .before {
+                    countCompletedDays += 1
+                }
+            }
+            result[x].daysCount = countCompletedDays
+        }
+        return result
+    }
+    
+    func getCoursesByUserID(id: Int) async throws -> [Course] {
+        let url = Constants.url + "api/v1/courses/\(id)/courses_by_id/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
+        let json = JSON(value)
+        var courses = [Course]()
+        
+        let results = json.arrayValue
+        guard results.isEmpty == false else {return []}
+        
+        for x in 0...results.count - 1 {
+            let title = json[x]["title"].stringValue
+            let id = json[x]["id"].intValue
+            let image = json[x]["image"].stringValue
+            courses.append(Course(nameCourse: title, imageURL: URL(string: image), id: id))
+        }
         return courses
     }
     
+    func saveCourseInPhone(courses: [Course]) {
+        RealmValue().saveCoursesInfo(courses: courses)
+    }
+    
+    func saveDaysAndModulesInPhone(course: Course) {
+        RealmValue().saveDaysAndModels(courses: course)
+    }
     
 }
