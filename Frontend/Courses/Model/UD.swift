@@ -92,6 +92,7 @@ class UD {
         dictionary.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
+        RealmValue().clearRealm()
     }
     
 }

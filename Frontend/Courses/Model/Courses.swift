@@ -95,9 +95,9 @@ class Courses {
             course.courseDays.append(CourseDays(day: idDay, type: .noneSee, modules: modules))
             modules.removeAll()
         }
-        saveDaysAndModulesInPhone(course: course)
-        return RealmValue().getDaysAndModules(id: id)
-//        return course
+        
+        course = RealmValue().addCompletedDays(course: course)
+        return course
     }
     
     
@@ -172,11 +172,7 @@ class Courses {
             let authorID = json[x]["author"]["id"].intValue
             courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: nil ,id: id, description: description, dataCreated: dataCreated))
         }
-        print(courses, 111)
-        courses = getAllDaysCompleted(courses: courses)
-        saveCourseInPhone(courses: courses)
-        return RealmValue().getCoursesInfo()
-//        return courses
+        return courses
     }
     
     private func getAllDaysCompleted(courses: [Course]) -> [Course] {
@@ -210,14 +206,6 @@ class Courses {
             courses.append(Course(nameCourse: title, imageURL: URL(string: image), id: id))
         }
         return courses
-    }
-    
-    func saveCourseInPhone(courses: [Course]) {
-        RealmValue().saveCoursesInfo(courses: courses)
-    }
-    
-    func saveDaysAndModulesInPhone(course: Course) {
-        RealmValue().saveDaysAndModels(courses: course)
     }
     
 }
