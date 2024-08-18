@@ -89,6 +89,9 @@ class CourseApiViewSet(ModelViewSet):
         serializer = self.get_serializer(bought_courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class CategoryApiViewSet(ModelViewSet):
     queryset = Category.objects.all()

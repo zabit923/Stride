@@ -111,7 +111,7 @@ class ShortCourseSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    author = AuthorShortSerializer(read_only=True)
     days = DaySerializer(read_only=True)
     bought_count = serializers.SerializerMethodField(read_only=True)
     image = serializers.ImageField(required=False)
@@ -146,11 +146,14 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_my_rating(self, obj):
         user = self.context['request'].user
-        rating = Rating.objects.get(user=user, course=obj)
-        return {
-            'id': rating.id,
-            'rating': rating.rating
-        }
+        try:
+            rating = Rating.objects.get(user=user, course=obj)
+            return {
+                'id': rating.id,
+                'rating': rating.rating
+            }
+        except Rating.DoesNotExist:
+            return None
 
 
 class BuyCourseSerializer(serializers.ModelSerializer):
