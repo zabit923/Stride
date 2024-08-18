@@ -61,7 +61,8 @@ class Courses {
             let authorName = json["results"][x]["author"]["first_name"].stringValue
             let authorSurname = json["results"][x]["author"]["last_name"].stringValue
             let authorID = json["results"][x]["author"]["id"].intValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: nil, id: id, description: description, dataCreated: dataCreated))
+            let countBuyer = json["results"][x]["bought_count"].intValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: nil, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
         }
         
         return courses
