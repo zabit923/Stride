@@ -20,6 +20,7 @@ class InfoCoursesViewController: UIViewController {
     @IBOutlet weak var im: UIImageView!
     
     var course = Course()
+    var reviews = [Reviews]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +31,17 @@ class InfoCoursesViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        changeCollectionViewHeight()
+        getComments()
         design()
     }
     
+    private func getComments() {
+        Task {
+            reviews = try await Comments().getComments(courseID: course.id)
+            reviewsCollectionView.reloadData()
+            changeCollectionViewHeight()
+        }
+    }
     
     private func design() {
         price.text = "\(course.price)"
@@ -42,6 +50,7 @@ class InfoCoursesViewController: UIViewController {
         name.text = course.nameCourse
         coachName.setTitle(course.nameAuthor, for: .normal)
         im.sd_setImage(with: course.imageURL)
+        countBuyer.text = "\(course.countBuyer)"
     }
     
     private func changeCollectionViewHeight() {
@@ -83,12 +92,15 @@ class InfoCoursesViewController: UIViewController {
 extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return reviews.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reviews", for: indexPath) as! ReviewsCollectionViewCell
         cell.avatar.image = UIImage.defaultLogo
+        cell.descriptionText.text = reviews[indexPath.row].text
+        cell.data.text = reviews[indexPath.row].date
+        cell.name.text = reviews[indexPath.row].author
         return cell
     }
     

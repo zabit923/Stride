@@ -1915,6 +1915,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="iCh-9o-lxi"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="15"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZrX-4Z-6dV">
                                                     <rect key="frame" x="5" y="100" width="118" height="23"/>
@@ -1939,9 +1942,6 @@
                                                 <constraint firstItem="C2D-Cp-Jqs" firstAttribute="leading" secondItem="1Zm-f2-zxa" secondAttribute="leading" id="tyU-dL-ZJC"/>
                                                 <constraint firstItem="ZrX-4Z-6dV" firstAttribute="top" secondItem="C2D-Cp-Jqs" secondAttribute="bottom" id="v0T-Sy-nbN"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="15"/>
-                                            </userDefinedRuntimeAttributes>
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="image" destination="C2D-Cp-Jqs" id="d9a-aP-7Gp"/>
@@ -4261,11 +4261,11 @@
                                                                         <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="23"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </imageView>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ytb-sX-YoQ">
-                                                                    <rect key="frame" x="61" y="0.0" width="71" height="36"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ytb-sX-YoQ">
+                                                                    <rect key="frame" x="61" y="0.0" width="190" height="36"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEf-f2-KDB">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="71" height="15"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="30" height="15"/>
                                                                             <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
                                                                             <color key="textColor" name="GrayMain"/>
                                                                             <color key="highlightedColor" systemColor="labelColor"/>
@@ -4308,25 +4308,20 @@
                                                                         </stackView>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9GM-rF-0xK">
-                                                                    <rect key="frame" x="303.66666666666669" y="0.0" width="32.333333333333314" height="16.333333333333332"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2024-08-17" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9GM-rF-0xK">
+                                                                    <rect key="frame" x="261" y="0.0" width="75" height="16.333333333333332"/>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="width" constant="75" id="SDT-t2-io3"/>
                                                                         <constraint firstAttribute="height" constant="16.333333333333332" id="iyx-13-okP"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Commissioner-Thin_Regular" family="Commissioner" pointSize="13"/>
                                                                     <color key="textColor" red="0.82352941180000006" green="0.82352941180000006" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZU-gV-8kz">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZU-gV-8kz">
                                                                     <rect key="frame" x="61" y="49" width="270" height="71"/>
-                                                                    <attributedString key="attributedText">
-                                                                        <fragment content="Label">
-                                                                            <attributes>
-                                                                                <color key="NSColor" name="GrayMain"/>
-                                                                                <font key="NSFont" metaFont="system"/>
-                                                                            </attributes>
-                                                                        </fragment>
-                                                                    </attributedString>
+                                                                    <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="13"/>
+                                                                    <color key="textColor" name="GrayMain"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -4338,6 +4333,7 @@
                                                             <constraint firstItem="S0l-sp-JIl" firstAttribute="top" secondItem="vHh-uT-mRY" secondAttribute="top" id="bTY-LP-4Xy"/>
                                                             <constraint firstItem="Ytb-sX-YoQ" firstAttribute="top" secondItem="vHh-uT-mRY" secondAttribute="top" id="im8-OE-fo3"/>
                                                             <constraint firstItem="WZU-gV-8kz" firstAttribute="top" secondItem="9GM-rF-0xK" secondAttribute="bottom" constant="32.666666666666671" id="kb3-17-YxE"/>
+                                                            <constraint firstItem="9GM-rF-0xK" firstAttribute="leading" secondItem="Ytb-sX-YoQ" secondAttribute="trailing" constant="10" id="mKH-4v-ujQ"/>
                                                             <constraint firstItem="S0l-sp-JIl" firstAttribute="leading" secondItem="vHh-uT-mRY" secondAttribute="leading" id="n8j-Cu-eUt"/>
                                                             <constraint firstItem="WZU-gV-8kz" firstAttribute="leading" secondItem="vHh-uT-mRY" secondAttribute="leading" constant="61" id="p7H-yZ-ufh"/>
                                                             <constraint firstItem="Ytb-sX-YoQ" firstAttribute="leading" secondItem="S0l-sp-JIl" secondAttribute="trailing" constant="15" id="qQ6-yk-9GR"/>

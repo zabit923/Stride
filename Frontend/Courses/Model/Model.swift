@@ -21,7 +21,7 @@ struct Objects {
 
 struct Category {
     var nameCategory: String
-    var image: String
+    var imageURL: URL
 }
 
 // MARK: - Course
@@ -48,9 +48,10 @@ struct Course {
     var id: Int
     var description: String
     var dataCreated: String
+    var countBuyer: Int = 0
     var courseDays = [CourseDays]()
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float? = nil, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0) {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float? = nil, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
@@ -62,6 +63,7 @@ struct Course {
         self.dataCreated = dataCreated
         self.idAuthor = idAuthor
         self.progressInDays = progressInDays
+        self.countBuyer = countBuyer
     }
 }
 
@@ -129,6 +131,16 @@ struct InfoMe: Encodable {
     var date_of_birth: String?
 }
 
+
+// MARK: - Comments
+
+struct Reviews {
+    var id: Int
+    var author: String
+    var text: String
+    var date: String
+    var courseID: Int
+}
 
 // MARK: - enum
 enum Level: String {

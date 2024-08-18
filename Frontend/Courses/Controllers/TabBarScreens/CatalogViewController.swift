@@ -28,6 +28,7 @@ class CatalogViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getCourses()
+        getCategories()
     }
     
     func getCourses() {
@@ -35,6 +36,13 @@ class CatalogViewController: UIViewController {
             let results = try await Courses().getAllCourses()
             courses = results
             catalogCollectionView.reloadData()
+        }
+    }
+    
+    func getCategories() {
+        Task {
+            categories = try await Categories().getCategories()
+            categoryCollectionView.reloadData()
         }
     }
     
@@ -53,7 +61,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == categoryCollectionView {
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as! CategoriesCollectionViewCell
-            cell.image.sd_setImage(with: URL(string: categories[indexPath.row].image))
+            cell.image.sd_setImage(with: categories[indexPath.row].imageURL)
             cell.nameCategory.text = categories[indexPath.row].nameCategory
             return cell
         }else {
