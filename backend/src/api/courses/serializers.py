@@ -39,7 +39,7 @@ class ModuleSerializer(serializers.ModelSerializer):
 
 
 class DaySerializer(serializers.ModelSerializer):
-    modules = ModuleSerializer(many=True)
+    modules = ModuleSerializer(many=True, read_only=True)
 
     class Meta:
         model = Day
