@@ -68,7 +68,7 @@ class Day(models.Model):
 
 
 class Course(models.Model):
-    title = models.CharField(_('Название'), max_length=50, unique=True)
+    title = models.CharField(_('Название'), max_length=50)
     author = models.ForeignKey(
         User,
         verbose_name=_('Автор'),
