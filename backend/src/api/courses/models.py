@@ -34,7 +34,10 @@ class Module(models.Model):
         _('Время на прохождение'),
         blank=True, null=True
     )
-    data = models.BinaryField()
+    data = models.FileField(
+        _('Данные'),
+        upload_to='module_data'
+    )
     day = models.ForeignKey(
         'Day',
         verbose_name=_('День'),
@@ -60,7 +63,7 @@ class Day(models.Model):
     )
 
     def __str__(self):
-        return f'{self.id}й день | курс: {self.course.title}'
+        return f'id: {self.id} |{self.course.title}'
 
     class Meta:
         verbose_name = 'День'

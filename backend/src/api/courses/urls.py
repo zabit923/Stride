@@ -4,8 +4,11 @@ from rest_framework.routers import DefaultRouter
 from .views import (
     CourseApiViewSet,
     CategoryApiViewSet,
-    DayApiViewSet,
-    ModuleApiViewSet,
+    DayCreateApiView,
+    DayDeleteApiView,
+    ModuleCreateApiView,
+    ModuleDeleteApiView,
+    ModuleUpdateApiView,
 )
 
 
@@ -15,15 +18,12 @@ course_router.register(r'courses', CourseApiViewSet)
 category_router = DefaultRouter()
 category_router.register(r'categories', CategoryApiViewSet)
 
-day_router = DefaultRouter()
-day_router.register(r'days', DayApiViewSet, basename='day')
-
-module_router = DefaultRouter()
-module_router.register(r'modules', ModuleApiViewSet, basename='module')
-
 urlpatterns = [
     path('', include(course_router.urls)),
     path('', include(category_router.urls)),
-    path('', include(day_router.urls)),
-    path('', include(module_router.urls)),
+    path('day/create/<int:pk>/', DayCreateApiView.as_view()),
+    path('day/delete/<int:pk>/', DayDeleteApiView.as_view()),
+    path('module/create/<int:pk>/', ModuleCreateApiView.as_view()),
+    path('module/delete/<int:pk>/', ModuleDeleteApiView.as_view()),
+    path('module/update/<int:pk>/', ModuleUpdateApiView.as_view()),
 ]
