@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController {
     }
     
     var courses = [Course]()
+    var selectCourseID = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,21 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectCourseID = courses[indexPath.row].id
+        performSegue(withIdentifier: "changeCourse", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "changeCourse" {
+            let vc = segue.destination as! AddInfoAboutCourseVC
+            vc.create = false
+            vc.idCourse = selectCourseID
+        }
+    }
+   
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = UIScreen.main.bounds.width / 3 - 2

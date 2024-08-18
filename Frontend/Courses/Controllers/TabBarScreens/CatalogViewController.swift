@@ -89,7 +89,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             let width = UIScreen.main.bounds.width / 2 - 30
             return CGSize(width: width, height: 180)
         }else {
-            return CGSize(width: 128, height: 128)
+            return CGSize(width: 100, height: 128)
         }
     }
     

@@ -42,7 +42,7 @@ struct Course {
     var idAuthor: Int
     var price: Int
     var imageURL: URL?
-    var rating: Float?
+    var rating: Float
     var progressInDays: Int = 0
     var progressInPercents: Int = 0
     var id: Int
@@ -51,7 +51,7 @@ struct Course {
     var countBuyer: Int = 0
     var courseDays = [CourseDays]()
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float? = nil, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
