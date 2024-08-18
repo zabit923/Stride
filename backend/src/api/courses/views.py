@@ -98,6 +98,11 @@ class CategoryApiViewSet(ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
 
+    def get_permissions(self):
+        if self.action == 'list':
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
+
 
 class DayApiViewSet(
     UpdateModelMixin,

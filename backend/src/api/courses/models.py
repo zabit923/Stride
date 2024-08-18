@@ -77,7 +77,7 @@ class Course(models.Model):
         null=True
     )
     price = models.IntegerField(_('Цена'))
-    desc = models.TextField(_('Описание'), max_length=500)
+    desc = models.TextField(_('Описание'), max_length=2000)
     image = models.ImageField(
         _('Изображение'),
         upload_to='course_images',
