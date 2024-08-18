@@ -1,10 +1,11 @@
 from rest_framework import serializers
 
 from .models import Comment, Rating
+from ..courses.serializers import AuthorShortSerializer
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    author = AuthorShortSerializer(read_only=True)
     created_at = serializers.ReadOnlyField()
 
     class Meta:

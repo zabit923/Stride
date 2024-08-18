@@ -22,9 +22,6 @@ class CommentViewSet(
     mixins.UpdateModelMixin,
     viewsets.GenericViewSet
 ):
-    """
-    ViewSet для операций над коментариями.
-    """
     queryset = Comment.objects.all()
     permission_classes = [IsAuthenticated, IsCommentOwnerOrAdmin]
     pagination_class = None
@@ -50,6 +47,10 @@ class CommentViewSet(
         reviews = Comment.objects.filter(course_id=course_id)
         serializer = self.get_serializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 
 class RatingViewSet(
