@@ -47,18 +47,14 @@ class MyCoursesViewController: UIViewController {
         }
     }
     
-    private func progressValue() {
-        for x in 0...course.count - 1 {
-            course[x].daysCount = course[x].courseDays.count
-            var daysCompleted = 0
-            for y in course[x].courseDays {
-                if y.type == .before {
-                    daysCompleted += 1
-                }
-            }
-            course[x].progressInDays = daysCompleted
-        }
+    private func progressValue(){
         
+        for x in 0...course.count - 1 {
+            var seenDaysCount: Int {
+                return course[x].courseDays.filter { $0.type == .before }.count
+            }
+            course[x].progressInDays = seenDaysCount
+        }
     }
 
     @IBAction func search(_ sender: UIButton) {

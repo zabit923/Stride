@@ -5272,22 +5272,22 @@
                                 <rect key="frame" x="0.0" y="113" width="393" height="655"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g89-eg-SJ4">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="670"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="720"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Txy-Lg-ZE6">
-                                                <rect key="frame" x="30" y="141" width="333" height="288"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Txy-Lg-ZE6">
+                                                <rect key="frame" x="30" y="41" width="333" height="438"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eg9-gE-NJl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="333" height="96"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="333" height="146"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNn-Bx-dOY">
-                                                                <rect key="frame" x="20" y="21" width="54" height="15"/>
+                                                                <rect key="frame" x="20" y="21" width="54" height="65"/>
                                                                 <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="12"/>
                                                                 <color key="textColor" name="GrayMain"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BBd-W3-38k" customClass="Border" customModule="Courses" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="46" width="333" height="50"/>
+                                                                <rect key="frame" x="0.0" y="96" width="333" height="50"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yLt-Eg-eiY">
                                                                         <rect key="frame" x="15" y="0.0" width="303" height="50"/>
@@ -5326,7 +5326,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ql9-NP-HJJ">
-                                                        <rect key="frame" x="0.0" y="96" width="333" height="96"/>
+                                                        <rect key="frame" x="0.0" y="146" width="333" height="146"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Описание" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGV-0V-8hc">
                                                                 <rect key="frame" x="20" y="21" width="56" height="15"/>
@@ -5335,22 +5335,23 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zp-lc-F2J" customClass="Border" customModule="Courses" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="46" width="333" height="50"/>
+                                                                <rect key="frame" x="0.0" y="46" width="333" height="100"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gpw-d5-kqP">
-                                                                        <rect key="frame" x="15" y="0.0" width="303" height="50"/>
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VCr-21-Bcb">
+                                                                        <rect key="frame" x="10" y="0.0" width="313" height="100"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
-                                                                        <textInputTraits key="textInputTraits"/>
-                                                                    </textField>
+                                                                        <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="11"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                    </textView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="bottom" secondItem="Gpw-d5-kqP" secondAttribute="bottom" id="Y5u-dU-Glu"/>
-                                                                    <constraint firstAttribute="height" constant="50" id="dmS-jO-ruq"/>
-                                                                    <constraint firstItem="Gpw-d5-kqP" firstAttribute="top" secondItem="2Zp-lc-F2J" secondAttribute="top" id="k8y-VA-MNA"/>
-                                                                    <constraint firstItem="Gpw-d5-kqP" firstAttribute="leading" secondItem="2Zp-lc-F2J" secondAttribute="leading" constant="15" id="rtL-1I-jx0"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="Gpw-d5-kqP" secondAttribute="trailing" constant="15" id="xR6-Bl-0nH"/>
+                                                                    <constraint firstItem="VCr-21-Bcb" firstAttribute="top" secondItem="2Zp-lc-F2J" secondAttribute="top" id="6wT-NH-742"/>
+                                                                    <constraint firstItem="VCr-21-Bcb" firstAttribute="leading" secondItem="2Zp-lc-F2J" secondAttribute="leading" constant="10" id="Eb5-iK-W5X"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="VCr-21-Bcb" secondAttribute="bottom" id="HC4-oa-i9W"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="VCr-21-Bcb" secondAttribute="trailing" constant="10" id="dBF-L9-Zz3"/>
+                                                                    <constraint firstAttribute="height" constant="100" id="dmS-jO-ruq"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="border">
@@ -5374,19 +5375,19 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="3jL-QQ-jcs">
-                                                        <rect key="frame" x="0.0" y="192" width="333" height="96"/>
+                                                        <rect key="frame" x="0.0" y="292" width="333" height="146"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zkc-UF-fka">
-                                                                <rect key="frame" x="0.0" y="0.0" width="160.66666666666666" height="96"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="160.66666666666666" height="146"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цена" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APU-Vl-h9K">
-                                                                        <rect key="frame" x="20" y="21" width="29" height="15"/>
+                                                                        <rect key="frame" x="20" y="21" width="29" height="65"/>
                                                                         <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="12"/>
                                                                         <color key="textColor" name="GrayMain"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Af-o0-LYD" customClass="Border" customModule="Courses" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="46" width="160.66666666666666" height="50"/>
+                                                                        <rect key="frame" x="0.0" y="96" width="160.66666666666666" height="50"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qpe-Wh-hB3">
                                                                                 <rect key="frame" x="15" y="0.0" width="130.66666666666666" height="50"/>
@@ -5425,16 +5426,16 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPt-3p-keL">
-                                                                <rect key="frame" x="172.66666666666663" y="0.0" width="160.33333333333337" height="96"/>
+                                                                <rect key="frame" x="172.66666666666663" y="0.0" width="160.33333333333337" height="146"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Категория" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uBU-09-PCP">
-                                                                        <rect key="frame" x="20.000000000000004" y="21" width="59.333333333333343" height="15"/>
+                                                                        <rect key="frame" x="20.000000000000004" y="21" width="59.333333333333343" height="65"/>
                                                                         <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="12"/>
                                                                         <color key="textColor" name="GrayMain"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="luk-3S-cJP" customClass="Border" customModule="Courses" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="46" width="160.33333333333334" height="50"/>
+                                                                        <rect key="frame" x="0.0" y="96" width="160.33333333333334" height="50"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="50" id="NJE-ej-dJp"/>
@@ -5465,13 +5466,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Предпросмотр" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08m-FP-BWm">
-                                                <rect key="frame" x="40" y="439" width="121" height="21"/>
+                                                <rect key="frame" x="40" y="489" width="121" height="21"/>
                                                 <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="17"/>
                                                 <color key="textColor" name="GrayMain"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S55-V3-XkN">
-                                                <rect key="frame" x="40" y="480" width="165" height="170"/>
+                                                <rect key="frame" x="40" y="530" width="165" height="170"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q0K-LA-fjD">
                                                         <rect key="frame" x="0.0" y="0.0" width="165" height="118.66666666666667"/>
@@ -5546,7 +5547,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBD-0Q-ymi" customClass="Border" customModule="Courses" customModuleProvider="target">
-                                                <rect key="frame" x="146.66666666666666" y="21" width="100" height="100"/>
+                                                <rect key="frame" x="146.66666666666666" y="-79" width="100" height="100"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="neD-Rj-aTF">
                                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -5579,7 +5580,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="670" id="034-hf-UUo"/>
+                                            <constraint firstAttribute="height" constant="720" id="034-hf-UUo"/>
                                             <constraint firstItem="S55-V3-XkN" firstAttribute="top" secondItem="08m-FP-BWm" secondAttribute="bottom" constant="20" id="Jc6-Qf-smG"/>
                                             <constraint firstAttribute="trailing" secondItem="Txy-Lg-ZE6" secondAttribute="trailing" constant="30" id="Jvf-X0-qwg"/>
                                             <constraint firstAttribute="bottom" secondItem="S55-V3-XkN" secondAttribute="bottom" constant="20" symbolic="YES" id="Kfb-wl-44h"/>
@@ -5646,7 +5647,7 @@
                         <outlet property="categoryBorder" destination="luk-3S-cJP" id="BSe-m3-r3l"/>
                         <outlet property="coachPred" destination="jen-lM-ni6" id="aeN-Xj-Etq"/>
                         <outlet property="descriptionBorder" destination="2Zp-lc-F2J" id="wu4-ye-EJA"/>
-                        <outlet property="descriptionCourse" destination="Gpw-d5-kqP" id="JJZ-ZV-R8f"/>
+                        <outlet property="descriptionCourse" destination="VCr-21-Bcb" id="met-Hs-ndc"/>
                         <outlet property="imageBorder" destination="vBD-0Q-ymi" id="GRZ-hX-6RQ"/>
                         <outlet property="imageBtn" destination="neD-Rj-aTF" id="9oF-w9-kbx"/>
                         <outlet property="imagePred" destination="Q0K-LA-fjD" id="NbQ-a2-Cmv"/>
@@ -6285,7 +6286,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="IVu-BL-rNu"/>
-        <segue reference="afS-Cq-cau"/>
+        <segue reference="M8w-WU-QND"/>
         <segue reference="HHf-kQ-icL"/>
         <segue reference="cs8-Z9-fOz"/>
         <segue reference="AOP-mt-L4O"/>

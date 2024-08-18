@@ -20,7 +20,7 @@ class AddInfoAboutCourseVC: UIViewController {
     @IBOutlet weak var namePred: UILabel!
     @IBOutlet weak var imagePred: UIImageView!
     @IBOutlet weak var price: UITextField!
-    @IBOutlet weak var descriptionCourse: UITextField!
+    @IBOutlet weak var descriptionCourse: UITextView!
     @IBOutlet weak var name: UITextField!
     
     private var infoCourses = Course()
@@ -31,7 +31,6 @@ class AddInfoAboutCourseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         price.delegate = self
-        descriptionCourse.delegate = self
         name.delegate = self
     }
     
