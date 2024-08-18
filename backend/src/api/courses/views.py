@@ -1,13 +1,22 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet, GenericViewSet
-from rest_framework.mixins import UpdateModelMixin, DestroyModelMixin
+from rest_framework.viewsets import ModelViewSet
 from django.contrib.auth import get_user_model
+from rest_framework.generics import (
+    CreateAPIView,
+    DestroyAPIView,
+    UpdateAPIView,
+)
 
-from .permissions import IsCoach, IsAdminOrSelf
+from .permissions import (
+    IsCoach,
+    IsAdminOrSelf,
+    IsOwnerOrAdmin,
+)
 from .models import (
     Course,
     Category,
@@ -104,21 +113,55 @@ class CategoryApiViewSet(ModelViewSet):
         return super().get_permissions()
 
 
-class DayApiViewSet(
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet
-):
+class DayCreateApiView(CreateAPIView):
     queryset = Day.objects.all()
     serializer_class = DaySerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsOwnerOrAdmin,]
+
+    def create(self, request, *args, **kwargs):
+        course_id = self.kwargs.get('pk')
+        if not Course.objects.filter(id=course_id).exists():
+            raise NotFound(detail="Course with this ID does not exist.")
+        data = request.data.copy()
+        data['course'] = course_id
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class ModuleApiViewSet(
-    UpdateModelMixin,
-    DestroyModelMixin,
-    GenericViewSet
-):
+class DayDeleteApiView(DestroyAPIView):
+    queryset = Day.objects.all()
+    serializer_class = DaySerializer
+    permission_classes = [IsOwnerOrAdmin,]
+
+
+class ModuleCreateApiView(CreateAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsOwnerOrAdmin,]
+
+    def create(self, request, *args, **kwargs):
+        day_id = self.kwargs.get('pk')
+        if not Day.objects.filter(id=day_id).exists():
+            raise NotFound(detail="Day with this ID does not exist.")
+        data = request.data.copy()
+        data['day'] = day_id
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class ModuleDeleteApiView(DestroyAPIView):
+    queryset = Module.objects.all()
+    serializer_class = ModuleSerializer
+    permission_classes = [IsOwnerOrAdmin,]
+
+
+class ModuleUpdateApiView(UpdateAPIView):
+    queryset = Module.objects.all()
+    serializer_class = ModuleSerializer
+    permission_classes = [IsOwnerOrAdmin,]

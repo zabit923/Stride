@@ -1,7 +1,16 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 
 from .models import Comment, Rating
-from ..courses.serializers import AuthorShortSerializer
+
+
+User = get_user_model()
+
+
+class AuthorShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'image')
 
 
 class CommentSerializer(serializers.ModelSerializer):

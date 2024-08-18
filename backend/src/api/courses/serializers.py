@@ -25,6 +25,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ModuleSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
+    data = serializers.FileField()
 
     class Meta:
         model = Module
@@ -35,7 +36,17 @@ class ModuleSerializer(serializers.ModelSerializer):
             'desc',
             'time_to_pass',
             'data',
+            'day',
         )
+
+    def update(self, instance, validated_data):
+        validated_data.pop('day', None)
+        return super().update(instance, validated_data)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation.pop('day', None)
+        return representation
 
 
 class DaySerializer(serializers.ModelSerializer):
@@ -46,7 +57,13 @@ class DaySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'modules',
+            'course',
         )
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation.pop('course', None)
+        return representation
 
 
 class AuthorShortSerializer(serializers.ModelSerializer):
@@ -112,7 +129,7 @@ class ShortCourseSerializer(serializers.ModelSerializer):
 
 class CourseSerializer(serializers.ModelSerializer):
     author = AuthorShortSerializer(read_only=True)
-    days = DaySerializer(read_only=True)
+    days = DaySerializer(read_only=True, many=True)
     bought_count = serializers.SerializerMethodField(read_only=True)
     image = serializers.ImageField(required=False)
     rating = serializers.SerializerMethodField(read_only=True)
