@@ -83,18 +83,19 @@ class Courses {
         
         for x in 0...daysCount - 1 {
             let idDay = json["days"][x]["id"].intValue
-            let modulesCount = json["days"][x]["modules"].arrayValue.count
-            
-            for y in 0...modulesCount - 1 {
-                let id = json["days"][x]["modules"][y]["id"].intValue
-//                let text = json["days"][x]["modules"][y]["data"].stringValue
-                let min = json["days"][x]["modules"][y]["time_to_pass"].intValue
-                let title = json["days"][x]["modules"][y]["title"].stringValue
-                let image = json["days"][x]["modules"][y]["image"].stringValue
-                let desc = json["days"][x]["modules"][y]["desc"].stringValue
-                modules.append(Modules(text: nil, name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id))
+            let modulesArray = json["days"][x]["modules"].arrayValue
+            if modulesArray.isEmpty == false {
+                for y in 0...modulesArray.count - 1 {
+                    let id = json["days"][x]["modules"][y]["id"].intValue
+                    //                let text = json["days"][x]["modules"][y]["data"].stringValue
+                    let min = json["days"][x]["modules"][y]["time_to_pass"].intValue
+                    let title = json["days"][x]["modules"][y]["title"].stringValue
+                    let image = json["days"][x]["modules"][y]["image"].stringValue
+                    let desc = json["days"][x]["modules"][y]["desc"].stringValue
+                    modules.append(Modules(text: nil, name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id))
+                }
             }
-            course.courseDays.append(CourseDays(day: idDay, type: .noneSee, modules: modules))
+            course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules))
             modules.removeAll()
         }
         
@@ -137,7 +138,6 @@ class Courses {
             multipartFormData.append(Data(info.description.utf8), withName: "desc")
         }, to: url, method: method, headers: headers).serializingData().value
         let json = JSON(value)
-        print(json)
         let idCourse = json["id"].intValue
         return idCourse
     }
@@ -178,19 +178,6 @@ class Courses {
         return courses
     }
     
-    private func getAllDaysCompleted(courses: [Course]) -> [Course] {
-        var result = courses
-        for x in 0...result.count - 1 {
-            var countCompletedDays = 0
-            for y in result[x].courseDays {
-                if y.type == .before {
-                    countCompletedDays += 1
-                }
-            }
-            result[x].daysCount = countCompletedDays
-        }
-        return result
-    }
     
     func getCoursesByUserID(id: Int) async throws -> [Course] {
         let url = Constants.url + "api/v1/courses/\(id)/courses_by_id/"
@@ -209,6 +196,38 @@ class Courses {
             courses.append(Course(nameCourse: title, imageURL: URL(string: image), id: id))
         }
         return courses
+    }
+    
+    func addDaysInCourse(courseID: Int) async throws -> Int {
+        let url = Constants.url + "/api/v1/day/create/\(courseID)/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, method: .post, headers: headers).serializingData().value
+        let json = JSON(value)
+        let id = json["id"].intValue
+        return id
+    }
+    
+    func addModulesInCourse(dayID: Int) async throws -> Int {
+        let url = Constants.url + "/api/v1/module/create/\(dayID)/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(Data("Название".utf8), withName: "title")
+            multipartFormData.append(Data(), withName: "data")
+        }, to: url, method: .post, headers: headers).serializingData().value
+        let json = JSON(value)
+        print(json)
+        let id = json["id"].intValue
+        return id
+    }
+    
+    func addModulesData(data: Data, moduleID: Int) async throws {
+        let url = Constants.url + "/api/v1/module/update/\(moduleID)/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(data, withName: "data")
+        }, to: url, method: .patch, headers: headers).serializingData().value
+        let json = JSON(value)
+        print(json, data, value)
     }
     
 }

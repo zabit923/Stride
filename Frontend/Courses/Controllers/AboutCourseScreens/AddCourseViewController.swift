@@ -22,6 +22,7 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var leftAlingment: UIButton!
     @IBOutlet weak var textView: UITextView!
     
+    var moduleID = 0
     
     private var colorSelect = UIColor.white {
         didSet {
@@ -56,7 +57,6 @@ class AddCourseViewController: UIViewController {
         textView.textColor = .white
         textView.delegate = self
         view.overrideUserInterfaceStyle = .dark
-        getCourse()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,42 +113,9 @@ class AddCourseViewController: UIViewController {
         textView.selectedTextRange = selectedRange
     }
     
-    private func getCourse() {
-        Task {
-            let url = Constants.url + "api/v1/courses/"
-            let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-            let value = try await AF.request(url,method: .get, headers: headers).serializingData().value
-            let json = JSON(value)
-        }
-    }
     
     private func addCourse(data:Data) async throws {
-        let url = Constants.url + "api/v1/courses/6/"
-        let parameters: [String: Any] = [
-            "title": "string",
-            "price": 2147483647,
-            "desc": "string",
-            "days": [
-                [
-                    "title": "string",
-                    "modules": [
-                        [
-                            "title": "string",
-                            "desc": "string",
-                            "time_to_pass": 2147483647
-                        ]
-                    ]
-                ]
-            ]
-        ]
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-        let value = try await AF.request(url,
-                                         method: .patch,
-                                         parameters: parameters,
-                                         encoding: JSONEncoding.default,
-                                         headers: headers).serializingData().value
-        let json = JSON(value)
-        print(json)
+        try await Courses().addModulesData(data: data, moduleID: 1)
     }
     
     // MARK: - UIButton
@@ -165,7 +132,9 @@ class AddCourseViewController: UIViewController {
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
         guard let data = textView.attributedText.attributedStringToData() else {return}
-        print(data)
+        let myDictionary = textView.attributedText.toDictionary()
+        let json = JSON(myDictionary)
+        print(json.rawString(String.Encoding.utf8, options: .prettyPrinted), myDictionary)
         Task {
             try await addCourse(data: data)
         }

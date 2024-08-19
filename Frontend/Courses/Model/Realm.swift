@@ -29,7 +29,7 @@ class RealmValue {
         var result = course
         guard result.courseDays.isEmpty == false else { return result }
         for x in 0...result.courseDays.count - 1 {
-            if compareModules(days: result.courseDays[x], completedModules: completedModules) {
+            if compareModules(days: result.courseDays[x], completedModules: completedModules) && result.courseDays[x].modules.isEmpty == false {
                 result.courseDays[x].type = .before
             }else {
                 result.courseDays[x].type = .noneSee

@@ -68,7 +68,7 @@ struct Course {
 }
 
 struct CourseDays {
-    var day: Int
+    var dayID: Int
     var type: TypeDays = .noneSee
     var modules = [Modules]()
 }

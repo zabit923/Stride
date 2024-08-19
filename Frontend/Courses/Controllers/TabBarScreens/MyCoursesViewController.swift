@@ -48,7 +48,7 @@ class MyCoursesViewController: UIViewController {
     }
     
     private func progressValue(){
-        
+        guard course.isEmpty == false else {return}
         for x in 0...course.count - 1 {
             var seenDaysCount: Int {
                 return course[x].courseDays.filter { $0.type == .before }.count
