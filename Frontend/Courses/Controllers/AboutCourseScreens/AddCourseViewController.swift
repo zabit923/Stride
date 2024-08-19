@@ -127,14 +127,25 @@ class AddCourseViewController: UIViewController {
         selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
     }
     
-    
+    func serializeAttributedStringToFile(_ attributedString: NSAttributedString) -> URL? {
+        let fileManager = FileManager.default
+        let tempDirectory = fileManager.temporaryDirectory
+        let fileURL = tempDirectory.appendingPathComponent("attributedStringData")
+
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: attributedString, requiringSecureCoding: false)
+            try data.write(to: fileURL)
+            return fileURL
+        } catch {
+            print("Error serializing attributed string to file: \(error)")
+            return nil
+        }
+    }
     
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
         guard let data = textView.attributedText.attributedStringToData() else {return}
-        let myDictionary = textView.attributedText.toDictionary()
-        let json = JSON(myDictionary)
-        print(json.rawString(String.Encoding.utf8, options: .prettyPrinted), myDictionary)
+        print(serializeAttributedStringToFile(textView.attributedText))
         Task {
             try await addCourse(data: data)
         }
