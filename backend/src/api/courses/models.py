@@ -19,7 +19,11 @@ class Category(models.Model):
 
 
 class Module(models.Model):
-    title = models.CharField(_('Название'), max_length=128)
+    title = models.CharField(
+        _('Название'),
+        max_length=128,
+        null=True, blank=True
+    )
     image = models.ImageField(
         _('Изображение'),
         upload_to='course_images',
@@ -36,7 +40,8 @@ class Module(models.Model):
     )
     data = models.FileField(
         _('Данные'),
-        upload_to='module_data'
+        upload_to='module_data',
+        null=True, blank=True
     )
     day = models.ForeignKey(
         'Day',
