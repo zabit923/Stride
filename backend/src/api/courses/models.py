@@ -34,8 +34,9 @@ class Module(models.Model):
         _('Время на прохождение'),
         blank=True, null=True
     )
-    data = models.BinaryField(
+    data = models.FileField(
         _('Данные'),
+        upload_to='module_data'
     )
     day = models.ForeignKey(
         'Day',
