@@ -57,6 +57,7 @@ class AddCourseViewController: UIViewController {
         textView.textColor = .white
         textView.delegate = self
         view.overrideUserInterfaceStyle = .dark
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +71,24 @@ class AddCourseViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
+    func getData() {
+        Task {
+            let course = try await Courses().getDaysInCourse(id: 1)
+            AF.download(course.courseDays[0].modules[1].text!)
+                .responseData { response in
+                    switch response.result {
+                    case .success(let data):
+                        print(data)
+                        self.deserializeAttributedString(from: data)
+                    case .failure(let error):
+                        print("Error downloading file: \(error.localizedDescription)")
+                        
+                    }
+                }
+            
+        }
+    }
+    
     @objc func keyboardWillAppear(notification:Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -114,8 +133,8 @@ class AddCourseViewController: UIViewController {
     }
     
     
-    private func addCourse(data:Data) async throws {
-        try await Courses().addModulesData(data: data, moduleID: 1)
+    private func addCourse(file:URL) async throws {
+        try await Courses().addModulesData(file: file, moduleID: 1)
     }
     
     // MARK: - UIButton
@@ -127,10 +146,11 @@ class AddCourseViewController: UIViewController {
         selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
     }
     
+
     func serializeAttributedStringToFile(_ attributedString: NSAttributedString) -> URL? {
         let fileManager = FileManager.default
         let tempDirectory = fileManager.temporaryDirectory
-        let fileURL = tempDirectory.appendingPathComponent("attributedStringData")
+        let fileURL = tempDirectory.appendingPathComponent("attributedStringData").appendingPathExtension("data")
 
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: attributedString, requiringSecureCoding: false)
@@ -142,12 +162,29 @@ class AddCourseViewController: UIViewController {
         }
     }
     
+    func deserializeAttributedString(from data: Data) -> NSAttributedString? {
+        do {
+//            let data = try Data(contentsOf: fileURL)
+            
+            if let attributedString = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? NSAttributedString {
+                textView.attributedText = attributedString
+                return attributedString
+            } else {
+                print("Ошибка: не удалось преобразовать данные в NSAttributedString")
+                return nil
+            }
+        } catch {
+            print("Ошибка десериализации: \(error)")
+            return nil
+        }
+    }
+    
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
         guard let data = textView.attributedText.attributedStringToData() else {return}
-        print(serializeAttributedStringToFile(textView.attributedText))
+        let url = serializeAttributedStringToFile(textView.attributedText)!
         Task {
-            try await addCourse(data: data)
+            try await addCourse(file: url)
         }
     }
     

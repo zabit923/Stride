@@ -87,12 +87,12 @@ class Courses {
             if modulesArray.isEmpty == false {
                 for y in 0...modulesArray.count - 1 {
                     let id = json["days"][x]["modules"][y]["id"].intValue
-                    //                let text = json["days"][x]["modules"][y]["data"].stringValue
+                    let text = json["days"][x]["modules"][y]["data"].stringValue
                     let min = json["days"][x]["modules"][y]["time_to_pass"].intValue
                     let title = json["days"][x]["modules"][y]["title"].stringValue
                     let image = json["days"][x]["modules"][y]["image"].stringValue
                     let desc = json["days"][x]["modules"][y]["desc"].stringValue
-                    modules.append(Modules(text: nil, name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id))
+                    modules.append(Modules(text: URL(string: text)!, name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id))
                 }
             }
             course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules))
@@ -210,24 +210,21 @@ class Courses {
     func addModulesInCourse(dayID: Int) async throws -> Int {
         let url = Constants.url + "/api/v1/module/create/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-        let value = try await AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(Data("Название".utf8), withName: "title")
-            multipartFormData.append(Data(), withName: "data")
-        }, to: url, method: .post, headers: headers).serializingData().value
+        let value = try await AF.request(url, method: .post, headers: headers).serializingData().value
         let json = JSON(value)
         print(json)
         let id = json["id"].intValue
         return id
     }
     
-    func addModulesData(data: Data, moduleID: Int) async throws {
+    func addModulesData(file: URL, moduleID: Int) async throws {
         let url = Constants.url + "/api/v1/module/update/\(moduleID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let tempFileURL = file.deletingPathExtension().appendingPathExtension("data")
         let value = try await AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(data, withName: "data")
+            multipartFormData.append(tempFileURL, withName: "data")
         }, to: url, method: .patch, headers: headers).serializingData().value
         let json = JSON(value)
-        print(json, data, value)
     }
     
 }
