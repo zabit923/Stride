@@ -22,7 +22,7 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var leftAlingment: UIButton!
     @IBOutlet weak var textView: UITextView!
     
-    var moduleID = 0
+    var module = Modules(name: "", minutes: 0, id: 0)
     
     private var colorSelect = UIColor.white {
         didSet {
@@ -66,29 +66,6 @@ class AddCourseViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-    }
-
-    func getData() {
-        Task {
-            let course = try await Courses().getDaysInCourse(id: 1)
-            AF.download(course.courseDays[0].modules[1].text!)
-                .responseData { response in
-                    switch response.result {
-                    case .success(let data):
-                        print(data)
-                        self.deserializeAttributedString(from: data)
-                    case .failure(let error):
-                        print("Error downloading file: \(error.localizedDescription)")
-                        
-                    }
-                }
-            
-        }
-    }
-    
     @objc func keyboardWillAppear(notification:Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -100,6 +77,21 @@ class AddCourseViewController: UIViewController {
     @objc func keyboardWillDisappear() {
         bottomConsoleView.constant = 0
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    func getData() {
+        Task {
+            let attributedString = try await FilePath().downloadFileWithURL(url: module.text!)
+            print(attributedString)
+            textView.attributedText = attributedString
+        }
+    }
+    
+    
     
     private func changedAlignment(_ alignment: NSTextAlignment) {
         switch alignment {
@@ -133,8 +125,8 @@ class AddCourseViewController: UIViewController {
     }
     
     
-    private func addCourse(file:URL) async throws {
-        try await Courses().addModulesData(file: file, moduleID: 1)
+    private func addCourse(text: NSAttributedString) async throws {
+        try await Courses().addModulesData(text: text, moduleID: module.id)
     }
     
     // MARK: - UIButton
@@ -146,45 +138,12 @@ class AddCourseViewController: UIViewController {
         selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
     }
     
-
-    func serializeAttributedStringToFile(_ attributedString: NSAttributedString) -> URL? {
-        let fileManager = FileManager.default
-        let tempDirectory = fileManager.temporaryDirectory
-        let fileURL = tempDirectory.appendingPathComponent("attributedStringData").appendingPathExtension("data")
-
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: attributedString, requiringSecureCoding: false)
-            try data.write(to: fileURL)
-            return fileURL
-        } catch {
-            print("Error serializing attributed string to file: \(error)")
-            return nil
-        }
-    }
     
-    func deserializeAttributedString(from data: Data) -> NSAttributedString? {
-        do {
-//            let data = try Data(contentsOf: fileURL)
-            
-            if let attributedString = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? NSAttributedString {
-                textView.attributedText = attributedString
-                return attributedString
-            } else {
-                print("Ошибка: не удалось преобразовать данные в NSAttributedString")
-                return nil
-            }
-        } catch {
-            print("Ошибка десериализации: \(error)")
-            return nil
-        }
-    }
     
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
-        guard let data = textView.attributedText.attributedStringToData() else {return}
-        let url = serializeAttributedStringToFile(textView.attributedText)!
         Task {
-            try await addCourse(file: url)
+            try await addCourse(text: textView.attributedText)
         }
     }
     

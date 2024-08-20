@@ -40,6 +40,7 @@
 		444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A07002C2B9D6C008F4E68 /* Extension.swift */; };
 		446475752C72088300ACD3D7 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475742C72088300ACD3D7 /* Comments.swift */; };
 		446475792C726C4500ACD3D7 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475782C726C4500ACD3D7 /* Categories.swift */; };
+		4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4464757A2C7496F100ACD3D7 /* FilePath.swift */; };
 		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
 		449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */; };
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
@@ -119,6 +120,7 @@
 		444A07002C2B9D6C008F4E68 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		446475742C72088300ACD3D7 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		446475782C726C4500ACD3D7 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		4464757A2C7496F100ACD3D7 /* FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePath.swift; sourceTree = "<group>"; };
 		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				44049A342C6F549F0014BD9C /* Realm.swift */,
 				446475742C72088300ACD3D7 /* Comments.swift */,
 				446475782C726C4500ACD3D7 /* Categories.swift */,
+				4464757A2C7496F100ACD3D7 /* FilePath.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */,
 				44064CA42C2876F200AB5227 /* Errors.swift in Sources */,
 				449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */,
+				4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */,
 				44E2440C2C5D6C7000EADF3D /* Courses.swift in Sources */,
 				44D68B012C51B3EF00F8F476 /* AddCourseViewController.swift in Sources */,
 				44BD6CE42C440974001645A0 /* AddModuleCoursesViewController.swift in Sources */,

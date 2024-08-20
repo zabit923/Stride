@@ -19,14 +19,18 @@ class AddModuleCoursesViewController: UIViewController {
     private var scaleView = false
     private var course = Course()
     private var selectDay: Int = 0
-    private var selectModuleID = 0
+    private var selectModule = Modules(name: "", minutes: 0, id: 0)
     var idCourse = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionSettings()
-        addCourseInfo()
         print(idCourse)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addCourseInfo()
     }
     
     private func addCourseInfo() {
@@ -183,7 +187,7 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             if indexPath.row == course.courseDays[selectDay].modules.count {
                 addModule(dayID: course.courseDays[selectDay].dayID)
             }else {
-                selectModuleID = course.courseDays[selectDay].modules[indexPath.row].id
+                selectModule = course.courseDays[selectDay].modules[indexPath.row]
                 performSegue(withIdentifier: "goToAddCourse2", sender: self)
             }
             
@@ -194,7 +198,7 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         
         if segue.identifier == "goToAddCourse2" {
             let vc = segue.destination as! AddCourseViewController
-            vc.moduleID = selectModuleID
+            vc.module = selectModule
         }
         
     }
