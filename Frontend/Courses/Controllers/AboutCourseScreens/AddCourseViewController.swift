@@ -22,6 +22,7 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var leftAlingment: UIButton!
     @IBOutlet weak var textView: UITextView!
     
+    var module = Modules(name: "", minutes: 0, id: 0)
     
     private var colorSelect = UIColor.white {
         didSet {
@@ -56,7 +57,7 @@ class AddCourseViewController: UIViewController {
         textView.textColor = .white
         textView.delegate = self
         view.overrideUserInterfaceStyle = .dark
-        getCourse()
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,11 +66,6 @@ class AddCourseViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-    }
-
     @objc func keyboardWillAppear(notification:Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -81,6 +77,21 @@ class AddCourseViewController: UIViewController {
     @objc func keyboardWillDisappear() {
         bottomConsoleView.constant = 0
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    func getData() {
+        Task {
+            let attributedString = try await FilePath().downloadFileWithURL(url: module.text!)
+            print(attributedString)
+            textView.attributedText = attributedString
+        }
+    }
+    
+    
     
     private func changedAlignment(_ alignment: NSTextAlignment) {
         switch alignment {
@@ -113,42 +124,9 @@ class AddCourseViewController: UIViewController {
         textView.selectedTextRange = selectedRange
     }
     
-    private func getCourse() {
-        Task {
-            let url = Constants.url + "api/v1/courses/"
-            let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-            let value = try await AF.request(url,method: .get, headers: headers).serializingData().value
-            let json = JSON(value)
-        }
-    }
     
-    private func addCourse(data:Data) async throws {
-        let url = Constants.url + "api/v1/courses/6/"
-        let parameters: [String: Any] = [
-            "title": "string",
-            "price": 2147483647,
-            "desc": "string",
-            "days": [
-                [
-                    "title": "string",
-                    "modules": [
-                        [
-                            "title": "string",
-                            "desc": "string",
-                            "time_to_pass": 2147483647
-                        ]
-                    ]
-                ]
-            ]
-        ]
-        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-        let value = try await AF.request(url,
-                                         method: .patch,
-                                         parameters: parameters,
-                                         encoding: JSONEncoding.default,
-                                         headers: headers).serializingData().value
-        let json = JSON(value)
-        print(json)
+    private func addCourse(text: NSAttributedString) async throws {
+        try await Courses().addModulesData(text: text, moduleID: module.id)
     }
     
     // MARK: - UIButton
@@ -164,10 +142,8 @@ class AddCourseViewController: UIViewController {
     
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
-        guard let data = textView.attributedText.attributedStringToData() else {return}
-        print(data)
         Task {
-            try await addCourse(data: data)
+            try await addCourse(text: textView.attributedText)
         }
     }
     

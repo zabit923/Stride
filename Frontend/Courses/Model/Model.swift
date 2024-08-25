@@ -26,7 +26,7 @@ struct Category {
 
 // MARK: - Course
 struct Modules {
-    var text: Data?
+    var text: URL?
     var name: String
     var minutes: Int
     var imageURL: URL?
@@ -68,7 +68,7 @@ struct Course {
 }
 
 struct CourseDays {
-    var day: Int
+    var dayID: Int
     var type: TypeDays = .noneSee
     var modules = [Modules]()
 }

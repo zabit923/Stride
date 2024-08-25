@@ -26,6 +26,26 @@ extension Data {
     }
 }
 
+extension NSAttributedString {
+    func toDictionary() -> [String: Any] {
+        let string = self.string
+        var attributes = [String: Any]()
+        self.enumerateAttributes(in: NSRange(location: 0, length: string.count), options: []) { (attrs, range, _) in
+            for (key, value) in attrs {
+                let keyString = (key as? NSAttributedString.Key)?.rawValue ?? ""
+                if let value = value as? [String: Any] {
+                    attributes[keyString] = value
+                } else if let value = value as? Any {
+                    attributes[keyString] = value
+                }
+            }
+        }
+        
+        return ["string": string, "attributes": attributes]
+    }
+}
+
+
 
 extension UIImage {
     

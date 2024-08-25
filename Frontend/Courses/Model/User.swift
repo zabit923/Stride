@@ -30,7 +30,6 @@ class User {
         }, to: url, method: .patch, headers: headers).serializingData().value
         UD().saveMyInfo(user)
         let json = JSON(value)
-        print(json)
     }
     
     func changeInfoAboutMe(id: Int, user: UserStruct) async throws {

@@ -21,6 +21,7 @@ class AddInfoAboutModuleViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var descriptionTextField: UITextField!
     
+    private var startPosition = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +40,6 @@ class AddInfoAboutModuleViewController: UIViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    
-    private var startPosition = CGPoint()
     
     
     @objc func keyboardWillAppear(notification: Notification) {
@@ -81,6 +80,7 @@ class AddInfoAboutModuleViewController: UIViewController {
         imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
+    
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: mainView)
         switch sender.state {
