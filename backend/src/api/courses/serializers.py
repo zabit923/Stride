@@ -25,7 +25,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ModuleSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
-    data = serializers.FileField()
+    data = serializers.FileField(required=False)
 
     class Meta:
         model = Module
@@ -91,6 +91,7 @@ class ShortCourseSerializer(serializers.ModelSerializer):
             'image',
             'desc',
             'category',
+            'is_celebretie_course',
             'created_at',
             'count_days',
             'bought',
@@ -145,6 +146,7 @@ class CourseSerializer(serializers.ModelSerializer):
             'image',
             'desc',
             'category',
+            'is_celebretie_course',
             'created_at',
             'days',
             'bought_count',

@@ -98,6 +98,7 @@ class Course(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
+    is_celebretie_course = models.BooleanField(_('Курс от знаменитости'), default=False)
     created_at = models.DateField(_('Дата создания'), auto_now_add=True)
 
     def __str__(self):
