@@ -25,6 +25,7 @@ class HomeViewController: UIViewController {
         }
     }
     private var startPosition = CGPoint()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,8 @@ class HomeViewController: UIViewController {
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
+//        error.configure(image: UIImage.error, title: "Ошибка", description: "Неправильный пароль лялялляляля")
+//        view.addSubview(error)
     }
     
     override func viewWillAppear(_ animated: Bool) {

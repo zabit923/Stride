@@ -68,6 +68,14 @@ class UD {
         return current
     }
     
+    func saveDaysCompletedInCourse(course: Course, countDaysCompleted: Int) {
+        UserDefaults.standard.set(countDaysCompleted, forKey: "completedDays_\(course.id)")
+    }
+    
+    func getDaysCompletedInCourse(courseID: Int) -> Int {
+        let count = UserDefaults.standard.integer(forKey: "completedDays_\(courseID)")
+        return count
+    }
     
     
     func saveInfoAboutMe(_ user: UserStruct) {

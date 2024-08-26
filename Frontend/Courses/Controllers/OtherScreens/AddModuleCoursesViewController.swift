@@ -8,12 +8,16 @@
 import UIKit
 
 class AddModuleCoursesViewController: UIViewController {
+    
 
     @IBOutlet weak var nameCourses: UILabel!
     @IBOutlet weak var heightViewDays: NSLayoutConstraint!
     @IBOutlet weak var viewDays: UIView!
     @IBOutlet weak var daysCollectionView: UICollectionView!
     @IBOutlet weak var modulesCollectionView: UICollectionView!
+    
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    private var startPosition = CGPoint()
     
     private let layout = PageModuleLayout()
     private var scaleView = false
@@ -25,7 +29,7 @@ class AddModuleCoursesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionSettings()
-        print(idCourse)
+        startPosition = errorView.center
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,19 +65,52 @@ class AddModuleCoursesViewController: UIViewController {
     
     private func addDay() {
         Task {
-            let id = try await Courses().addDaysInCourse(courseID: idCourse)
-            course.courseDays.append(CourseDays(dayID: id, type: .noneSee))
-            daysCollectionView.insertItems(at: [IndexPath(item: course.courseDays.count - 1, section: 0)])
+            do {
+                let id = try await Courses().addDaysInCourse(courseID: idCourse)
+                course.courseDays.append(CourseDays(dayID: id, type: .noneSee))
+                daysCollectionView.insertItems(at: [IndexPath(item: course.courseDays.count - 1, section: 0)])
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
         }
     }
     
     private func addModule(dayID: Int) {
         Task {
-            let id = try await Courses().addModulesInCourse(dayID: dayID)
-            course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id))
-            modulesCollectionView.insertItems(at: [IndexPath(item: course.courseDays[selectDay].modules.count - 1, section: 0)])
+            do {
+                let id = try await Courses().addModulesInCourse(dayID: dayID)
+                course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id))
+                modulesCollectionView.insertItems(at: [IndexPath(item: course.courseDays[selectDay].modules.count - 1, section: 0)])
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
         }
     }
+    
+    private func deleteDay(dayID: Int) {
+        Task {
+            do {
+                try await Courses().deleteDay(dayID: dayID)
+                for x in 0...course.courseDays.count - 1 {
+                    if course.courseDays[x].dayID == dayID {
+                        course.courseDays.remove(at: x)
+                        daysCollectionView.reloadData()
+                        break
+                    }
+                }
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
+        }
+    }
+    
+    
     
     @IBAction func longClickInView(_ sender: UILongPressGestureRecognizer) {
         if scaleView == false {
@@ -106,6 +143,10 @@ class AddModuleCoursesViewController: UIViewController {
         
     }
     
+    @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
+        errorView.swipe(sender: sender, startPosition: startPosition)
+    }
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -129,17 +170,22 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         // Day
         if collectionView == daysCollectionView {
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "day", for: indexPath) as! DaysCourseCollectionViewCell
-            
             cell.lbl.text = "\(indexPath.row + 1)"
-            if selectDay == indexPath.row {
-                cell.current()
-            }else {
-                cell.before()
-            }
             // Add +
             if indexPath.row == course.courseDays.count {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addDayCell", for: indexPath) as! DaysCourseCollectionViewCell
                 return cell
+            }else {
+                cell.delete.isHidden = false
+                cell.delete.tag = course.courseDays[indexPath.row].dayID
+                cell.delete.addTarget(self, action: #selector(deleteDayBtn), for: .touchUpInside)
+            }
+            
+            if selectDay == indexPath.row {
+                cell.current()
+                cell.delete.isHidden = true
+            }else {
+                cell.before()
             }
             return cell
         }else {
@@ -157,17 +203,16 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             if let image = course.courseDays[selectDay].modules[indexPath.row].imageURL {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module", for: indexPath) as! ModuleCourseCollectionViewCell
                 cell.im.sd_setImage(with: image)
-                cell.settingsBtn.addTarget(self, action: #selector(settings), for: .touchUpInside)
                 cell.settingsBtn.tag = indexPath.row
+                cell.settingsBtn.addTarget(self, action: #selector(settings), for: .touchUpInside)
             }else {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "module2", for: indexPath) as! ModuleCourseCollectionViewCell
-                cell.settingsBtn2.addTarget(self, action: #selector(settings), for: .touchUpInside)
                 cell.settingsBtn2.tag = indexPath.row
+                cell.settingsBtn2.addTarget(self, action: #selector(settings), for: .touchUpInside)
             }
             cell.name.text = course.courseDays[selectDay].modules[indexPath.row].name
             cell.time.text = "\(course.courseDays[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
             cell.descrLbl.text = course.courseDays[selectDay].modules[indexPath.row].description
-            
             return cell
         }
     }
@@ -199,6 +244,11 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         if segue.identifier == "goToAddCourse2" {
             let vc = segue.destination as! AddCourseViewController
             vc.module = selectModule
+            vc.nameCourse = course.nameCourse
+        }else if segue.identifier == "goToModuleSettings" {
+            let vc = segue.destination as! AddInfoAboutModuleViewController
+            vc.module = selectModule
+            vc.delegate = self
         }
         
     }
@@ -213,8 +263,48 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         }
     }
     
+    @objc func deleteDayBtn(sender: UIButton) {
+        let alert = UIAlertController(title: "Удалить данные?", message: "Вы уверены, что хотите удалить этот день? Это действие невозможно отменить.", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { _ in
+            self.deleteDay(dayID: sender.tag)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { _ in
+            self.dismiss(animated: true)
+        }
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
+        
+    }
+    
     @objc func settings(sender: UIButton) {
+        selectModule = course.courseDays[selectDay].modules[sender.tag]
         performSegue(withIdentifier: "goToModuleSettings", sender: self)
     }
 
+}
+extension AddModuleCoursesViewController: ChangeInfoModule {
+    
+    func changeInfoModuleDismiss(module: Modules, moduleID: Int) {
+        for x in 0...course.courseDays[selectDay].modules.count - 1 {
+            if course.courseDays[selectDay].modules[x].id == moduleID {
+                course.courseDays[selectDay].modules[x] = module
+                modulesCollectionView.reloadData()
+            }
+        }
+    }
+    
+    func deleteModuleDismiss(moduleID: Int) {
+        for x in 0...course.courseDays[selectDay].modules.count - 1 {
+            if course.courseDays[selectDay].modules[x].id == moduleID {
+                course.courseDays[selectDay].modules.remove(at: x)
+                modulesCollectionView.reloadData()
+            }
+        }
+    }
+    
 }

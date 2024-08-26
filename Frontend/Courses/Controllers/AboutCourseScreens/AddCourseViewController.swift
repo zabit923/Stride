@@ -11,6 +11,7 @@ import Alamofire
 
 class AddCourseViewController: UIViewController {
     
+    @IBOutlet weak var nameCourseLBL: UILabel!
     @IBOutlet weak var sizeFont: UILabel!
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var fontTitle: UILabel!
@@ -22,7 +23,11 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var leftAlingment: UIButton!
     @IBOutlet weak var textView: UITextView!
     
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    private var startPosition = CGPoint()
+    
     var module = Modules(name: "", minutes: 0, id: 0)
+    var nameCourse = ""
     
     private var colorSelect = UIColor.white {
         didSet {
@@ -58,6 +63,8 @@ class AddCourseViewController: UIViewController {
         textView.delegate = self
         view.overrideUserInterfaceStyle = .dark
         getData()
+        design()
+        startPosition = errorView.center
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,16 +88,21 @@ class AddCourseViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        FilePath().deleteAlamofireFiles()
     }
+    
+    
 
     func getData() {
         Task {
             let attributedString = try await FilePath().downloadFileWithURL(url: module.text!)
-            print(attributedString)
             textView.attributedText = attributedString
         }
     }
     
+    private func design() {
+        nameCourseLBL.text = nameCourse
+    }
     
     
     private func changedAlignment(_ alignment: NSTextAlignment) {
@@ -126,7 +138,13 @@ class AddCourseViewController: UIViewController {
     
     
     private func addCourse(text: NSAttributedString) async throws {
-        try await Courses().addModulesData(text: text, moduleID: module.id)
+        do {
+            try await Courses().addModulesData(text: text, moduleID: module.id)
+        }catch ErrorNetwork.runtimeError(let error) {
+            errorView.isHidden = false
+            errorView.configure(title: "Ошибка", description: error)
+            view.addSubview(errorView)
+        }
     }
     
     // MARK: - UIButton
@@ -204,6 +222,10 @@ class AddCourseViewController: UIViewController {
     
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         textView.resignFirstResponder()
+    }
+    
+    @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
+        errorView.swipe(sender: sender, startPosition: startPosition)
     }
     
     @IBAction func back(_ sender: UIButton) {

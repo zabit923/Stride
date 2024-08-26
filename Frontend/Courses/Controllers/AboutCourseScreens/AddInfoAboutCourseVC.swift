@@ -23,6 +23,9 @@ class AddInfoAboutCourseVC: UIViewController {
     @IBOutlet weak var descriptionCourse: UITextView!
     @IBOutlet weak var name: UITextField!
     
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    private var startPosition = CGPoint()
+    
     private var infoCourses = Course()
     var idCourse = 0
     private var imageURL: URL?
@@ -32,6 +35,7 @@ class AddInfoAboutCourseVC: UIViewController {
         super.viewDidLoad()
         price.delegate = self
         name.delegate = self
+        startPosition = errorView.center
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,8 +105,9 @@ class AddInfoAboutCourseVC: UIViewController {
     
     @IBAction func save(_ sender: UIButton) {
         
-        if checkError() {
-            Task {
+        guard checkError() else {return}
+        Task {
+            do {
                 addInfoInVar()
                 if create {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .post)
@@ -110,6 +115,10 @@ class AddInfoAboutCourseVC: UIViewController {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }
                 performSegue(withIdentifier: "goToAddModule", sender: self)
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
             }
         }
     }
@@ -139,6 +148,12 @@ class AddInfoAboutCourseVC: UIViewController {
         }
         
     }
+    
+    
+    @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
+        errorView.swipe(sender: sender, startPosition: startPosition)
+    }
+    
     
 }
 extension AddInfoAboutCourseVC: UIImagePickerControllerDelegate & UINavigationControllerDelegate {

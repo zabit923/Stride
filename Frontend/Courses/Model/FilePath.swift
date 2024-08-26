@@ -16,11 +16,21 @@ class FilePath {
             AF.download(url).responseData { response in
                 switch response.result {
                 case .success(let data):
-                    continuation.resume(returning: self.deserializeAttributedString(from: data)!)
+                    guard let str = self.deserializeAttributedString(from: data) else {return}
+                    continuation.resume(returning: str)
                 case .failure(let error):
                     continuation.resume(throwing: error)
                 }
             }
+        }
+    }
+    
+    func deleteAlamofireFiles() {
+        let fileManager = FileManager.default
+        let tempDirectory = fileManager.temporaryDirectory
+        let files = try! fileManager.contentsOfDirectory(at: tempDirectory, includingPropertiesForKeys: nil)
+        for file in files where file.lastPathComponent.hasPrefix("Alamofire") {
+            try! fileManager.removeItem(at: file)
         }
     }
     

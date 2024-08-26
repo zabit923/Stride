@@ -19,6 +19,9 @@ class InfoCoursesViewController: UIViewController {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var im: UIImageView!
     
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    private var startPosition = CGPoint()
+    
     var course = Course()
     var reviews = [Reviews]()
     
@@ -26,6 +29,7 @@ class InfoCoursesViewController: UIViewController {
         super.viewDidLoad()
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
+        startPosition = errorView.center
         self.view.layoutSubviews()
     }
     
@@ -66,8 +70,10 @@ class InfoCoursesViewController: UIViewController {
             do {
                 try await Courses().buyCourse(id: course.id)
                 performSegue(withIdentifier: "goCourse", sender: self)
-            }catch {
-                print("Error buy course")
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
             }
         }
     }
@@ -86,6 +92,10 @@ class InfoCoursesViewController: UIViewController {
             vc.idCourse = course.id
         }
         
+    }
+    
+    @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
+        errorView.swipe(sender: sender, startPosition: startPosition)
     }
     
 }

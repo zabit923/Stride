@@ -6,13 +6,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class AddInfoAboutModuleViewController: UIViewController {
 
     
     
     @IBOutlet weak var closeName: UIButton!
-    @IBOutlet weak var closeDuration: UIButton!
     @IBOutlet weak var closeDescription: UIButton!
     @IBOutlet weak var durationTextField: UITextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
@@ -20,8 +20,11 @@ class AddInfoAboutModuleViewController: UIViewController {
     @IBOutlet weak var imageBtn: UIButton!
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var descriptionTextField: UITextField!
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     
+    weak var delegate: ChangeInfoModule?
     private var startPosition = CGPoint()
+    var module = Modules(name: "", minutes: 0, id: 0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +46,7 @@ class AddInfoAboutModuleViewController: UIViewController {
     
     
     @objc func keyboardWillAppear(notification: Notification) {
-        bottomConstraint.constant = 80
+        bottomConstraint.constant = 100
     }
 
     @objc func keyboardWillDisappear() {
@@ -51,6 +54,16 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
     
     func design() {
+        nameTextField.text = module.name
+        descriptionTextField.text = module.description
+        durationTextField.text = "\(module.minutes)"
+        if let imageURL = module.imageURL {
+            imageBtn.sd_setImage(with: imageURL, for: .normal)
+        }
+        checkTFByCloseBtn()
+    }
+    
+    func checkTFByCloseBtn() {
         if nameTextField.text == "" {
             closeName.isHidden = true
         }else {
@@ -61,11 +74,6 @@ class AddInfoAboutModuleViewController: UIViewController {
         }else {
             closeDescription.isHidden = false
         }
-        if durationTextField.text == "" {
-            closeDuration.isHidden = true
-        }else {
-            closeDuration.isHidden = false
-        }
     }
     
     func textFieldsDesign() {
@@ -73,6 +81,14 @@ class AddInfoAboutModuleViewController: UIViewController {
         nameTextField.attributedPlaceholder = NSAttributedString(string: "Название", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
         descriptionTextField.attributedPlaceholder = NSAttributedString(string: "Описание", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
         durationTextField.attributedPlaceholder = NSAttributedString(string: "Длительность", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
+    }
+    
+    func changeModule() {
+        if let minutes = Int(durationTextField.text!) {
+            module.minutes = minutes
+        }
+        module.name = nameTextField.text!
+        module.description = descriptionTextField.text!
     }
 
     @IBAction func addImage(_ sender: UIButton) {
@@ -102,47 +118,65 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
-        dismiss(animated: true)
+        errorView.isHidden = true
+        Task {
+            do {
+                changeModule()
+                try await Courses().changeModuleInfo(info: module)
+                delegate?.changeInfoModuleDismiss(module: module, moduleID: module.id)
+                dismiss(animated: true)
+            } catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
+        }
     }
     
-    private func clearText(currentTextField: UITextField) {
-        switch currentTextField {
-        case nameTextField:
-            nameTextField.text = ""
-        case descriptionTextField:
-            descriptionTextField.text = ""
-        case durationTextField:
-            durationTextField.text = ""
-        default:
-            break
+    @IBAction func deleteModule(_ sender: UIButton) {
+        Task {
+            do {
+                try await Courses().deleteModule(moduleID: module.id)
+                delegate?.deleteModuleDismiss(moduleID: module.id)
+                dismiss(animated: true)
+            } catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
         }
     }
     
     @IBAction func clearInfo(_ sender: UIButton) {
         switch sender.tag {
         case 0:
-            clearText(currentTextField: nameTextField)
+            nameTextField.text = ""
         case 1:
-            clearText(currentTextField: descriptionTextField)
-        case 2:
-            clearText(currentTextField: durationTextField)
+            descriptionTextField.text = ""
         default:
             break
         }
     }
     
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        nameTextField.resignFirstResponder()
+        descriptionTextField.resignFirstResponder()
+        durationTextField.resignFirstResponder()
+    }
     
     
 }
 
 extension AddInfoAboutModuleViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             imageBtn.setImage(image, for: .normal)
+            module.imageURL = url
             dismiss(animated: true)
         }
     }

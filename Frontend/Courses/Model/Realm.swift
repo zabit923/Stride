@@ -22,19 +22,24 @@ class RealmValue {
         try! realm.write {
             realm.add(realmModule)
         }
+        RealmValue().addCompletedDays(course: course)
     }
+
     
     func addCompletedDays(course: Course) -> Course {
         let completedModules = realm.objects(RealmModulesCompleted.self).filter("idCourse == %@", course.id)
         var result = course
+        var countDaysCompleted = 0
         guard result.courseDays.isEmpty == false else { return result }
         for x in 0...result.courseDays.count - 1 {
             if compareModules(days: result.courseDays[x], completedModules: completedModules) && result.courseDays[x].modules.isEmpty == false {
                 result.courseDays[x].type = .before
+                countDaysCompleted += 1
             }else {
                 result.courseDays[x].type = .noneSee
             }
         }
+        UD().saveDaysCompletedInCourse(course: course, countDaysCompleted: countDaysCompleted)
         return result
     }
 
@@ -74,4 +79,9 @@ class RealmModulesCompleted: Object {
         self.idCourse = idCourse
         self.moduleID = moduleID
     }
+}
+
+class CourseCompletedDays: Object {
+    @Persisted(primaryKey: true) var courseId: Int = 0
+    @Persisted var completedDays: Int = 0
 }
