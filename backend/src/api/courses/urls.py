@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import (
+from .views.views import (
     CourseApiViewSet,
     CategoryApiViewSet,
     DayCreateApiView,
@@ -10,6 +10,7 @@ from .views import (
     ModuleDeleteApiView,
     ModuleUpdateApiView,
 )
+from .views.autocomplete_views import CourseAutocompleteView
 
 
 course_router = DefaultRouter()
@@ -26,4 +27,5 @@ urlpatterns = [
     path('module/create/<int:pk>/', ModuleCreateApiView.as_view()),
     path('module/delete/<int:pk>/', ModuleDeleteApiView.as_view()),
     path('module/update/<int:pk>/', ModuleUpdateApiView.as_view()),
+    path('autocomplete/courses/', CourseAutocompleteView.as_view()),
 ]

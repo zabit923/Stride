@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
@@ -12,18 +13,19 @@ from rest_framework.generics import (
     UpdateAPIView,
 )
 
-from .permissions import (
+from ..filters import CategoryFilter
+from ..permissions import (
     IsCoach,
     IsAdminOrSelf,
     IsOwnerOrAdmin,
 )
-from .models import (
+from ..models import (
     Course,
     Category,
     Day,
     Module,
 )
-from .serializers import (
+from ..serializers import (
     CourseSerializer,
     ShortCourseSerializer,
     BuyCourseSerializer,
@@ -39,9 +41,18 @@ User = get_user_model()
 
 class CourseApiViewSet(ModelViewSet):
     queryset = Course.objects.all()
+    filter_backends = [DjangoFilterBackend,]
+    filterset_class = CategoryFilter
 
     def get_serializer_class(self):
-        if self.action in ['list', 'my_courses', 'my_bought_courses', 'courses_by_id']:
+        if self.action in [
+            'list',
+            'my_courses',
+            'my_bought_courses',
+            'courses_by_id',
+            'celebrities_courses',
+            'recommended_courses',
+        ]:
             return ShortCourseSerializer
         elif self.action == 'retrieve':
             user = self.request.user
@@ -58,9 +69,6 @@ class CourseApiViewSet(ModelViewSet):
         if self.action in [
             'list',
             'retrieve',
-            'buy_course',
-            'my_courses',
-            'my_bought_courses',
         ]:
             self.permission_classes = [IsAuthenticated]
         elif self.action in ['update', 'delete']:
@@ -96,6 +104,36 @@ class CourseApiViewSet(ModelViewSet):
         user = request.user
         bought_courses = Course.objects.filter(buyers__user=user)
         serializer = self.get_serializer(bought_courses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def celebrities_courses(self, request):
+        courses = Course.objects.filter(is_celebretie_course=True)
+        serializer = self.get_serializer(courses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def recommended_courses(self, request):
+        user = request.user
+        user_target = user.target
+        if user_target == 'LW':
+            category = Category.objects.get(title='Сброс веса')
+            courses = Course.objects.filter(category=category)
+            if len(courses) == 0:
+                courses = Course.objects.all()
+        elif user_target == 'GW':
+            category = Category.objects.get(title='Набор веса')
+            courses = Course.objects.filter(category=category)
+            if len(courses) == 0:
+                courses = Course.objects.all()
+        elif user_target == 'HL':
+            category = Category.objects.get(title='Здоровье')
+            courses = Course.objects.filter(category=category)
+            if len(courses) == 0:
+                courses = Course.objects.all()
+        else:
+            courses = Course.objects.all()
+        serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
