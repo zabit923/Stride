@@ -44,7 +44,6 @@ struct Course {
     var imageURL: URL?
     var rating: Float
     var progressInDays: Int = 0
-    var progressInPercents: Int = 0
     var id: Int
     var description: String
     var dataCreated: String
@@ -254,3 +253,9 @@ enum CourseCatalog {
     case popular
 }
 
+// MARK: - Protocol
+
+protocol ChangeInfoModule: AnyObject {
+    func changeInfoModuleDismiss(module: Modules, moduleID: Int) 
+    func deleteModuleDismiss(moduleID: Int)
+}

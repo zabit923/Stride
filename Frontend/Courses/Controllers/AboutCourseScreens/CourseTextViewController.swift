@@ -6,15 +6,49 @@
 //
 
 import UIKit
+import Lottie
 
 class CourseTextViewController: UIViewController {
 
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var nameCourse: UILabel!
     
+    var module = Modules(name: "", minutes: 0, id: 0)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getData()
+        design()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        FilePath().deleteAlamofireFiles()
+    }
+    
+    private func loadingSettings() {
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.isHidden = false
+    }
+    
+    private func design() {
+        textView.textColor = .white
+        textView.isUserInteractionEnabled = false
+        view.overrideUserInterfaceStyle = .dark
+        loadingSettings()
+        nameCourse.text = module.name
+    }
+    
+    func getData() {
+        Task {
+            loading.play()
+            let attributedString = try await FilePath().downloadFileWithURL(url: module.text!)
+            textView.attributedText = attributedString
+            loading.stop()
+            loading.isHidden = true
+        }
     }
     
     @IBAction func back(_ sender: UIButton) {

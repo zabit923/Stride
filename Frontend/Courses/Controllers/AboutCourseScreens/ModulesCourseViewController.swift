@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Lottie
 
 class ModulesCourseViewController: UIViewController {
     
     
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nameCourse: UILabel!
     @IBOutlet weak var heightViewDays: NSLayoutConstraint!
     @IBOutlet weak var viewDays: UIView!
@@ -20,10 +22,12 @@ class ModulesCourseViewController: UIViewController {
     private var scaleView = false
     private var course = Course()
     private var selectDay: Int = 0
+    private var selectModule = Modules(name: "", minutes: 0, id: 0)
     var idCourse = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadingSettings()
         collectionSettings()
         getCourseInfo()
     }
@@ -45,12 +49,21 @@ class ModulesCourseViewController: UIViewController {
         daysCollectionView.decelerationRate = .fast
     }
     
+    private func loadingSettings() {
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.isHidden = false
+    }
+    
     private func getCourseInfo() {
         Task {
+            loading.play()
             course = try await Courses().getDaysInCourse(id: idCourse)
             if course.courseDays.isEmpty == false {
                 course.courseDays[0].type = .current
             }
+            loading.stop()
+            loading.isHidden = true
             nameCourse.text = course.nameCourse
             daysCollectionView.reloadData()
             modulesCollectionView.reloadData()
@@ -150,9 +163,20 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
             modulesCollectionView.reloadData()
             daysCollectionView.reloadData()
         }else {
-            RealmValue().addCompletedModule(course: course, module: course.courseDays[selectDay].modules[indexPath.row])
+            let module = course.courseDays[selectDay].modules[indexPath.row]
+            RealmValue().addCompletedModule(course: course, module: module)
+            selectModule = module
             performSegue(withIdentifier: "goToText", sender: self)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToText" {
+            let vc = segue.destination as! CourseTextViewController
+            vc.module = selectModule
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

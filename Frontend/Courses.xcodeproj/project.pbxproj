@@ -41,10 +41,13 @@
 		446475752C72088300ACD3D7 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475742C72088300ACD3D7 /* Comments.swift */; };
 		446475792C726C4500ACD3D7 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475782C726C4500ACD3D7 /* Categories.swift */; };
 		4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4464757A2C7496F100ACD3D7 /* FilePath.swift */; };
+		4488EA132C769D340086765F /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4488EA122C769D340086765F /* ErrorView.xib */; };
+		4488EA152C769D9D0086765F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488EA142C769D9D0086765F /* ErrorView.swift */; };
 		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
 		449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */; };
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
 		449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */; };
+		44A406832C762FE1005509D0 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 44A406822C762FE1005509D0 /* SkeletonView */; };
 		44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */; };
 		44BD6CDC2C428A2C001645A0 /* ModulesCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */; };
 		44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */; };
@@ -61,7 +64,6 @@
 		44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DFB1152C3B199A005C8F44 /* RecomendationCollectionViewCell.swift */; };
 		44DFB11B2C3B2637005C8F44 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 44DFB11A2C3B2637005C8F44 /* loading.json */; };
 		44DFB11E2C3BE46B005C8F44 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 44DFB11D2C3BE46B005C8F44 /* Lottie */; };
-		44E244062C578A2900EADF3D /* defaultLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 44E244052C578A2900EADF3D /* defaultLogo.png */; };
 		44E2440C2C5D6C7000EADF3D /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E2440B2C5D6C7000EADF3D /* Courses.swift */; };
 		44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906332C29A59B00FFA6DD /* HomeViewController.swift */; };
 		44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */; };
@@ -121,6 +123,8 @@
 		446475742C72088300ACD3D7 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		446475782C726C4500ACD3D7 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		4464757A2C7496F100ACD3D7 /* FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePath.swift; sourceTree = "<group>"; };
+		4488EA122C769D340086765F /* ErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
+		4488EA142C769D9D0086765F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -138,7 +142,6 @@
 		44D68AFF2C51B3EF00F8F476 /* InfoCoursesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCoursesViewController.swift; sourceTree = "<group>"; };
 		44DFB1152C3B199A005C8F44 /* RecomendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationCollectionViewCell.swift; sourceTree = "<group>"; };
 		44DFB11A2C3B2637005C8F44 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
-		44E244052C578A2900EADF3D /* defaultLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = defaultLogo.png; path = Courses/Assets.xcassets/defaultLogo.imageset/defaultLogo.png; sourceTree = SOURCE_ROOT; };
 		44E2440B2C5D6C7000EADF3D /* Courses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Courses.swift; sourceTree = "<group>"; };
 		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -165,6 +168,7 @@
 				44064C9C2C2861D700AB5227 /* SDWebImageMapKit in Frameworks */,
 				44064C922C2861B900AB5227 /* Alamofire in Frameworks */,
 				44064C9A2C2861D700AB5227 /* SDWebImage in Frameworks */,
+				44A406832C762FE1005509D0 /* SkeletonView in Frameworks */,
 				44D68AF62C5051E100F8F476 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,7 +179,6 @@
 		44064C712C26ED4F00AB5227 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				44E244052C578A2900EADF3D /* defaultLogo.png */,
 				44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */,
 				449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */,
 				44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */,
@@ -261,6 +264,8 @@
 				44064C8E2C285F7C00AB5227 /* TextFieldFormat.swift */,
 				44064CA32C2876F200AB5227 /* Errors.swift */,
 				4442F3D72C31BFDB00203A36 /* PageLayout.swift */,
+				4488EA122C769D340086765F /* ErrorView.xib */,
+				4488EA142C769D9D0086765F /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -369,6 +374,7 @@
 				44D68AF52C5051E100F8F476 /* GoogleSignIn */,
 				44D68AF72C5051E100F8F476 /* GoogleSignInSwift */,
 				44049A392C6F56F60014BD9C /* RealmSwift */,
+				44A406822C762FE1005509D0 /* SkeletonView */,
 			);
 			productName = Courses;
 			productReference = 440DAB302C1748D400C576FB /* Courses.app */;
@@ -405,6 +411,7 @@
 				44DFB11C2C3BE46A005C8F44 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				44D68AF42C5051E100F8F476 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */,
+				44A406812C762FE1005509D0 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 440DAB312C1748D400C576FB /* Products */;
 			projectDirPath = "";
@@ -423,6 +430,7 @@
 				44064C7F2C26EEF200AB5227 /* Montserrat-Bold.ttf in Resources */,
 				440DAB3D2C1748D600C576FB /* Assets.xcassets in Resources */,
 				440DAB402C1748D600C576FB /* Base in Resources */,
+				4488EA132C769D340086765F /* ErrorView.xib in Resources */,
 				449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */,
 				440DAB3B2C1748D400C576FB /* Base in Resources */,
 				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
@@ -430,7 +438,6 @@
 				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
 				44049A2E2C6CE0C30014BD9C /* credentials.plist in Resources */,
 				44064C7D2C26EEC100AB5227 /* SF-Pro-Rounded-Regular.otf in Resources */,
-				44E244062C578A2900EADF3D /* defaultLogo.png in Resources */,
 				753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */,
 				44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */,
 				44064C862C26F8A500AB5227 /* Commissioner-VariableFont_wght.ttf in Resources */,
@@ -470,6 +477,7 @@
 				44064C812C26F0E800AB5227 /* Border.swift in Sources */,
 				44064C8F2C285F7C00AB5227 /* TextFieldFormat.swift in Sources */,
 				44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */,
+				4488EA152C769D9D0086765F /* ErrorView.swift in Sources */,
 				446475792C726C4500ACD3D7 /* Categories.swift in Sources */,
 				44D68AF32C4ACC0C00F8F476 /* User.swift in Sources */,
 				753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */,
@@ -757,6 +765,14 @@
 				minimumVersion = 5.19.3;
 			};
 		};
+		44A406812C762FE1005509D0 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.31.0;
+			};
+		};
 		44D68AF42C5051E100F8F476 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -800,6 +816,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 44064C982C2861D700AB5227 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		44A406822C762FE1005509D0 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 44A406812C762FE1005509D0 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 		44D68AF52C5051E100F8F476 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

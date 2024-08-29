@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Lottie
 
 class ChangeInformationViewController: UIViewController {
     
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var descriptionTF: UITextField!
@@ -17,6 +19,9 @@ class ChangeInformationViewController: UIViewController {
     @IBOutlet weak var surname: UITextField!
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var avatar: UIImageView!
+    
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    private var startPosition = CGPoint()
     
     private var avatarURL: URL?
     private var activateTF: UITextField?
@@ -27,6 +32,7 @@ class ChangeInformationViewController: UIViewController {
         phoneNumber.delegate = self
         descriptionTF.delegate = self
         mail.delegate = self
+        startPosition = errorView.center
         design()
     }
     
@@ -93,10 +99,27 @@ class ChangeInformationViewController: UIViewController {
         user.avatarURL = avatarURL
     }
     
+    private func loadingSettings() {
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.isHidden = false
+        loading.play()
+    }
+    
     @IBAction func save(_ sender: UIButton) {
         Task{
-            changeUserInfo()
-            try await User().changeInfoUser(id:user.id ,user: user)
+            do {
+                loadingSettings()
+                changeUserInfo()
+                try await User().changeInfoUser(id:user.id ,user: user)
+                loading.stop()
+                loading.isHidden = true
+                self.navigationController?.popViewController(animated: true)
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
         }
     }
     
@@ -112,6 +135,10 @@ class ChangeInformationViewController: UIViewController {
         mail.resignFirstResponder()
         phoneNumber.resignFirstResponder()
         descriptionTF.resignFirstResponder()
+    }
+    
+    @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
+        errorView.swipe(sender: sender, startPosition: startPosition)
     }
     
     @IBAction func back(_ sender: UIButton) {

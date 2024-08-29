@@ -20,16 +20,24 @@ class User {
     func changeInfoUser(id: Int, user: UserStruct) async throws {
         let url = Constants.url + "api/v1/users/\(id)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-        let value = try await AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(user.avatarURL!, withName: "image")
+        let response = AF.upload(multipartFormData: { multipartFormData in
+            if let avatarURL = user.avatarURL {
+                multipartFormData.append(avatarURL, withName: "image")
+            }
             multipartFormData.append(Data(user.name.utf8), withName: "first_name")
             multipartFormData.append(Data(user.surname.utf8), withName: "last_name")
             multipartFormData.append(Data(user.phone.utf8), withName: "phone_number")
             multipartFormData.append(Data(user.email.utf8), withName: "email")
             multipartFormData.append(Data(user.coach.description!.utf8), withName: "desc")
-        }, to: url, method: .patch, headers: headers).serializingData().value
-        UD().saveMyInfo(user)
+        }, to: url, method: .patch, headers: headers).serializingData()
+        let value = try await response.value
+        let code = await response.response.response?.statusCode
         let json = JSON(value)
+        if code != 200 {
+            let error = json.dictionary!.first!.value[0].stringValue
+            throw ErrorNetwork.runtimeError(error)
+        }
+        UD().saveMyInfo(user)
     }
     
     func changeInfoAboutMe(id: Int, user: UserStruct) async throws {

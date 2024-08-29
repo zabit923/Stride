@@ -9,6 +9,7 @@ import UIKit
 
 class DaysCourseCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var delete: UIButton!
     @IBOutlet weak var lbl: UILabel!
     
     func noneCheck() {
