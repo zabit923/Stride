@@ -32,12 +32,12 @@ class Sign {
             guard let email = user.profile?.email else {return}
             
             Task {
-                try await self.saveInBD(token: idToken, name: name, email: email)
+                try await self.saveInBDGoogle(token: idToken, name: name, email: email)
             }
         }
     }
     
-    private func saveInBD(token: String, name: String, email: String) async throws {
+    private func saveInBDGoogle(token: String, name: String, email: String) async throws {
         let url = Constants.url + "api/v1/oauth/google/"
         let parameters = [
               "username": name,

@@ -95,7 +95,8 @@ class Courses {
         let authorSurname = json["author"]["last_name"].stringValue
         let authorID = json["author"]["id"].intValue
         let rating = json["rating"].floatValue
-        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, imageURL: URL(string: image),rating: rating, id: id, description: description, dataCreated: dataCreated)
+        let category = json["category"].intValue
+        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, id: id, description: description, dataCreated: dataCreated)
         return course
     }
     
@@ -116,6 +117,36 @@ class Courses {
             let rating = json[x]["rating"].floatValue
             courses.append(Course(nameCourse: title, imageURL: URL(string: image),rating: rating, id: id))
         }
+        return courses
+    }
+    
+    func getCoursesByCelebrity() async throws -> [Course] {
+        let url = Constants.url + "/api/v1/courses/celebrities_courses/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
+        let json = JSON(value)
+        print(json)
+        var courses = [Course]()
+        
+        let results = json.arrayValue
+        guard results.isEmpty == false else {return []}
+        
+        for x in 0...results.count - 1 {
+            let daysCount = json[x]["days"].arrayValue.count
+            let title = json[x]["title"].stringValue
+            let price = json[x]["price"].intValue
+            let id = json[x]["id"].intValue
+            let image = json[x]["image"].stringValue
+            let description = json[x]["desc"].stringValue
+            let dataCreated = json[x]["created_at"].stringValue
+            let authorName = json[x]["author"]["first_name"].stringValue
+            let authorSurname = json[x]["author"]["last_name"].stringValue
+            let authorID = json[x]["author"]["id"].intValue
+            let countBuyer = json[x]["bought_count"].intValue
+            let rating = json[x]["rating"].floatValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
+        }
+        
         return courses
     }
     
@@ -217,6 +248,7 @@ class Courses {
             multipartFormData.append(Data(info.nameCourse.utf8), withName: "title")
             multipartFormData.append(Data("\(info.price)".utf8), withName: "price")
             multipartFormData.append(Data(info.description.utf8), withName: "desc")
+            multipartFormData.append(Data("\(info.categoryID)".utf8), withName: "category")
         }, to: url, method: method, headers: headers).serializingData()
         let value = try await response.value
         let code = await response.response.response?.statusCode
@@ -323,6 +355,39 @@ class Courses {
             let error = json.dictionary!.first!.value[0].stringValue
             throw ErrorNetwork.runtimeError(error)
         }
+    }
+    
+    // MARK: - Поиск
+    func searchCourses(text: String) async throws -> [Course] {
+        let url = Constants.url + "api/v1/autocomplete/courses/"
+        let parameters = [
+            "title": text
+        ]
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, parameters: parameters, headers: headers).serializingData().value
+        let json = JSON(value)
+        var courses = [Course]()
+        
+        let results = json["results"].arrayValue
+        guard results.isEmpty == false else {return []}
+        
+        for x in 0...results.count - 1 {
+            let daysCount = json["results"][x]["days"].arrayValue.count
+            let title = json["results"][x]["title"].stringValue
+            let price = json["results"][x]["price"].intValue
+            let id = json["results"][x]["id"].intValue
+            let image = json["results"][x]["image"].stringValue
+            let description = json["results"][x]["desc"].stringValue
+            let dataCreated = json["results"][x]["created_at"].stringValue
+            let authorName = json["results"][x]["author"]["first_name"].stringValue
+            let authorSurname = json["results"][x]["author"]["last_name"].stringValue
+            let authorID = json["results"][x]["author"]["id"].intValue
+            let countBuyer = json["results"][x]["bought_count"].intValue
+            let rating = json["results"][x]["rating"].floatValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
+        }
+        
+        return courses
     }
     
 }

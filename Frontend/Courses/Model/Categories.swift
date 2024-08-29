@@ -24,7 +24,7 @@ class Categories {
         for x in 0...results.count - 1 {
             let title = json["results"][x]["title"].stringValue
             let image = json["results"][x]["image"].stringValue
-            categories.append(Category(nameCategory: title, imageURL: URL(string: image)!))
+            categories.append(Category(nameCategory: title, imageURL: URL(string: image)!, id: x + 1))
         }
         return categories
     }

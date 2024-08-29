@@ -48,6 +48,8 @@
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
 		449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */; };
 		44A406832C762FE1005509D0 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 44A406822C762FE1005509D0 /* SkeletonView */; };
+		44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149B2C808106006D0722 /* PickerModelViewController.swift */; };
+		44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */; };
 		44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */; };
 		44BD6CDC2C428A2C001645A0 /* ModulesCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */; };
 		44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */; };
@@ -129,6 +131,8 @@
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Bold.ttf"; sourceTree = "<group>"; };
+		44BD149B2C808106006D0722 /* PickerModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModelViewController.swift; sourceTree = "<group>"; };
+		44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrityCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesCourseViewController.swift; sourceTree = "<group>"; };
 		44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCourseCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -312,6 +316,7 @@
 				44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */,
 				44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */,
 				44BD6CDF2C432C82001645A0 /* ModuleCourseCollectionViewCell.swift */,
+				44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
 				7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */,
 				440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */,
+				44BD149B2C808106006D0722 /* PickerModelViewController.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -459,11 +465,13 @@
 				75106D792C38AFDB0036042B /* InfoAboutMeViewController.swift in Sources */,
 				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
 				44D68B022C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift in Sources */,
+				44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */,
 				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
 				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
 				44D68B032C51B3EF00F8F476 /* CoursesViewController.swift in Sources */,
 				7515103C2C343146009978E6 /* ProfileViewController.swift in Sources */,
 				75D7F3562C4299EF0083DBEF /* UD.swift in Sources */,
+				44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */,
 				449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */,
 				44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */,
 				44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */,

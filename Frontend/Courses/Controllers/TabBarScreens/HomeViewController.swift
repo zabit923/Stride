@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var celebrityCollectionView: UICollectionView!
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
@@ -17,7 +18,9 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var recomendCollectionView: UICollectionView!
     
     private var banners = [String]()
-    private var recomendCourses = [String]()
+    private var recomendCourses = [Course]()
+    private var celebrityCourses = [Course]()
+    private var celebrities = [Course]()
     private let layout = PageLayout()
     private var user: UserStruct = User.info {
         didSet {
@@ -33,8 +36,7 @@ class HomeViewController: UIViewController {
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
-//        error.configure(image: UIImage.error, title: "Ошибка", description: "Неправильный пароль лялялляляля")
-//        view.addSubview(error)
+        getCelebrityCourses()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +48,24 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         let x = (layout.itemSize.width + layout.minimumInteritemSpacing) * 1000000
         bannersCollectionView.setContentOffset(CGPoint(x: x, y: 0), animated: false)
+    }
+    
+    private func getCelebrityCourses() {
+        Task {
+            celebrityCourses = try await Courses().getCoursesByCelebrity()
+            uniqueAuthors()
+            celebrityCollectionView.reloadData()
+        }
+    }
+    
+    private func uniqueAuthors() {
+        let uniqueAuthors = Set(celebrityCourses.map { $0.idAuthor })
+        celebrities = celebrityCourses.filter { uniqueAuthors.contains($0.idAuthor) }
+            .reduce(into: [Course]()) { result, course in
+                if !result.contains(where: { $0.idAuthor == course.idAuthor }) {
+                    result.append(course)
+                }
+            }
     }
     
     private func tabbar() {
@@ -82,6 +102,9 @@ class HomeViewController: UIViewController {
         layoutRecomendCollection.scrollDirection = .horizontal
         recomendCollectionView.collectionViewLayout = layoutRecomendCollection
         recomendCollectionView.decelerationRate = .fast
+        
+        celebrityCollectionView.delegate = self
+        celebrityCollectionView.dataSource = self
     }
     
     private func design() {
@@ -136,8 +159,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == bannersCollectionView {
             return Int.max
-        }else {
+        }else if collectionView == recomendCollectionView {
             return 5
+        }else {
+            return celebrities.count
         }
     }
     
@@ -146,7 +171,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "banner", for: indexPath) as! BannerCollectionViewCell
             cell.im.image = UIImage(named: banners[indexPath.row % banners.count]) 
             return cell
-        }else {
+        }else if collectionView == recomendCollectionView {
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recomend", for: indexPath) as! RecomendationCollectionViewCell
             
             cell.bottomView.isHidden = false
@@ -159,8 +184,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell.bottomView.isHidden = true
             }
             return cell
+        }else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
+            cell.name.text = celebrities[indexPath.row].nameAuthor
+            cell.rating.text = "\(celebrities[indexPath.row].rating)"
+            cell.im.sd_setImage(with: celebrities[indexPath.row].imageURL)
+            return cell
         }
     }
+    
     
     private func cornerRadius(view: UIView, position: CACornerMask) -> UIView {
         view.clipsToBounds = true
