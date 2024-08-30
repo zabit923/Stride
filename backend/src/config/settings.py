@@ -40,6 +40,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ________________________________________________________________________________________________
+
 ROOT_URLCONF = 'config.urls'
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -59,14 +61,16 @@ TEMPLATES = [
     },
 ]
 
+# ________________________________________________________________________________________________
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
 
 DATABASES = {
      'default': {
@@ -89,6 +93,8 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
 }
 
+# ________________________________________________________________________________________________
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -104,6 +110,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# ________________________________________________________________________________________________
+
 LANGUAGE_CODE = 'ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -117,6 +125,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
+
+# ________________________________________________________________________________________________
 
 AUTHENTICATION_BACKENDS = [
     'api.users.auth_backend.CustomAuthBackend',

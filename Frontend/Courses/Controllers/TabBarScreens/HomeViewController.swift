@@ -9,6 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var celebrityCollectionView: UICollectionView!
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
@@ -17,8 +18,11 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var recomendCollectionView: UICollectionView!
     
     private var banners = [String]()
-    private var recomendCourses = [String]()
+    private var recomendCourses = [Course]()
+    private var celebrityCourses = [Course]()
+    private var celebrities = [Course]()
     private let layout = PageLayout()
+    private var selectCourses = Course()
     private var user: UserStruct = User.info {
         didSet {
             addProfile()
@@ -29,12 +33,11 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        performSegue(withIdentifier: "loading", sender: self)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
-//        error.configure(image: UIImage.error, title: "Ошибка", description: "Неправильный пароль лялялляляля")
-//        view.addSubview(error)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +49,38 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         let x = (layout.itemSize.width + layout.minimumInteritemSpacing) * 1000000
         bannersCollectionView.setContentOffset(CGPoint(x: x, y: 0), animated: false)
+    }
+    
+    private func getUser() {
+        Task {
+            user = try await User().getMyInfo()
+            self.navigationController?.popToViewController(tabBarController!, animated: false)
+        }
+    }
+    
+    private func getRecomendCourses() {
+        Task {
+            recomendCourses = try await Courses().getRecomendedCourses()
+            recomendCollectionView.reloadData()
+        }
+    }
+    
+    private func getCelebrityCourses() {
+        Task {
+            celebrityCourses = try await Courses().getCoursesByCelebrity()
+            uniqueAuthors()
+            celebrityCollectionView.reloadData()
+        }
+    }
+    
+    private func uniqueAuthors() {
+        let uniqueAuthors = Set(celebrityCourses.map { $0.idAuthor })
+        celebrities = celebrityCourses.filter { uniqueAuthors.contains($0.idAuthor) }
+            .reduce(into: [Course]()) { result, course in
+                if !result.contains(where: { $0.idAuthor == course.idAuthor }) {
+                    result.append(course)
+                }
+            }
     }
     
     private func tabbar() {
@@ -82,12 +117,15 @@ class HomeViewController: UIViewController {
         layoutRecomendCollection.scrollDirection = .horizontal
         recomendCollectionView.collectionViewLayout = layoutRecomendCollection
         recomendCollectionView.decelerationRate = .fast
+        
+        celebrityCollectionView.delegate = self
+        celebrityCollectionView.dataSource = self
     }
     
     private func design() {
-        Task {
-            user = try await User().getMyInfo()
-        }
+        getRecomendCourses()
+        getCelebrityCourses()
+        getUser()
         getBanners()
     }
     
@@ -105,6 +143,9 @@ class HomeViewController: UIViewController {
         bannersCollectionView.reloadData()
     }
     
+    @IBAction func myCourses(_ sender: UIButton) {
+        tabBarController?.selectedIndex = 2
+    }
     
     @IBAction func coursesFromStars(_ sender: UIButton) {
         errorView.isHidden = false
@@ -136,8 +177,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == bannersCollectionView {
             return Int.max
+        }else if collectionView == recomendCollectionView {
+            return recomendCourses.count
         }else {
-            return 5
+            if celebrities.count <= 6 {
+                return celebrities.count
+            }else {
+                return 6
+            }
         }
     }
     
@@ -146,7 +193,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "banner", for: indexPath) as! BannerCollectionViewCell
             cell.im.image = UIImage(named: banners[indexPath.row % banners.count]) 
             return cell
-        }else {
+        }else if collectionView == recomendCollectionView {
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recomend", for: indexPath) as! RecomendationCollectionViewCell
             
             cell.bottomView.isHidden = false
@@ -158,7 +205,26 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell = cornerRadius(view: cell, position: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]) as! RecomendationCollectionViewCell
                 cell.bottomView.isHidden = true
             }
+            
+            cell.im.sd_setImage(with: recomendCourses[indexPath.row].imageURL)
+            cell.name.text = recomendCourses[indexPath.row].nameCourse
+            cell.trener.text = "Тренер: \(recomendCourses[indexPath.row].nameAuthor)"
+            cell.rating.text = "\(recomendCourses[indexPath.row].rating)"
+            
             return cell
+        }else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
+            cell.name.text = celebrities[indexPath.row].nameAuthor
+            cell.rating.text = "\(celebrities[indexPath.row].rating)"
+            cell.im.sd_setImage(with: celebrities[indexPath.row].imageURL)
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == recomendCollectionView {
+            selectCourses = recomendCourses[indexPath.row]
+            performSegue(withIdentifier: "infoCourses", sender: self)
         }
     }
     
@@ -167,6 +233,19 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = position
         return view
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "infoCourses" {
+            let vc = segue.destination as! InfoCoursesViewController
+            vc.course = selectCourses
+        }else if segue.identifier == "allRecomend" {
+            let vc = segue.destination as! CoursesViewController
+            vc.typeCourse = .recomend
+            vc.course = recomendCourses
+        }
+        
     }
     
 }

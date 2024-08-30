@@ -95,7 +95,8 @@ class AddCourseViewController: UIViewController {
 
     func getData() {
         Task {
-            let attributedString = try await FilePath().downloadFileWithURL(url: module.text!)
+            guard let module = module.text else {return}
+            let attributedString = try await FilePath().downloadFileWithURL(url: module)
             textView.attributedText = attributedString
         }
     }

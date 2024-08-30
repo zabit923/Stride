@@ -22,6 +22,7 @@ struct Objects {
 struct Category {
     var nameCategory: String
     var imageURL: URL
+    var id: Int
 }
 
 // MARK: - Course
@@ -41,6 +42,7 @@ struct Course {
     var nameAuthor: String
     var idAuthor: Int
     var price: Int
+    var categoryID: Int = 0
     var imageURL: URL?
     var rating: Float
     var progressInDays: Int = 0
@@ -50,11 +52,12 @@ struct Course {
     var countBuyer: Int = 0
     var courseDays = [CourseDays]()
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
         self.price = price
+        self.categoryID = categoryID
         self.imageURL = imageURL
         self.rating = rating
         self.id = id
@@ -251,6 +254,7 @@ enum CourseCatalog {
     case myCreate
     case recomend
     case popular
+    case celebrity
 }
 
 // MARK: - Protocol
@@ -258,4 +262,8 @@ enum CourseCatalog {
 protocol ChangeInfoModule: AnyObject {
     func changeInfoModuleDismiss(module: Modules, moduleID: Int) 
     func deleteModuleDismiss(moduleID: Int)
+}
+
+protocol AddCategoryDelegate: AnyObject {
+    func category(category: Category)
 }

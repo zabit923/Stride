@@ -43,11 +43,16 @@
 		4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4464757A2C7496F100ACD3D7 /* FilePath.swift */; };
 		4488EA132C769D340086765F /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4488EA122C769D340086765F /* ErrorView.xib */; };
 		4488EA152C769D9D0086765F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488EA142C769D9D0086765F /* ErrorView.swift */; };
+		44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A982C81303A00E0F86F /* PrivacyViewController.swift */; };
+		44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */; };
 		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
 		449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */; };
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
 		449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */; };
 		44A406832C762FE1005509D0 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 44A406822C762FE1005509D0 /* SkeletonView */; };
+		44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149B2C808106006D0722 /* PickerModelViewController.swift */; };
+		44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */; };
 		44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */; };
 		44BD6CDC2C428A2C001645A0 /* ModulesCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */; };
 		44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */; };
@@ -86,6 +91,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,10 +132,14 @@
 		4464757A2C7496F100ACD3D7 /* FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePath.swift; sourceTree = "<group>"; };
 		4488EA122C769D340086765F /* ErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
 		4488EA142C769D9D0086765F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		44932A982C81303A00E0F86F /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStartViewController.swift; sourceTree = "<group>"; };
 		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Bold.ttf"; sourceTree = "<group>"; };
+		44BD149B2C808106006D0722 /* PickerModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModelViewController.swift; sourceTree = "<group>"; };
+		44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrityCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesCourseViewController.swift; sourceTree = "<group>"; };
 		44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCourseCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -200,6 +210,7 @@
 				44064C882C27042100AB5227 /* StartViewController.swift */,
 				44064C8A2C28516C00AB5227 /* VhodViewController.swift */,
 				44064C8C2C285DA600AB5227 /* RegistrViewController.swift */,
+				44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */,
 			);
 			path = StartScreens;
 			sourceTree = "<group>";
@@ -314,6 +325,7 @@
 				44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */,
 				44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */,
 				44BD6CDF2C432C82001645A0 /* ModuleCourseCollectionViewCell.swift */,
+				44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -347,6 +359,8 @@
 				7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */,
 				440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */,
 				75D68C602C80A361001407F0 /* AddReviewViewController.swift */,
+				44BD149B2C808106006D0722 /* PickerModelViewController.swift */,
+				44932A982C81303A00E0F86F /* PrivacyViewController.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -461,12 +475,15 @@
 				440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */,
 				75106D792C38AFDB0036042B /* InfoAboutMeViewController.swift in Sources */,
 				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
+				44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */,
 				44D68B022C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift in Sources */,
+				44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */,
 				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
 				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
 				44D68B032C51B3EF00F8F476 /* CoursesViewController.swift in Sources */,
 				7515103C2C343146009978E6 /* ProfileViewController.swift in Sources */,
 				75D7F3562C4299EF0083DBEF /* UD.swift in Sources */,
+				44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */,
 				449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */,
 				44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */,
 				44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */,
@@ -488,6 +505,7 @@
 				449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */,
 				4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */,
 				44E2440C2C5D6C7000EADF3D /* Courses.swift in Sources */,
+				44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */,
 				44D68B012C51B3EF00F8F476 /* AddCourseViewController.swift in Sources */,
 				44BD6CE42C440974001645A0 /* AddModuleCoursesViewController.swift in Sources */,
 				7508513B2C38763A00F5C0DC /* ChangeInformationViewController.swift in Sources */,
@@ -656,6 +674,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -690,6 +709,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

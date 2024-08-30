@@ -9,6 +9,7 @@ import UIKit
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var categoriesLbl: UILabel!
     @IBOutlet weak var imageBorder: Border!
     @IBOutlet weak var categoryBorder: Border!
     @IBOutlet weak var priceBorder: Border!
@@ -27,9 +28,11 @@ class AddInfoAboutCourseVC: UIViewController {
     private var startPosition = CGPoint()
     
     private var infoCourses = Course()
-    var idCourse = 0
     private var imageURL: URL?
+    private var selectCategory: Category?
+    var idCourse = 0
     var create = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +51,9 @@ class AddInfoAboutCourseVC: UIViewController {
         guard create == false else { return }
         Task {
             infoCourses = try await Courses().getCoursesByID(id: idCourse)
+            let categories = try await Categories().getCategories()
+            selectCategory = categories.first(where: { $0.id == infoCourses.categoryID })
+            categoriesLbl.text = selectCategory?.nameCategory
             design()
         }
     }
@@ -88,6 +94,12 @@ class AddInfoAboutCourseVC: UIViewController {
         }else {
             imageBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
         }
+        if categoriesLbl.text!.isEmpty {
+            result = false
+            categoryBorder.layer.borderColor = UIColor.errorRed.cgColor
+        }else {
+            categoryBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
+        }
         return result
     }
     
@@ -101,6 +113,7 @@ class AddInfoAboutCourseVC: UIViewController {
         infoCourses.price = Int(price.text!) ?? 0
         infoCourses.description = descriptionCourse.text!
         infoCourses.imageURL = imageURL
+        infoCourses.categoryID = selectCategory!.id
     }
     
     @IBAction func save(_ sender: UIButton) {
@@ -130,6 +143,11 @@ class AddInfoAboutCourseVC: UIViewController {
         present(imagePicker, animated: true)
     }
     
+    
+    @IBAction func categories(_ sender: UIButton) {
+        performSegue(withIdentifier: "category", sender: self)
+    }
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -145,6 +163,9 @@ class AddInfoAboutCourseVC: UIViewController {
         if segue.identifier == "goToAddModule" {
             let vc = segue.destination as! AddModuleCoursesViewController
             vc.idCourse = idCourse
+        }else if segue.identifier == "category" {
+            let vc = segue.destination as! PickerModelViewController
+            vc.delegate = self
         }
         
     }
@@ -181,4 +202,11 @@ extension AddInfoAboutCourseVC: UITextFieldDelegate {
         }
     }
 }
-
+extension AddInfoAboutCourseVC: AddCategoryDelegate {
+    
+    func category(category: Category) {
+        categoriesLbl.text = category.nameCategory
+        selectCategory = category
+    }
+    
+}
