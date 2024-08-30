@@ -17,9 +17,10 @@ class AddReviewViewController: UIViewController {
     
     private var startPosition = CGPoint()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        design()
     }
     
     override func viewDidLayoutSubviews() {
@@ -38,6 +39,12 @@ class AddReviewViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
+    func design() {
+        textView.delegate = self
+        textView.text = "Ваш Комментарий"
+        textView.textColor = UIColor.gray
+        
+    }
 
     @objc func keyboardWillAppear(notification: Notification) {
         bottomConstraint.constant = 250
@@ -72,5 +79,26 @@ class AddReviewViewController: UIViewController {
     
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         textView.resignFirstResponder()
+    }
+    
+    
+}
+
+
+
+extension AddReviewViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.gray {
+            textView.text = ""
+            textView.textColor = UIColor.white
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty == true {
+            textView.text = "Ваш комментарий"
+            textView.textColor = UIColor.gray
+        }
     }
 }

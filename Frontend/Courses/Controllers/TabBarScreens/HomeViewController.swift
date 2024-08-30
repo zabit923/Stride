@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var celebrityCollectionView: UICollectionView!
+//    @IBOutlet weak var celebrityCollectionView: UICollectionView!
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
@@ -33,7 +33,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        performSegue(withIdentifier: "loading", sender: self)
+//        performSegue(withIdentifier: "loading", sender: self)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
         tabbar()
@@ -69,7 +69,7 @@ class HomeViewController: UIViewController {
         Task {
             celebrityCourses = try await Courses().getCoursesByCelebrity()
             uniqueAuthors()
-            celebrityCollectionView.reloadData()
+//            celebrityCollectionView.reloadData()
         }
     }
     
@@ -118,8 +118,8 @@ class HomeViewController: UIViewController {
         recomendCollectionView.collectionViewLayout = layoutRecomendCollection
         recomendCollectionView.decelerationRate = .fast
         
-        celebrityCollectionView.delegate = self
-        celebrityCollectionView.dataSource = self
+//        celebrityCollectionView.delegate = self
+//        celebrityCollectionView.dataSource = self
     }
     
     private func design() {

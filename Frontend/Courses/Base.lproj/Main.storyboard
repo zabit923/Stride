@@ -4903,17 +4903,6 @@
         <!--Info About Me View Controller-->
         <scene sceneID="6kN-Ya-6kz">
             <objects>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="eqM-L8-3Nj">
-                    <connections>
-                        <action selector="pan:" destination="3vT-ek-bP6" id="L3F-U1-i2p"/>
-                    </connections>
-                </panGestureRecognizer>
-                <tapGestureRecognizer id="GWm-Ep-Eh7">
-                    <connections>
-                        <action selector="tapped:" destination="3vT-ek-bP6" id="Gp1-E0-Vth"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wqq-Sp-MZ1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="3vT-ek-bP6" customClass="InfoAboutMeViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kJh-pL-k4p">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -5277,6 +5266,17 @@
                         <outlet property="weightTextField" destination="QNe-u9-Q30" id="K0R-NM-wMS"/>
                     </connections>
                 </viewController>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="eqM-L8-3Nj">
+                    <connections>
+                        <action selector="pan:" destination="3vT-ek-bP6" id="L3F-U1-i2p"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer id="GWm-Ep-Eh7">
+                    <connections>
+                        <action selector="tapped:" destination="3vT-ek-bP6" id="Gp1-E0-Vth"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wqq-Sp-MZ1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5844" y="2782"/>
         </scene>
@@ -6494,8 +6494,8 @@
                                             <action selector="finish:" destination="kib-DN-c45" eventType="touchUpInside" id="eqo-fd-c2j"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="WIG-u4-yeG">
-                                        <rect key="frame" x="30" y="79" width="167" height="23"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="WIG-u4-yeG">
+                                        <rect key="frame" x="30" y="79" width="159" height="23"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nyp-za-Bpx">
                                                 <rect key="frame" x="0.0" y="0.0" width="23" height="23"/>
@@ -6507,22 +6507,22 @@
                                                 <state key="normal" image="bigStarFully"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L5z-oc-vVU">
-                                                <rect key="frame" x="36" y="0.0" width="23" height="23"/>
+                                                <rect key="frame" x="34" y="0.0" width="23" height="23"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bigStarFully"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J5c-o0-7yj">
-                                                <rect key="frame" x="72" y="0.0" width="23" height="23"/>
+                                                <rect key="frame" x="68" y="0.0" width="23" height="23"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bigStarFully"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8hP-P1-Qmx">
-                                                <rect key="frame" x="108" y="0.0" width="23" height="23"/>
+                                                <rect key="frame" x="102" y="0.0" width="23" height="23"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bigStarFully"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Tj-KA-tr7">
-                                                <rect key="frame" x="144" y="0.0" width="23" height="23"/>
+                                                <rect key="frame" x="136" y="0.0" width="23" height="23"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="bigStarFully"/>
                                             </button>
@@ -6534,6 +6534,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="negro" translatesAutoresizingMaskIntoConstraints="NO" id="Km5-mv-NoC">
                                                 <rect key="frame" x="10" y="5" width="313" height="110"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -6611,18 +6612,18 @@
                         <action selector="pan:" destination="kib-DN-c45" id="6G9-o9-9wi"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer id="kN0-gV-dvo">
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="kN0-gV-dvo">
                     <connections>
                         <action selector="tap:" destination="kib-DN-c45" id="UZh-4N-Cph"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="XNB-xR-AzD">
+                <tapGestureRecognizer cancelsTouchesInView="NO" id="XNB-xR-AzD">
                     <connections>
                         <action selector="tap:" destination="kib-DN-c45" id="6hS-ur-V2U"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1343" y="3506"/>
+            <point key="canvasLocation" x="1376" y="3554"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

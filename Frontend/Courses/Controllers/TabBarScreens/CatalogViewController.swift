@@ -25,7 +25,7 @@ class CatalogViewController: UIViewController {
         categoryCollectionView.delegate = self
         catalogCollectionView.dataSource = self
         catalogCollectionView.delegate = self
-        search.delegate = self
+//        search.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
