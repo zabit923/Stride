@@ -34,19 +34,21 @@ class InfoCoursesViewController: UIViewController {
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
         startPosition = errorView.center
-        self.view.layoutSubviews()
+        buyOrNextDesign()
+        getComments()
+        design()
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        buyOrNextDesign()
-        getComments()
-        design()
+        changeCollectionViewHeight()
     }
     
     private func getCourse() {
         Task {
             course = try await Courses().getCoursesByID(id: course.id)
+            
             design()
         }
     }
@@ -56,6 +58,7 @@ class InfoCoursesViewController: UIViewController {
             reviews = try await Comments().getComments(courseID: course.id)
             reviewsCollectionView.reloadData()
             changeCollectionViewHeight()
+            self.view.layoutSubviews()
         }
     }
     
@@ -74,7 +77,6 @@ class InfoCoursesViewController: UIViewController {
             buyView.setTitle("Оставить отзыв", for: .normal)
             getCourse()
             priceView.isHidden = true
-            
         }else {
             buyView.setTitle("Купить", for: .normal)
             priceView.isHidden = false
@@ -120,7 +122,7 @@ class InfoCoursesViewController: UIViewController {
         }else if segue.identifier == "goCourse" {
             let vc = segue.destination as! ModulesCourseViewController
             vc.idCourse = course.id
-        }else if segue.identifier == "" {
+        }else if segue.identifier == "goToAddReview" {
             let vc = segue.destination as! AddReviewViewController
             vc.idCourse = course.id
         }
