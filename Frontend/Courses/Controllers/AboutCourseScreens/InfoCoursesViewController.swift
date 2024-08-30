@@ -17,7 +17,6 @@ class InfoCoursesViewController: UIViewController {
     @IBOutlet weak var countBuyer: UILabel!
     @IBOutlet weak var dateCreate: UILabel!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var buyOrNextBtn: UIButton!
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var im: UIImageView!
     @IBOutlet weak var buyView: UIButton!
@@ -73,12 +72,12 @@ class InfoCoursesViewController: UIViewController {
     
     private func buyOrNextDesign() {
         if buy == false {
-            buyOrNextBtn.setTitle("Оставить отзыв", for: .normal)
+            buyView.setTitle("Оставить отзыв", for: .normal)
             getCourse()
             priceView.isHidden = true
             
         }else {
-            buyOrNextBtn.setTitle("Купить", for: .normal)
+            buyView.setTitle("Купить", for: .normal)
             priceView.isHidden = false
             
         }
