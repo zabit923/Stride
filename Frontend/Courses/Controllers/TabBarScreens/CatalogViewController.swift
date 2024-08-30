@@ -12,6 +12,7 @@ class CatalogViewController: UIViewController {
 
     @IBOutlet weak var catalogCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
+    @IBOutlet weak var searchTF: UITextField!
     
     var categories = [Category]()
     var courses = [Course]()
@@ -46,6 +47,10 @@ class CatalogViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        searchTF.resignFirstResponder()
+    }
     
 }
 
@@ -98,6 +103,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
         if segue.identifier == "info" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourse
+            vc.buy = true
         }
         
     }

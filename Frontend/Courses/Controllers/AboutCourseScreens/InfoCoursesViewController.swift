@@ -8,7 +8,7 @@
 import UIKit
 
 class InfoCoursesViewController: UIViewController {
-
+    
     @IBOutlet weak var reviewsConstant: NSLayoutConstraint!
     @IBOutlet weak var coachName: UIButton!
     @IBOutlet weak var reviewsCollectionView: UICollectionView!
@@ -17,13 +17,19 @@ class InfoCoursesViewController: UIViewController {
     @IBOutlet weak var countBuyer: UILabel!
     @IBOutlet weak var dateCreate: UILabel!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var buyOrNextBtn: UIButton!
+    @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var im: UIImageView!
+    @IBOutlet weak var buyView: UIButton!
     
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
     
     var course = Course()
     var reviews = [Reviews]()
+    var buy: Bool?
+    var idCourse = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +41,16 @@ class InfoCoursesViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        buyOrNextDesign()
         getComments()
         design()
+    }
+    
+    private func getCourse() {
+        Task {
+            course = try await Courses().getCoursesByID(id: idCourse)
+            design()
+        }
     }
     
     private func getComments() {
@@ -57,6 +71,19 @@ class InfoCoursesViewController: UIViewController {
         countBuyer.text = "\(course.countBuyer)"
     }
     
+    private func buyOrNextDesign() {
+        if buy == false {
+            buyOrNextBtn.setTitle("Оставить отзыв", for: .normal)
+            getCourse()
+            priceView.isHidden = true
+            
+        }else {
+            buyOrNextBtn.setTitle("Купить", for: .normal)
+            priceView.isHidden = false
+            
+        }
+    }
+    
     private func changeCollectionViewHeight() {
         reviewsConstant.constant = reviewsCollectionView.contentSize.height
     }
@@ -66,17 +93,22 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func buy(_ sender: UIButton) {
-        Task {
-            do {
-                try await Courses().buyCourse(id: course.id)
-                performSegue(withIdentifier: "goCourse", sender: self)
-            }catch ErrorNetwork.runtimeError(let error) {
-                errorView.isHidden = false
-                errorView.configure(title: "Ошибка", description: error)
-                view.addSubview(errorView)
+        if buy == false {
+            performSegue(withIdentifier: "goToAddReview", sender: self)
+        }else{
+            Task {
+                do {
+                    try await Courses().buyCourse(id: course.id)
+                    performSegue(withIdentifier: "goCourse", sender: self)
+                }catch ErrorNetwork.runtimeError(let error) {
+                    errorView.isHidden = false
+                    errorView.configure(title: "Ошибка", description: error)
+                    view.addSubview(errorView)
+                }
             }
         }
     }
+
     
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -91,7 +123,6 @@ class InfoCoursesViewController: UIViewController {
             let vc = segue.destination as! ModulesCourseViewController
             vc.idCourse = course.id
         }
-        
     }
     
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {

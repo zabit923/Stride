@@ -25,6 +25,7 @@ class ModulesCourseViewController: UIViewController {
     private var selectModule = Modules(name: "", minutes: 0, id: 0)
     var idCourse = 0
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingSettings()
@@ -105,6 +106,10 @@ class ModulesCourseViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func goToInfo(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToInfo", sender: self)
+    }
+    
 }
 extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -175,8 +180,11 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
         if segue.identifier == "goToText" {
             let vc = segue.destination as! CourseTextViewController
             vc.module = selectModule
+        }else if segue.identifier == "goToInfo" {
+            let vc = segue.destination as! InfoCoursesViewController
+            vc.buy = false
+            vc.idCourse = idCourse
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

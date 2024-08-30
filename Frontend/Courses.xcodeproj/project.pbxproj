@@ -75,6 +75,7 @@
 		753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */; };
 		753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */; };
 		7595784B2C5B9A7E00A9F811 /* AddInfoAboutModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */; };
+		75D68C612C80A361001407F0 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D68C602C80A361001407F0 /* AddReviewViewController.swift */; };
 		75D7F3562C4299EF0083DBEF /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7F3552C4299EF0083DBEF /* UD.swift */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +154,7 @@
 		753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoursesViewController.swift; sourceTree = "<group>"; };
 		753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
 		7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoAboutModuleViewController.swift; sourceTree = "<group>"; };
+		75D68C602C80A361001407F0 /* AddReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		75D7F3552C4299EF0083DBEF /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -344,6 +346,7 @@
 				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
 				7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */,
 				440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */,
+				75D68C602C80A361001407F0 /* AddReviewViewController.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				44064C9E2C28628000AB5227 /* Sign.swift in Sources */,
 				440CB67D2C5FA86F003FCAF0 /* CoachViewController.swift in Sources */,
 				44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */,
+				75D68C612C80A361001407F0 /* AddReviewViewController.swift in Sources */,
 				44BD6CDC2C428A2C001645A0 /* ModulesCourseViewController.swift in Sources */,
 				7515103F2C34583B009978E6 /* SettingsTableViewCell.swift in Sources */,
 				44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */,
