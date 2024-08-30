@@ -33,7 +33,6 @@
 		440CB67D2C5FA86F003FCAF0 /* CoachViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */; };
 		440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DAB332C1748D400C576FB /* AppDelegate.swift */; };
 		440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DAB352C1748D400C576FB /* SceneDelegate.swift */; };
-		440DAB3B2C1748D400C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3A2C1748D400C576FB /* Base */; };
 		440DAB3D2C1748D600C576FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3C2C1748D600C576FB /* Assets.xcassets */; };
 		440DAB402C1748D600C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3F2C1748D600C576FB /* Base */; };
 		4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442F3D72C31BFDB00203A36 /* PageLayout.swift */; };
@@ -46,6 +45,7 @@
 		44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A982C81303A00E0F86F /* PrivacyViewController.swift */; };
 		44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */; };
+		44962E962C821B3600CB6A1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44962E942C821B3600CB6A1C /* Main.storyboard */; };
 		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
 		449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */; };
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
@@ -121,7 +121,6 @@
 		440DAB302C1748D400C576FB /* Courses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Courses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440DAB332C1748D400C576FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		440DAB352C1748D400C576FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		440DAB3A2C1748D400C576FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		440DAB3C2C1748D600C576FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440DAB3F2C1748D600C576FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		440DAB412C1748D600C576FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,6 +133,7 @@
 		4488EA142C769D9D0086765F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		44932A982C81303A00E0F86F /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStartViewController.swift; sourceTree = "<group>"; };
+		44962E952C821B3600CB6A1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -237,8 +237,8 @@
 				440DAB472C17491600C576FB /* Model */,
 				440DAB482C17491D00C576FB /* Views */,
 				440DAB492C17492900C576FB /* Controllers */,
-				440DAB392C1748D400C576FB /* Main.storyboard */,
 				440DAB3C2C1748D600C576FB /* Assets.xcassets */,
+				44962E942C821B3600CB6A1C /* Main.storyboard */,
 				440DAB332C1748D400C576FB /* AppDelegate.swift */,
 				440DAB352C1748D400C576FB /* SceneDelegate.swift */,
 				440DAB412C1748D600C576FB /* Info.plist */,
@@ -449,8 +449,8 @@
 				440DAB402C1748D600C576FB /* Base in Resources */,
 				4488EA132C769D340086765F /* ErrorView.xib in Resources */,
 				449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */,
-				440DAB3B2C1748D400C576FB /* Base in Resources */,
 				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				44962E962C821B3600CB6A1C /* Main.storyboard in Resources */,
 				44DFB11B2C3B2637005C8F44 /* loading.json in Resources */,
 				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
 				44049A2E2C6CE0C30014BD9C /* credentials.plist in Resources */,
@@ -525,20 +525,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		440DAB392C1748D400C576FB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				440DAB3A2C1748D400C576FB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		440DAB3E2C1748D600C576FB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				440DAB3F2C1748D600C576FB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		44962E942C821B3600CB6A1C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44962E952C821B3600CB6A1C /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
