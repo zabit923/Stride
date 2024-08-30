@@ -137,7 +137,7 @@ extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reviews", for: indexPath) as! ReviewsCollectionViewCell
-        cell.avatar.image = UIImage.defaultLogo
+        cell.avatar.sd_setImage(with: reviews[indexPath.row].authorAvatar)
         cell.descriptionText.text = reviews[indexPath.row].text
         cell.data.text = reviews[indexPath.row].date
         cell.name.text = reviews[indexPath.row].author

@@ -28,7 +28,6 @@ class CoachViewController: UIViewController {
     
     var courses = [Course]()
     var idCoach = 0
-    var selectCourseID = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +47,6 @@ class CoachViewController: UIViewController {
             sceletonAnimatedStart()
             getCoachInfo()
             getCoachCourses()
-            coursesCount.text = "\(courses.count)"
-            rating.text = "\(averageRating())"
             coursesCollectionView.reloadData()
         }
     }
@@ -57,17 +54,14 @@ class CoachViewController: UIViewController {
     private func getCoachInfo() {
         Task {
             user = try await User().getUserByID(id: idCoach)
-            avatar.sd_setImage(with: user.avatarURL)
-            name.text = "\(user.name) \(user.surname)"
-            characteristic.text = user.coach.description
-            rating.text = "\(averageRating())"
-            coursesCount.text = "\(courses.count)"
         }
     }
     
     private func getCoachCourses() {
         Task {
             courses = try await Courses().getCoursesByUserID(id: idCoach)
+            coursesCount.text = "\(courses.count)"
+            rating.text = "\(averageRating())"
             coursesCollectionView.reloadData()
         }
     }
@@ -127,14 +121,16 @@ class CoachViewController: UIViewController {
     }
     
     private func addProfile() {
+        name.text = "\(user.name) \(user.surname)"
         characteristic.text = user.coach.description
-        name.text = "\(user.surname) \(user.name)"
-        rating.text = "\(0.0)"
         if let avatar = user.avatarURL {
             self.avatar.sd_setImage(with: avatar)
         }
     }
     
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
 }
 
@@ -153,20 +149,6 @@ extension CoachViewController: SkeletonCollectionViewDelegate, SkeletonCollectio
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectCourseID = courses[indexPath.row].id
-        performSegue(withIdentifier: "changeCourse", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "changeCourse" {
-            let vc = segue.destination as! AddInfoAboutCourseVC
-            vc.create = false
-            vc.idCourse = selectCourseID
-        }
     }
    
     

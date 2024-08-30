@@ -357,7 +357,6 @@ class Courses {
     }
     
     func deleteDay(dayID: Int) async throws {
-        print(dayID)
         let url = Constants.url + "/api/v1/day/delete/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response =  AF.request(url, method: .delete, headers: headers).serializingData()

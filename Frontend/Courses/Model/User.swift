@@ -107,6 +107,7 @@ class User {
         user.email = json["email"].stringValue
         user.phone = json["phone_number"].stringValue
         user.id = json["id"].intValue
+        user.coach.description = json["desc"].stringValue
         user.avatarURL = URL(string: json["image"].stringValue)
         return user
     }

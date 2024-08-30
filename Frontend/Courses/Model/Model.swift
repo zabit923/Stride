@@ -11,6 +11,7 @@ import UIKit
 
 class Constants {
     static let url = "http://127.0.0.1:8000/"
+    static let telegramURL = URL(string: "https://t.me/StrideCoursesBot")!
 }
 
 // MARK: - Collection
@@ -139,6 +140,7 @@ struct InfoMe: Encodable {
 struct Reviews {
     var id: Int
     var author: String
+    var authorAvatar: URL?
     var text: String
     var date: String
     var courseID: Int

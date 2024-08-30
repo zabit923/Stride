@@ -24,11 +24,13 @@ class Comments {
         for x in 0...results.count - 1 {
             let id = json[x]["id"].intValue
             let author = "\(json[x]["author"]["first_name"].stringValue) \(json[x]["author"]["last_name"].stringValue)"
+            let authorID = json[x]["author"]["id"].intValue
             let text = json[x]["text"].stringValue
             let date = json[x]["created_at"].stringValue
             let datePart = date.replacingOccurrences(of: "T.*", with: "", options: .regularExpression)
             let courseID = json[x]["course"].intValue
-            comments.append(Reviews(id: id, author: author, text: text, date: datePart, courseID: courseID))
+            let avatarAuthor = try await User().getUserByID(id: authorID).avatarURL
+            comments.append(Reviews(id: id, author: author, authorAvatar: avatarAuthor, text: text, date: datePart, courseID: courseID))
         }
         return comments
     }
