@@ -259,6 +259,14 @@ enum CourseCatalog {
     case celebrity
 }
 
+enum SelectBtn {
+    case firstButton
+    case secondButton
+    case thirdButton
+    case fourtFutton
+    case fifthButton
+}
+
 // MARK: - Protocol
 
 protocol ChangeInfoModule: AnyObject {

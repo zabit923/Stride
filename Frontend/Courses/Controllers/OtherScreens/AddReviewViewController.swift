@@ -10,13 +10,18 @@ import UIKit
 class AddReviewViewController: UIViewController {
 
 
-    
+    @IBOutlet weak var firstStar: UIButton!
+    @IBOutlet weak var secondStar: UIButton!
+    @IBOutlet weak var thirdStar: UIButton!
+    @IBOutlet weak var fourthStar: UIButton!
+    @IBOutlet weak var fifthStar: UIButton!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     private var startPosition = CGPoint()
-    
+    var idCourse = 0
+    var rating = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +42,14 @@ class AddReviewViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func check() -> Bool{
+        var result = true
+        if textView.text == "" && textView.textColor == .gray {
+            result = false
+        }
+        return result
     }
     
     func design() {
@@ -73,12 +86,38 @@ class AddReviewViewController: UIViewController {
             break
         }
     }
-    @IBAction func finish(_ sender: UIButton) {
-        dismiss(animated: true)
+    @IBAction func finish(_ sender: UIButton)  {
+        Task {
+            try await Comments().addComment(idCourse: idCourse, rating: rating, text: textView.text)
+            dismiss(animated: true)
+        }
     }
     
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         textView.resignFirstResponder()
+    }
+    
+    @IBAction func rating(_ sender: UIButton) {
+        switch sender.tag{
+        case 0:
+            Stars().starsCount(firstButton: firstStar, secondButton: secondStar, thirdButton: thirdStar, fourthButton: fourthStar, fifthButton: fifthStar, selectButton: .firstButton)
+            rating = 1
+        case 1:
+            Stars().starsCount(firstButton: firstStar, secondButton: secondStar, thirdButton: thirdStar, fourthButton: fourthStar, fifthButton: fifthStar, selectButton: .secondButton)
+            rating = 2
+        case 2:
+            Stars().starsCount(firstButton: firstStar, secondButton: secondStar, thirdButton: thirdStar, fourthButton: fourthStar, fifthButton: fifthStar, selectButton: .thirdButton)
+            rating = 3
+        case 3:
+            Stars().starsCount(firstButton: firstStar, secondButton: secondStar, thirdButton: thirdStar, fourthButton: fourthStar, fifthButton: fifthStar, selectButton: .fourtFutton)
+            rating = 4
+        case 4:
+            Stars().starsCount(firstButton: firstStar, secondButton: secondStar, thirdButton: thirdStar, fourthButton: fourthStar, fifthButton: fifthStar, selectButton: .fifthButton)
+            rating = 5
+        default:
+            break
+        }
+        
     }
     
     

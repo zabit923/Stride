@@ -27,7 +27,6 @@ class InfoCoursesViewController: UIViewController {
     var course = Course()
     var reviews = [Reviews]()
     var buy: Bool?
-    var idCourse = 0
     
     
     override func viewDidLoad() {
@@ -47,7 +46,7 @@ class InfoCoursesViewController: UIViewController {
     
     private func getCourse() {
         Task {
-            course = try await Courses().getCoursesByID(id: idCourse)
+            course = try await Courses().getCoursesByID(id: course.id)
             design()
         }
     }
@@ -120,6 +119,9 @@ class InfoCoursesViewController: UIViewController {
             vc.idCoach = course.idAuthor
         }else if segue.identifier == "goCourse" {
             let vc = segue.destination as! ModulesCourseViewController
+            vc.idCourse = course.id
+        }else if segue.identifier == "" {
+            let vc = segue.destination as! AddReviewViewController
             vc.idCourse = course.id
         }
     }

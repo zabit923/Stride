@@ -183,7 +183,7 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
         }else if segue.identifier == "goToInfo" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.buy = false
-            vc.idCourse = idCourse
+            vc.course.id = idCourse
         }
     }
     
