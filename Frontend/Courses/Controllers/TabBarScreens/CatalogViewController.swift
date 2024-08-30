@@ -13,7 +13,6 @@ class CatalogViewController: UIViewController {
     @IBOutlet weak var search: UITextField!
     @IBOutlet weak var catalogCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
-    @IBOutlet weak var searchTF: UITextField!
     
     var categories = [Category]()
     var courses = [Course]()
@@ -25,7 +24,7 @@ class CatalogViewController: UIViewController {
         categoryCollectionView.delegate = self
         catalogCollectionView.dataSource = self
         catalogCollectionView.delegate = self
-//        search.delegate = self
+        search.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +56,7 @@ class CatalogViewController: UIViewController {
     }
     
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
-        searchTF.resignFirstResponder()
+        search.resignFirstResponder()
     }
     
 }
