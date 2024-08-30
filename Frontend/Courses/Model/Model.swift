@@ -254,6 +254,7 @@ enum CourseCatalog {
     case myCreate
     case recomend
     case popular
+    case celebrity
 }
 
 // MARK: - Protocol

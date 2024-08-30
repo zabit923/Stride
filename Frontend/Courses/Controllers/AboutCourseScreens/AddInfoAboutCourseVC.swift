@@ -51,9 +51,9 @@ class AddInfoAboutCourseVC: UIViewController {
         guard create == false else { return }
         Task {
             infoCourses = try await Courses().getCoursesByID(id: idCourse)
-            var categories = try await Categories().getCategories()
-            let categoryText = categories.first(where: { $0.id == infoCourses.categoryID })?.nameCategory
-            categoriesLbl.text = categoryText
+            let categories = try await Categories().getCategories()
+            selectCategory = categories.first(where: { $0.id == infoCourses.categoryID })
+            categoriesLbl.text = selectCategory?.nameCategory
             design()
         }
     }
@@ -94,7 +94,7 @@ class AddInfoAboutCourseVC: UIViewController {
         }else {
             imageBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
         }
-        if selectCategory == nil {
+        if categoriesLbl.text!.isEmpty {
             result = false
             categoryBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {

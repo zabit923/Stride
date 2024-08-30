@@ -125,7 +125,35 @@ class Courses {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
-        print(json)
+        var courses = [Course]()
+        
+        let results = json.arrayValue
+        guard results.isEmpty == false else {return []}
+        
+        for x in 0...results.count - 1 {
+            let daysCount = json[x]["days"].arrayValue.count
+            let title = json[x]["title"].stringValue
+            let price = json[x]["price"].intValue
+            let id = json[x]["id"].intValue
+            let image = json[x]["image"].stringValue
+            let description = json[x]["desc"].stringValue
+            let dataCreated = json[x]["created_at"].stringValue
+            let authorName = json[x]["author"]["first_name"].stringValue
+            let authorSurname = json[x]["author"]["last_name"].stringValue
+            let authorID = json[x]["author"]["id"].intValue
+            let countBuyer = json[x]["bought_count"].intValue
+            let rating = json[x]["rating"].floatValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
+        }
+        
+        return courses
+    }
+    
+    func getRecomendedCourses() async throws -> [Course] {
+        let url = Constants.url + "/api/v1/courses/recommended_courses/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
+        let json = JSON(value)
         var courses = [Course]()
         
         let results = json.arrayValue
