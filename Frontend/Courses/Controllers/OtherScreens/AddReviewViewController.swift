@@ -26,6 +26,7 @@ class AddReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
+        print(idCourse)
     }
     
     override func viewDidLayoutSubviews() {
@@ -46,7 +47,13 @@ class AddReviewViewController: UIViewController {
     
     func check() -> Bool{
         var result = true
-        if textView.text == "" && textView.textColor == .gray {
+        if textView.text == ""{
+            result = false
+        }
+        if rating == 0 {
+            result = false
+        }
+        if textView.textColor == .gray {
             result = false
         }
         return result
@@ -54,7 +61,7 @@ class AddReviewViewController: UIViewController {
     
     func design() {
         textView.delegate = self
-        textView.text = "Ваш Комментарий"
+        textView.text = "Ваш комментарий"
         textView.textColor = UIColor.gray
         
     }
@@ -87,9 +94,11 @@ class AddReviewViewController: UIViewController {
         }
     }
     @IBAction func finish(_ sender: UIButton)  {
-        Task {
-            try await Comments().addComment(idCourse: idCourse, rating: rating, text: textView.text)
-            dismiss(animated: true)
+        if check() == true {
+            Task {
+                try await Comments().addComment(idCourse: idCourse, rating: rating, text: textView.text)
+                dismiss(animated: true)
+            }
         }
     }
     

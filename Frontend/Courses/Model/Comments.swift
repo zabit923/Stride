@@ -38,12 +38,12 @@ class Comments {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let parameters: Parameters = [
             "course": idCourse,
-            "parent": 0,
             "text": text
         ]
-        let value = try await AF.request(url,method: .post, headers: headers).serializingData().value
+        let value = try await AF.request(url,method: .post,parameters: parameters, headers: headers).serializingData().value
         let json = JSON(value)
         print(json)
+        try await addRating(rating: rating, idCourse: idCourse)
     }
     
     private func addRating(rating: Int, idCourse: Int) async throws {
@@ -53,7 +53,7 @@ class Comments {
             "course": idCourse,
             "rating": rating
         ]
-        let value = try await AF.request(url,method: .post, headers: headers).serializingData().value
+        let value = try await AF.request(url, method: .post,parameters: parameters, headers: headers).serializingData().value
         let json = JSON(value)
         print(json)
     }
