@@ -8,7 +8,7 @@
 import UIKit
 
 class InfoCoursesViewController: UIViewController {
-
+    
     @IBOutlet weak var reviewsConstant: NSLayoutConstraint!
     @IBOutlet weak var coachName: UIButton!
     @IBOutlet weak var reviewsCollectionView: UICollectionView!
@@ -17,26 +17,40 @@ class InfoCoursesViewController: UIViewController {
     @IBOutlet weak var countBuyer: UILabel!
     @IBOutlet weak var dateCreate: UILabel!
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var im: UIImageView!
+    @IBOutlet weak var buyView: UIButton!
     
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
     
     var course = Course()
     var reviews = [Reviews]()
+    var buy: Bool?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
         startPosition = errorView.center
-        self.view.layoutSubviews()
+        buyOrNextDesign()
+        getComments()
+        design()
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        getComments()
-        design()
+        changeCollectionViewHeight()
+    }
+    
+    private func getCourse() {
+        Task {
+            course = try await Courses().getCoursesByID(id: course.id)
+            
+            design()
+        }
     }
     
     private func getComments() {
@@ -44,6 +58,7 @@ class InfoCoursesViewController: UIViewController {
             reviews = try await Comments().getComments(courseID: course.id)
             reviewsCollectionView.reloadData()
             changeCollectionViewHeight()
+            self.view.layoutSubviews()
         }
     }
     
@@ -57,6 +72,18 @@ class InfoCoursesViewController: UIViewController {
         countBuyer.text = "\(course.countBuyer)"
     }
     
+    private func buyOrNextDesign() {
+        if buy == false {
+            buyView.setTitle("Оставить отзыв", for: .normal)
+            getCourse()
+            priceView.isHidden = true
+        }else {
+            buyView.setTitle("Купить", for: .normal)
+            priceView.isHidden = false
+            
+        }
+    }
+    
     private func changeCollectionViewHeight() {
         reviewsConstant.constant = reviewsCollectionView.contentSize.height
     }
@@ -66,17 +93,22 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func buy(_ sender: UIButton) {
-        Task {
-            do {
-                try await Courses().buyCourse(id: course.id)
-                performSegue(withIdentifier: "goCourse", sender: self)
-            }catch ErrorNetwork.runtimeError(let error) {
-                errorView.isHidden = false
-                errorView.configure(title: "Ошибка", description: error)
-                view.addSubview(errorView)
+        if buy == false {
+            performSegue(withIdentifier: "goToAddReview", sender: self)
+        }else{
+            Task {
+                do {
+                    try await Courses().buyCourse(id: course.id)
+                    performSegue(withIdentifier: "goCourse", sender: self)
+                }catch ErrorNetwork.runtimeError(let error) {
+                    errorView.isHidden = false
+                    errorView.configure(title: "Ошибка", description: error)
+                    view.addSubview(errorView)
+                }
             }
         }
     }
+
     
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -90,8 +122,10 @@ class InfoCoursesViewController: UIViewController {
         }else if segue.identifier == "goCourse" {
             let vc = segue.destination as! ModulesCourseViewController
             vc.idCourse = course.id
+        }else if segue.identifier == "goToAddReview" {
+            let vc = segue.destination as! AddReviewViewController
+            vc.idCourse = course.id
         }
-        
     }
     
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {

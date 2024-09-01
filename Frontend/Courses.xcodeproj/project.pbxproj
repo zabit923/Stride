@@ -33,7 +33,6 @@
 		440CB67D2C5FA86F003FCAF0 /* CoachViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */; };
 		440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DAB332C1748D400C576FB /* AppDelegate.swift */; };
 		440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440DAB352C1748D400C576FB /* SceneDelegate.swift */; };
-		440DAB3B2C1748D400C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3A2C1748D400C576FB /* Base */; };
 		440DAB3D2C1748D600C576FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3C2C1748D600C576FB /* Assets.xcassets */; };
 		440DAB402C1748D600C576FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 440DAB3F2C1748D600C576FB /* Base */; };
 		4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442F3D72C31BFDB00203A36 /* PageLayout.swift */; };
@@ -43,11 +42,17 @@
 		4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4464757A2C7496F100ACD3D7 /* FilePath.swift */; };
 		4488EA132C769D340086765F /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4488EA122C769D340086765F /* ErrorView.xib */; };
 		4488EA152C769D9D0086765F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488EA142C769D9D0086765F /* ErrorView.swift */; };
+		44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A982C81303A00E0F86F /* PrivacyViewController.swift */; };
+		44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */; };
+		44962E962C821B3600CB6A1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44962E942C821B3600CB6A1C /* Main.storyboard */; };
 		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
 		449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */; };
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
 		449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */; };
 		44A406832C762FE1005509D0 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 44A406822C762FE1005509D0 /* SkeletonView */; };
+		44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149B2C808106006D0722 /* PickerModelViewController.swift */; };
+		44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */; };
 		44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */; };
 		44BD6CDC2C428A2C001645A0 /* ModulesCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */; };
 		44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */; };
@@ -75,7 +80,9 @@
 		753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */; };
 		753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */; };
 		7595784B2C5B9A7E00A9F811 /* AddInfoAboutModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */; };
+		75D68C612C80A361001407F0 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D68C602C80A361001407F0 /* AddReviewViewController.swift */; };
 		75D7F3562C4299EF0083DBEF /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7F3552C4299EF0083DBEF /* UD.swift */; };
+		75DBBEF42C8221A10063A489 /* Stars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DBBEF32C8221A10063A489 /* Stars.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +92,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,7 +122,6 @@
 		440DAB302C1748D400C576FB /* Courses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Courses.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440DAB332C1748D400C576FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		440DAB352C1748D400C576FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		440DAB3A2C1748D400C576FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		440DAB3C2C1748D600C576FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440DAB3F2C1748D600C576FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		440DAB412C1748D600C576FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,10 +132,15 @@
 		4464757A2C7496F100ACD3D7 /* FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePath.swift; sourceTree = "<group>"; };
 		4488EA122C769D340086765F /* ErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
 		4488EA142C769D9D0086765F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		44932A982C81303A00E0F86F /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStartViewController.swift; sourceTree = "<group>"; };
+		44962E952C821B3600CB6A1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Bold.ttf"; sourceTree = "<group>"; };
+		44BD149B2C808106006D0722 /* PickerModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModelViewController.swift; sourceTree = "<group>"; };
+		44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrityCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesCourseViewController.swift; sourceTree = "<group>"; };
 		44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysCourseCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -153,7 +165,9 @@
 		753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoursesViewController.swift; sourceTree = "<group>"; };
 		753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
 		7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoAboutModuleViewController.swift; sourceTree = "<group>"; };
+		75D68C602C80A361001407F0 /* AddReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		75D7F3552C4299EF0083DBEF /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
+		75DBBEF32C8221A10063A489 /* Stars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stars.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +212,7 @@
 				44064C882C27042100AB5227 /* StartViewController.swift */,
 				44064C8A2C28516C00AB5227 /* VhodViewController.swift */,
 				44064C8C2C285DA600AB5227 /* RegistrViewController.swift */,
+				44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */,
 			);
 			path = StartScreens;
 			sourceTree = "<group>";
@@ -224,8 +239,8 @@
 				440DAB472C17491600C576FB /* Model */,
 				440DAB482C17491D00C576FB /* Views */,
 				440DAB492C17492900C576FB /* Controllers */,
-				440DAB392C1748D400C576FB /* Main.storyboard */,
 				440DAB3C2C1748D600C576FB /* Assets.xcassets */,
+				44962E942C821B3600CB6A1C /* Main.storyboard */,
 				440DAB332C1748D400C576FB /* AppDelegate.swift */,
 				440DAB352C1748D400C576FB /* SceneDelegate.swift */,
 				440DAB412C1748D600C576FB /* Info.plist */,
@@ -253,6 +268,7 @@
 				446475742C72088300ACD3D7 /* Comments.swift */,
 				446475782C726C4500ACD3D7 /* Categories.swift */,
 				4464757A2C7496F100ACD3D7 /* FilePath.swift */,
+				75DBBEF32C8221A10063A489 /* Stars.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -312,6 +328,7 @@
 				44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */,
 				44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */,
 				44BD6CDF2C432C82001645A0 /* ModuleCourseCollectionViewCell.swift */,
+				44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -344,6 +361,9 @@
 				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
 				7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */,
 				440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */,
+				75D68C602C80A361001407F0 /* AddReviewViewController.swift */,
+				44BD149B2C808106006D0722 /* PickerModelViewController.swift */,
+				44932A982C81303A00E0F86F /* PrivacyViewController.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -432,8 +452,8 @@
 				440DAB402C1748D600C576FB /* Base in Resources */,
 				4488EA132C769D340086765F /* ErrorView.xib in Resources */,
 				449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */,
-				440DAB3B2C1748D400C576FB /* Base in Resources */,
 				44064C7B2C26EEB800AB5227 /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				44962E962C821B3600CB6A1C /* Main.storyboard in Resources */,
 				44DFB11B2C3B2637005C8F44 /* loading.json in Resources */,
 				44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */,
 				44049A2E2C6CE0C30014BD9C /* credentials.plist in Resources */,
@@ -458,12 +478,15 @@
 				440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */,
 				75106D792C38AFDB0036042B /* InfoAboutMeViewController.swift in Sources */,
 				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
+				44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */,
 				44D68B022C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift in Sources */,
+				44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */,
 				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
 				44064CA62C28773E00AB5227 /* Error.swift in Sources */,
 				44D68B032C51B3EF00F8F476 /* CoursesViewController.swift in Sources */,
 				7515103C2C343146009978E6 /* ProfileViewController.swift in Sources */,
 				75D7F3562C4299EF0083DBEF /* UD.swift in Sources */,
+				44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */,
 				449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */,
 				44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */,
 				44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */,
@@ -483,8 +506,10 @@
 				753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */,
 				44064CA42C2876F200AB5227 /* Errors.swift in Sources */,
 				449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */,
+				75DBBEF42C8221A10063A489 /* Stars.swift in Sources */,
 				4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */,
 				44E2440C2C5D6C7000EADF3D /* Courses.swift in Sources */,
+				44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */,
 				44D68B012C51B3EF00F8F476 /* AddCourseViewController.swift in Sources */,
 				44BD6CE42C440974001645A0 /* AddModuleCoursesViewController.swift in Sources */,
 				7508513B2C38763A00F5C0DC /* ChangeInformationViewController.swift in Sources */,
@@ -492,6 +517,7 @@
 				44064C9E2C28628000AB5227 /* Sign.swift in Sources */,
 				440CB67D2C5FA86F003FCAF0 /* CoachViewController.swift in Sources */,
 				44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */,
+				75D68C612C80A361001407F0 /* AddReviewViewController.swift in Sources */,
 				44BD6CDC2C428A2C001645A0 /* ModulesCourseViewController.swift in Sources */,
 				7515103F2C34583B009978E6 /* SettingsTableViewCell.swift in Sources */,
 				44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */,
@@ -503,20 +529,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		440DAB392C1748D400C576FB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				440DAB3A2C1748D400C576FB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		440DAB3E2C1748D600C576FB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				440DAB3F2C1748D600C576FB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		44962E942C821B3600CB6A1C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44962E952C821B3600CB6A1C /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -652,6 +678,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -686,6 +713,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

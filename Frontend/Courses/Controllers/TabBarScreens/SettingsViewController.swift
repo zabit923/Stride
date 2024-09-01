@@ -137,6 +137,13 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             default:
                 break
             }
+        }else if tableView == settingsTableView2 {
+            switch arrayObjects2[indexPath.row].name {
+            case "Политика конфиденциальности":
+                performSegue(withIdentifier: "privacy", sender: self)
+            default:
+                break
+            }
         }
     }
     

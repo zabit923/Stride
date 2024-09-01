@@ -33,4 +33,29 @@ class Comments {
         return comments
     }
     
+    func addComment(idCourse: Int, rating: Int, text: String) async throws {
+        let url = Constants.url + "/api/v1/comments/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let parameters: Parameters = [
+            "course": idCourse,
+            "text": text
+        ]
+        let value = try await AF.request(url,method: .post,parameters: parameters, headers: headers).serializingData().value
+        let json = JSON(value)
+        print(json)
+        try await addRating(rating: rating, idCourse: idCourse)
+    }
+    
+    private func addRating(rating: Int, idCourse: Int) async throws {
+        let url = Constants.url + "/api/v1/rating/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let parameters: Parameters = [
+            "course": idCourse,
+            "rating": rating
+        ]
+        let value = try await AF.request(url, method: .post,parameters: parameters, headers: headers).serializingData().value
+        let json = JSON(value)
+        print(json)
+    }
+    
 }

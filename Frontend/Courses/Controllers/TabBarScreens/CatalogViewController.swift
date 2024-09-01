@@ -10,6 +10,7 @@ import SDWebImage
 
 class CatalogViewController: UIViewController {
 
+    @IBOutlet weak var search: UITextField!
     @IBOutlet weak var catalogCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
@@ -23,6 +24,7 @@ class CatalogViewController: UIViewController {
         categoryCollectionView.delegate = self
         catalogCollectionView.dataSource = self
         catalogCollectionView.delegate = self
+        search.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,7 +33,7 @@ class CatalogViewController: UIViewController {
         getCategories()
     }
     
-    func getCourses() {
+    private func getCourses() {
         Task {
             let results = try await Courses().getAllCourses()
             courses = results
@@ -39,13 +41,23 @@ class CatalogViewController: UIViewController {
         }
     }
     
-    func getCategories() {
+    private func getCategories() {
         Task {
             categories = try await Categories().getCategories()
             categoryCollectionView.reloadData()
         }
     }
     
+    private func searchCourse(text: String) {
+        Task {
+            courses = try await Courses().searchCourses(text: text)
+            catalogCollectionView.reloadData()
+        }
+    }
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        search.resignFirstResponder()
+    }
     
 }
 
@@ -98,9 +110,17 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
         if segue.identifier == "info" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourse
+            vc.buy = true
         }
         
     }
     
+    
+}
+extension CatalogViewController: UITextFieldDelegate {
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        searchCourse(text: textField.text!)
+    }
     
 }

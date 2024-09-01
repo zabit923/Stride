@@ -15,6 +15,7 @@ class CoursesViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     
     private var selectIDCourse = 0
+    private var selectCourse = Course()
     var course = [Course]()
     var typeCourse = CourseCatalog.recomend
     
@@ -35,18 +36,40 @@ class CoursesViewController: UIViewController {
         getCoursesBecauseTitle()
     }
     
+    private func getMyCreateCourses() {
+        Task {
+            course = try await Courses().getMyCreateCourses()
+            catalogCollectionView.reloadData()
+        }
+    }
+    
+    private func getRecomendCourses() {
+        Task {
+            course = try await Courses().getRecomendedCourses()
+            catalogCollectionView.reloadData()
+        }
+    }
+    
+    private func getCelebrityCourses() {
+        Task {
+            course = try await Courses().getCoursesByCelebrity()
+            catalogCollectionView.reloadData()
+        }
+    }
+    
     private func getCoursesBecauseTitle() {
         switch typeCourse {
         case .myCreate:
             titleLbl.text = "Созданные курсы"
-            Task {
-                course = try await Courses().getMyCreateCourses()
-                catalogCollectionView.reloadData()
-            }
+            getMyCreateCourses()
         case .recomend:
-            break
+            titleLbl.text = "Популярные курсы"
+            getRecomendCourses()
         case .popular:
             break
+        case .celebrity:
+            titleLbl.text = "Курсы от знаменитостей"
+            getCelebrityCourses()
         }
     }
     
@@ -80,6 +103,9 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
         if typeCourse == .myCreate {
             selectIDCourse = course[indexPath.row].id
             performSegue(withIdentifier: "changeCourse", sender: self)
+        }else if typeCourse == .recomend {
+            selectCourse = course[indexPath.row]
+            performSegue(withIdentifier: "infoCourses", sender: self)
         }
     }
     
@@ -89,6 +115,9 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
             let vc = segue.destination as! AddInfoAboutCourseVC
             vc.create = false
             vc.idCourse = selectIDCourse
+        }else if segue.identifier == "infoCourses" {
+            let vc = segue.destination as! InfoCoursesViewController
+            vc.course = selectCourse
         }
     }
     
