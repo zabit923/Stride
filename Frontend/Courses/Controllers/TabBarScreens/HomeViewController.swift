@@ -54,7 +54,7 @@ class HomeViewController: UIViewController {
     private func getUser() {
         Task {
             user = try await User().getMyInfo()
-            self.navigationController?.popToViewController(tabBarController!, animated: false)
+//            self.navigationController?.popToViewController(tabBarController!, animated: false)
         }
     }
     
