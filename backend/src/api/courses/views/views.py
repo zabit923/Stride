@@ -108,7 +108,8 @@ class CourseApiViewSet(ModelViewSet):
 
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def celebrities_courses(self, request):
-        courses = Course.objects.filter(is_celebretie_course=True)
+        celebrity_users = User.objects.filter(is_celebrity=True)
+        courses = Course.objects.filter(author__in=celebrity_users)
         serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

@@ -75,6 +75,7 @@ class User(AbstractUser):
     )
 
     is_coach = models.BooleanField(_('is_coach'), default=False)
+    is_celebrity = models.BooleanField(_('is_celebrity'), default=False)
 
     def __str__(self):
         return f'{self.username} | {self.weight} кг | {self.height} см | {self.gender}, {self.target}, {self.level}'

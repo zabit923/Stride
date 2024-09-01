@@ -44,7 +44,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.request.method in {'PATCH', 'PUT'}:
             self.serializer_class = UserUpdateSerializer
-        elif self.action in ['list', 'get_me', 'retrieve']:
+        elif self.action in ['list', 'retrieve']:
             self.serializer_class = UserGetSerializer
         else:
             self.serializer_class = UserCreateSerializer
@@ -56,3 +56,8 @@ class UserViewSet(viewsets.ModelViewSet):
         serialized_data = UserGetSerializer(user).data
         return Response(serialized_data)
 
+    @action(detail=False, methods=['GET'], pagination_class=None)
+    def get_all_celebrity(self, request):
+        celebrities = User.objects.filter(is_celebrity=True)
+        serialized_data = UserGetSerializer(celebrityes, many=True).data
+        return Response(serialized_data)
