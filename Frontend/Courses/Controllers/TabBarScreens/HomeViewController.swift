@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var bannersCollectionView: UICollectionView!
     @IBOutlet weak var imProfile: UIImageView!
     @IBOutlet weak var recomendCollectionView: UICollectionView!
-    
+
     private var banners = [String]()
     private var recomendCourses = [Course]()
     private var celebrityCourses = [Course]()
@@ -33,7 +33,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        performSegue(withIdentifier: "loading", sender: self)
+        loadingStart()
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
         tabbar()
@@ -51,10 +51,14 @@ class HomeViewController: UIViewController {
         bannersCollectionView.setContentOffset(CGPoint(x: x, y: 0), animated: false)
     }
     
+    private func loadingStart() {
+        performSegue(withIdentifier: "loading", sender: self)
+    }
+    
     private func getUser() {
         Task {
             user = try await User().getMyInfo()
-//            self.navigationController?.popToViewController(tabBarController!, animated: false)
+            self.navigationController?.popToViewController(tabBarController!, animated: false)
         }
     }
     

@@ -34,8 +34,12 @@ class User {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 200 {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
         UD().saveMyInfo(user)
     }

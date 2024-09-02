@@ -16,6 +16,6 @@ class ReviewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var firstStar: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var data: UILabel!
-    @IBOutlet weak var descriptionText: UILabel!
+    @IBOutlet weak var descriptionText: UITextView!
     @IBOutlet weak var avatar: UIImageView!
 }

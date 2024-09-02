@@ -37,7 +37,6 @@ class InfoCoursesViewController: UIViewController {
         buyOrNextDesign()
         getComments()
         design()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -48,7 +47,6 @@ class InfoCoursesViewController: UIViewController {
     private func getCourse() {
         Task {
             course = try await Courses().getCoursesByID(id: course.id)
-            
             design()
         }
     }
@@ -58,7 +56,8 @@ class InfoCoursesViewController: UIViewController {
             reviews = try await Comments().getComments(courseID: course.id)
             reviewsCollectionView.reloadData()
             changeCollectionViewHeight()
-            self.view.layoutSubviews()
+            reviewsCollectionView.invalidateIntrinsicContentSize()
+            self.view.layoutIfNeeded()
         }
     }
     
@@ -70,6 +69,7 @@ class InfoCoursesViewController: UIViewController {
         coachName.setTitle(course.nameAuthor, for: .normal)
         im.sd_setImage(with: course.imageURL)
         countBuyer.text = "\(course.countBuyer)"
+        reviewHiddenBtn()
     }
     
     private func buyOrNextDesign() {
@@ -84,8 +84,17 @@ class InfoCoursesViewController: UIViewController {
         }
     }
     
+    private func reviewHiddenBtn() {
+        if course.myRating == 0 {
+            buyView.isHidden = false
+        }else {
+            buyView.isHidden = true
+        }
+    }
+    
     private func changeCollectionViewHeight() {
         reviewsConstant.constant = reviewsCollectionView.contentSize.height
+        self.view.layoutIfNeeded()
     }
     
     @IBAction func coach(_ sender: UIButton) {
@@ -133,7 +142,7 @@ class InfoCoursesViewController: UIViewController {
     }
     
 }
-extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reviews.count
@@ -148,6 +157,13 @@ extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewD
         return cell
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let textView = UITextView()
+        textView.font = UIFont(name: "Commissioner-Medium", size: 12)!
+        textView.text = reviews[indexPath.row].text
+        let textSize = textView.sizeThatFits(CGSize(width: collectionView.bounds.width, height: CGFloat.greatestFiniteMagnitude))
+        return CGSize(width: collectionView.bounds.width, height: textSize.height + 30)
+    }
+
     
 }

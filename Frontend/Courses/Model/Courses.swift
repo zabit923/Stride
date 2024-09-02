@@ -95,8 +95,10 @@ class Courses {
         let authorSurname = json["author"]["last_name"].stringValue
         let authorID = json["author"]["id"].intValue
         let rating = json["rating"].floatValue
+        let myRating = json["my_rating"]["rating"].intValue
         let category = json["category"].intValue
-        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, id: id, description: description, dataCreated: dataCreated)
+        let boughtCount = json["bought_count"].intValue
+        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount)
         return course
     }
     
@@ -203,8 +205,9 @@ class Courses {
             let authorSurname = json[x]["author"]["last_name"].stringValue
             let authorID = json[x]["author"]["id"].intValue
             let rating = json[x]["rating"].floatValue
+            let myRating = json[x]["my_rating"]["rating"].intValue
             let progressInDays = UD().getDaysCompletedInCourse(courseID: id)
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating ,id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays))
         }
         return courses
     }
@@ -255,8 +258,12 @@ class Courses {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 200 {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
     }
     
@@ -282,13 +289,21 @@ class Courses {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 200 && method == .patch {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
         
         if code != 201 && method == .post {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
         let idCourse = json["id"].intValue
         return idCourse
@@ -302,8 +317,12 @@ class Courses {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 201 {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
         let id = json["id"].intValue
         return id
@@ -317,8 +336,12 @@ class Courses {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 201 {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
         let id = json["id"].intValue
         return id
@@ -336,8 +359,12 @@ class Courses {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 200 {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
     }
     
@@ -351,8 +378,12 @@ class Courses {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 204 {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
     }
     
@@ -379,8 +410,12 @@ class Courses {
         let code = await response.response.response?.statusCode
         let json = JSON(value)
         if code != 201 {
-            let error = json.dictionary!.first!.value[0].stringValue
-            throw ErrorNetwork.runtimeError(error)
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
         }
     }
     
