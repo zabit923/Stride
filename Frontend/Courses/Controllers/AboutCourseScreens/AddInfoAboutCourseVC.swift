@@ -12,6 +12,7 @@ class AddInfoAboutCourseVC: UIViewController {
     @IBOutlet weak var categoriesLbl: UILabel!
     @IBOutlet weak var imageBorder: Border!
     @IBOutlet weak var categoryBorder: Border!
+    @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var priceBorder: Border!
     @IBOutlet weak var descriptionBorder: Border!
     @IBOutlet weak var nameBorder: Border!
@@ -26,7 +27,6 @@ class AddInfoAboutCourseVC: UIViewController {
     
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
-    
     private var infoCourses = Course()
     private var imageURL: URL?
     private var selectCategory: Category?
@@ -59,6 +59,11 @@ class AddInfoAboutCourseVC: UIViewController {
     }
     
     private func design() {
+        if create {
+            titleLbl.text = "Создать курс"
+        }else {
+            titleLbl.text = "Изменить курс"
+        }
         imagePred.sd_setImage(with: infoCourses.imageURL)
         namePred.text = infoCourses.nameCourse
         pricePred.text = "\(infoCourses.price)Р"

@@ -18,7 +18,8 @@ class AddReviewViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var viewMain: UIView!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    private var errorStartPosition = CGPoint()
     private var startPosition = CGPoint()
     var idCourse = 0
     var rating = 0
@@ -26,12 +27,12 @@ class AddReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
-        print(idCourse)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         startPosition = viewMain.frame.origin
+        errorStartPosition = errorView.center
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,12 +50,20 @@ class AddReviewViewController: UIViewController {
         var result = true
         if textView.text == ""{
             result = false
-        }
-        if rating == 0 {
-            result = false
+            errorView.configure(title: "Ошибка", description: "Впишите комментарий")
         }
         if textView.textColor == .gray {
             result = false
+            errorView.configure(title: "Ошибка", description: "Впишите комментарий")
+        }
+        if rating == 0 {
+            result = false
+            errorView.configure(title: "Ошибка", description: "Добавьте рейтинг")
+        }
+        if result == false {
+            errorView.isHidden = false
+        }else {
+            errorView.isHidden = true
         }
         return result
     }
@@ -63,7 +72,8 @@ class AddReviewViewController: UIViewController {
         textView.delegate = self
         textView.text = "Ваш комментарий"
         textView.textColor = UIColor.gray
-        
+        view.addSubview(errorView)
+        errorView.isHidden = true
     }
 
     @objc func keyboardWillAppear(notification: Notification) {
@@ -96,8 +106,13 @@ class AddReviewViewController: UIViewController {
     @IBAction func finish(_ sender: UIButton)  {
         if check() == true {
             Task {
-                try await Comments().addComment(idCourse: idCourse, rating: rating, text: textView.text)
-                dismiss(animated: true)
+                do {
+                    try await Comments().addComment(idCourse: idCourse, rating: rating, text: textView.text)
+                    dismiss(animated: true)
+                }catch ErrorNetwork.runtimeError(let error) {
+                    errorView.isHidden = false
+                    errorView.configure(title: "Ошибка", description: error)
+                }
             }
         }
     }
@@ -128,7 +143,6 @@ class AddReviewViewController: UIViewController {
         }
         
     }
-    
     
 }
 

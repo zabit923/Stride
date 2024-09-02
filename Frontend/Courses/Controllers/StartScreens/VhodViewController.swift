@@ -11,12 +11,10 @@ class VhodViewController: UIViewController {
     
     @IBOutlet weak var passwordBorder: Border!
     @IBOutlet weak var phoneBorder: Border!
-    @IBOutlet weak var errorDescription: UILabel!
-    @IBOutlet weak var errorMainText: UILabel!
-    @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var phone: UITextField!
     @IBOutlet weak var password: UITextField!
     
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     var startPosition = CGPoint()
     
     
@@ -24,16 +22,19 @@ class VhodViewController: UIViewController {
         super.viewDidLoad()
         phone.delegate = self
         startPosition = errorView.center
+        view.addSubview(errorView)
+        errorView.isHidden = true
     }
     
     func clearError() {
         passwordBorder.color = .lightBlackMain
         phoneBorder.color = .lightBlackMain
-        ErrorsView().delete(errorView)
+        errorView.isHidden = true
     }
     
     func addError(error: String) {
-        ErrorsView().create(descriptionText: error, mainText: "Ошибка", errorView, errorDescription, errorMainText)
+        errorView.isHidden = false
+        errorView.configure(title: "Ошибка", description: error)
     }
     
     func checkInfo() throws {
@@ -79,21 +80,7 @@ class VhodViewController: UIViewController {
     }
     
     @IBAction func swipeError(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: errorView)
-        switch sender.state {
-        case .changed:
-            errorView.center = CGPoint(x: errorView.center.x, y: errorView.center.y +  translation.y)
-            sender.setTranslation(CGPoint.zero, in: errorView)
-        case .ended:
-            if errorView.center.y <= 40 {
-                self.errorView.isHidden = true
-            }
-            UIView.animate(withDuration: 0.5) {
-                self.errorView.center = self.startPosition
-            }
-        default:
-            break
-        }
+        errorView.swipe(sender: sender, startPosition: startPosition)
     }
     
     @IBAction func tap(_ sender: UITapGestureRecognizer) {

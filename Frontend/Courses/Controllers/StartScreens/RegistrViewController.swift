@@ -9,9 +9,6 @@ import UIKit
 
 class RegistrViewController: UIViewController {
     
-    @IBOutlet weak var descriptionError: UILabel!
-    @IBOutlet weak var mainTextError: UILabel!
-    @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var phoneBorder: Border!
     @IBOutlet weak var passwordAgoBorder: Border!
     @IBOutlet weak var passwordBorder: Border!
@@ -25,12 +22,15 @@ class RegistrViewController: UIViewController {
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var mail: UITextField!
     
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     var startPosition = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumber.delegate = self
         startPosition = errorView.center
+        view.addSubview(errorView)
+        errorView.isHidden = true
     }
     
     func clearError() {
@@ -40,18 +40,20 @@ class RegistrViewController: UIViewController {
         passwordBorder.color = UIColor.lightBlackMain
         passwordAgoBorder.color = UIColor.lightBlackMain
         phoneBorder.color = UIColor.lightBlackMain
-        ErrorsView().delete(errorView)
+        errorView.isHidden = true
     }
     
     func addError(error: String) {
-        ErrorsView().create(descriptionText: error, mainText: "Ошибка", errorView, descriptionError, mainTextError)
+        errorView.isHidden = false
+        errorView.configure(title: "Ошибка", description: error)
     }
     
     func checkInfo() throws {
         guard password.text == passwordAgo.text else {
             passwordBorder.color = .errorRed
             passwordAgoBorder.color = .errorRed
-            ErrorsView().create(descriptionText: "Пароли не совпадают" , mainText: "Неверный пароль", errorView, descriptionError, mainTextError)
+            errorView.configure(title: "Неверный пароль", description: "Пароли не совпадают")
+            errorView.isHidden = false
             throw ErrorNetwork.notFound }
         guard name.text!.isEmpty == false else {
             nameBorder.color = .errorRed
@@ -103,21 +105,7 @@ class RegistrViewController: UIViewController {
     
     
     @IBAction func swipeError(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: errorView)
-        switch sender.state {
-        case .changed:
-            errorView.center = CGPoint(x: errorView.center.x, y: errorView.center.y +  translation.y)
-            sender.setTranslation(CGPoint.zero, in: errorView)
-        case .ended:
-            if errorView.center.y <= 40 {
-                self.errorView.isHidden = true
-            }
-            UIView.animate(withDuration: 0.5) {
-                self.errorView.center = self.startPosition
-            }
-        default:
-            break
-        }
+        errorView.swipe(sender: sender, startPosition: startPosition)
     }
     
     @IBAction func tap(_ sender: UITapGestureRecognizer) {

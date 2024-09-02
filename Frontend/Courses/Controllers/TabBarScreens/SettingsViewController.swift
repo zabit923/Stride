@@ -131,9 +131,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             case "Добавить курс":
                 performSegue(withIdentifier: "goToAddCourse", sender: self)
             case "Подтвердить аккаунт":
-                break
+                UIApplication.shared.open(Constants.telegramURL)
             case "Стать тренером":
-                break
+                UIApplication.shared.open(Constants.telegramURL)
             default:
                 break
             }
@@ -141,6 +141,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             switch arrayObjects2[indexPath.row].name {
             case "Политика конфиденциальности":
                 performSegue(withIdentifier: "privacy", sender: self)
+            case "Нужна помощь? Напиши нам":
+                UIApplication.shared.open(Constants.telegramURL)
             default:
                 break
             }

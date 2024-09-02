@@ -119,6 +119,8 @@ class ChangeInformationViewController: UIViewController {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
                 view.addSubview(errorView)
+                loading.stop()
+                loading.isHidden = true
             }
         }
     }

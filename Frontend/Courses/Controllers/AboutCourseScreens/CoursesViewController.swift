@@ -17,12 +17,14 @@ class CoursesViewController: UIViewController {
     private var selectIDCourse = 0
     private var selectCourse = Course()
     var course = [Course]()
+    var filteredCourse = [Course]()
     var typeCourse = CourseCatalog.recomend
     
     override func viewDidLoad() {
         super.viewDidLoad()
         catalogCollectionView.delegate = self
         catalogCollectionView.dataSource = self
+        textField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,13 +34,14 @@ class CoursesViewController: UIViewController {
     
     func design() {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
-        textField.attributedPlaceholder = NSAttributedString(string: "Поиск...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: font!])
+        textField.attributedPlaceholder = NSAttributedString(string: "Поиск...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
         getCoursesBecauseTitle()
     }
     
     private func getMyCreateCourses() {
         Task {
             course = try await Courses().getMyCreateCourses()
+            filteredCourse = course
             catalogCollectionView.reloadData()
         }
     }
@@ -46,6 +49,7 @@ class CoursesViewController: UIViewController {
     private func getRecomendCourses() {
         Task {
             course = try await Courses().getRecomendedCourses()
+            filteredCourse = course
             catalogCollectionView.reloadData()
         }
     }
@@ -53,6 +57,7 @@ class CoursesViewController: UIViewController {
     private func getCelebrityCourses() {
         Task {
             course = try await Courses().getCoursesByCelebrity()
+            filteredCourse = course
             catalogCollectionView.reloadData()
         }
     }
@@ -81,16 +86,16 @@ class CoursesViewController: UIViewController {
 extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return course.count
+        return filteredCourse.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-        cell.image.sd_setImage(with: course[indexPath.row].imageURL)
-        cell.nameAuthor.text = course[indexPath.row].nameAuthor
-        cell.nameCourse.text = course[indexPath.row].nameCourse
-        cell.price.text = "\(course[indexPath.row].price)Р"
-        cell.rating.text = "\(course[indexPath.row].rating)"
+        cell.image.sd_setImage(with: filteredCourse[indexPath.row].imageURL)
+        cell.nameAuthor.text = filteredCourse[indexPath.row].nameAuthor
+        cell.nameCourse.text = filteredCourse[indexPath.row].nameCourse
+        cell.price.text = "\(filteredCourse[indexPath.row].price)Р"
+        cell.rating.text = "\(filteredCourse[indexPath.row].rating)"
         return cell
     }
     
@@ -121,4 +126,26 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+}
+extension CoursesViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        filteredCourse = updatedText.isEmpty ? course : course.filter { courseItem in
+            return courseItem.nameCourse.lowercased().contains(updatedText.lowercased())
+        }
+        catalogCollectionView.reloadData()
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+
 }

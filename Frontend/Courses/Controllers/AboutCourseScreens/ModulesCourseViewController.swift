@@ -11,6 +11,7 @@ import Lottie
 class ModulesCourseViewController: UIViewController {
     
     
+    @IBOutlet weak var infoBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nameCourse: UILabel!
     @IBOutlet weak var heightViewDays: NSLayoutConstraint!
@@ -56,18 +57,27 @@ class ModulesCourseViewController: UIViewController {
         loading.isHidden = false
     }
     
+    private func loadingStop() {
+        loading.stop()
+        loading.isHidden = true
+        infoBtn.isHidden = false
+    }
+    
     private func getCourseInfo() {
         Task {
             loading.play()
-            course = try await Courses().getDaysInCourse(id: idCourse)
-            if course.courseDays.isEmpty == false {
-                course.courseDays[0].type = .current
+            do {
+                course = try await Courses().getDaysInCourse(id: idCourse)
+                if course.courseDays.isEmpty == false {
+                    course.courseDays[0].type = .current
+                }
+                loadingStop()
+                nameCourse.text = course.nameCourse
+                daysCollectionView.reloadData()
+                modulesCollectionView.reloadData()
+            }catch {
+                loadingStop()
             }
-            loading.stop()
-            loading.isHidden = true
-            nameCourse.text = course.nameCourse
-            daysCollectionView.reloadData()
-            modulesCollectionView.reloadData()
         }
     }
     

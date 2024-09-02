@@ -11,6 +11,7 @@ import UIKit
 
 class Constants {
     static let url = "http://127.0.0.1:8000/"
+    static let telegramURL = URL(string: "https://t.me/StrideCoursesBot")!
 }
 
 // MARK: - Collection
@@ -45,6 +46,7 @@ struct Course {
     var categoryID: Int = 0
     var imageURL: URL?
     var rating: Float
+    var myRating: Int
     var progressInDays: Int = 0
     var id: Int
     var description: String
@@ -52,7 +54,7 @@ struct Course {
     var countBuyer: Int = 0
     var courseDays = [CourseDays]()
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
@@ -60,6 +62,7 @@ struct Course {
         self.categoryID = categoryID
         self.imageURL = imageURL
         self.rating = rating
+        self.myRating = myRating
         self.id = id
         self.description = description
         self.dataCreated = dataCreated
@@ -139,6 +142,7 @@ struct InfoMe: Encodable {
 struct Reviews {
     var id: Int
     var author: String
+    var authorAvatar: URL?
     var text: String
     var date: String
     var courseID: Int
