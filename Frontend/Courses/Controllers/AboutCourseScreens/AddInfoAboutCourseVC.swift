@@ -39,6 +39,8 @@ class AddInfoAboutCourseVC: UIViewController {
         price.delegate = self
         name.delegate = self
         startPosition = errorView.center
+        view.addSubview(errorView)
+        errorView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +87,11 @@ class AddInfoAboutCourseVC: UIViewController {
             result = false
             priceBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {
+            if Int(price.text!)! > 200000 {
+                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 0 до 200.000 рублей")
+                result = false
+                errorView.isHidden = false
+            }
             priceBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
         }
         if descriptionCourse.text!.isEmpty {
@@ -122,7 +129,7 @@ class AddInfoAboutCourseVC: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
-        
+        errorView.isHidden = true
         guard checkError() else {return}
         Task {
             do {
@@ -136,7 +143,6 @@ class AddInfoAboutCourseVC: UIViewController {
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
-                view.addSubview(errorView)
             }
         }
     }

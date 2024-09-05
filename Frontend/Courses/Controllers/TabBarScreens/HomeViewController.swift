@@ -72,19 +72,8 @@ class HomeViewController: UIViewController {
     private func getCelebrityCourses() {
         Task {
             celebrityCourses = try await Courses().getCoursesByCelebrity()
-            uniqueAuthors()
             celebrityCollectionView.reloadData()
         }
-    }
-    
-    private func uniqueAuthors() {
-        let uniqueAuthors = Set(celebrityCourses.map { $0.idAuthor })
-        celebrities = celebrityCourses.filter { uniqueAuthors.contains($0.idAuthor) }
-            .reduce(into: [Course]()) { result, course in
-                if !result.contains(where: { $0.idAuthor == course.idAuthor }) {
-                    result.append(course)
-                }
-            }
     }
     
     private func tabbar() {

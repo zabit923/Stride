@@ -61,7 +61,7 @@ class Courses {
         guard results.isEmpty == false else {return []}
         
         for x in 0...results.count - 1 {
-            let daysCount = json["results"][x]["days"].arrayValue.count
+            let daysCount = json["results"][x]["count_days"].intValue
             let title = json["results"][x]["title"].stringValue
             let price = json["results"][x]["price"].intValue
             let id = json["results"][x]["id"].intValue
@@ -84,7 +84,7 @@ class Courses {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
-        let daysCount = json["days"].arrayValue.count
+        let daysCount = json["count_days"].intValue
         let title = json["title"].stringValue
         let price = json["price"].intValue
         let id = json["id"].intValue
@@ -133,7 +133,7 @@ class Courses {
         guard results.isEmpty == false else {return []}
         
         for x in 0...results.count - 1 {
-            let daysCount = json[x]["days"].arrayValue.count
+            let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
             let price = json[x]["price"].intValue
             let id = json[x]["id"].intValue
@@ -162,7 +162,7 @@ class Courses {
         guard results.isEmpty == false else {return []}
         
         for x in 0...results.count - 1 {
-            let daysCount = json[x]["days"].arrayValue.count
+            let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
             let price = json[x]["price"].intValue
             let id = json[x]["id"].intValue
@@ -223,7 +223,7 @@ class Courses {
         guard results.isEmpty == false else {return []}
         
         for x in 0...results.count - 1 {
-            let daysCount = json[x]["days"].arrayValue.count
+            let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
             let price = json[x]["price"].intValue
             let id = json[x]["id"].intValue
@@ -288,6 +288,7 @@ class Courses {
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)
+        print(json)
         if code != 200 && method == .patch {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue

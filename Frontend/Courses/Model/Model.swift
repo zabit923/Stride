@@ -61,7 +61,7 @@ struct Course {
         self.price = price
         self.categoryID = categoryID
         self.imageURL = imageURL
-        self.rating = rating
+        self.rating = Comments().roundRating(rating: rating)
         self.myRating = myRating
         self.id = id
         self.description = description

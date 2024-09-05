@@ -83,7 +83,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.nameCourse.text = courses[indexPath.row].nameCourse
             cell.price.text = "Цена: \(courses[indexPath.row].price)Р"
             cell.rating.text = "\(courses[indexPath.row].rating)"
-            cell.daysCount.text = "\(courses[indexPath.row].daysCount)"
+            cell.daysCount.text = "\(courses[indexPath.row].daysCount) дней"
             return cell
         }
         

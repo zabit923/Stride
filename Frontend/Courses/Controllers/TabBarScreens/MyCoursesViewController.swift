@@ -11,6 +11,8 @@ import Lottie
 
 class MyCoursesViewController: UIViewController {
 
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyBox: LottieAnimationView!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var myCoursesCollectionView: UICollectionView!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
@@ -54,6 +56,17 @@ class MyCoursesViewController: UIViewController {
         loading.contentMode = .scaleToFill
         loading.isHidden = false
         loading.play()
+        emptyBox.loopMode = .loop
+        emptyBox.contentMode = .scaleToFill
+        emptyBox.play()
+    }
+    
+    private func emptyCheck() {
+        if filteredCourse.isEmpty == false {
+            emptyView.isHidden = true
+        }else {
+            emptyView.isHidden = false
+        }
     }
     
     private func getMyBoughtCourses() {
@@ -62,6 +75,7 @@ class MyCoursesViewController: UIViewController {
             filteredCourse = course
             loading.stop()
             loading.isHidden = true
+            emptyCheck()
             myCoursesCollectionView.reloadData()
         }
     }
@@ -134,6 +148,7 @@ extension MyCoursesViewController: UITextFieldDelegate {
         filteredCourse = updatedText.isEmpty ? course : course.filter { courseItem in
             return courseItem.nameCourse.lowercased().contains(updatedText.lowercased())
         }
+        emptyCheck()
         myCoursesCollectionView.reloadData()
         return true
     }

@@ -102,20 +102,21 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func buy(_ sender: UIButton) {
-        if buy == false {
-            performSegue(withIdentifier: "goToAddReview", sender: self)
-        }else{
-            Task {
-                do {
-                    try await Courses().buyCourse(id: course.id)
-                    performSegue(withIdentifier: "goCourse", sender: self)
-                }catch ErrorNetwork.runtimeError(let error) {
-                    errorView.isHidden = false
-                    errorView.configure(title: "Ошибка", description: error)
-                    view.addSubview(errorView)
-                }
-            }
-        }
+        Payment().configure(self, email: "ruha@mail.ru")
+//        if buy == false {
+//            performSegue(withIdentifier: "goToAddReview", sender: self)
+//        }else{
+//            Task {
+//                do {
+//                    try await Courses().buyCourse(id: course.id)
+//                    performSegue(withIdentifier: "goCourse", sender: self)
+//                }catch ErrorNetwork.runtimeError(let error) {
+//                    errorView.isHidden = false
+//                    errorView.configure(title: "Ошибка", description: error)
+//                    view.addSubview(errorView)
+//                }
+//            }
+//        }
     }
 
     

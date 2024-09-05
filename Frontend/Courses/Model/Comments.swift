@@ -69,4 +69,8 @@ class Comments {
         }
     }
     
+    func roundRating(rating: Float) -> Float {
+        return Float(round(10 * rating) / 10)
+    }
+    
 }

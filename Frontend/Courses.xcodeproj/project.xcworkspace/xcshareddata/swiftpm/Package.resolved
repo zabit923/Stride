@@ -1,5 +1,5 @@
 {
-  "originHash" : "30ae3166605c7e22b27329885389636de6f941b00b9ebddb9beae2521d0f145e",
+  "originHash" : "b96f9ff78f926189dfca83325555cf28d9471043846a6329826e4831cbdfa010",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -92,12 +92,30 @@
       }
     },
     {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto.git",
+      "state" : {
+        "revision" : "a53a7e8f858902659d4784322bede34f4e49097e",
+        "version" : "3.6.1"
+      }
+    },
+    {
       "identity" : "swiftyjson",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftyJSON/SwiftyJSON.git",
       "state" : {
         "revision" : "af76cf3ef710b6ca5f8c05f3a31307d44a3c5828",
         "version" : "5.0.2"
+      }
+    },
+    {
+      "identity" : "tinkoff-asdk-ios?tab=readme-ov-file#%d0%bf%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tinkoff-mobile-tech/tinkoff-asdk-ios?tab=readme-ov-file#%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5",
+      "state" : {
+        "revision" : "ef3a532779ecef3eca97461cd56bba67fa602919",
+        "version" : "3.1.1"
       }
     }
   ],
