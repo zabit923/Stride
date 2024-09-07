@@ -20,7 +20,7 @@ class HomeViewController: UIViewController {
     private var banners = [String]()
     private var recomendCourses = [Course]()
     private var celebrityCourses = [Course]()
-    private var celebrities = [Course]()
+    private var celebrities = [UserStruct]()
     private let layout = PageLayout()
     private var selectCourses = Course()
     private var user: UserStruct = User.info {
@@ -59,6 +59,12 @@ class HomeViewController: UIViewController {
         Task {
             user = try await User().getMyInfo()
             self.navigationController?.popToViewController(tabBarController!, animated: false)
+        }
+    }
+    
+    private func getCelebrity() {
+        Task {
+            celebrities = try await User().getCelebreties()
         }
     }
     
@@ -207,9 +213,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
-            cell.name.text = celebrities[indexPath.row].nameAuthor
-            cell.rating.text = "\(celebrities[indexPath.row].rating)"
-            cell.im.sd_setImage(with: celebrities[indexPath.row].imageURL)
+            cell.name.text = celebrities[indexPath.row].name + celebrities[indexPath.row].surname
+//            cell.rating.text = "\(celebrities[indexPath.row].rating)"
+//            cell.im.sd_setImage(with: celebrities[indexPath.row].imageURL)
             return cell
         }
     }
