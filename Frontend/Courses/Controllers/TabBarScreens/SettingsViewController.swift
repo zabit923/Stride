@@ -50,7 +50,7 @@ class SettingsViewController: UIViewController {
             user = try await User().getMyInfo()
             if user.role == .user {
                 backBtn.isHidden = true
-            }else {
+            }else if user.role == .coach {
                 backBtn.isHidden = false
             }
             self.view.layoutSubviews()
