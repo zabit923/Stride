@@ -20,14 +20,14 @@ services:
     env_file: .pg-env
 
   nginx:
-    restart: always
-    build:
-      context: ./nginx
+    image: nginx:latest
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./stridecourses.crt:/etc/ssl/certs/stridecourses.crt:ro
+      - ./stridecourses.key:/etc/ssl/private/stridecourses.key:ro
+      - ./root_certificate.crt:/etc/ssl/certs/root_certificate.crt:ro
     depends_on:
       - stride-project
-    volumes:
-      - ./nginx/certs:/etc/nginx/certs
-      - ./nginx/conf.d:/etc/nginx/conf.d
