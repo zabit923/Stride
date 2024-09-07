@@ -1,5 +1,5 @@
 {
-  "originHash" : "b96f9ff78f926189dfca83325555cf28d9471043846a6329826e4831cbdfa010",
+  "originHash" : "2af126d845e5d5aed42239b7725ab50c440a84deb835d9b66d294b473cece2c4",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-core.git",
       "state" : {
-        "revision" : "c2552e1d36867cb42b28130e894a81fc17081062",
-        "version" : "14.12.0"
+        "revision" : "b36f2436c2746c32b1f93dcc06ea8b859671a767",
+        "version" : "14.12.1"
       }
     },
     {
@@ -70,7 +70,7 @@
       "location" : "https://github.com/realm/realm-swift.git",
       "state" : {
         "branch" : "master",
-        "revision" : "7ffcc1165fe335b793f59c5a4ff0d472fcc1625a"
+        "revision" : "a5733f5f96125e2f90e4f84d072b78323cc72ace"
       }
     },
     {
@@ -96,8 +96,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-crypto.git",
       "state" : {
-        "revision" : "a53a7e8f858902659d4784322bede34f4e49097e",
-        "version" : "3.6.1"
+        "revision" : "9f95b4d033a4edd3814b48608db3f2ca90c7218b",
+        "version" : "3.7.0"
       }
     },
     {

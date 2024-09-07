@@ -6330,7 +6330,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Политика конфиденциальности" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dS9-Iv-VzH">
-                                        <rect key="frame" x="69.333333333333329" y="17" width="254.66666666666669" height="20"/>
+                                        <rect key="frame" x="67.666666666666686" y="16.666666666666671" width="258" height="21"/>
                                         <fontDescription key="fontDescription" name="Commissioner-SemiBold" family="Commissioner" pointSize="17"/>
                                         <color key="textColor" name="GrayMain"/>
                                         <nil key="highlightedColor"/>
@@ -6872,7 +6872,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="yNH-bw-Rcl"/>
         <segue reference="afS-Cq-cau"/>
-        <segue reference="VAz-Cz-udn"/>
+        <segue reference="RsJ-Z8-4Bo"/>
         <segue reference="HHf-kQ-icL"/>
         <segue reference="hAk-ad-GZt"/>
         <segue reference="AOP-mt-L4O"/>
