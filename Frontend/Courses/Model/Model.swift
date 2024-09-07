@@ -10,7 +10,7 @@ import UIKit
 
 
 class Constants {
-    static let url = "http://127.0.0.1:8000/"
+    static let url = "https://stridecourses.ru/"
     static let telegramURL = URL(string: "https://t.me/StrideCoursesBot")!
 }
 
