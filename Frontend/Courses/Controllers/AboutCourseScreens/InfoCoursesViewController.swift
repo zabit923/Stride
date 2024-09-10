@@ -102,7 +102,7 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func buy(_ sender: UIButton) {
-        Payment().configure(self, email: "ruha@mail.ru")
+        Payment().configure(self, email: "ruha20444@mail.ru")
 //        if buy == false {
 //            performSegue(withIdentifier: "goToAddReview", sender: self)
 //        }else{

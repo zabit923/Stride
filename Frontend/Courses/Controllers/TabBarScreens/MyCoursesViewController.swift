@@ -56,7 +56,6 @@ class MyCoursesViewController: UIViewController {
         loading.contentMode = .scaleToFill
         loading.isHidden = false
         loading.play()
-        emptyBox.loopMode = .loop
         emptyBox.contentMode = .scaleToFill
         emptyBox.play()
     }

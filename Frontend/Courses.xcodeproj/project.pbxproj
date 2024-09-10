@@ -42,8 +42,6 @@
 		447D8C7D2C85DED400EF2217 /* TinkoffASDKCore in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C7C2C85DED400EF2217 /* TinkoffASDKCore */; };
 		447D8C7F2C85DED400EF2217 /* TinkoffASDKUI in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C7E2C85DED400EF2217 /* TinkoffASDKUI */; };
 		447D8C812C85DEEB00EF2217 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D8C802C85DEEB00EF2217 /* Payment.swift */; };
-		447D8C8A2C85E26400EF2217 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C892C85E26400EF2217 /* Crypto */; };
-		447D8C8C2C85E26400EF2217 /* _CryptoExtras in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C8B2C85E26400EF2217 /* _CryptoExtras */; };
 		447D8C8E2C89D09600EF2217 /* emptyBox.json in Resources */ = {isa = PBXBuildFile; fileRef = 447D8C8D2C89D09600EF2217 /* emptyBox.json */; };
 		4488EA152C769D9D0086765F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488EA142C769D9D0086765F /* ErrorView.swift */; };
 		44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -179,11 +177,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				447D8C8C2C85E26400EF2217 /* _CryptoExtras in Frameworks */,
 				44DFB11E2C3BE46B005C8F44 /* Lottie in Frameworks */,
 				44064C972C2861CA00AB5227 /* SwiftyJSON in Frameworks */,
 				447D8C7D2C85DED400EF2217 /* TinkoffASDKCore in Frameworks */,
-				447D8C8A2C85E26400EF2217 /* Crypto in Frameworks */,
 				44D68AF82C5051E100F8F476 /* GoogleSignInSwift in Frameworks */,
 				44049A3A2C6F56F60014BD9C /* RealmSwift in Frameworks */,
 				44064C9C2C2861D700AB5227 /* SDWebImageMapKit in Frameworks */,
@@ -405,8 +401,6 @@
 				44A406822C762FE1005509D0 /* SkeletonView */,
 				447D8C7C2C85DED400EF2217 /* TinkoffASDKCore */,
 				447D8C7E2C85DED400EF2217 /* TinkoffASDKUI */,
-				447D8C892C85E26400EF2217 /* Crypto */,
-				447D8C8B2C85E26400EF2217 /* _CryptoExtras */,
 			);
 			productName = Courses;
 			productReference = 440DAB302C1748D400C576FB /* Courses.app */;
@@ -445,7 +439,6 @@
 				44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */,
 				44A406812C762FE1005509D0 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				447D8C7B2C85DED300EF2217 /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */,
-				447D8C882C85E26400EF2217 /* XCRemoteSwiftPackageReference "swift-crypto" */,
 			);
 			productRefGroup = 440DAB312C1748D400C576FB /* Products */;
 			projectDirPath = "";
@@ -614,7 +607,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -671,7 +664,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -815,14 +808,6 @@
 				minimumVersion = 3.1.1;
 			};
 		};
-		447D8C882C85E26400EF2217 /* XCRemoteSwiftPackageReference "swift-crypto" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-crypto.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.6.1;
-			};
-		};
 		44A406812C762FE1005509D0 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
@@ -884,16 +869,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 447D8C7B2C85DED300EF2217 /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */;
 			productName = TinkoffASDKUI;
-		};
-		447D8C892C85E26400EF2217 /* Crypto */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 447D8C882C85E26400EF2217 /* XCRemoteSwiftPackageReference "swift-crypto" */;
-			productName = Crypto;
-		};
-		447D8C8B2C85E26400EF2217 /* _CryptoExtras */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 447D8C882C85E26400EF2217 /* XCRemoteSwiftPackageReference "swift-crypto" */;
-			productName = _CryptoExtras;
 		};
 		44A406822C762FE1005509D0 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -43,7 +43,6 @@ class CoursesViewController: UIViewController {
     }
     
     private func loadingSettings() {
-        emptyBox.loopMode = .loop
         emptyBox.contentMode = .scaleToFill
         emptyBox.play()
     }

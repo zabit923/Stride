@@ -33,7 +33,16 @@ class Payment {
         do {
             let sdk = try AcquiringUISDK(coreSDKConfiguration: coreSDKConfiguration, uiSDKConfiguration: uiSDKConfiguration)
             let config = MainFormUIConfiguration(orderDescription: "Оплата курса")
-            sdk.presentMainForm(on: viewController, paymentFlow: paymentFlow(), configuration: config)
+            sdk.presentMainForm(on: viewController, paymentFlow: paymentFlow(), configuration: config) { result in
+                switch result {
+                case .succeeded(let succ):
+                    print(succ)
+                case .failed(let error):
+                    print(error)
+                case .cancelled(_):
+                    break
+                }
+            }
         } catch {
             assertionFailure("\(error)")
         }
@@ -41,9 +50,11 @@ class Payment {
 
     
     private func paymentFlow() -> PaymentFlow {
+        
+        
         let orderOptions = OrderOptions(
             orderId: UUID().uuidString,
-            amount: 100000,
+            amount: 100,
             description: "Покупка курса",
             savingAsParentPayment: false
         )
