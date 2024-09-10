@@ -289,6 +289,7 @@
                         <outlet property="imageBtn" destination="IYw-HX-vBk" id="4CT-5D-3y8"/>
                         <outlet property="mainView" destination="A9S-K8-5J4" id="6UH-sz-cUE"/>
                         <outlet property="nameTextField" destination="dti-kp-Mly" id="SuC-ng-1nc"/>
+                        <outlet property="saveBtn" destination="18C-7Z-u62" id="Y04-Ju-cNB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tQ6-5H-TGM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1004,6 +1005,7 @@
                         <outlet property="passwordBorder" destination="zOT-c7-uz1" id="ahB-6D-9dE"/>
                         <outlet property="phoneBorder" destination="E1D-UM-lEU" id="ngX-oz-8CY"/>
                         <outlet property="phoneNumber" destination="Pm9-Df-mxt" id="XCB-QV-xrk"/>
+                        <outlet property="registerBtn" destination="C70-5q-ZUY" id="hdJ-SU-HpV"/>
                         <outlet property="surnameBorder" destination="GaR-qF-y07" id="mEv-G9-8uz"/>
                         <segue destination="lQZ-Pc-J9j" kind="show" identifier="success" animates="NO" id="eaT-yL-Yiu"/>
                     </connections>
@@ -2675,6 +2677,7 @@
                     <navigationItem key="navigationItem" id="Dz3-FM-xbw"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="nextBtn" destination="Vhs-Oq-Y2F" id="cSc-3n-qdV"/>
                         <outlet property="password" destination="s48-G4-NeD" id="Bry-uj-GqW"/>
                         <outlet property="passwordBorder" destination="8TH-m0-RhL" id="ET8-KT-DxL"/>
                         <outlet property="phone" destination="tGt-td-zeF" id="TEP-0G-giq"/>
@@ -4019,6 +4022,7 @@
                         <outlet property="mail" destination="vCc-wJ-dFm" id="zk7-oz-A2U"/>
                         <outlet property="name" destination="xqj-zb-sd3" id="XsX-vy-aG3"/>
                         <outlet property="phoneNumber" destination="FiO-if-OhK" id="g5u-Ks-vJo"/>
+                        <outlet property="saveBtn" destination="jjY-bK-1YJ" id="Wel-kH-MFf"/>
                         <outlet property="scrollView" destination="EAw-O2-fPX" id="vTj-5u-Wg4"/>
                         <outlet property="surname" destination="jNg-Eu-3Rp" id="uBn-c4-pq7"/>
                     </connections>
@@ -5788,6 +5792,7 @@
                         <outlet property="price" destination="Qpe-Wh-hB3" id="OQ4-cr-7SQ"/>
                         <outlet property="priceBorder" destination="3Af-o0-LYD" id="jTF-pF-2dl"/>
                         <outlet property="pricePred" destination="d4S-DL-Euy" id="crK-Pu-poV"/>
+                        <outlet property="saveBtn" destination="DHg-KX-Xbj" id="FEB-3a-31n"/>
                         <outlet property="titleLbl" destination="XAJ-ZM-ACs" id="SAJ-L9-bUa"/>
                         <segue destination="CYc-fi-Vn6" kind="show" identifier="goToAddModule" id="nzc-9n-Ktz"/>
                         <segue destination="nuK-Xz-qDp" kind="presentation" identifier="category" modalPresentationStyle="overFullScreen" id="Rce-ja-4tg"/>
@@ -6612,6 +6617,7 @@
                         <outlet property="firstStar" destination="rMc-cS-ZN9" id="67U-WC-5gf"/>
                         <outlet property="fourthStar" destination="hyn-AK-C9p" id="1se-Yk-pWq"/>
                         <outlet property="secondStar" destination="7fH-vN-R1u" id="dwh-aD-vYy"/>
+                        <outlet property="sendReviewBtn" destination="qnY-lE-uoN" id="bBo-rp-OUQ"/>
                         <outlet property="textView" destination="trR-FV-pH2" id="Pbg-y5-QUW"/>
                         <outlet property="thirdStar" destination="gAY-ai-mQR" id="qZb-vb-S0H"/>
                         <outlet property="viewMain" destination="L06-Uw-YYC" id="LlD-Hg-hqf"/>
@@ -6854,13 +6860,13 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="IVu-BL-rNu"/>
-        <segue reference="afS-Cq-cau"/>
+        <segue reference="M8w-WU-QND"/>
         <segue reference="RsJ-Z8-4Bo"/>
-        <segue reference="HHf-kQ-icL"/>
-        <segue reference="hAk-ad-GZt"/>
-        <segue reference="AOP-mt-L4O"/>
+        <segue reference="0B2-ml-wjG"/>
+        <segue reference="eaT-yL-Yiu"/>
+        <segue reference="3aH-yg-pXb"/>
         <segue reference="DFO-Ta-Hbe"/>
-        <segue reference="iWm-3v-hYp"/>
+        <segue reference="7iD-6h-6hO"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="apple" width="15.333333015441895" height="18"/>

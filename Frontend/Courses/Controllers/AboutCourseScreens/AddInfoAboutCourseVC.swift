@@ -9,6 +9,7 @@ import UIKit
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var categoriesLbl: UILabel!
     @IBOutlet weak var imageBorder: Border!
     @IBOutlet weak var categoryBorder: Border!
@@ -129,6 +130,7 @@ class AddInfoAboutCourseVC: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
+        saveBtn.isEnabled = false
         errorView.isHidden = true
         guard checkError() else {return}
         Task {
@@ -139,10 +141,12 @@ class AddInfoAboutCourseVC: UIViewController {
                 }else {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }
+                saveBtn.isEnabled = true
                 performSegue(withIdentifier: "goToAddModule", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
+                saveBtn.isEnabled = true
             }
         }
     }

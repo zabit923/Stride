@@ -12,6 +12,7 @@ class AddInfoAboutModuleViewController: UIViewController {
 
     
     
+    @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var closeName: UIButton!
     @IBOutlet weak var closeDescription: UIButton!
     @IBOutlet weak var durationTextField: UITextField!
@@ -118,17 +119,20 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
+        saveBtn.isEnabled = false
         errorView.isHidden = true
         Task {
             do {
                 changeModule()
                 try await Courses().changeModuleInfo(info: module)
                 delegate?.changeInfoModuleDismiss(module: module, moduleID: module.id)
+                saveBtn.isEnabled = true
                 dismiss(animated: true)
             } catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
                 view.addSubview(errorView)
+                saveBtn.isEnabled = true
             }
         }
     }
