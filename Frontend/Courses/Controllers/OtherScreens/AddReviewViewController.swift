@@ -10,6 +10,7 @@ import UIKit
 class AddReviewViewController: UIViewController {
 
 
+    @IBOutlet weak var sendReviewBtn: UIButton!
     @IBOutlet weak var firstStar: UIButton!
     @IBOutlet weak var secondStar: UIButton!
     @IBOutlet weak var thirdStar: UIButton!
@@ -104,14 +105,17 @@ class AddReviewViewController: UIViewController {
         }
     }
     @IBAction func finish(_ sender: UIButton)  {
+        sendReviewBtn.isEnabled = false
         if check() == true {
             Task {
                 do {
                     try await Comments().addComment(idCourse: idCourse, rating: rating, text: textView.text)
+                    sendReviewBtn.isEnabled = true
                     dismiss(animated: true)
                 }catch ErrorNetwork.runtimeError(let error) {
                     errorView.isHidden = false
                     errorView.configure(title: "Ошибка", description: error)
+                    sendReviewBtn.isEnabled = true
                 }
             }
         }

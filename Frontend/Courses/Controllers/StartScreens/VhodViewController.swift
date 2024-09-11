@@ -9,6 +9,7 @@ import UIKit
 
 class VhodViewController: UIViewController {
     
+    @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var passwordBorder: Border!
     @IBOutlet weak var phoneBorder: Border!
     @IBOutlet weak var phone: UITextField!
@@ -31,6 +32,7 @@ class VhodViewController: UIViewController {
         phoneBorder.color = .lightBlackMain
         errorView.isHidden = true
     }
+
     
     func addError(error: String) {
         errorView.isHidden = false
@@ -47,15 +49,18 @@ class VhodViewController: UIViewController {
     }
     
     @IBAction func vhod(_ sender: UIButton) {
+        nextBtn.isEnabled = false
         Task {
             do {
                 clearError()
                 try checkInfo()
                 let phoneNumberFormat = phone.text!.format(with: "+XXXXXXXXXXX")
                 try await Sign().vhod(phoneNumber: phoneNumberFormat, password: password.text!)
+                nextBtn.isEnabled = true
                 performSegue(withIdentifier: "success", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
+                nextBtn.isEnabled = true
             }
         }
     }

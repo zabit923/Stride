@@ -10,6 +10,7 @@ import Lottie
 
 class ChangeInformationViewController: UIViewController {
     
+    @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -107,13 +108,17 @@ class ChangeInformationViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
+        saveBtn.isEnabled = false
         Task{
             do {
                 loadingSettings()
                 changeUserInfo()
-                try await User().changeInfoUser(id:user.id ,user: user)
+                for x in 0...50 {
+                    try await User().changeInfoUser(id:user.id ,user: user)
+                }
                 loading.stop()
                 loading.isHidden = true
+                saveBtn.isEnabled = true
                 self.navigationController?.popViewController(animated: true)
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
@@ -121,6 +126,7 @@ class ChangeInformationViewController: UIViewController {
                 view.addSubview(errorView)
                 loading.stop()
                 loading.isHidden = true
+                saveBtn.isEnabled = true
             }
         }
     }
