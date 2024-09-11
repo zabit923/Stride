@@ -149,6 +149,7 @@ class ChangeInformationViewController: UIViewController {
     
 }
 extension ChangeInformationViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {

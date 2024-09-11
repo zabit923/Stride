@@ -22,7 +22,11 @@ class User {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.upload(multipartFormData: { multipartFormData in
             if let avatarURL = user.avatarURL {
-                multipartFormData.append(avatarURL, withName: "image")
+                ImageResize.compressImageFromFileURL(fileURL: avatarURL, maxSizeInMB: 1.0) { compressedURL in
+                    if let url = compressedURL {
+                        multipartFormData.append(url, withName: "image")
+                    }
+                }
             }
             multipartFormData.append(Data(user.name.utf8), withName: "first_name")
             multipartFormData.append(Data(user.surname.utf8), withName: "last_name")
@@ -91,7 +95,7 @@ class User {
         user.level = Level(rawValue: json["level"].stringValue)
         user.isCoach = json["is_coach"].boolValue
         user.coach.description = json["desc"].stringValue
-        user.avatarURL = URL(string: "http://127.0.0.1:8000\(json["image"].stringValue)")
+        user.avatarURL = URL(string: "\(Constants.url)\(json["image"].stringValue)")
         if user.isCoach == true {
             user.role = .coach
         }else {
