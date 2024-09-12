@@ -19,6 +19,7 @@ class Constants {
 struct Objects {
     let name: String
     let image: String
+    let imageForBtn: String
 }
 
 struct Category {

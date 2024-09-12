@@ -9,6 +9,7 @@ import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var btn: UIButton!
     @IBOutlet weak var im: UIImageView!
     @IBOutlet weak var lbl: UILabel!
 }
