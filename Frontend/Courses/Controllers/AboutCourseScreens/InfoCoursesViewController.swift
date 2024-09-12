@@ -114,7 +114,9 @@ class InfoCoursesViewController: UIViewController {
     
     @IBAction func buy(_ sender: UIButton) {
 //      buyView.isEnabled = false
-        Payment().configure(self, email: "ruha20444@mail.ru")
+        Payment().configure(self, email: "ruha20444@mail.ru") {
+            
+        }
 //        if buy == false {
 //            buyView.isEnabled = true
 //            performSegue(withIdentifier: "goToAddReview", sender: self)
