@@ -29,10 +29,11 @@ class ImageResize {
     static func compressImageToMaxSize(image: UIImage, maxSizeInMB: Double) -> URL? {
         let maxSizeInBytes = Int(maxSizeInMB * 1024 * 1024)
         var compression: CGFloat = 1.0
-        var imageData = image.jpegData(compressionQuality: compression)
+        var resImage = image.scaleImage(toSize: CGSize(width: 150, height: 150))
+        var imageData = resImage.jpegData(compressionQuality: compression)
 
         while imageData?.count ?? 0 > maxSizeInBytes && compression > 0 {
-            compression -= 0.1 // Уменьшаем качество на 10%
+            compression -= 0.1
             imageData = image.jpegData(compressionQuality: compression)
         }
         
