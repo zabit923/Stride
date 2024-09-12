@@ -108,32 +108,51 @@ class InfoCoursesViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
+    private func buyCourseSuccesed() {
+        if buy == false {
+            buyView.isEnabled = true
+            performSegue(withIdentifier: "goToAddReview", sender: self)
+        }else{
+            Task {
+                do {
+                    try await Courses().buyCourse(id: course.id)
+                    buyView.isEnabled = true
+                    performSegue(withIdentifier: "goCourse", sender: self)
+                }catch ErrorNetwork.runtimeError(let error) {
+                    errorView.isHidden = false
+                    errorView.configure(title: "Ошибка", description: error)
+                    view.addSubview(errorView)
+                    buyView.isEnabled = true
+                }
+            }
+        }
+    }
+    
+    private func getEmail() async throws -> String {
+        let email = try await User().getMyInfo().email
+        return email
+    }
+    
     @IBAction func coach(_ sender: UIButton) {
         performSegue(withIdentifier: "coach", sender: self)
     }
     
     @IBAction func buy(_ sender: UIButton) {
-//      buyView.isEnabled = false
-        Payment().configure(self, email: "ruha20444@mail.ru") {
-            
+        Task {
+            guard let priceInt = Int(price.text!) else { return }
+            let email = try await getEmail()
+            buyView.isEnabled = false
+            Payment().configure(self, email: email, price: priceInt) { result in
+                switch result {
+                case .succeeded(_):
+                    self.buyCourseSuccesed()
+                case .failed(_):
+                    break
+                case .cancelled(_):
+                    break
+                }
+            }
         }
-//        if buy == false {
-//            buyView.isEnabled = true
-//            performSegue(withIdentifier: "goToAddReview", sender: self)
-//        }else{
-//            Task {
-//                do {
-//                    try await Courses().buyCourse(id: course.id)
-//                    buyView.isEnabled = true
-//                    performSegue(withIdentifier: "goCourse", sender: self)
-//                }catch ErrorNetwork.runtimeError(let error) {
-//                    errorView.isHidden = false
-//                    errorView.configure(title: "Ошибка", description: error)
-//                    view.addSubview(errorView)
-//                    buyView.isEnabled = true
-//                }
-//            }
-//        }
     }
 
     

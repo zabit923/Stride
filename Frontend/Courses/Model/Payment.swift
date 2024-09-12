@@ -32,38 +32,30 @@ class Payment {
         do {
             let sdk = try AcquiringUISDK(coreSDKConfiguration: coreSDKConfiguration, uiSDKConfiguration: uiSDKConfiguration)
             sdk.presentCardList(on: viewController, customerKey: email)
+            
         } catch {
             assertionFailure("\(error)")
         }
     }
     
-    func configure(_ viewController: UIViewController, email: String, completion: @escaping () -> ()) {
+    func configure(_ viewController: UIViewController, email: String, price: Int, completion: @escaping (PaymentResult) -> ()) {
         self.email = email
         do {
             let sdk = try AcquiringUISDK(coreSDKConfiguration: coreSDKConfiguration, uiSDKConfiguration: uiSDKConfiguration)
             let config = MainFormUIConfiguration(orderDescription: "Оплата курса")
-            sdk.presentMainForm(on: viewController, paymentFlow: paymentFlow(), configuration: config) { result in
-                switch result {
-                case .succeeded(let succ):
-                    completion()
-                case .failed(let error):
-                    print(error)
-                case .cancelled(_):
-                    break
-                }
-            }
+            sdk.presentMainForm(on: viewController, paymentFlow: paymentFlow(price: Int64(price)), configuration: config, completion: completion)
         } catch {
             assertionFailure("\(error)")
         }
     }
 
     
-    private func paymentFlow() -> PaymentFlow {
+    private func paymentFlow(price: Int64) -> PaymentFlow {
         
         
         let orderOptions = OrderOptions(
             orderId: UUID().uuidString,
-            amount: 100,
+            amount: price * 100,
             description: "Покупка курса",
             savingAsParentPayment: false
         )
