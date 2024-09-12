@@ -113,25 +113,25 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func buy(_ sender: UIButton) {
-      buyView.isEnabled = false
-//        Payment().configure(self, email: "ruha20444@mail.ru")
-        if buy == false {
-            buyView.isEnabled = true
-            performSegue(withIdentifier: "goToAddReview", sender: self)
-        }else{
-            Task {
-                do {
-                    try await Courses().buyCourse(id: course.id)
-                    buyView.isEnabled = true
-                    performSegue(withIdentifier: "goCourse", sender: self)
-                }catch ErrorNetwork.runtimeError(let error) {
-                    errorView.isHidden = false
-                    errorView.configure(title: "Ошибка", description: error)
-                    view.addSubview(errorView)
-                    buyView.isEnabled = true
-                }
-            }
-        }
+//      buyView.isEnabled = false
+        Payment().configure(self, email: "ruha20444@mail.ru")
+//        if buy == false {
+//            buyView.isEnabled = true
+//            performSegue(withIdentifier: "goToAddReview", sender: self)
+//        }else{
+//            Task {
+//                do {
+//                    try await Courses().buyCourse(id: course.id)
+//                    buyView.isEnabled = true
+//                    performSegue(withIdentifier: "goCourse", sender: self)
+//                }catch ErrorNetwork.runtimeError(let error) {
+//                    errorView.isHidden = false
+//                    errorView.configure(title: "Ошибка", description: error)
+//                    view.addSubview(errorView)
+//                    buyView.isEnabled = true
+//                }
+//            }
+//        }
     }
 
     

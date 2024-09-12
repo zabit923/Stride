@@ -27,8 +27,17 @@ class Payment {
     let uiSDKConfiguration = UISDKConfiguration()
     
 
+    func cardList(_ viewController: UIViewController, email: String) {
+        self.email = email
+        do {
+            let sdk = try AcquiringUISDK(coreSDKConfiguration: coreSDKConfiguration, uiSDKConfiguration: uiSDKConfiguration)
+            sdk.presentCardList(on: viewController, customerKey: email)
+        } catch {
+            assertionFailure("\(error)")
+        }
+    }
     
-    func configure(_ viewController: UIViewController, email: String) {
+    func configure(_ viewController: UIViewController, email: String, completion: @escaping () -> ()) {
         self.email = email
         do {
             let sdk = try AcquiringUISDK(coreSDKConfiguration: coreSDKConfiguration, uiSDKConfiguration: uiSDKConfiguration)
@@ -36,7 +45,7 @@ class Payment {
             sdk.presentMainForm(on: viewController, paymentFlow: paymentFlow(), configuration: config) { result in
                 switch result {
                 case .succeeded(let succ):
-                    print(succ)
+                    completion()
                 case .failed(let error):
                     print(error)
                 case .cancelled(_):
