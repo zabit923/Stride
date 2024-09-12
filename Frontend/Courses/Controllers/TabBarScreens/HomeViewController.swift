@@ -19,7 +19,6 @@ class HomeViewController: UIViewController {
 
     private var banners = [String]()
     private var recomendCourses = [Course]()
-    private var celebrityCourses = [Course]()
     private var celebrities = [UserStruct]()
     private let layout = PageLayout()
     private var selectCourses = Course()
@@ -65,6 +64,8 @@ class HomeViewController: UIViewController {
     private func getCelebrity() {
         Task {
             celebrities = try await User().getCelebreties()
+            print(celebrities)
+            celebrityCollectionView.reloadData()
         }
     }
     
@@ -72,13 +73,6 @@ class HomeViewController: UIViewController {
         Task {
             recomendCourses = try await Courses().getRecomendedCourses()
             recomendCollectionView.reloadData()
-        }
-    }
-    
-    private func getCelebrityCourses() {
-        Task {
-            celebrityCourses = try await Courses().getCoursesByCelebrity()
-            celebrityCollectionView.reloadData()
         }
     }
     
@@ -123,7 +117,7 @@ class HomeViewController: UIViewController {
     
     private func design() {
         getRecomendCourses()
-        getCelebrityCourses()
+        getCelebrity()
         getUser()
         getBanners()
     }
@@ -176,11 +170,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == bannersCollectionView {
             return Int.max
-        }else if collectionView == recomendCollectionView {
-            return recomendCourses.count
+        }else if collectionView == celebrityCollectionView {
+            return celebrities.count
         }else {
-            if celebrities.count <= 6 {
-                return celebrities.count
+            if recomendCourses.count <= 6 {
+                return recomendCourses.count
             }else {
                 return 6
             }
@@ -215,7 +209,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
             cell.name.text = celebrities[indexPath.row].name + celebrities[indexPath.row].surname
 //            cell.rating.text = "\(celebrities[indexPath.row].rating)"
-//            cell.im.sd_setImage(with: celebrities[indexPath.row].imageURL)
+//            cell.im.sd_setImage(with: celebrities[indexPath.row].avatarURL)
             return cell
         }
     }

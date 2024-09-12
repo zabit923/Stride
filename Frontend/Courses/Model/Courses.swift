@@ -123,7 +123,7 @@ class Courses {
     }
     
     func getCoursesByCelebrity() async throws -> [Course] {
-        let url = Constants.url + "/api/v1/courses/celebrities_courses/"
+        let url = Constants.url + "api/v1/courses/celebrities_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
@@ -152,7 +152,7 @@ class Courses {
     }
     
     func getRecomendedCourses() async throws -> [Course] {
-        let url = Constants.url + "/api/v1/courses/recommended_courses/"
+        let url = Constants.url + "api/v1/courses/recommended_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
@@ -244,11 +244,16 @@ class Courses {
     // MARK: - Изменить
     
     func changeModuleInfo(info: Modules) async throws {
-        let url = Constants.url + "/api/v1/module/update/\(info.id)/"
+        let url = Constants.url + "api/v1/module/update/\(info.id)/"
+        print(url)
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response =  AF.upload(multipartFormData: { multipartFormData in
             if let imageURL = info.imageURL, "\(imageURL)".starts(with: "file") {
-                multipartFormData.append(imageURL, withName: "image")
+                ImageResize.compressImageFromFileURL(fileURL: imageURL, maxSizeInMB: 1.0) { compressedURL in
+                    if let url = compressedURL {
+                        multipartFormData.append(url, withName: "image")
+                    }
+                }
             }
             multipartFormData.append(Data(info.name.utf8), withName: "title")
             multipartFormData.append(Data(info.description!.utf8), withName: "desc")
@@ -257,6 +262,7 @@ class Courses {
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)
+        print(code)
         if code != 200 {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue
@@ -278,7 +284,11 @@ class Courses {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.upload(multipartFormData: { multipartFormData in
             if "\(info.imageURL!)".starts(with: "file") {
-                multipartFormData.append(info.imageURL!, withName: "image")
+                ImageResize.compressImageFromFileURL(fileURL: info.imageURL!, maxSizeInMB: 1.0) { compressedURL in
+                    if let url = compressedURL {
+                        multipartFormData.append(url, withName: "image")
+                    }
+                }
             }
             multipartFormData.append(Data(info.nameCourse.utf8), withName: "title")
             multipartFormData.append(Data("\(info.price)".utf8), withName: "price")
@@ -288,7 +298,6 @@ class Courses {
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)
-        print(json)
         if code != 200 && method == .patch {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue
@@ -311,7 +320,7 @@ class Courses {
     }
     
     func addDaysInCourse(courseID: Int) async throws -> Int {
-        let url = Constants.url + "/api/v1/day/create/\(courseID)/"
+        let url = Constants.url + "api/v1/day/create/\(courseID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.request(url, method: .post, headers: headers).serializingData()
         let value = try await response.value
@@ -330,7 +339,7 @@ class Courses {
     }
     
     func addModulesInCourse(dayID: Int) async throws -> Int {
-        let url = Constants.url + "/api/v1/module/create/\(dayID)/"
+        let url = Constants.url + "api/v1/module/create/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.request(url, method: .post, headers: headers).serializingData()
         let value = try await response.value
@@ -349,7 +358,7 @@ class Courses {
     }
     
     func addModulesData(text: NSAttributedString, moduleID: Int) async throws {
-        let url = Constants.url + "/api/v1/module/update/\(moduleID)/"
+        let url = Constants.url + "api/v1/module/update/\(moduleID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let file = FilePath().serializeAttributedStringToFile(text)!
         let tempFileURL = file.deletingPathExtension().appendingPathExtension("data")
@@ -372,7 +381,7 @@ class Courses {
     // MARK: - Удалить
     
     func deleteModule(moduleID: Int) async throws {
-        let url = Constants.url + "/api/v1/module/delete/\(moduleID)/"
+        let url = Constants.url + "api/v1/module/delete/\(moduleID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response =  AF.request(url, method: .delete, headers: headers).serializingData()
         let value = try await response.value
@@ -389,7 +398,7 @@ class Courses {
     }
     
     func deleteDay(dayID: Int) async throws {
-        let url = Constants.url + "/api/v1/day/delete/\(dayID)/"
+        let url = Constants.url + "api/v1/day/delete/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response =  AF.request(url, method: .delete, headers: headers).serializingData()
         let value = try await response.value

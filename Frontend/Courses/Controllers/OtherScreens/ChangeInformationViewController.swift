@@ -14,7 +14,7 @@ class ChangeInformationViewController: UIViewController {
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var descriptionTF: UITextField!
+    @IBOutlet weak var descriptionTF: UITextView!
     @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var mail: UITextField!
     @IBOutlet weak var surname: UITextField!
@@ -54,7 +54,7 @@ class ChangeInformationViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             let textFieldRect = activateTF.convert(activateTF.bounds, to: scrollView)
-            let textFieldBottom = textFieldRect.maxY
+            let textFieldBottom = textFieldRect.maxY + 100
             
             let scrollY = textFieldBottom - keyboardHeight
             scrollView.setContentOffset(CGPoint(x: 0, y: scrollY), animated: true)
@@ -69,6 +69,8 @@ class ChangeInformationViewController: UIViewController {
     
     private func design() {
         Task {
+            descriptionTF.textContainer.maximumNumberOfLines = 4
+            descriptionTF.textContainer.lineBreakMode = .byTruncatingTail
             user = try await User().getMyInfo()
             if user.role == .user {
                 descriptionView.isHidden = true
@@ -92,10 +94,10 @@ class ChangeInformationViewController: UIViewController {
     }
     
     private func changeUserInfo() {
-        user.name = name.text ?? user.name
-        user.surname = surname.text ?? user.surname
-        user.phone = phoneNumber.text ?? user.phone
-        user.email = mail.text ?? user.email
+        user.name = name.text!.replacingOccurrences(of: " ", with: "")
+        user.surname = surname.text!.replacingOccurrences(of: " ", with: "")
+        user.phone = phoneNumber.text!.replacingOccurrences(of: " ", with: "")
+        user.email = mail.text!.replacingOccurrences(of: " ", with: "")
         user.coach.description = descriptionTF.text ?? user.coach.description
         user.avatarURL = avatarURL
     }
@@ -155,6 +157,7 @@ class ChangeInformationViewController: UIViewController {
     
 }
 extension ChangeInformationViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
@@ -168,7 +171,7 @@ extension ChangeInformationViewController: UIImagePickerControllerDelegate & UIN
         picker.dismiss(animated: true)
     }
 }
-extension ChangeInformationViewController: UITextFieldDelegate {
+extension ChangeInformationViewController: UITextFieldDelegate, UITextViewDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == phoneNumber {
@@ -188,5 +191,14 @@ extension ChangeInformationViewController: UITextFieldDelegate {
         activateTF = textField
     }
 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        activateTF = phoneNumber
+    }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let existingLines = textView.text.components(separatedBy: CharacterSet.newlines)
+        let newLines = text.components(separatedBy: CharacterSet.newlines)
+        let linesAfterChange = existingLines.count + newLines.count - 1
+        return linesAfterChange <= textView.textContainer.maximumNumberOfLines
+    }
 }

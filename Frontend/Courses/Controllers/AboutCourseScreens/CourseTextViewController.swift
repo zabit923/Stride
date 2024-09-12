@@ -44,8 +44,10 @@ class CourseTextViewController: UIViewController {
     func getData() {
         Task {
             loading.play()
-            let attributedString = try await FilePath().downloadFileWithURL(url: module.text!)
-            textView.attributedText = attributedString
+            if let moduleText = module.text {
+                let attributedString = try await FilePath().downloadFileWithURL(url: moduleText)
+                textView.attributedText = attributedString
+            }
             loading.stop()
             loading.isHidden = true
         }
