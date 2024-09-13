@@ -15,11 +15,11 @@ class StartViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         current()
     }
-    
+
     func current() {
         if UD().getCurrent() == true {
             performSegue(withIdentifier: "current", sender: self)
         }
     }
-    
+
 }

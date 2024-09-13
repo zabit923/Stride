@@ -7,27 +7,32 @@ repos:
     rev: v3.4.0
     hooks:
       - id: trailing-whitespace
+        files: ^src/.*$
       - id: end-of-file-fixer
+        files: ^src/.*$
       - id: check-yaml
+        files: ^src/.*\.yaml$
 
   - repo: local
     hooks:
-    - id: autoflake
-      name: autoflake
-      entry: autoflake --remove-all-unused-imports --ignore-init-module-imports -i --recursive .
-      language: system
-      pass_filenames: false
+      - id: autoflake
+        name: autoflake
+        entry: autoflake --remove-all-unused-imports --ignore-init-module-imports -i --recursive src/
+        language: system
+        pass_filenames: false
 
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
     hooks:
       - id: isort
         args: ["--profile", "black", "--filter-files"]
+        files: ^src/.*\.py$
 
   - repo: https://github.com/psf/black
     rev: 22.3.0
     hooks:
       - id: black
+        files: ^src/.*\.py$
 
   - repo: https://github.com/pycqa/flake8
     rev: 3.8.4
@@ -38,3 +43,4 @@ repos:
           flake8-fixme,
           flake8-print
         ]
+        files: ^src/.*\.py$

@@ -9,7 +9,7 @@ import UIKit
 
 extension NSAttributedString {
 
-    
+
     func attributedStringToData() -> Data? {
         guard let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) else {
             print("Ошибка сериализации NSAttributedString")
@@ -40,7 +40,7 @@ extension NSAttributedString {
                 }
             }
         }
-        
+
         return ["string": string, "attributes": attributes]
     }
 }
@@ -48,27 +48,27 @@ extension NSAttributedString {
 
 
 extension UIImage {
-    
+
     func scaleImage(toSize size: CGSize) -> UIImage {
         var scaledImageSize = size
         let imageSize = self.size
         let widthRatio = size.width / imageSize.width
         let heightRatio = size.height / imageSize.height
-        
+
         if widthRatio < heightRatio {
             scaledImageSize = CGSize(width: size.width, height: imageSize.height * widthRatio)
         } else {
             scaledImageSize = CGSize(width: imageSize.width * heightRatio, height: size.height)
         }
-        
+
         UIGraphicsBeginImageContextWithOptions(scaledImageSize, false, 0.0)
         self.draw(in: CGRect(origin: .zero, size: scaledImageSize))
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         return scaledImage ?? self
     }
-    
+
     func withRoundedCorners(radius: CGFloat) -> UIImage {
         let rect = CGRect(origin: .zero, size: self.size)
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
@@ -78,7 +78,7 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-    
+
 }
 
 extension UITextView {

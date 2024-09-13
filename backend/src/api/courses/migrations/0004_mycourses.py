@@ -8,21 +8,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('courses', '0003_remove_day_title'),
+        ("courses", "0003_remove_day_title"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MyCourses',
+            name="MyCourses",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='buyers', to='courses.course', verbose_name='Курс')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='my_courses', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "course",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="buyers",
+                        to="courses.course",
+                        verbose_name="Курс",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="my_courses",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Мои курсы',
-                'verbose_name_plural': 'Мои курсы',
+                "verbose_name": "Мои курсы",
+                "verbose_name_plural": "Мои курсы",
             },
         ),
     ]

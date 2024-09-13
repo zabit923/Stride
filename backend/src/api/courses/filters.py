@@ -4,8 +4,10 @@ from .models import Course
 
 
 class CategoryFilter(filters.FilterSet):
-    category = filters.BaseInFilter(field_name='category__id')
+    category = filters.BaseInFilter(field_name="category__id")
 
     class Meta:
         model = Course
-        fields = ['category',]
+        fields = [
+            "category",
+        ]

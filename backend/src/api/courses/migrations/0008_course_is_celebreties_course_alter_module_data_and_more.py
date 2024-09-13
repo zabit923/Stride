@@ -6,23 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('courses', '0007_alter_course_desc_alter_module_data'),
+        ("courses", "0007_alter_course_desc_alter_module_data"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='is_celebreties_course',
-            field=models.BooleanField(default=False, verbose_name='Курс от знаменитости'),
+            model_name="course",
+            name="is_celebreties_course",
+            field=models.BooleanField(
+                default=False, verbose_name="Курс от знаменитости"
+            ),
         ),
         migrations.AlterField(
-            model_name='module',
-            name='data',
-            field=models.FileField(blank=True, null=True, upload_to='module_data', verbose_name='Данные'),
+            model_name="module",
+            name="data",
+            field=models.FileField(
+                blank=True, null=True, upload_to="module_data", verbose_name="Данные"
+            ),
         ),
         migrations.AlterField(
-            model_name='module',
-            name='title',
-            field=models.CharField(blank=True, max_length=128, null=True, verbose_name='Название'),
+            model_name="module",
+            name="title",
+            field=models.CharField(
+                blank=True, max_length=128, null=True, verbose_name="Название"
+            ),
         ),
     ]

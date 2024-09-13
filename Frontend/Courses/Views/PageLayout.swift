@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class PageLayout: UICollectionViewFlowLayout {
-    
+
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
 
         guard let collectionView = self.collectionView else {
@@ -19,7 +19,7 @@ class PageLayout: UICollectionViewFlowLayout {
 
         // Page width used for estimating and calculating paging.
         let pageWidth = self.itemSize.width + self.minimumLineSpacing
-        
+
         // Make an estimation of the current page position.
         let approximatePage = collectionView.contentOffset.x/pageWidth
 
@@ -37,13 +37,13 @@ class PageLayout: UICollectionViewFlowLayout {
 
         return CGPoint(x: newHorizontalOffset, y: proposedContentOffset.y)
     }
-    
+
 }
 
 class PageModuleLayout: UICollectionViewFlowLayout {
-    
+
     var pageWidth: CGFloat = 345
-    
+
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
 
         guard let collectionView = self.collectionView else {
@@ -51,7 +51,7 @@ class PageModuleLayout: UICollectionViewFlowLayout {
             return latestOffset
         }
 
-        
+
         // Make an estimation of the current page position.
         let approximatePage = collectionView.contentOffset.x/pageWidth
 
@@ -69,5 +69,5 @@ class PageModuleLayout: UICollectionViewFlowLayout {
 
         return CGPoint(x: newHorizontalOffset, y: proposedContentOffset.y)
     }
-    
+
 }

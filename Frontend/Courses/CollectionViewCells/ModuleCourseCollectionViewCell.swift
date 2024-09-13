@@ -8,8 +8,8 @@
 import UIKit
 
 class ModuleCourseCollectionViewCell: UICollectionViewCell {
-    
-    
+
+
     @IBOutlet weak var settingsBtn2: UIButton!
     @IBOutlet weak var settingsBtn: UIButton!
     @IBOutlet weak var im: UIImageView!

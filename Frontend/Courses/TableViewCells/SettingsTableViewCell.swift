@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var im: UIImageView!
     @IBOutlet weak var lbl: UILabel!
 }

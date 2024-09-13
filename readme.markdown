@@ -1,6 +1,6 @@
 <h1 align="center">Stride</h1>
 
-<center><b>Backend stack:</b></center>     
+<center><b>Backend stack:</b></center>
 
 <div>
     <img src="https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray">
@@ -15,7 +15,7 @@
 
 ---
 
-<center><b>Frontend stack:</b></center>     
+<center><b>Frontend stack:</b></center>
 
 <div style="display: flex; gap: 5px; justify-content: center;">
     <img src="https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white">

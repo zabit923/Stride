@@ -9,7 +9,7 @@ import SDWebImage
 import SkeletonView
 
 class CoachViewController: UIViewController {
-    
+
     @IBOutlet weak var characteristic: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var rating: UILabel!
@@ -18,30 +18,30 @@ class CoachViewController: UIViewController {
     @IBOutlet weak var coursesCountBottom: UILabel!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
-    
+
     var user: UserStruct = User.info {
         didSet {
             sceletonAnimatedStop()
             addProfile()
         }
     }
-    
+
     var courses = [Course]()
     var idCoach = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
     }
-    
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         design()
     }
-    
+
     func design() {
         Task {
             sceletonAnimatedStart()
@@ -50,11 +50,11 @@ class CoachViewController: UIViewController {
             coursesCollectionView.reloadData()
         }
     }
-    
+
     private func getCoachInfo() async throws {
         user = try await User().getUserByID(id: idCoach)
     }
-    
+
     private func getCoachCourses() async throws {
         courses = try await Courses().getCoursesByUserID(id: idCoach)
         coursesCount.text = "\(courses.count)"
@@ -62,7 +62,7 @@ class CoachViewController: UIViewController {
         print(courses.count, averageRating())
         coursesCollectionView.reloadData()
     }
-    
+
     private func averageRating() -> Float {
         var ratingSumm: Float = 0.0
         var count = 0
@@ -79,7 +79,7 @@ class CoachViewController: UIViewController {
             return average
         }
     }
-    
+
     private func sceletonAnimatedStart() {
         coursesCollectionView.isSkeletonable = true
         coursesCollectionView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
@@ -101,11 +101,11 @@ class CoachViewController: UIViewController {
         name.linesCornerRadius = 5
         name.skeletonTextNumberOfLines = 1
         name.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
-        
+
         ratingBottom.isHidden = true
         coursesCountBottom.isHidden = true
     }
-    
+
     private func sceletonAnimatedStop() {
         coursesCollectionView.hideSkeleton(transition: .none)
         avatar.hideSkeleton(transition: .none)
@@ -116,7 +116,7 @@ class CoachViewController: UIViewController {
         ratingBottom.isHidden = false
         coursesCountBottom.isHidden = false
     }
-    
+
     private func addProfile() {
         name.text = "\(user.name) \(user.surname)"
         characteristic.text = user.coach.description
@@ -124,34 +124,34 @@ class CoachViewController: UIViewController {
             self.avatar.sd_setImage(with: avatar)
         }
     }
-    
+
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
 }
 
 extension CoachViewController: SkeletonCollectionViewDelegate, SkeletonCollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
         return "course"
     }
-    
-    
+
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return courses.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
     }
-   
-    
+
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = UIScreen.main.bounds.width / 3 - 2
         return CGSize(width: size, height: size)
     }
-    
+
 }

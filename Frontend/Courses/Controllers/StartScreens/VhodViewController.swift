@@ -8,17 +8,17 @@
 import UIKit
 
 class VhodViewController: UIViewController {
-    
+
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var passwordBorder: Border!
     @IBOutlet weak var phoneBorder: Border!
     @IBOutlet weak var phone: UITextField!
     @IBOutlet weak var password: UITextField!
-    
+
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     var startPosition = CGPoint()
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         phone.delegate = self
@@ -26,19 +26,19 @@ class VhodViewController: UIViewController {
         view.addSubview(errorView)
         errorView.isHidden = true
     }
-    
+
     func clearError() {
         passwordBorder.color = .lightBlackMain
         phoneBorder.color = .lightBlackMain
         errorView.isHidden = true
     }
 
-    
+
     func addError(error: String) {
         errorView.isHidden = false
         errorView.configure(title: "Ошибка", description: error)
     }
-    
+
     func checkInfo() throws {
         guard phone.text!.count > 2 else {
             phoneBorder.color = .errorRed
@@ -47,7 +47,7 @@ class VhodViewController: UIViewController {
             passwordBorder.color = .errorRed
             throw ErrorNetwork.notFound }
     }
-    
+
     @IBAction func vhod(_ sender: UIButton) {
         nextBtn.isEnabled = false
         Task {
@@ -64,16 +64,16 @@ class VhodViewController: UIViewController {
             }
         }
     }
-    
-    
+
+
     @IBAction func apple(_ sender: UIButton) {
-        
+
     }
-    
+
     @IBAction func google(_ sender: UIButton) {
         Sign().signGoogle(self)
     }
-    
+
     @IBAction func passwordHidden(_ sender: UIButton) {
         if sender.tag == 0 {
             password.isSecureTextEntry = false
@@ -83,11 +83,11 @@ class VhodViewController: UIViewController {
             sender.tag = 0
         }
     }
-    
+
     @IBAction func swipeError(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
-    
+
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         password.resignFirstResponder()
         phone.resignFirstResponder()
@@ -95,7 +95,7 @@ class VhodViewController: UIViewController {
 }
 
 extension VhodViewController: UITextFieldDelegate {
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
@@ -107,5 +107,5 @@ extension VhodViewController: UITextFieldDelegate {
         }
     }
 
-    
+
 }

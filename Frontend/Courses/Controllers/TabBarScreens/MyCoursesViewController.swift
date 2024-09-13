@@ -20,37 +20,37 @@ class MyCoursesViewController: UIViewController {
     @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var search: UITextField!
-    
+
     var course = [Course]()
     var filteredCourse = [Course]()
     private var selectIDCourse = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         myCoursesCollectionView.delegate = self
         myCoursesCollectionView.dataSource = self
         search.delegate = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         design()
     }
-    
+
     func design() {
         loadingSettings()
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
         search.attributedPlaceholder = NSAttributedString(string: "Поиск...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.grayMain, NSAttributedString.Key.font: font!])
         getMyBoughtCourses()
     }
-    
+
     func procent(completed:Int, countAll: Int) -> Double {
         guard countAll > 0 else { return 100.0 }
         let progress = Double(completed) / Double(countAll)
         return progress * 100
-        
+
     }
-    
+
     private func loadingSettings() {
         loading.loopMode = .loop
         loading.contentMode = .scaleToFill
@@ -59,7 +59,7 @@ class MyCoursesViewController: UIViewController {
         emptyBox.contentMode = .scaleToFill
         emptyBox.play()
     }
-    
+
     private func emptyCheck() {
         if filteredCourse.isEmpty == false {
             emptyView.isHidden = true
@@ -67,7 +67,7 @@ class MyCoursesViewController: UIViewController {
             emptyView.isHidden = false
         }
     }
-    
+
     private func getMyBoughtCourses() {
         Task {
             course = try await Courses().getBoughtCourses()
@@ -86,7 +86,7 @@ class MyCoursesViewController: UIViewController {
         cancelBtn.isHidden = false
         search.becomeFirstResponder()
     }
-    
+
     @IBAction func cancel(_ sender: UIButton) {
         search.text = ""
         filteredCourse = course
@@ -97,18 +97,18 @@ class MyCoursesViewController: UIViewController {
         cancelBtn.isHidden = true
         search.resignFirstResponder()
     }
-    
+
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         search.resignFirstResponder()
     }
-    
+
 }
 
 extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredCourse.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = myCoursesCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: filteredCourse[indexPath.row].imageURL)
@@ -121,29 +121,29 @@ extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDat
         cell.progressVIew.setProgress(Float(procent / 100), animated: false)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectIDCourse = filteredCourse[indexPath.row].id
         performSegue(withIdentifier: "course", sender: self)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "course" {
             let vc = segue.destination as! ModulesCourseViewController
             vc.idCourse = selectIDCourse
         }
-        
+
     }
 }
 extension MyCoursesViewController: UITextFieldDelegate {
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
-        
+
         guard let stringRange = Range(range, in: currentText) else { return false }
         let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        
+
         filteredCourse = updatedText.isEmpty ? course : course.filter { courseItem in
             return courseItem.nameCourse.lowercased().contains(updatedText.lowercased())
         }
@@ -151,7 +151,7 @@ extension MyCoursesViewController: UITextFieldDelegate {
         myCoursesCollectionView.reloadData()
         return true
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ImageResize {
-    
+
     static func compressImageFromFileURL(fileURL: URL, maxSizeInMB: Double, completion: @escaping (URL?) -> Void) {
         do {
             let data = try Data(contentsOf: fileURL)
@@ -17,7 +17,7 @@ class ImageResize {
                 completion(nil)
                 return
             }
-            
+
             let compressedData = compressImageToMaxSize(image: image, maxSizeInMB: maxSizeInMB)
             completion(compressedData)
         } catch {
@@ -36,10 +36,10 @@ class ImageResize {
             compression -= 0.1
             imageData = image.jpegData(compressionQuality: compression)
         }
-        
+
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         let compressedImageURL = documentsDirectory.appendingPathComponent("compressedImage.jpg")
-        
+
         do {
             try imageData?.write(to: compressedImageURL)
             return compressedImageURL

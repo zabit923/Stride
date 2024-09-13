@@ -10,7 +10,7 @@ import SwiftyJSON
 import Alamofire
 
 class AddCourseViewController: UIViewController {
-    
+
     @IBOutlet weak var nameCourseLBL: UILabel!
     @IBOutlet weak var sizeFont: UILabel!
     @IBOutlet weak var colorView: UIView!
@@ -22,13 +22,13 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var centerAlingment: UIButton!
     @IBOutlet weak var leftAlingment: UIButton!
     @IBOutlet weak var textView: UITextView!
-    
+
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
-    
+
     var module = Modules(name: "", minutes: 0, id: 0)
     var nameCourse = ""
-    
+
     private var colorSelect = UIColor.white {
         didSet {
             colorView.backgroundColor = colorSelect
@@ -56,7 +56,7 @@ class AddCourseViewController: UIViewController {
             sizeFont.text = "\(sizeFontSelect) пт"
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.textColor = .white
@@ -66,13 +66,13 @@ class AddCourseViewController: UIViewController {
         design()
         startPosition = errorView.center
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
-    
+
     @objc func keyboardWillAppear(notification:Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -84,14 +84,14 @@ class AddCourseViewController: UIViewController {
     @objc func keyboardWillDisappear() {
         bottomConsoleView.constant = 0
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         FilePath().deleteAlamofireFiles()
     }
-    
-    
+
+
 
     func getData() {
         Task {
@@ -100,12 +100,12 @@ class AddCourseViewController: UIViewController {
             textView.attributedText = attributedString
         }
     }
-    
+
     private func design() {
         nameCourseLBL.text = nameCourse
     }
-    
-    
+
+
     private func changedAlignment(_ alignment: NSTextAlignment) {
         switch alignment {
         case .left:
@@ -120,14 +120,14 @@ class AddCourseViewController: UIViewController {
             break
         }
     }
-    
+
     private func clearTextAlingment() {
         leftAlingment.setImage(UIImage.leftText, for: .normal)
         centerAlingment.setImage(UIImage.centerText, for: .normal)
         rightAligment.setImage(UIImage.rightText, for: .normal)
         defaultAligment.setImage(UIImage.defaultText, for: .normal)
     }
-    
+
     private func selectText(attributes: [NSAttributedString.Key: Any]) {
         guard let selectedRange = textView.selectedTextRange else { return }
         let selectedText = textView.text(in: selectedRange)
@@ -136,8 +136,8 @@ class AddCourseViewController: UIViewController {
         textView.textStorage.addAttributes(attributes, range: nsRange)
         textView.selectedTextRange = selectedRange
     }
-    
-    
+
+
     private func addCourse(text: NSAttributedString) async throws {
         do {
             try await Courses().addModulesData(text: text, moduleID: module.id)
@@ -147,7 +147,7 @@ class AddCourseViewController: UIViewController {
             view.addSubview(errorView)
         }
     }
-    
+
     // MARK: - UIButton
 
     @IBAction func okFont(_ sender: Any) {
@@ -156,36 +156,36 @@ class AddCourseViewController: UIViewController {
         textView.becomeFirstResponder()
         selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
     }
-    
-    
-    
+
+
+
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
         Task {
             try await addCourse(text: textView.attributedText)
         }
     }
-    
+
     @IBAction func color(_ sender: UIButton) {
         let picker = UIColorPickerViewController()
         picker.selectedColor = colorView.backgroundColor!
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
-    
+
     @IBAction func addImage(_ sender: UIButton) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         present(imagePickerController, animated: true)
     }
-    
+
     @IBAction func changedText(_ sender: UIButton) {
         textView.resignFirstResponder()
         textView.isEditable = false
         fontView.isHidden = false
         textStyleBar()
     }
-    
+
     @IBAction func fontBtn(_ sender: UIButton) {
         let config = UIFontPickerViewController.Configuration()
         config.includeFaces = false
@@ -193,7 +193,7 @@ class AddCourseViewController: UIViewController {
         vc.delegate = self
         present(vc, animated: true)
     }
-    
+
     @IBAction func alignment(_ sender: UIButton) {
         clearTextAlingment()
         switch sender.tag {
@@ -220,33 +220,33 @@ class AddCourseViewController: UIViewController {
             sizeFontSelect += 1
         }
     }
-    
+
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         textView.resignFirstResponder()
     }
-    
+
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
-    
+
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
 }
 // MARK: - TextView
 extension AddCourseViewController: UITextViewDelegate {
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.typingAttributes[.font] as? UIFont != fontSelect {
             textView.typingAttributes[.font] = fontSelect
         }
     }
-    
+
     func textViewDidChange(_ textView: UITextView) {
         textStyleBar()
     }
-    
+
     private func textStyleBar() {
         if let font = textView.typingAttributes[.font] as? UIFont {
             fontSelect = font
@@ -267,11 +267,11 @@ extension AddCourseViewController: UITextViewDelegate {
             alignment = align.alignment
         }
     }
-    
+
 }
 // MARK: - Image
 extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
             let screenWidth = UIScreen.main.bounds.width - 30
@@ -282,13 +282,13 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
             picker.dismiss(animated: true)
         }
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
-    
-    
-    
+
+
+
     private func addImageInTextView(image: UIImage) {
         let attachment = NSTextAttachment()
         attachment.image = image
@@ -301,15 +301,15 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
         self.textView.attributedText = combinedString
     }
 
-    
+
 }
 // MARK: - Font
 extension AddCourseViewController: UIFontPickerViewControllerDelegate {
-    
+
     func fontPickerViewControllerDidCancel(_ viewController: UIFontPickerViewController) {
         viewController.dismiss(animated: true)
     }
-    
+
     func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
         guard let descriptor = viewController.selectedFontDescriptor else {return}
         fontSelect = UIFont(descriptor: descriptor, size: sizeFontSelect)
@@ -318,9 +318,9 @@ extension AddCourseViewController: UIFontPickerViewControllerDelegate {
 }
 // MARK: - Color
 extension AddCourseViewController: UIColorPickerViewControllerDelegate {
-    
+
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         colorSelect = viewController.selectedColor
     }
-    
+
 }

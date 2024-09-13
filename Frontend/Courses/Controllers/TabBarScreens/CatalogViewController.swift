@@ -13,11 +13,11 @@ class CatalogViewController: UIViewController {
     @IBOutlet weak var search: UITextField!
     @IBOutlet weak var catalogCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
-    
+
     var categories = [Category]()
     var courses = [Course]()
     private var selectCourse = Course()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryCollectionView.dataSource = self
@@ -26,13 +26,13 @@ class CatalogViewController: UIViewController {
         catalogCollectionView.delegate = self
         search.delegate = self
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getCourses()
         getCategories()
     }
-    
+
     private func getCourses() {
         Task {
             let results = try await Courses().getAllCourses()
@@ -40,25 +40,25 @@ class CatalogViewController: UIViewController {
             catalogCollectionView.reloadData()
         }
     }
-    
+
     private func getCategories() {
         Task {
             categories = try await Categories().getCategories()
             categoryCollectionView.reloadData()
         }
     }
-    
+
     private func searchCourse(text: String) {
         Task {
             courses = try await Courses().searchCourses(text: text)
             catalogCollectionView.reloadData()
         }
     }
-    
+
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         search.resignFirstResponder()
     }
-    
+
 }
 
 extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -69,7 +69,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             return courses.count
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == categoryCollectionView {
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as! CategoriesCollectionViewCell
@@ -86,16 +86,16 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.daysCount.text = "\(courses[indexPath.row].daysCount) дней"
             return cell
         }
-        
+
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == catalogCollectionView {
             selectCourse = courses[indexPath.row]
             performSegue(withIdentifier: "info", sender: self)
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == catalogCollectionView {
             let width = UIScreen.main.bounds.width / 2 - 30
@@ -104,23 +104,23 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: 100, height: 128)
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "info" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourse
             vc.buy = true
         }
-        
+
     }
-    
-    
+
+
 }
 extension CatalogViewController: UITextFieldDelegate {
-    
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         searchCourse(text: textField.text!)
     }
-    
+
 }

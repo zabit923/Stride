@@ -13,26 +13,26 @@ class CourseTextViewController: UIViewController {
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var nameCourse: UILabel!
-    
+
     var module = Modules(name: "", minutes: 0, id: 0)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         getData()
         design()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         FilePath().deleteAlamofireFiles()
     }
-    
+
     private func loadingSettings() {
         loading.loopMode = .loop
         loading.contentMode = .scaleToFill
         loading.isHidden = false
     }
-    
+
     private func design() {
         textView.textColor = .white
         textView.isUserInteractionEnabled = false
@@ -40,7 +40,7 @@ class CourseTextViewController: UIViewController {
         loadingSettings()
         nameCourse.text = module.name
     }
-    
+
     func getData() {
         Task {
             loading.play()
@@ -52,10 +52,10 @@ class CourseTextViewController: UIViewController {
             loading.isHidden = true
         }
     }
-    
+
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
 
 }

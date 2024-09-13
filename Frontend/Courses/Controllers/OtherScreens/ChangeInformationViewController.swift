@@ -9,7 +9,7 @@ import UIKit
 import Lottie
 
 class ChangeInformationViewController: UIViewController {
-    
+
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var descriptionView: UIView!
@@ -20,14 +20,14 @@ class ChangeInformationViewController: UIViewController {
     @IBOutlet weak var surname: UITextField!
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var avatar: UIImageView!
-    
+
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
-    
+
     private var avatarURL: URL?
     private var activateTF: UITextField?
     private var user: UserStruct = User.info
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumber.delegate = self
@@ -36,13 +36,13 @@ class ChangeInformationViewController: UIViewController {
         startPosition = errorView.center
         design()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -55,7 +55,7 @@ class ChangeInformationViewController: UIViewController {
             let keyboardHeight = keyboardRectangle.height
             let textFieldRect = activateTF.convert(activateTF.bounds, to: scrollView)
             let textFieldBottom = textFieldRect.maxY + 100
-            
+
             let scrollY = textFieldBottom - keyboardHeight
             scrollView.setContentOffset(CGPoint(x: 0, y: scrollY), animated: true)
             self.activateTF = nil
@@ -66,7 +66,7 @@ class ChangeInformationViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: scrollView.contentOffset.x,
                                             y: 0), animated: true)
     }
-    
+
     private func design() {
         Task {
             descriptionTF.textContainer.maximumNumberOfLines = 4
@@ -80,8 +80,8 @@ class ChangeInformationViewController: UIViewController {
             addText()
         }
     }
-    
-    
+
+
     private func addText() {
         if let avatar = user.avatarURL {
             self.avatar.sd_setImage(with: avatar)
@@ -92,7 +92,7 @@ class ChangeInformationViewController: UIViewController {
         phoneNumber.text = user.phone.format(with: "+X (XXX) XXX-XXXX")
         descriptionTF.text = user.coach.description
     }
-    
+
     private func changeUserInfo() {
         user.name = name.text!.replacingOccurrences(of: " ", with: "")
         user.surname = surname.text!.replacingOccurrences(of: " ", with: "")
@@ -101,14 +101,14 @@ class ChangeInformationViewController: UIViewController {
         user.coach.description = descriptionTF.text ?? user.coach.description
         user.avatarURL = avatarURL
     }
-    
+
     private func loadingSettings() {
         loading.loopMode = .loop
         loading.contentMode = .scaleToFill
         loading.isHidden = false
         loading.play()
     }
-    
+
     @IBAction func save(_ sender: UIButton) {
         saveBtn.isEnabled = false
         Task{
@@ -132,13 +132,13 @@ class ChangeInformationViewController: UIViewController {
             }
         }
     }
-    
+
     @IBAction func addImage(_ sender: UIButton) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         present(imagePickerController, animated: true)
     }
-    
+
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         name.resignFirstResponder()
         surname.resignFirstResponder()
@@ -146,19 +146,19 @@ class ChangeInformationViewController: UIViewController {
         phoneNumber.resignFirstResponder()
         descriptionTF.resignFirstResponder()
     }
-    
+
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
-    
+
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
 }
 extension ChangeInformationViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             avatar.image = image
@@ -166,13 +166,13 @@ extension ChangeInformationViewController: UIImagePickerControllerDelegate & UIN
             picker.dismiss(animated: true)
         }
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
 }
 extension ChangeInformationViewController: UITextFieldDelegate, UITextViewDelegate {
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == phoneNumber {
             guard let text = textField.text else { return false }
@@ -186,7 +186,7 @@ extension ChangeInformationViewController: UITextFieldDelegate, UITextViewDelega
         }
         return true
     }
-    
+
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activateTF = textField
     }
@@ -194,7 +194,7 @@ extension ChangeInformationViewController: UITextFieldDelegate, UITextViewDelega
     func textViewDidBeginEditing(_ textView: UITextView) {
         activateTF = phoneNumber
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let existingLines = textView.text.components(separatedBy: CharacterSet.newlines)
         let newLines = text.components(separatedBy: CharacterSet.newlines)

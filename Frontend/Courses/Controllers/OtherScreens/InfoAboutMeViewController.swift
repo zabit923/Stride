@@ -8,7 +8,7 @@
 import UIKit
 
 class InfoAboutMeViewController: UIViewController {
-    
+
     @IBOutlet weak var closeBirthdayBtn: UIButton!
     @IBOutlet weak var closeGoalBtn: UIButton!
     @IBOutlet weak var closeLevelBtn: UIButton!
@@ -22,7 +22,7 @@ class InfoAboutMeViewController: UIViewController {
     @IBOutlet weak var weightTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
-    
+
     private var startPosition = CGPoint()
     private var selectBirthday: String? {
         didSet {
@@ -55,7 +55,7 @@ class InfoAboutMeViewController: UIViewController {
     var intentionArray = [String]()
     var levelPreparationArray = [String]()
     private var meInfo = User.info
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
@@ -64,7 +64,7 @@ class InfoAboutMeViewController: UIViewController {
         weightTextField.delegate = self
         heightTextField.delegate = self
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         startPosition = mainView.frame.origin
@@ -76,7 +76,7 @@ class InfoAboutMeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -89,13 +89,13 @@ class InfoAboutMeViewController: UIViewController {
     @objc func keyboardWillDisappear() {
         bottomConstraint.constant = 0
     }
-    
+
     @objc func datePickerValueChanged (sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         addText(text: formatter.string(from: sender.date), currentLbl: birthdayLbl)
     }
-    
+
 
     func datePickerDesign() {
         datePicker.datePickerMode = .date
@@ -103,7 +103,7 @@ class InfoAboutMeViewController: UIViewController {
         datePicker.setValue(UIColor.white, forKey: "textColor")
         datePicker.maximumDate = Date()
     }
-    
+
     func design() {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
         heightTextField.attributedPlaceholder = NSAttributedString(string: "Рост", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
@@ -114,12 +114,12 @@ class InfoAboutMeViewController: UIViewController {
         pickerViewDesign()
         addInfo()
     }
-    
+
     func pickerViewDesign() {
         pickerView.setValue(UIColor.white, forKey: "textColor")
         viewPV.isHidden = true
     }
-    
+
     private func addInfo() {
         if let birthday = meInfo.birthday {
             addText(text: birthday, currentLbl: birthdayLbl)
@@ -139,14 +139,14 @@ class InfoAboutMeViewController: UIViewController {
             weightTextField.textColor = UIColor.white
         }
     }
-    
+
     private func openPicker() {
         viewPV.isHidden = false
         datePicker.isHidden = true
         pickerView.isHidden = false
         pickerView.reloadAllComponents()
     }
-    
+
     private func changeUser() {
         meInfo.height = Double(heightTextField.text!)
         meInfo.weight = Double(weightTextField.text!)
@@ -162,7 +162,7 @@ class InfoAboutMeViewController: UIViewController {
             meInfo.level = nil
         }
     }
-    
+
     private func addText(text:String, currentLbl: UILabel) {
         switch currentLbl {
         case birthdayLbl:
@@ -177,7 +177,7 @@ class InfoAboutMeViewController: UIViewController {
         currentLbl.textColor = .white
         currentLbl.text = text
     }
-    
+
     private func clearText(currentLbl:UILabel) {
         switch currentLbl {
         case birthdayLbl:
@@ -194,8 +194,8 @@ class InfoAboutMeViewController: UIViewController {
         }
         currentLbl.textColor = UIColor.forTextFields
     }
-    
-    
+
+
     @IBAction func clearInfo(_ sender: UIButton) {
         switch sender.tag {
         case 0:
@@ -208,7 +208,7 @@ class InfoAboutMeViewController: UIViewController {
             break
         }
     }
-    
+
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: mainView)
         switch sender.state {
@@ -228,18 +228,18 @@ class InfoAboutMeViewController: UIViewController {
             break
         }
     }
-    
+
     @IBAction func tapped(_ sender: UITapGestureRecognizer) {
         viewPV.isHidden = true
         heightTextField.resignFirstResponder()
         weightTextField.resignFirstResponder()
     }
-    
-    
+
+
     @IBAction func ready(_ sender: UIButton) {
         viewPV.isHidden = true
     }
-    
+
     @IBAction func save(_ sender: UIButton) {
         Task {
             changeUser()
@@ -247,40 +247,40 @@ class InfoAboutMeViewController: UIViewController {
             dismiss(animated: false)
         }
     }
-    
+
     @IBAction func dissmis(_ sender: UIButton) {
         dismiss(animated: false)
     }
-    
+
     @IBAction func birthday(_ sender: UIButton) {
         picker = .birthday
         viewPV.isHidden = false
         datePicker.isHidden = false
         pickerView.isHidden = true
     }
-    
+
     @IBAction func levelPreparation(_ sender: UIButton) {
         pickerView.selectRow(0, inComponent: 0, animated: false)
         addText(text: levelPreparationArray[0], currentLbl: levelPreparationLbl)
         picker = .levelPreparation
         openPicker()
     }
-    
+
     @IBAction func intention(_ sender: UIButton) {
         pickerView.selectRow(0, inComponent: 0, animated: false)
         addText(text: intentionArray[0], currentLbl: intentionLbl)
         picker = .intention
         openPicker()
     }
-    
+
 }
 
 extension InfoAboutMeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if picker == .levelPreparation {
             return levelPreparationArray.count
@@ -288,7 +288,7 @@ extension InfoAboutMeViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             return intentionArray.count
         }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if picker == .levelPreparation {
             return levelPreparationArray[row]
@@ -296,19 +296,19 @@ extension InfoAboutMeViewController: UIPickerViewDelegate, UIPickerViewDataSourc
             return intentionArray[row]
         }
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+
         if picker == .levelPreparation {
             addText(text: levelPreparationArray[row], currentLbl: levelPreparationLbl)
         }else {
             addText(text: intentionArray[row], currentLbl: intentionLbl)
         }
     }
-    
+
 }
 extension InfoAboutMeViewController: UITextFieldDelegate {
-    
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text == "" {
             textField.textColor = UIColor.forTextFields

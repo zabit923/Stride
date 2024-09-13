@@ -8,7 +8,7 @@
 import UIKit
 
 class InfoCoursesViewController: UIViewController {
-    
+
     @IBOutlet weak var reviewsLbl: UILabel!
     @IBOutlet weak var reviewsConstant: NSLayoutConstraint!
     @IBOutlet weak var coachName: UIButton!
@@ -21,15 +21,15 @@ class InfoCoursesViewController: UIViewController {
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var im: UIImageView!
     @IBOutlet weak var buyView: UIButton!
-    
+
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
-    
+
     var course = Course()
     var reviews = [Reviews]()
     var buy: Bool?
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         reviewsCollectionView.delegate = self
@@ -39,19 +39,19 @@ class InfoCoursesViewController: UIViewController {
         getComments()
         design()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         changeCollectionViewHeight()
     }
-    
+
     private func getCourse() {
         Task {
             course = try await Courses().getCoursesByID(id: course.id)
             design()
         }
     }
-    
+
     private func getComments() {
         Task {
             reviews = try await Comments().getComments(courseID: course.id)
@@ -62,7 +62,7 @@ class InfoCoursesViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
-    
+
     private func checkReviewsCount() {
         if reviews.isEmpty {
             reviewsLbl.text = "Нет отзывов"
@@ -70,8 +70,8 @@ class InfoCoursesViewController: UIViewController {
             reviewsLbl.text = "Отзывы"
         }
     }
-    
-    
+
+
     private func design() {
         price.text = "\(course.price)"
         descriptionText.text = course.description
@@ -82,7 +82,7 @@ class InfoCoursesViewController: UIViewController {
         countBuyer.text = "\(course.countBuyer)"
         reviewHiddenBtn()
     }
-    
+
     private func buyOrNextDesign() {
         if buy == false {
             buyView.setTitle("Оставить отзыв", for: .normal)
@@ -91,10 +91,10 @@ class InfoCoursesViewController: UIViewController {
         }else {
             buyView.setTitle("Купить", for: .normal)
             priceView.isHidden = false
-            
+
         }
     }
-    
+
     private func reviewHiddenBtn() {
         if course.myRating == 0 {
             buyView.isHidden = false
@@ -102,12 +102,12 @@ class InfoCoursesViewController: UIViewController {
             buyView.isHidden = true
         }
     }
-    
+
     private func changeCollectionViewHeight() {
         reviewsConstant.constant = reviewsCollectionView.contentSize.height
         self.view.layoutIfNeeded()
     }
-    
+
     private func buyCourseSuccesed() {
         if buy == false {
             buyView.isEnabled = true
@@ -127,16 +127,16 @@ class InfoCoursesViewController: UIViewController {
             }
         }
     }
-    
+
     private func getEmail() async throws -> String {
         let email = try await User().getMyInfo().email
         return email
     }
-    
+
     @IBAction func coach(_ sender: UIButton) {
         performSegue(withIdentifier: "coach", sender: self)
     }
-    
+
     @IBAction func buy(_ sender: UIButton) {
         Task {
             guard let priceInt = Int(price.text!) else { return }
@@ -155,13 +155,13 @@ class InfoCoursesViewController: UIViewController {
         }
     }
 
-    
+
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "coach" {
             let vc = segue.destination as! CoachViewController
             vc.idCoach = course.idAuthor
@@ -173,18 +173,18 @@ class InfoCoursesViewController: UIViewController {
             vc.idCourse = course.id
         }
     }
-    
+
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
-    
+
 }
 extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reviews.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reviews", for: indexPath) as! ReviewsCollectionViewCell
         cell.avatar.sd_setImage(with: reviews[indexPath.row].authorAvatar)
@@ -193,7 +193,7 @@ extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewD
         cell.name.text = reviews[indexPath.row].author
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let textView = UITextView()
         textView.font = UIFont(name: "Commissioner-Medium", size: 12)!
@@ -202,5 +202,5 @@ extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewD
         return CGSize(width: collectionView.bounds.width, height: textSize.height + 30)
     }
 
-    
+
 }

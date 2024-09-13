@@ -8,9 +8,9 @@
 import UIKit
 
 class CelebrityCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var rating: UILabel!
     @IBOutlet weak var im: UIImageView!
     @IBOutlet weak var name: UILabel!
-    
+
 }

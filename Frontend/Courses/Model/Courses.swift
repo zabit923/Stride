@@ -11,9 +11,9 @@ import SwiftyJSON
 import UIKit
 
 class Courses {
-    
+
     // MARK: - Получить дни и модули
-    
+
     func getDaysInCourse(id: Int) async throws -> Course {
         let url = Constants.url + "api/v1/courses/\(id)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -25,7 +25,7 @@ class Courses {
         course.id = json["id"].intValue
         let daysCount = json["days"].arrayValue.count
         guard daysCount > 0 else {throw ErrorNetwork.runtimeError("Пустой массив")}
-        
+
         for x in 0...daysCount - 1 {
             let idDay = json["days"][x]["id"].intValue
             let modulesArray = json["days"][x]["modules"].arrayValue
@@ -43,23 +43,23 @@ class Courses {
             course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules))
             modules.removeAll()
         }
-        
+
         course = RealmValue().addCompletedDays(course: course)
         return course
     }
-    
+
     // MARK: - Получить курсы
-    
+
     func getAllCourses() async throws -> [Course] {
         let url = Constants.url + "api/v1/courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var courses = [Course]()
-        
+
         let results = json["results"].arrayValue
         guard results.isEmpty == false else {return []}
-        
+
         for x in 0...results.count - 1 {
             let daysCount = json["results"][x]["count_days"].intValue
             let title = json["results"][x]["title"].stringValue
@@ -75,10 +75,10 @@ class Courses {
             let rating = json["results"][x]["rating"].floatValue
             courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
         }
-        
+
         return courses
     }
-    
+
     func getCoursesByID(id: Int) async throws -> Course {
         let url = Constants.url + "api/v1/courses/\(id)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -101,17 +101,17 @@ class Courses {
         let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount)
         return course
     }
-    
+
     func getCoursesByUserID(id: Int) async throws -> [Course] {
         let url = Constants.url + "api/v1/courses/\(id)/courses_by_id/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var courses = [Course]()
-        
+
         let results = json.arrayValue
         guard results.isEmpty == false else {return []}
-        
+
         for x in 0...results.count - 1 {
             let title = json[x]["title"].stringValue
             let id = json[x]["id"].intValue
@@ -121,17 +121,17 @@ class Courses {
         }
         return courses
     }
-    
+
     func getCoursesByCelebrity() async throws -> [Course] {
         let url = Constants.url + "api/v1/courses/celebrities_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var courses = [Course]()
-        
+
         let results = json.arrayValue
         guard results.isEmpty == false else {return []}
-        
+
         for x in 0...results.count - 1 {
             let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
@@ -147,20 +147,20 @@ class Courses {
             let rating = json[x]["rating"].floatValue
             courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
         }
-        
+
         return courses
     }
-    
+
     func getRecomendedCourses() async throws -> [Course] {
         let url = Constants.url + "api/v1/courses/recommended_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var courses = [Course]()
-        
+
         let results = json.arrayValue
         guard results.isEmpty == false else {return []}
-        
+
         for x in 0...results.count - 1 {
             let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
@@ -176,23 +176,23 @@ class Courses {
             let rating = json[x]["rating"].floatValue
             courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
         }
-        
+
         return courses
     }
-    
-    
+
+
     // MARK: - Получить мои курсы
-    
+
     func getBoughtCourses() async throws -> [Course] {
         let url = Constants.url + "api/v1/courses/my_bought_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var courses = [Course]()
-        
+
         let results = json.arrayValue
         guard results.isEmpty == false else {return []}
-        
+
         for x in 0...results.count - 1 {
             let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
@@ -211,17 +211,17 @@ class Courses {
         }
         return courses
     }
-    
+
     func getMyCreateCourses() async throws -> [Course] {
         let url = Constants.url + "api/v1/courses/my_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var courses = [Course]()
-        
+
         let results = json.arrayValue
         guard results.isEmpty == false else {return []}
-        
+
         for x in 0...results.count - 1 {
             let daysCount = json[x]["count_days"].intValue
             let title = json[x]["title"].stringValue
@@ -236,13 +236,13 @@ class Courses {
             let rating = json[x]["rating"].floatValue
             courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image),rating: rating, id: id, description: description, dataCreated: dataCreated))
         }
-        
+
         return courses
 
     }
-    
+
     // MARK: - Изменить
-    
+
     func changeModuleInfo(info: Modules) async throws {
         let url = Constants.url + "api/v1/module/update/\(info.id)/"
         print(url)
@@ -272,10 +272,10 @@ class Courses {
             }
         }
     }
-    
-    
+
+
     // MARK: - Добавить
-    
+
     func saveInfoCourse(info: Course, method: HTTPMethod = .post) async throws -> Int {
         var url = Constants.url + "api/v1/courses/"
         if method == .patch {
@@ -306,7 +306,7 @@ class Courses {
                 throw ErrorNetwork.runtimeError("Неизвестная ошибка")
             }
         }
-        
+
         if code != 201 && method == .post {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue
@@ -318,7 +318,7 @@ class Courses {
         let idCourse = json["id"].intValue
         return idCourse
     }
-    
+
     func addDaysInCourse(courseID: Int) async throws -> Int {
         let url = Constants.url + "api/v1/day/create/\(courseID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -337,7 +337,7 @@ class Courses {
         let id = json["id"].intValue
         return id
     }
-    
+
     func addModulesInCourse(dayID: Int) async throws -> Int {
         let url = Constants.url + "api/v1/module/create/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -356,7 +356,7 @@ class Courses {
         let id = json["id"].intValue
         return id
     }
-    
+
     func addModulesData(text: NSAttributedString, moduleID: Int) async throws {
         let url = Constants.url + "api/v1/module/update/\(moduleID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -377,9 +377,9 @@ class Courses {
             }
         }
     }
-    
+
     // MARK: - Удалить
-    
+
     func deleteModule(moduleID: Int) async throws {
         let url = Constants.url + "api/v1/module/delete/\(moduleID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -396,7 +396,7 @@ class Courses {
             }
         }
     }
-    
+
     func deleteDay(dayID: Int) async throws {
         let url = Constants.url + "api/v1/day/delete/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -409,9 +409,9 @@ class Courses {
 //            throw ErrorNetwork.runtimeError(error)
 //        }
     }
-    
+
     // MARK: - Купить курс
-    
+
     func buyCourse(id: Int) async throws  {
         let url = Constants.url + "api/v1/courses/\(id)/buy_course/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -428,7 +428,7 @@ class Courses {
             }
         }
     }
-    
+
     // MARK: - Поиск
     func searchCourses(text: String) async throws -> [Course] {
         let url = Constants.url + "api/v1/autocomplete/courses/"
@@ -439,10 +439,10 @@ class Courses {
         let value = try await AF.request(url, parameters: parameters, headers: headers).serializingData().value
         let json = JSON(value)
         var courses = [Course]()
-        
+
         let results = json["results"].arrayValue
         guard results.isEmpty == false else {return []}
-        
+
         for x in 0...results.count - 1 {
             let daysCount = json["results"][x]["days"].arrayValue.count
             let title = json["results"][x]["title"].stringValue
@@ -458,8 +458,8 @@ class Courses {
             let rating = json["results"][x]["rating"].floatValue
             courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
         }
-        
+
         return courses
     }
-    
+
 }
