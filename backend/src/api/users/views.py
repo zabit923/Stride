@@ -33,7 +33,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action == 'destroy':
             self.permission_classes = [IsAdminOrSelf]
-        elif self.action == 'update':
+        elif self.action in ('update', 'partial_update'):
             self.permission_classes = [IsOwner]
         elif self.action == 'get_me':
             self.permission_classes = [IsAuthenticated]
@@ -59,5 +59,5 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['GET'], pagination_class=None)
     def get_all_celebrity(self, request):
         celebrities = User.objects.filter(is_celebrity=True)
-        serialized_data = UserGetSerializer(celebrityes, many=True).data
+        serialized_data = UserGetSerializer(celebrities, many=True).data
         return Response(serialized_data)

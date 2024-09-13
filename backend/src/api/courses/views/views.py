@@ -16,8 +16,9 @@ from rest_framework.generics import (
 from ..filters import CategoryFilter
 from ..permissions import (
     IsCoach,
-    IsAdminOrSelf,
-    IsOwnerOrAdmin,
+    IsOwnerDay,
+    IsOwnerModule,
+    IsOwnerCourse,
 )
 from ..models import (
     Course,
@@ -69,10 +70,16 @@ class CourseApiViewSet(ModelViewSet):
         if self.action in [
             'list',
             'retrieve',
+            'buy_course',
+            'my_courses',
+            'courses_by_id',
+            'my_bought_courses',
+            'celebrities_courses',
+            'recommended_courses',
         ]:
             self.permission_classes = [IsAuthenticated]
-        elif self.action in ['update', 'delete']:
-            self.permission_classes = [IsAdminOrSelf]
+        elif self.action in ['update', 'destroy']:
+            self.permission_classes = [IsOwnerCourse]
         else:
             self.permission_classes = [IsCoach]
         return super().get_permissions()
@@ -155,7 +162,7 @@ class CategoryApiViewSet(ModelViewSet):
 class DayCreateApiView(CreateAPIView):
     queryset = Day.objects.all()
     serializer_class = DaySerializer
-    permission_classes = [IsOwnerOrAdmin,]
+    permission_classes = [IsOwnerDay,]
 
     def create(self, request, *args, **kwargs):
         course_id = self.kwargs.get('pk')
@@ -173,13 +180,13 @@ class DayCreateApiView(CreateAPIView):
 class DayDeleteApiView(DestroyAPIView):
     queryset = Day.objects.all()
     serializer_class = DaySerializer
-    permission_classes = [IsOwnerOrAdmin,]
+    permission_classes = [IsOwnerDay,]
 
 
 class ModuleCreateApiView(CreateAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleSerializer
-    permission_classes = [IsOwnerOrAdmin,]
+    permission_classes = [IsOwnerModule,]
 
     def create(self, request, *args, **kwargs):
         day_id = self.kwargs.get('pk')
@@ -197,10 +204,10 @@ class ModuleCreateApiView(CreateAPIView):
 class ModuleDeleteApiView(DestroyAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleSerializer
-    permission_classes = [IsOwnerOrAdmin,]
+    permission_classes = [IsOwnerModule,]
 
 
 class ModuleUpdateApiView(UpdateAPIView):
     queryset = Module.objects.all()
     serializer_class = ModuleSerializer
-    permission_classes = [IsOwnerOrAdmin,]
+    permission_classes = [IsOwnerModule,]
