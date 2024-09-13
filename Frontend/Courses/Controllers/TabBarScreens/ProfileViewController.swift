@@ -10,7 +10,7 @@ import SDWebImage
 import SkeletonView
 
 class ProfileViewController: UIViewController {
-    
+
     @IBOutlet weak var characteristic: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var rating: UILabel!
@@ -19,30 +19,30 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var coursesCountBottom: UILabel!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
-    
+
     var user: UserStruct = User.info {
         didSet {
             sceletonAnimatedStop()
             addProfile()
         }
     }
-    
+
     var courses = [Course]()
     var selectCourseID = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
     }
-    
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         design()
     }
-    
+
     func design() {
         Task {
             sceletonAnimatedStart()
@@ -53,7 +53,7 @@ class ProfileViewController: UIViewController {
             coursesCollectionView.reloadData()
         }
     }
-    
+
     private func averageRating() -> Float {
         var ratingSumm: Float = 0.0
         var count = 0
@@ -70,7 +70,7 @@ class ProfileViewController: UIViewController {
             return Comments().roundRating(rating: average)
         }
     }
-    
+
     private func sceletonAnimatedStart() {
         coursesCollectionView.isSkeletonable = true
         coursesCollectionView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
@@ -92,11 +92,11 @@ class ProfileViewController: UIViewController {
         name.linesCornerRadius = 5
         name.skeletonTextNumberOfLines = 1
         name.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
-        
+
         ratingBottom.isHidden = true
         coursesCountBottom.isHidden = true
     }
-    
+
     private func sceletonAnimatedStop() {
         coursesCollectionView.hideSkeleton(transition: .none)
         avatar.hideSkeleton(transition: .none)
@@ -107,7 +107,7 @@ class ProfileViewController: UIViewController {
         ratingBottom.isHidden = false
         coursesCountBottom.isHidden = false
     }
-    
+
     private func addProfile() {
         characteristic.text = user.coach.description
         name.text = "\(user.surname) \(user.name)"
@@ -116,45 +116,45 @@ class ProfileViewController: UIViewController {
             self.avatar.sd_setImage(with: avatar)
         }
     }
-    
-    
+
+
 }
 
 extension ProfileViewController: SkeletonCollectionViewDelegate, SkeletonCollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+
     func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
         return "course"
     }
-    
-    
+
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return courses.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectCourseID = courses[indexPath.row].id
         performSegue(withIdentifier: "changeCourse", sender: self)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "changeCourse" {
             let vc = segue.destination as! AddInfoAboutCourseVC
             vc.create = false
             vc.idCourse = selectCourseID
         }
     }
-   
-    
+
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = UIScreen.main.bounds.width / 3 - 2
         return CGSize(width: size, height: size)
     }
-    
+
 }

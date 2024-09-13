@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 class ErrorView: UIView {
-    
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     private lazy var contentStackView: UIStackView = {
             let stackView = UIStackView()
             stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ class ErrorView: UIView {
             stackView.spacing = 3
             return stackView
         }()
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ class ErrorView: UIView {
         label.textColor = .white
         return label
     }()
-    
+
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,23 +41,23 @@ class ErrorView: UIView {
         label.textColor = .white
         return label
     }()
-    
+
     // Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
     }
-    
+
     private func designView() {
         self.backgroundColor = UIColor.errorRed
         self.layer.cornerRadius = 10
     }
-    
+
     // Setup UI
     private func setupView() {
         // Add subviews
@@ -66,7 +66,7 @@ class ErrorView: UIView {
         contentStackView.addArrangedSubview(titleLabel)
         contentStackView.addArrangedSubview(descriptionLabel)
         designView()
-        
+
         // Set constraints
         NSLayoutConstraint.activate([
             // Image View Constraints
@@ -74,20 +74,20 @@ class ErrorView: UIView {
             centerYAnchor.constraint(equalTo: imageView.centerYAnchor, constant: 0),
             imageView.widthAnchor.constraint(equalToConstant: 25),
             imageView.heightAnchor.constraint(equalToConstant: 25),
-            
+
             contentStackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 15),
             centerYAnchor.constraint(equalTo: contentStackView.centerYAnchor, constant: 0),
             contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 15),
         ])
     }
-    
+
     // Setters for data
     func configure(image: UIImage = UIImage.error, title: String, description: String) {
         imageView.image = image
         titleLabel.text = title
         descriptionLabel.text = description
     }
-    
+
     func swipe(sender: UIPanGestureRecognizer, startPosition: CGPoint) {
         let translation = sender.translation(in: self)
         switch sender.state {
@@ -105,5 +105,5 @@ class ErrorView: UIView {
             break
         }
     }
-    
+
 }

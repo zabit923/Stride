@@ -8,11 +8,11 @@
 import Foundation
 
 class UD {
-    
+
     func saveToken(_ token:String) {
         UserDefaults.standard.set(token, forKey: "token")
     }
-    
+
     func saveMyInfo(_ user: UserStruct) {
         UserDefaults.standard.set(user.name, forKey: "myName")
         UserDefaults.standard.set(user.surname, forKey: "mySurname")
@@ -29,7 +29,7 @@ class UD {
         UserDefaults.standard.set(user.isCoach, forKey: "isCoach")
         UserDefaults.standard.set(user.coach.description, forKey: "coachDescription")
     }
-    
+
     func getMyInfo() -> UserStruct {
         var user = UserStruct()
         user.name = UserDefaults.standard.string(forKey: "myName") ?? ""
@@ -58,26 +58,26 @@ class UD {
         }
         return user
     }
-    
+
     func saveCurrent(_ current:Bool) {
         UserDefaults.standard.set(current, forKey: "current")
     }
-    
+
     func getCurrent() -> Bool {
         let current = UserDefaults.standard.bool(forKey: "current")
         return current
     }
-    
+
     func saveDaysCompletedInCourse(course: Course, countDaysCompleted: Int) {
         UserDefaults.standard.set(countDaysCompleted, forKey: "completedDays_\(course.id)")
     }
-    
+
     func getDaysCompletedInCourse(courseID: Int) -> Int {
         let count = UserDefaults.standard.integer(forKey: "completedDays_\(courseID)")
         return count
     }
-    
-    
+
+
     func saveInfoAboutMe(_ user: UserStruct) {
         UserDefaults.standard.set(user.birthday, forKey: "birthday")
         UserDefaults.standard.set(user.height, forKey: "height")
@@ -93,7 +93,7 @@ class UD {
             UserDefaults.standard.set(nil, forKey: "goal")
         }
     }
-    
+
     func clearUD() {
         let defaults = UserDefaults.standard
         let dictionary = defaults.dictionaryRepresentation()
@@ -102,5 +102,5 @@ class UD {
         }
         RealmValue().clearRealm()
     }
-    
+
 }

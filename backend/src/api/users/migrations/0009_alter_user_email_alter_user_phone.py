@@ -6,19 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0008_rename_number_user_phone'),
+        ("users", "0008_rename_number_user_phone"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='email',
-            field=models.EmailField(blank=True, max_length=254, null=True, unique=True, verbose_name='email'),
+            model_name="user",
+            name="email",
+            field=models.EmailField(
+                blank=True, max_length=254, null=True, unique=True, verbose_name="email"
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='phone',
-            field=models.IntegerField(default=1, unique=True, verbose_name='Номер телефона'),
+            model_name="user",
+            name="phone",
+            field=models.IntegerField(
+                default=1, unique=True, verbose_name="Номер телефона"
+            ),
             preserve_default=False,
         ),
     ]

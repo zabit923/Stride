@@ -24,29 +24,29 @@ class AddReviewViewController: UIViewController {
     private var startPosition = CGPoint()
     var idCourse = 0
     var rating = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         startPosition = viewMain.frame.origin
         errorStartPosition = errorView.center
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     func check() -> Bool{
         var result = true
         if textView.text == ""{
@@ -68,7 +68,7 @@ class AddReviewViewController: UIViewController {
         }
         return result
     }
-    
+
     func design() {
         textView.delegate = self
         textView.text = "Ваш комментарий"
@@ -84,7 +84,7 @@ class AddReviewViewController: UIViewController {
     @objc func keyboardWillDisappear() {
         bottomConstraint.constant = 0
     }
-    
+
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: viewMain)
         switch sender.state {
@@ -120,11 +120,11 @@ class AddReviewViewController: UIViewController {
             }
         }
     }
-    
+
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         textView.resignFirstResponder()
     }
-    
+
     @IBAction func rating(_ sender: UIButton) {
         switch sender.tag{
         case 0:
@@ -145,22 +145,22 @@ class AddReviewViewController: UIViewController {
         default:
             break
         }
-        
+
     }
-    
+
 }
 
 
 
 extension AddReviewViewController: UITextViewDelegate {
-    
+
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.gray {
             textView.text = ""
             textView.textColor = UIColor.white
         }
     }
-    
+
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty == true {
             textView.text = "Ваш комментарий"

@@ -11,12 +11,12 @@ import SwiftyJSON
 
 
 class User {
-    
+
     static var info: UserStruct {
         return UD().getMyInfo()
     }
-    
-    
+
+
     func changeInfoUser(id: Int, user: UserStruct) async throws {
         let url = Constants.url + "api/v1/users/\(id)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -47,14 +47,14 @@ class User {
         }
         UD().saveMyInfo(user)
     }
-    
+
     func changeInfoAboutMe(id: Int, user: UserStruct) async throws {
         let url = Constants.url + "api/v1/users/\(id)/"
         try await doubleRequest(url: url, user: user)
         try await stringRequest(url: url, user: user)
         UD().saveInfoAboutMe(user)
     }
-    
+
     private func doubleRequest(url:String, user: UserStruct) async throws {
         let parameters = [
             "height": user.height,
@@ -63,7 +63,7 @@ class User {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let _ = try await AF.request(url, method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers).serializingData().value
     }
-    
+
     private func stringRequest(url:String, user: UserStruct) async throws {
         let parameters = [
             "date_of_birth": user.birthday,
@@ -74,7 +74,7 @@ class User {
         let _ = try await AF.request(url, method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default,headers: headers).serializingData().value
     }
 
-    
+
     func getMyInfo() async throws -> UserStruct  {
         let url = Constants.url + "api/v1/users/me/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -106,7 +106,7 @@ class User {
         UD().saveInfoAboutMe(user)
         return user
     }
-    
+
     func getUserByID(id: Int) async throws -> UserStruct {
         let url = Constants.url + "api/v1/users/\(id)"
         let value = try await AF.request(url).serializingData().value
@@ -121,7 +121,7 @@ class User {
         user.avatarURL = URL(string: json["image"].stringValue)
         return user
     }
-    
+
     func getCelebreties() async throws -> [UserStruct] {
         let url = Constants.url + "api/v1/users/get_all_celebrity/"
         let value = try await AF.request(url).serializingData().value

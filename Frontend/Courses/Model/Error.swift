@@ -15,11 +15,11 @@ enum ErrorNetwork: Error {
 }
 
 class Network {
-    
+
     func checkNetwork() -> Bool {
             let monitor = NWPathMonitor()
             var isInternetAvailable = false
-            
+
             monitor.pathUpdateHandler = { path in
                 if path.status == .satisfied {
                     isInternetAvailable = true
@@ -28,9 +28,9 @@ class Network {
                 }
                 monitor.cancel()
             }
-            
+
             monitor.start(queue: .global())
-            
+
             return isInternetAvailable
         }
 
