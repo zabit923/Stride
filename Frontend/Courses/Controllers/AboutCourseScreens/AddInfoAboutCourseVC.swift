@@ -9,6 +9,7 @@ import UIKit
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var categoriesLbl: UILabel!
     @IBOutlet weak var imageBorder: Border!
     @IBOutlet weak var categoryBorder: Border!
@@ -39,6 +40,8 @@ class AddInfoAboutCourseVC: UIViewController {
         price.delegate = self
         name.delegate = self
         startPosition = errorView.center
+        view.addSubview(errorView)
+        errorView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,6 +88,11 @@ class AddInfoAboutCourseVC: UIViewController {
             result = false
             priceBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {
+            if Int(price.text!)! > 200000 {
+                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 0 до 200.000 рублей")
+                result = false
+                errorView.isHidden = false
+            }
             priceBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
         }
         if descriptionCourse.text!.isEmpty {
@@ -122,7 +130,8 @@ class AddInfoAboutCourseVC: UIViewController {
     }
     
     @IBAction func save(_ sender: UIButton) {
-        
+        saveBtn.isEnabled = false
+        errorView.isHidden = true
         guard checkError() else {return}
         Task {
             do {
@@ -132,11 +141,12 @@ class AddInfoAboutCourseVC: UIViewController {
                 }else {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }
+                saveBtn.isEnabled = true
                 performSegue(withIdentifier: "goToAddModule", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
-                view.addSubview(errorView)
+                saveBtn.isEnabled = true
             }
         }
     }

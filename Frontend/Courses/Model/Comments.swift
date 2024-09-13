@@ -37,7 +37,7 @@ class Comments {
     
     func addComment(idCourse: Int, rating: Int, text: String) async throws {
         try await addRating(rating: rating, idCourse: idCourse)
-        let url = Constants.url + "/api/v1/comments/"
+        let url = Constants.url + "api/v1/comments/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let parameters: Parameters = [
             "course": idCourse,
@@ -49,7 +49,7 @@ class Comments {
     }
     
     private func addRating(rating: Int, idCourse: Int) async throws {
-        let url = Constants.url + "/api/v1/rating/"
+        let url = Constants.url + "api/v1/rating/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let parameters: Parameters = [
             "course": idCourse,
@@ -67,6 +67,10 @@ class Comments {
                 throw ErrorNetwork.runtimeError("Неизвестная ошибка")
             }
         }
+    }
+    
+    func roundRating(rating: Float) -> Float {
+        return Float(round(10 * rating) / 10)
     }
     
 }

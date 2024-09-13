@@ -22,7 +22,11 @@ class User {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.upload(multipartFormData: { multipartFormData in
             if let avatarURL = user.avatarURL {
-                multipartFormData.append(avatarURL, withName: "image")
+                ImageResize.compressImageFromFileURL(fileURL: avatarURL, maxSizeInMB: 1.0) { compressedURL in
+                    if let url = compressedURL {
+                        multipartFormData.append(url, withName: "image")
+                    }
+                }
             }
             multipartFormData.append(Data(user.name.utf8), withName: "first_name")
             multipartFormData.append(Data(user.surname.utf8), withName: "last_name")
@@ -90,7 +94,7 @@ class User {
         user.level = Level(rawValue: json["level"].stringValue)
         user.isCoach = json["is_coach"].boolValue
         user.coach.description = json["desc"].stringValue
-        user.avatarURL = URL(string: "http://127.0.0.1:8000\(json["image"].stringValue)")
+        user.avatarURL = URL(string: "\(Constants.url)\(json["image"].stringValue)")
         if user.isCoach == true {
             user.role = .coach
         }else {
@@ -114,5 +118,23 @@ class User {
         user.coach.description = json["desc"].stringValue
         user.avatarURL = URL(string: json["image"].stringValue)
         return user
+    }
+    
+    func getCelebreties() async throws -> [UserStruct] {
+        let url = Constants.url + "api/v1/users/get_all_celebrity/"
+        let value = try await AF.request(url).serializingData().value
+        let json = JSON(value)
+        var celebrities = [UserStruct]()
+        let name = json["first_name"].stringValue
+        let surname = json["last_name"].stringValue
+        let email = json["email"].stringValue
+        let phone = json["phone_number"].stringValue
+        let isCoach = json["is_coach"].boolValue
+        var role = Role.user
+        if isCoach {
+            role = .coach
+        }
+        celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone))
+        return celebrities
     }
 }

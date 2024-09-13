@@ -1,5 +1,5 @@
 {
-  "originHash" : "30ae3166605c7e22b27329885389636de6f941b00b9ebddb9beae2521d0f145e",
+  "originHash" : "6b151c69f3a95243fd9c873e8bbc31b5f8ce2e1cd5a819d370bec1ecad9d3e9f",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-core.git",
       "state" : {
-        "revision" : "c2552e1d36867cb42b28130e894a81fc17081062",
-        "version" : "14.12.0"
+        "revision" : "b36f2436c2746c32b1f93dcc06ea8b859671a767",
+        "version" : "14.12.1"
       }
     },
     {
@@ -70,7 +70,7 @@
       "location" : "https://github.com/realm/realm-swift.git",
       "state" : {
         "branch" : "master",
-        "revision" : "7ffcc1165fe335b793f59c5a4ff0d472fcc1625a"
+        "revision" : "a5733f5f96125e2f90e4f84d072b78323cc72ace"
       }
     },
     {
@@ -98,6 +98,15 @@
       "state" : {
         "revision" : "af76cf3ef710b6ca5f8c05f3a31307d44a3c5828",
         "version" : "5.0.2"
+      }
+    },
+    {
+      "identity" : "tinkoff-asdk-ios?tab=readme-ov-file#%d0%bf%d0%be%d0%b4%d0%ba%d0%bb%d1%8e%d1%87%d0%b5%d0%bd%d0%b8%d0%b5",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tinkoff-mobile-tech/tinkoff-asdk-ios?tab=readme-ov-file#%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B5",
+      "state" : {
+        "revision" : "ef3a532779ecef3eca97461cd56bba67fa602919",
+        "version" : "3.1.1"
       }
     }
   ],

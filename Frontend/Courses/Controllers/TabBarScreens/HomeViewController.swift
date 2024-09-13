@@ -19,8 +19,7 @@ class HomeViewController: UIViewController {
 
     private var banners = [String]()
     private var recomendCourses = [Course]()
-    private var celebrityCourses = [Course]()
-    private var celebrities = [Course]()
+    private var celebrities = [UserStruct]()
     private let layout = PageLayout()
     private var selectCourses = Course()
     private var user: UserStruct = User.info {
@@ -34,7 +33,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingStart()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
@@ -62,29 +61,19 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private func getCelebrity() {
+        Task {
+            celebrities = try await User().getCelebreties()
+            print(celebrities)
+            celebrityCollectionView.reloadData()
+        }
+    }
+    
     private func getRecomendCourses() {
         Task {
             recomendCourses = try await Courses().getRecomendedCourses()
             recomendCollectionView.reloadData()
         }
-    }
-    
-    private func getCelebrityCourses() {
-        Task {
-            celebrityCourses = try await Courses().getCoursesByCelebrity()
-            uniqueAuthors()
-            celebrityCollectionView.reloadData()
-        }
-    }
-    
-    private func uniqueAuthors() {
-        let uniqueAuthors = Set(celebrityCourses.map { $0.idAuthor })
-        celebrities = celebrityCourses.filter { uniqueAuthors.contains($0.idAuthor) }
-            .reduce(into: [Course]()) { result, course in
-                if !result.contains(where: { $0.idAuthor == course.idAuthor }) {
-                    result.append(course)
-                }
-            }
     }
     
     private func tabbar() {
@@ -128,7 +117,7 @@ class HomeViewController: UIViewController {
     
     private func design() {
         getRecomendCourses()
-        getCelebrityCourses()
+        getCelebrity()
         getUser()
         getBanners()
     }
@@ -181,11 +170,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == bannersCollectionView {
             return Int.max
-        }else if collectionView == recomendCollectionView {
-            return recomendCourses.count
+        }else if collectionView == celebrityCollectionView {
+            return celebrities.count
         }else {
-            if celebrities.count <= 6 {
-                return celebrities.count
+            if recomendCourses.count <= 6 {
+                return recomendCourses.count
             }else {
                 return 6
             }
@@ -218,9 +207,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
-            cell.name.text = celebrities[indexPath.row].nameAuthor
-            cell.rating.text = "\(celebrities[indexPath.row].rating)"
-            cell.im.sd_setImage(with: celebrities[indexPath.row].imageURL)
+            cell.name.text = celebrities[indexPath.row].name + celebrities[indexPath.row].surname
+//            cell.rating.text = "\(celebrities[indexPath.row].rating)"
+//            cell.im.sd_setImage(with: celebrities[indexPath.row].avatarURL)
             return cell
         }
     }

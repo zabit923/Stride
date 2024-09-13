@@ -67,7 +67,7 @@ class ProfileViewController: UIViewController {
         if average.isNaN {
             return 0.0
         }else {
-            return average
+            return Comments().roundRating(rating: average)
         }
     }
     

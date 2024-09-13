@@ -7,9 +7,12 @@
 
 import UIKit
 import SDWebImage
+import Lottie
 
 class CoursesViewController: UIViewController {
 
+    @IBOutlet weak var emptyBox: LottieAnimationView!
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var catalogCollectionView: UICollectionView!
     @IBOutlet weak var textField: UITextField!
@@ -36,12 +39,27 @@ class CoursesViewController: UIViewController {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
         textField.attributedPlaceholder = NSAttributedString(string: "Поиск...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
         getCoursesBecauseTitle()
+        loadingSettings()
+    }
+    
+    private func loadingSettings() {
+        emptyBox.contentMode = .scaleToFill
+        emptyBox.play()
+    }
+    
+    private func emptyCheck() {
+        if filteredCourse.isEmpty == false {
+            emptyView.isHidden = true
+        }else {
+            emptyView.isHidden = false
+        }
     }
     
     private func getMyCreateCourses() {
         Task {
             course = try await Courses().getMyCreateCourses()
             filteredCourse = course
+            emptyCheck()
             catalogCollectionView.reloadData()
         }
     }
@@ -50,6 +68,7 @@ class CoursesViewController: UIViewController {
         Task {
             course = try await Courses().getRecomendedCourses()
             filteredCourse = course
+            emptyCheck()
             catalogCollectionView.reloadData()
         }
     }
@@ -58,6 +77,7 @@ class CoursesViewController: UIViewController {
         Task {
             course = try await Courses().getCoursesByCelebrity()
             filteredCourse = course
+            emptyCheck()
             catalogCollectionView.reloadData()
         }
     }
@@ -96,6 +116,7 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.nameCourse.text = filteredCourse[indexPath.row].nameCourse
         cell.price.text = "\(filteredCourse[indexPath.row].price)Р"
         cell.rating.text = "\(filteredCourse[indexPath.row].rating)"
+        cell.daysCount.text = "\(filteredCourse[indexPath.row].daysCount) дней"
         return cell
     }
     
@@ -138,6 +159,7 @@ extension CoursesViewController: UITextFieldDelegate {
         filteredCourse = updatedText.isEmpty ? course : course.filter { courseItem in
             return courseItem.nameCourse.lowercased().contains(updatedText.lowercased())
         }
+        emptyCheck()
         catalogCollectionView.reloadData()
         return true
     }

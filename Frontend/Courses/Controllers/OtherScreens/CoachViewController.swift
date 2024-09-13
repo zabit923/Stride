@@ -45,25 +45,22 @@ class CoachViewController: UIViewController {
     func design() {
         Task {
             sceletonAnimatedStart()
-            getCoachInfo()
-            getCoachCourses()
+            try await getCoachInfo()
+            try await getCoachCourses()
             coursesCollectionView.reloadData()
         }
     }
     
-    private func getCoachInfo() {
-        Task {
-            user = try await User().getUserByID(id: idCoach)
-        }
+    private func getCoachInfo() async throws {
+        user = try await User().getUserByID(id: idCoach)
     }
     
-    private func getCoachCourses() {
-        Task {
-            courses = try await Courses().getCoursesByUserID(id: idCoach)
-            coursesCount.text = "\(courses.count)"
-            rating.text = "\(averageRating())"
-            coursesCollectionView.reloadData()
-        }
+    private func getCoachCourses() async throws {
+        courses = try await Courses().getCoursesByUserID(id: idCoach)
+        coursesCount.text = "\(courses.count)"
+        rating.text = "\(averageRating())"
+        print(courses.count, averageRating())
+        coursesCollectionView.reloadData()
     }
     
     private func averageRating() -> Float {

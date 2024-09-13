@@ -9,6 +9,7 @@ import UIKit
 
 class RegistrViewController: UIViewController {
     
+    @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var phoneBorder: Border!
     @IBOutlet weak var passwordAgoBorder: Border!
     @IBOutlet weak var passwordBorder: Border!
@@ -70,15 +71,18 @@ class RegistrViewController: UIViewController {
     }
     
     @IBAction func registr(_ sender: UIButton) {
+        registerBtn.isEnabled = false
         Task {
             do {
                 clearError()
                 try checkInfo()
                 let phoneNumberFormat = phoneNumber.text!.format(with: "+XXXXXXXXXXX")
                 try await Sign().registr(phoneNumber: phoneNumberFormat, password: password.text!, name: name.text!, lastName: lastName.text!, mail: mail.text!)
+                registerBtn.isEnabled = true
                 performSegue(withIdentifier: "success", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
+                registerBtn.isEnabled = true
             }
         }
     }

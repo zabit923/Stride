@@ -31,6 +31,7 @@ class PickerModelViewController: UIViewController {
     private func getCategories() {
         Task {
             category = try await Categories().getCategories()
+            guard category.isEmpty == false else { return }
             selectCategory = category[0]
             pickerView.reloadAllComponents()
         }

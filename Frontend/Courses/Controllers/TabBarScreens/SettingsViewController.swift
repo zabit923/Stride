@@ -33,6 +33,7 @@ class SettingsViewController: UIViewController {
         settingsTableView2.dataSource = self
         settingsTableView2.delegate = self
         addObjects()
+        hiddenBtn()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,15 +49,17 @@ class SettingsViewController: UIViewController {
     private func design() {
         Task {
             user = try await User().getMyInfo()
-            if user.role == .user {
-                backBtn.isHidden = true
-            }else {
-                backBtn.isHidden = false
-            }
             self.view.layoutSubviews()
         }
     }
     
+    private func hiddenBtn() {
+        if user.role == .user {
+            backBtn.isHidden = true
+        }else if user.role == .coach {
+            backBtn.isHidden = false
+        }
+    }
     
     private func changeHeightTable() {
         tbvConstant.constant = settingsTableView.contentSize.height
