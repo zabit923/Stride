@@ -73,7 +73,8 @@ class Courses {
             let authorID = json["results"][x]["author"]["id"].intValue
             let countBuyer = json["results"][x]["bought_count"].intValue
             let rating = json["results"][x]["rating"].floatValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
+            let isBought = json["results"][x]["bought"].boolValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
         }
         
         return courses
@@ -98,7 +99,8 @@ class Courses {
         let myRating = json["my_rating"]["rating"].intValue
         let category = json["category"].intValue
         let boughtCount = json["bought_count"].intValue
-        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount)
+        let isBought = json["bought"].boolValue
+        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount, isBought: isBought)
         return course
     }
     
@@ -117,7 +119,8 @@ class Courses {
             let id = json[x]["id"].intValue
             let image = json[x]["image"].stringValue
             let rating = json[x]["rating"].floatValue
-            courses.append(Course(nameCourse: title, imageURL: URL(string: image),rating: rating, id: id))
+            let isBought = json[x]["bought"].boolValue
+            courses.append(Course(nameCourse: title, imageURL: URL(string: image),rating: rating, id: id, isBought: isBought))
         }
         return courses
     }
@@ -145,7 +148,8 @@ class Courses {
             let authorID = json[x]["author"]["id"].intValue
             let countBuyer = json[x]["bought_count"].intValue
             let rating = json[x]["rating"].floatValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
+            let isBought = json[x]["bought"].boolValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
         }
         
         return courses
@@ -174,7 +178,8 @@ class Courses {
             let authorID = json[x]["author"]["id"].intValue
             let countBuyer = json[x]["bought_count"].intValue
             let rating = json[x]["rating"].floatValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
+            let isBought = json[x]["bought"].boolValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer,isBought: isBought))
         }
         
         return courses
@@ -245,7 +250,6 @@ class Courses {
     
     func changeModuleInfo(info: Modules) async throws {
         let url = Constants.url + "api/v1/module/update/\(info.id)/"
-        print(url)
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response =  AF.upload(multipartFormData: { multipartFormData in
             if let imageURL = info.imageURL, "\(imageURL)".starts(with: "file") {
@@ -262,7 +266,6 @@ class Courses {
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)
-        print(code)
         if code != 200 {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue

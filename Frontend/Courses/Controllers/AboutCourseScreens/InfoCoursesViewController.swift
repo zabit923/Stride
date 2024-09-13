@@ -91,7 +91,6 @@ class InfoCoursesViewController: UIViewController {
         }else {
             buyView.setTitle("Купить", for: .normal)
             priceView.isHidden = false
-            
         }
     }
     
@@ -109,20 +108,31 @@ class InfoCoursesViewController: UIViewController {
     }
     
     private func buyCourseSuccesed() {
-        if buy == false {
-            buyView.isEnabled = true
-            performSegue(withIdentifier: "goToAddReview", sender: self)
-        }else{
-            Task {
-                do {
-                    try await Courses().buyCourse(id: course.id)
-                    buyView.isEnabled = true
-                    performSegue(withIdentifier: "goCourse", sender: self)
-                }catch ErrorNetwork.runtimeError(let error) {
-                    errorView.isHidden = false
-                    errorView.configure(title: "Ошибка", description: error)
-                    view.addSubview(errorView)
-                    buyView.isEnabled = true
+        Task {
+            do {
+                try await Courses().buyCourse(id: course.id)
+                performSegue(withIdentifier: "goCourse", sender: self)
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+                buyView.isEnabled = true
+            }
+        }
+    }
+    
+    private func openTinkoffKassa() {
+        Task {
+            guard let priceInt = Int(price.text!) else { return }
+            let email = try await getEmail()
+            Payment().configure(self, email: email, price: priceInt) { result in
+                switch result {
+                case .succeeded(_):
+                    self.buyCourseSuccesed()
+                case .failed(_):
+                    break
+                case .cancelled(_):
+                    break
                 }
             }
         }
@@ -138,20 +148,12 @@ class InfoCoursesViewController: UIViewController {
     }
     
     @IBAction func buy(_ sender: UIButton) {
-        Task {
-            guard let priceInt = Int(price.text!) else { return }
-            let email = try await getEmail()
+        if buy == false {
+            performSegue(withIdentifier: "goToAddReview", sender: self)
+        }else{
             buyView.isEnabled = false
-            Payment().configure(self, email: email, price: priceInt) { result in
-                switch result {
-                case .succeeded(_):
-                    self.buyCourseSuccesed()
-                case .failed(_):
-                    break
-                case .cancelled(_):
-                    break
-                }
-            }
+            openTinkoffKassa()
+            buyView.isEnabled = true
         }
     }
 

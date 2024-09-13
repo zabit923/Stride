@@ -88,7 +88,7 @@ class CoursesViewController: UIViewController {
             titleLbl.text = "Созданные курсы"
             getMyCreateCourses()
         case .recomend:
-            titleLbl.text = "Популярные курсы"
+            titleLbl.text = "Рекомендованные курсы"
             getRecomendCourses()
         case .popular:
             break

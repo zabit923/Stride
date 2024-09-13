@@ -91,14 +91,22 @@ class AddModuleCoursesViewController: UIViewController {
         }
     }
     
+    private func selectBack(deleteIndex: Int) {
+        if selectDay == course.courseDays.count - 1 {
+            selectDay -= 1
+        }
+    }
+    
     private func deleteDay(dayID: Int) {
         Task {
             do {
                 try await Courses().deleteDay(dayID: dayID)
                 for x in 0...course.courseDays.count - 1 {
                     if course.courseDays[x].dayID == dayID {
+                        selectBack(deleteIndex: x)
                         course.courseDays.remove(at: x)
                         daysCollectionView.reloadData()
+                        modulesCollectionView.reloadData()
                         break
                     }
                 }
@@ -170,22 +178,21 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         // Day
         if collectionView == daysCollectionView {
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "day", for: indexPath) as! DaysCourseCollectionViewCell
-            cell.lbl.text = "\(indexPath.row + 1)"
             // Add +
             if indexPath.row == course.courseDays.count {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addDayCell", for: indexPath) as! DaysCourseCollectionViewCell
                 return cell
             }else {
+                cell.lbl.text = "\(indexPath.row + 1)"
                 cell.delete.isHidden = false
                 cell.delete.tag = course.courseDays[indexPath.row].dayID
                 cell.delete.addTarget(self, action: #selector(deleteDayBtn), for: .touchUpInside)
-            }
-            
-            if selectDay == indexPath.row {
-                cell.current()
-                cell.delete.isHidden = true
-            }else {
-                cell.before()
+                if selectDay == indexPath.row {
+                    cell.current()
+                    cell.delete.isHidden = true
+                }else {
+                    cell.before()
+                }
             }
             return cell
         }else {
@@ -303,6 +310,7 @@ extension AddModuleCoursesViewController: ChangeInfoModule {
             if course.courseDays[selectDay].modules[x].id == moduleID {
                 course.courseDays[selectDay].modules.remove(at: x)
                 modulesCollectionView.reloadData()
+                break
             }
         }
     }

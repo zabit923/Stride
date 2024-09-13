@@ -60,7 +60,8 @@ class User {
             "height": user.height,
             "weight": user.weight,
         ]
-        let _ = try await AF.request(url, method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default).serializingData().value
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let _ = try await AF.request(url, method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default, headers: headers).serializingData().value
     }
     
     private func stringRequest(url:String, user: UserStruct) async throws {
@@ -69,7 +70,8 @@ class User {
             "target": user.goal?.rawValue,
             "level": user.level?.rawValue
         ]
-        let _ = try await AF.request(url, method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default).serializingData().value
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let _ = try await AF.request(url, method: .patch, parameters: parameters, encoder: JSONParameterEncoder.default,headers: headers).serializingData().value
     }
 
     
@@ -134,6 +136,7 @@ class User {
         if isCoach {
             role = .coach
         }
+        print(json)
         celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone))
         return celebrities
     }
