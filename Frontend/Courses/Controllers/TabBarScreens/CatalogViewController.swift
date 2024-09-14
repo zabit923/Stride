@@ -110,7 +110,11 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
         if segue.identifier == "info" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourse
-            vc.buy = true
+            if selectCourse.isBought {
+                vc.buy = false
+            }else {
+                vc.buy = true
+            }
         }
 
     }

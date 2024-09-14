@@ -50,5 +50,20 @@ class ImageResize {
     }
 
 
+    static func compressImageToMaxSizeImage(image: UIImage, maxSizeInMB: Double) -> UIImage {
+        let maxSizeInBytes = Int(maxSizeInMB * 1024 * 1024)
+        var compression: CGFloat = 1.0
+        let screenWidth = UIScreen.main.bounds.width - 30
+        let maxSize = CGSize(width: screenWidth, height: 150)
+        var resImage = image.scaleImage(toSize: maxSize)
+        var imageData = resImage.jpegData(compressionQuality: compression)
+
+        while imageData?.count ?? 0 > maxSizeInBytes && compression > 0 {
+            compression -= 0.1
+            imageData = image.jpegData(compressionQuality: compression)
+        }
+        
+        return UIImage(data: imageData!)!
+    }
 
 }

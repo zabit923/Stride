@@ -78,7 +78,7 @@ class SettingsViewController: UIViewController {
             arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "Мои курсы", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Добавить курс", image: "confirmAccount")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
         }else if user.role == .user {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "Мои курсы", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Подтвердить аккаунт", image: "confirmAccount"), Objects(name: "Стать тренером", image: "becomeCoach")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Подтвердить аккаунт", image: "confirmAccount"), Objects(name: "Стать тренером", image: "becomeCoach")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
         }
     }

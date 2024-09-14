@@ -17,6 +17,7 @@ class FilePath {
                 switch response.result {
                 case .success(let data):
                     guard let str = self.deserializeAttributedString(from: data) else {return}
+                    print(data)
                     continuation.resume(returning: str)
                 case .failure(let error):
                     continuation.resume(throwing: error)

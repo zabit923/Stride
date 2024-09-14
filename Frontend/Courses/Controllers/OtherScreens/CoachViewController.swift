@@ -59,7 +59,6 @@ class CoachViewController: UIViewController {
         courses = try await Courses().getCoursesByUserID(id: idCoach)
         coursesCount.text = "\(courses.count)"
         rating.text = "\(averageRating())"
-        print(courses.count, averageRating())
         coursesCollectionView.reloadData()
     }
 

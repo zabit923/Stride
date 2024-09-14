@@ -64,7 +64,6 @@ class HomeViewController: UIViewController {
     private func getCelebrity() {
         Task {
             celebrities = try await User().getCelebreties()
-            print(celebrities)
             celebrityCollectionView.reloadData()
         }
     }
@@ -233,6 +232,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if segue.identifier == "infoCourses" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourses
+            if selectCourses.isBought {
+                vc.buy = false
+            }else {
+                vc.buy = true
+            }
         }else if segue.identifier == "allRecomend" {
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .recomend

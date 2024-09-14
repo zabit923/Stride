@@ -45,7 +45,6 @@ class Comments {
         ]
         let value = try await AF.request(url,method: .post,parameters: parameters, headers: headers).serializingData().value
         let json = JSON(value)
-        print(json)
     }
 
     private func addRating(rating: Int, idCourse: Int) async throws {

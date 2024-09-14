@@ -109,21 +109,15 @@ class InfoCoursesViewController: UIViewController {
     }
 
     private func buyCourseSuccesed() {
-        if buy == false {
-            buyView.isEnabled = true
-            performSegue(withIdentifier: "goToAddReview", sender: self)
-        }else{
-            Task {
-                do {
-                    try await Courses().buyCourse(id: course.id)
-                    buyView.isEnabled = true
-                    performSegue(withIdentifier: "goCourse", sender: self)
-                }catch ErrorNetwork.runtimeError(let error) {
-                    errorView.isHidden = false
-                    errorView.configure(title: "Ошибка", description: error)
-                    view.addSubview(errorView)
-                    buyView.isEnabled = true
-                }
+        Task {
+            do {
+                try await Courses().buyCourse(id: course.id)
+                performSegue(withIdentifier: "goCourse", sender: self)
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+                buyView.isEnabled = true
             }
         }
     }
@@ -136,12 +130,11 @@ class InfoCoursesViewController: UIViewController {
     @IBAction func coach(_ sender: UIButton) {
         performSegue(withIdentifier: "coach", sender: self)
     }
-
-    @IBAction func buy(_ sender: UIButton) {
+    
+    private func openTinkoffKassa() {
         Task {
             guard let priceInt = Int(price.text!) else { return }
             let email = try await getEmail()
-            buyView.isEnabled = false
             Payment().configure(self, email: email, price: priceInt) { result in
                 switch result {
                 case .succeeded(_):
@@ -152,6 +145,25 @@ class InfoCoursesViewController: UIViewController {
                     break
                 }
             }
+        }
+    }
+    
+    private func getEmail() async throws -> String {
+        let email = try await User().getMyInfo().email
+        return email
+    }
+    
+    @IBAction func coach(_ sender: UIButton) {
+        performSegue(withIdentifier: "coach", sender: self)
+    }
+    
+    @IBAction func buy(_ sender: UIButton) {
+        if buy == false {
+            performSegue(withIdentifier: "goToAddReview", sender: self)
+        }else{
+            buyView.isEnabled = false
+            openTinkoffKassa()
+            buyView.isEnabled = true
         }
     }
 
