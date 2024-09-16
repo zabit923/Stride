@@ -25,19 +25,19 @@ class Payment {
     }
 
     let uiSDKConfiguration = UISDKConfiguration()
-    
+
 
     func cardList(_ viewController: UIViewController, email: String) {
         self.email = email
         do {
             let sdk = try AcquiringUISDK(coreSDKConfiguration: coreSDKConfiguration, uiSDKConfiguration: uiSDKConfiguration)
             sdk.presentCardList(on: viewController, customerKey: email)
-            
+
         } catch {
             assertionFailure("\(error)")
         }
     }
-    
+
     func configure(_ viewController: UIViewController, email: String, price: Int, completion: @escaping (PaymentResult) -> ()) {
         self.email = email
         do {
@@ -49,10 +49,10 @@ class Payment {
         }
     }
 
-    
+
     private func paymentFlow(price: Int64) -> PaymentFlow {
-        
-        
+
+
         let orderOptions = OrderOptions(
             orderId: UUID().uuidString,
             amount: price * 100,
@@ -67,10 +67,10 @@ class Payment {
             successURL: "SUCCESS_URL",
             failureURL: "FAIL_URL"
         )
-        
+
         let options = PaymentOptions(orderOptions: orderOptions, customerOptions: customerOptions, paymentCallbackURL: paymentCallbackURL)
         let paymentFlow: PaymentFlow = .full(paymentOptions: options)
         return paymentFlow
     }
-    
+
 }

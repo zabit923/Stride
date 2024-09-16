@@ -10,13 +10,14 @@ import Alamofire
 import UIKit
 
 class FilePath {
-    
+
     func downloadFileWithURL(url: URL) async throws -> NSAttributedString {
         return try await withUnsafeThrowingContinuation { continuation in
             AF.download(url).responseData { response in
                 switch response.result {
                 case .success(let data):
                     guard let str = self.deserializeAttributedString(from: data) else {return}
+                    print(data)
                     continuation.resume(returning: str)
                 case .failure(let error):
                     continuation.resume(throwing: error)
@@ -24,7 +25,7 @@ class FilePath {
             }
         }
     }
-    
+
     func deleteAlamofireFiles() {
         let fileManager = FileManager.default
         let tempDirectory = fileManager.temporaryDirectory
@@ -33,7 +34,7 @@ class FilePath {
             try! fileManager.removeItem(at: file)
         }
     }
-    
+
     // Расспаковать файл
     func deserializeAttributedString(from data: Data) -> NSAttributedString? {
         do {
@@ -48,7 +49,7 @@ class FilePath {
             return nil
         }
     }
-    
+
     // Запаковать файл
     func serializeAttributedStringToFile(_ attributedString: NSAttributedString) -> URL? {
         let fileManager = FileManager.default
@@ -57,6 +58,7 @@ class FilePath {
 
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: attributedString, requiringSecureCoding: false)
+            print(data)
             try data.write(to: fileURL)
             return fileURL
         } catch {
@@ -64,5 +66,5 @@ class FilePath {
             return nil
         }
     }
-    
+
 }

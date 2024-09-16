@@ -53,9 +53,10 @@ struct Course {
     var description: String
     var dataCreated: String
     var countBuyer: Int = 0
+    var isBought: Bool = false
     var courseDays = [CourseDays]()
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0) {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
@@ -70,6 +71,7 @@ struct Course {
         self.idAuthor = idAuthor
         self.progressInDays = progressInDays
         self.countBuyer = countBuyer
+        self.isBought = isBought
     }
 }
 
@@ -77,6 +79,12 @@ struct CourseDays {
     var dayID: Int
     var type: TypeDays = .noneSee
     var modules = [Modules]()
+    
+    init(dayID: Int, type: TypeDays, modules: [Modules] = [Modules]()) {
+        self.dayID = dayID
+        self.type = type
+        self.modules = modules.sorted(by: { $0.id < $1.id })
+    }
 }
 
 // MARK: - User
@@ -97,7 +105,7 @@ struct UserStruct {
     var myCourses = [Course]()
     var id = 0
     var token = ""
-    
+
     init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "", id: Int = 0) {
         self.role = role
         self.name = name
@@ -105,7 +113,7 @@ struct UserStruct {
         self.email = email
         self.phone = phone
     }
-    
+
     init(role: Role, name: String, surname: String, email: String, phone: String, height: Double? = nil, weight: Double? = nil, birthday: String? = nil, description: String? = nil, avatarURL: URL? = nil, level: Level? = nil, goal: Goal? = nil, myCourses: [Course] = [Course](), id: Int = 0) {
         self.role = role
         self.name = name
@@ -155,7 +163,7 @@ enum Level: String {
     case middle = "MID"
     case advanced = "ADV"
     case professional = "PRO"
-    
+
     func thirdString() -> String {
         switch self {
         case .beginner:
@@ -168,7 +176,7 @@ enum Level: String {
             return "Профессиональный"
         }
     }
-    
+
     static func thirdLevel(_ level: String) -> Level? {
         switch level {
         case "Начинающий":
@@ -189,7 +197,7 @@ enum TypeDays: String {
     case current = "current"
     case before = "before"
     case noneSee = "noneSee"
-    
+
     init?(rawValue: String) {
         switch rawValue {
         case "current": self = .current
@@ -206,7 +214,7 @@ enum Goal: String {
     case gainWeight = "GW"
     case health = "HL"
     case other = "OT"
-    
+
     func thirdString() -> String {
         switch self {
         case .loseWeight:
@@ -219,7 +227,7 @@ enum Goal: String {
             return "Другое"
         }
     }
-    
+
     static func thirdGoal(_ goal: String) -> Goal? {
         switch goal {
         case "Похудеть":
@@ -273,7 +281,7 @@ enum SelectBtn {
 // MARK: - Protocol
 
 protocol ChangeInfoModule: AnyObject {
-    func changeInfoModuleDismiss(module: Modules, moduleID: Int) 
+    func changeInfoModuleDismiss(module: Modules, moduleID: Int)
     func deleteModuleDismiss(moduleID: Int)
 }
 

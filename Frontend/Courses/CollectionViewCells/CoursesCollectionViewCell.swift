@@ -8,7 +8,7 @@
 import UIKit
 
 class CoursesCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var nameAuthor: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var rating: UILabel!

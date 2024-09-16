@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Lottie
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var categoriesLbl: UILabel!
     @IBOutlet weak var imageBorder: Border!
@@ -25,7 +27,7 @@ class AddInfoAboutCourseVC: UIViewController {
     @IBOutlet weak var price: UITextField!
     @IBOutlet weak var descriptionCourse: UITextView!
     @IBOutlet weak var name: UITextField!
-    
+
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
     private var infoCourses = Course()
@@ -33,8 +35,8 @@ class AddInfoAboutCourseVC: UIViewController {
     private var selectCategory: Category?
     var idCourse = 0
     var create = true
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         price.delegate = self
@@ -43,24 +45,29 @@ class AddInfoAboutCourseVC: UIViewController {
         view.addSubview(errorView)
         errorView.isHidden = true
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getCourse()
         addCoach()
     }
-    
+
     private func getCourse() {
-        guard create == false else { return }
+        loadingSettings()
+        guard create == false else {
+            loadingStop()
+            return
+        }
         Task {
             infoCourses = try await Courses().getCoursesByID(id: idCourse)
             let categories = try await Categories().getCategories()
             selectCategory = categories.first(where: { $0.id == infoCourses.categoryID })
             categoriesLbl.text = selectCategory?.nameCategory
+            loadingStop()
             design()
         }
     }
-    
+
     private func design() {
         if create {
             titleLbl.text = "Создать курс"
@@ -75,7 +82,7 @@ class AddInfoAboutCourseVC: UIViewController {
         descriptionCourse.text = infoCourses.description
         imageURL = infoCourses.imageURL
     }
-    
+
     func checkError() -> Bool {
         var result = true
         if name.text!.isEmpty {
@@ -88,8 +95,8 @@ class AddInfoAboutCourseVC: UIViewController {
             result = false
             priceBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {
-            if Int(price.text!)! > 200000 {
-                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 0 до 200.000 рублей")
+            if Int(price.text!)! > 200000 || Int(price.text!)! < 50 {
+                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 50 до 200.000 рублей")
                 result = false
                 errorView.isHidden = false
             }
@@ -115,12 +122,24 @@ class AddInfoAboutCourseVC: UIViewController {
         }
         return result
     }
-    
+
     func addCoach() {
         let coach = User.info
         coachPred.text = "\(coach.name) \(coach.surname)"
     }
     
+    private func loadingSettings() {
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.play()
+        loading.isHidden = false
+    }
+
+    private func loadingStop() {
+        loading.stop()
+        loading.isHidden = true
+    }
+
     func addInfoInVar() {
         infoCourses.nameCourse = name.text!
         infoCourses.price = Int(price.text!) ?? 0
@@ -128,11 +147,16 @@ class AddInfoAboutCourseVC: UIViewController {
         infoCourses.imageURL = imageURL
         infoCourses.categoryID = selectCategory!.id
     }
-    
+
     @IBAction func save(_ sender: UIButton) {
+        loadingSettings()
         saveBtn.isEnabled = false
         errorView.isHidden = true
-        guard checkError() else {return}
+        guard checkError() else {
+            saveBtn.isEnabled = true
+            loadingStop()
+            return
+        }
         Task {
             do {
                 addInfoInVar()
@@ -142,39 +166,41 @@ class AddInfoAboutCourseVC: UIViewController {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }
                 saveBtn.isEnabled = true
+                loadingStop()
                 performSegue(withIdentifier: "goToAddModule", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
+                loadingStop()
                 saveBtn.isEnabled = true
             }
         }
     }
-    
-    
+
+
     @IBAction func addImage(_ sender: UIButton) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
-    
-    
+
+
     @IBAction func categories(_ sender: UIButton) {
         performSegue(withIdentifier: "category", sender: self)
     }
-    
+
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         price.resignFirstResponder()
         descriptionCourse.resignFirstResponder()
         name.resignFirstResponder()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "goToAddModule" {
             let vc = segue.destination as! AddModuleCoursesViewController
             vc.idCourse = idCourse
@@ -182,22 +208,22 @@ class AddInfoAboutCourseVC: UIViewController {
             let vc = segue.destination as! PickerModelViewController
             vc.delegate = self
         }
-        
+
     }
-    
-    
+
+
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
-    
-    
+
+
 }
 extension AddInfoAboutCourseVC: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true)
     }
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             imagePred.image = image
@@ -205,10 +231,10 @@ extension AddInfoAboutCourseVC: UIImagePickerControllerDelegate & UINavigationCo
             dismiss(animated: true)
         }
     }
-    
+
 }
 extension AddInfoAboutCourseVC: UITextFieldDelegate {
-    
+
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField == name {
             namePred.text = textField.text
@@ -218,10 +244,10 @@ extension AddInfoAboutCourseVC: UITextFieldDelegate {
     }
 }
 extension AddInfoAboutCourseVC: AddCategoryDelegate {
-    
+
     func category(category: Category) {
         categoriesLbl.text = category.nameCategory
         selectCategory = category
     }
-    
+
 }

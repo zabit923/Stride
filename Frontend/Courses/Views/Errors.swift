@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ErrorsView {
-    
+
     func create(descriptionText:String, mainText:String, _ hiddenView:UIView, _ description: UILabel, _ main: UILabel) {
         hiddenView.isHidden = false
         description.text = descriptionText
@@ -18,7 +18,7 @@ class ErrorsView {
 //            self.delete(hiddenView)
 //        }
     }
-    
+
     func delete(_ hiddenView:UIView) {
         hiddenView.isHidden = true
     }

@@ -8,8 +8,8 @@
 import UIKit
 
 class SettingsViewController: UIViewController {
-    
-    
+
+
     @IBOutlet weak var tbvConstant: NSLayoutConstraint!
     @IBOutlet weak var mail: UILabel!
     @IBOutlet weak var name: UILabel!
@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var settingsTableView2: UITableView!
-    
+
     var arrayObjects = [Objects]()
     var arrayObjects2 = [Objects]()
     var user: UserStruct = User.info {
@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController {
             addProfile()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         settingsTableView.delegate = self
@@ -35,24 +35,24 @@ class SettingsViewController: UIViewController {
         addObjects()
         hiddenBtn()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         design()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         changeHeightTable()
     }
-    
+
     private func design() {
         Task {
             user = try await User().getMyInfo()
             self.view.layoutSubviews()
         }
     }
-    
+
     private func hiddenBtn() {
         if user.role == .user {
             backBtn.isHidden = true
@@ -60,11 +60,11 @@ class SettingsViewController: UIViewController {
             backBtn.isHidden = false
         }
     }
-    
+
     private func changeHeightTable() {
         tbvConstant.constant = settingsTableView.contentSize.height
     }
-    
+
     private func addProfile() {
         name.text = "\(user.name) \(user.surname)"
         mail.text = user.email
@@ -72,7 +72,7 @@ class SettingsViewController: UIViewController {
             avatar.sd_setImage(with: ava)
         }
     }
-    
+
     private func addObjects() {
         if user.role == .coach {
             arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Добавить курс", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Кошелёк", image: "wallet", imageForBtn: "next2")]
@@ -82,30 +82,30 @@ class SettingsViewController: UIViewController {
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
         }
     }
-    
-    
+
+
     @IBAction func logOut(_ sender: UIButton) {
         UD().clearUD()
         self.navigationController?.popToRootViewController(animated: true)
     }
-    
+
     @IBAction func back(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
 }
- 
+
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == settingsTableView {
             return arrayObjects.count
         }else{
             return arrayObjects2.count
         }
-        
+
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == settingsTableView {
             let cell = settingsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingsTableViewCell
@@ -122,7 +122,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == settingsTableView {
             switch arrayObjects[indexPath.row].name {
@@ -152,9 +152,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "myCourse" {
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .myCreate
@@ -162,9 +162,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             let vc = segue.destination as! AddInfoAboutCourseVC
             vc.create = true
         }
-        
+
     }
-   
-    
-    
+
+
+
 }

@@ -7,13 +7,20 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0016_remove_user_phone_user_phone_number_and_more'),
+        ("users", "0016_remove_user_phone_user_phone_number_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='phone_number',
-            field=phonenumber_field.modelfields.PhoneNumberField(help_text='+7 (123) 123-45-67', max_length=128, null=True, region='RU', unique=True, verbose_name='phone number'),
+            model_name="user",
+            name="phone_number",
+            field=phonenumber_field.modelfields.PhoneNumberField(
+                help_text="+7 (123) 123-45-67",
+                max_length=128,
+                null=True,
+                region="RU",
+                unique=True,
+                verbose_name="phone number",
+            ),
         ),
     ]

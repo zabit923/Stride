@@ -8,7 +8,7 @@
 import UIKit
 
 class ReviewsCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var fivethStar: UIImageView!
     @IBOutlet weak var fourthStar: UIImageView!
     @IBOutlet weak var thirdStars: UIImageView!

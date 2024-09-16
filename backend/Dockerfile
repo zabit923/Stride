@@ -9,7 +9,5 @@ COPY src /src
 WORKDIR /src
 RUN pip install --upgrade pip setuptools wheel
 RUN pip install -r /temp/requirements.txt
-RUN adduser --disabled-password zabit
-USER zabit
-
-CMD gunicorn -w 3 --chdir ./src config.wsgi --bind 0.0.0.0:8000
+RUN mkdir -p /src/media /src/static /src/staticfiles && \
+    chmod -R 755 /src/media /src/static /src/staticfiles

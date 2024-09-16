@@ -13,9 +13,9 @@ class TabBarC: UITabBarController, UITabBarControllerDelegate {
         super.viewDidLoad()
         self.delegate = self
     }
-    
+
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        
+
         if item.title! == "Профиль" {
             self.tabBarController?.viewControllers![3] = SettingsViewController()
         }

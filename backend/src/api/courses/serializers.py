@@ -1,15 +1,9 @@
-from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.db.models import Avg
+from rest_framework import serializers
 
-from .models import (
-    Course,
-    Day,
-    Module,
-    MyCourses,
-    Category
-)
 from ..comments.models import Rating
+from .models import Category, Course, Day, Module, MyCourses
 
 User = get_user_model()
 
@@ -18,9 +12,9 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = (
-            'id',
-            'title',
-            'image',
+            "id",
+            "title",
+            "image",
         )
 
 
@@ -31,22 +25,22 @@ class ModuleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Module
         fields = (
-            'id',
-            'title',
-            'image',
-            'desc',
-            'time_to_pass',
-            'data',
-            'day',
+            "id",
+            "title",
+            "image",
+            "desc",
+            "time_to_pass",
+            "data",
+            "day",
         )
 
     def update(self, instance, validated_data):
-        validated_data.pop('day', None)
+        validated_data.pop("day", None)
         return super().update(instance, validated_data)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation.pop('day', None)
+        representation.pop("day", None)
         return representation
 
 
@@ -56,21 +50,21 @@ class DaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Day
         fields = (
-            'id',
-            'modules',
-            'course',
+            "id",
+            "modules",
+            "course",
         )
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation.pop('course', None)
+        representation.pop("course", None)
         return representation
 
 
 class AuthorShortSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name')
+        fields = ("id", "first_name", "last_name")
 
 
 class ShortCourseSerializer(serializers.ModelSerializer):
@@ -85,19 +79,19 @@ class ShortCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
-            'id',
-            'author',
-            'title',
-            'price',
-            'image',
-            'desc',
-            'category',
-            'created_at',
-            'count_days',
-            'bought',
-            'bought_count',
-            'rating',
-            'my_rating',
+            "id",
+            "author",
+            "title",
+            "price",
+            "image",
+            "desc",
+            "category",
+            "created_at",
+            "count_days",
+            "bought",
+            "bought_count",
+            "rating",
+            "my_rating",
         )
 
     def get_count_days(self, obj: Course):
@@ -111,19 +105,16 @@ class ShortCourseSerializer(serializers.ModelSerializer):
         return obj.buyers.count()
 
     def get_rating(self, obj):
-        avg_rating = obj.ratings.aggregate(average=Avg('rating'))['average']
+        avg_rating = obj.ratings.aggregate(average=Avg("rating"))["average"]
         if avg_rating is not None:
             return round(avg_rating, 1)
         return None
 
     def get_my_rating(self, obj):
-        user = self.context['request'].user
+        user = self.context["request"].user
         try:
             rating = Rating.objects.get(user=user, course=obj)
-            return {
-                'id': rating.id,
-                'rating': rating.rating
-            }
+            return {"id": rating.id, "rating": rating.rating}
         except Rating.DoesNotExist:
             return None
 
@@ -139,37 +130,34 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = (
-            'id',
-            'author',
-            'title',
-            'price',
-            'image',
-            'desc',
-            'category',
-            'created_at',
-            'days',
-            'bought_count',
-            'rating',
-            'my_rating',
+            "id",
+            "author",
+            "title",
+            "price",
+            "image",
+            "desc",
+            "category",
+            "created_at",
+            "days",
+            "bought_count",
+            "rating",
+            "my_rating",
         )
 
     def get_bought_count(self, obj):
         return obj.buyers.count()
 
     def get_rating(self, obj):
-        avg_rating = obj.ratings.aggregate(average=Avg('rating'))['average']
+        avg_rating = obj.ratings.aggregate(average=Avg("rating"))["average"]
         if avg_rating is not None:
             return round(avg_rating, 1)
         return None
 
     def get_my_rating(self, obj):
-        user = self.context['request'].user
+        user = self.context["request"].user
         try:
             rating = Rating.objects.get(user=user, course=obj)
-            return {
-                'id': rating.id,
-                'rating': rating.rating
-            }
+            return {"id": rating.id, "rating": rating.rating}
         except Rating.DoesNotExist:
             return None
 
@@ -177,10 +165,10 @@ class CourseSerializer(serializers.ModelSerializer):
 class BuyCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyCourses
-        fields = ['course']
+        fields = ["course"]
 
     def create(self, validated_data):
-        user = self.context['request'].user
-        course = validated_data['course']
+        user = self.context["request"].user
+        course = validated_data["course"]
         my_course, created = MyCourses.objects.get_or_create(user=user, course=course)
         return my_course

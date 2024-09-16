@@ -14,9 +14,9 @@ import SDWebImage
 // MARK: - Main Class
 
 class RealmValue {
-    
+
     private let realm = try! Realm()
-    
+
     func addCompletedModule(course: Course, module: Modules) {
         let realmModule = RealmModulesCompleted(idCourse: course.id, moduleID: module.id)
         try! realm.write {
@@ -25,7 +25,7 @@ class RealmValue {
         RealmValue().addCompletedDays(course: course)
     }
 
-    
+
     func addCompletedDays(course: Course) -> Course {
         let completedModules = realm.objects(RealmModulesCompleted.self).filter("idCourse == %@", course.id)
         var result = course
@@ -43,7 +43,7 @@ class RealmValue {
         return result
     }
 
-    
+
     private func compareModules(days: CourseDays, completedModules: Results<RealmModulesCompleted>) -> Bool {
         let moduleIDsInDay = days.modules.map { $0.id }
         let allModulesCompleted = moduleIDsInDay.allSatisfy { moduleID in
@@ -51,7 +51,7 @@ class RealmValue {
         }
         return allModulesCompleted
     }
-    
+
     func clearRealm() {
         let realm = try! Realm()
 
@@ -63,18 +63,18 @@ class RealmValue {
             print("Ошибка при очистке Realm: \(error)")
         }
     }
-    
+
 }
 
 class RealmModulesCompleted: Object {
     @Persisted var idCourse: Int
     @Persisted var moduleID: Int
-    
+
     required override init() {
         super.init()
     }
 
-    
+
     init(idCourse: Int, moduleID: Int) {
         self.idCourse = idCourse
         self.moduleID = moduleID

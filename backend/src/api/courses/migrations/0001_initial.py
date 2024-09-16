@@ -15,59 +15,155 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=128, verbose_name='Категория')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=128, verbose_name="Категория")),
             ],
             options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
             },
         ),
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50, verbose_name='Название')),
-                ('price', models.IntegerField(verbose_name='Цена')),
-                ('desc', models.TextField(max_length=500, verbose_name='Описание')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='course_images', verbose_name='Изображение')),
-                ('created_at', models.DateField(auto_now_add=True, verbose_name='Дата создания')),
-                ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='courses', to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
-                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='courses', to='courses.category', verbose_name='Категория')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50, verbose_name="Название")),
+                ("price", models.IntegerField(verbose_name="Цена")),
+                ("desc", models.TextField(max_length=500, verbose_name="Описание")),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="course_images",
+                        verbose_name="Изображение",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateField(auto_now_add=True, verbose_name="Дата создания"),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="courses",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Автор",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="courses",
+                        to="courses.category",
+                        verbose_name="Категория",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Курс',
-                'verbose_name_plural': 'Курсы',
+                "verbose_name": "Курс",
+                "verbose_name_plural": "Курсы",
             },
         ),
         migrations.CreateModel(
-            name='Day',
+            name="Day",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=50, verbose_name='Название')),
-                ('course', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='days', to='courses.course', verbose_name='Курс')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=50, verbose_name="Название")),
+                (
+                    "course",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="days",
+                        to="courses.course",
+                        verbose_name="Курс",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'День',
-                'verbose_name_plural': 'Дни',
+                "verbose_name": "День",
+                "verbose_name_plural": "Дни",
             },
         ),
         migrations.CreateModel(
-            name='Module',
+            name="Module",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=128, verbose_name='Название')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='course_images', verbose_name='Изображение')),
-                ('desc', models.TextField(blank=True, max_length=100, null=True, verbose_name='Описание')),
-                ('time_to_pass', models.IntegerField(blank=True, null=True, verbose_name='Время на прохождение')),
-                ('data', models.BinaryField()),
-                ('day', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='modules', to='courses.day', verbose_name='День')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=128, verbose_name="Название")),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="course_images",
+                        verbose_name="Изображение",
+                    ),
+                ),
+                (
+                    "desc",
+                    models.TextField(
+                        blank=True, max_length=100, null=True, verbose_name="Описание"
+                    ),
+                ),
+                (
+                    "time_to_pass",
+                    models.IntegerField(
+                        blank=True, null=True, verbose_name="Время на прохождение"
+                    ),
+                ),
+                ("data", models.BinaryField()),
+                (
+                    "day",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="modules",
+                        to="courses.day",
+                        verbose_name="День",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Модуль',
-                'verbose_name_plural': 'Модули',
+                "verbose_name": "Модуль",
+                "verbose_name_plural": "Модули",
             },
         ),
     ]

@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
+
     @IBOutlet weak var celebrityCollectionView: UICollectionView!
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var avatar: UIImageView!
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
     }
     private var startPosition = CGPoint()
 
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingStart()
@@ -38,44 +38,43 @@ class HomeViewController: UIViewController {
         tabbar()
         startPosition = errorView.center
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         design()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let x = (layout.itemSize.width + layout.minimumInteritemSpacing) * 1000000
         bannersCollectionView.setContentOffset(CGPoint(x: x, y: 0), animated: false)
     }
-    
+
     private func loadingStart() {
         performSegue(withIdentifier: "loading", sender: self)
     }
-    
+
     private func getUser() {
         Task {
             user = try await User().getMyInfo()
             self.navigationController?.popToViewController(tabBarController!, animated: false)
         }
     }
-    
+
     private func getCelebrity() {
         Task {
             celebrities = try await User().getCelebreties()
-            print(celebrities)
             celebrityCollectionView.reloadData()
         }
     }
-    
+
     private func getRecomendCourses() {
         Task {
             recomendCourses = try await Courses().getRecomendedCourses()
             recomendCollectionView.reloadData()
         }
     }
-    
+
     private func tabbar() {
         var deleteUser = 3
         if user.role == .coach {
@@ -84,8 +83,8 @@ class HomeViewController: UIViewController {
         self.tabBarController?.viewControllers?.remove(at: deleteUser) // 3 - USER | 4 - COACH
         self.tabBarController?.setViewControllers(self.tabBarController?.viewControllers, animated: false)
     }
-    
-    
+
+
     private func collectionViewSettings() {
         bannersCollectionView.delegate = self
         bannersCollectionView.dataSource = self
@@ -97,7 +96,7 @@ class HomeViewController: UIViewController {
         layout.scrollDirection = .horizontal
         bannersCollectionView.collectionViewLayout = layout
         bannersCollectionView.decelerationRate = .fast
-        
+
         recomendCollectionView.delegate = self
         recomendCollectionView.dataSource = self
         let layoutRecomendCollection = PageLayout()
@@ -110,40 +109,44 @@ class HomeViewController: UIViewController {
         layoutRecomendCollection.scrollDirection = .horizontal
         recomendCollectionView.collectionViewLayout = layoutRecomendCollection
         recomendCollectionView.decelerationRate = .fast
-        
+
         celebrityCollectionView.delegate = self
         celebrityCollectionView.dataSource = self
     }
-    
+
     private func design() {
         getRecomendCourses()
         getCelebrity()
         getUser()
         getBanners()
     }
-    
+
     private func addProfile() {
         nameLbl.text = "\(user.name) \(user.surname)"
         if let ava = user.avatarURL {
             avatar.sd_setImage(with: ava)
         }
     }
-    
-    
+
+
     private func getBanners() {
         banners.append("first")
         banners.append("second")
         bannersCollectionView.reloadData()
     }
-    
+
     @IBAction func myCourses(_ sender: UIButton) {
         tabBarController?.selectedIndex = 2
     }
-    
+
     @IBAction func coursesFromStars(_ sender: UIButton) {
-        errorView.isHidden = false
+        if celebrities.isEmpty {
+            errorView.isHidden = false
+        }else {
+            performSegue(withIdentifier: "celebrities", sender: self)
+        }
     }
-    
+
     @IBAction func swipeError(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: errorView)
         switch sender.state {
@@ -161,12 +164,12 @@ class HomeViewController: UIViewController {
             break
         }
     }
-    
+
 
 
 }
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == bannersCollectionView {
             return Int.max
@@ -180,15 +183,15 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == bannersCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "banner", for: indexPath) as! BannerCollectionViewCell
-            cell.im.image = UIImage(named: banners[indexPath.row % banners.count]) 
+            cell.im.image = UIImage(named: banners[indexPath.row % banners.count])
             return cell
         }else if collectionView == recomendCollectionView {
             var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recomend", for: indexPath) as! RecomendationCollectionViewCell
-            
+
             cell.bottomView.isHidden = false
             if (indexPath.row + 2) % 3 == 0 {
                 cell.layer.cornerRadius = 0
@@ -198,22 +201,22 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 cell = cornerRadius(view: cell, position: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]) as! RecomendationCollectionViewCell
                 cell.bottomView.isHidden = true
             }
-            
+
             cell.im.sd_setImage(with: recomendCourses[indexPath.row].imageURL)
             cell.name.text = recomendCourses[indexPath.row].nameCourse
             cell.trener.text = "Тренер: \(recomendCourses[indexPath.row].nameAuthor)"
             cell.rating.text = "\(recomendCourses[indexPath.row].rating)"
-            
+
             return cell
         }else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
-            cell.name.text = celebrities[indexPath.row].name + celebrities[indexPath.row].surname
+            cell.name.text = "\(celebrities[indexPath.row].name) \(celebrities[indexPath.row].surname)"
 //            cell.rating.text = "\(celebrities[indexPath.row].rating)"
-//            cell.im.sd_setImage(with: celebrities[indexPath.row].avatarURL)
+            cell.im.sd_setImage(with: celebrities[indexPath.row].avatarURL)
             return cell
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == recomendCollectionView {
             selectCourses = recomendCourses[indexPath.row]
@@ -221,22 +224,31 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
+
     private func cornerRadius(view: UIView, position: CACornerMask) -> UIView {
         view.clipsToBounds = true
         view.layer.cornerRadius = 15
         view.layer.maskedCorners = position
         return view
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "infoCourses" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourses
+            if selectCourses.isBought {
+                vc.buy = false
+            }else {
+                vc.buy = true
+            }
         }else if segue.identifier == "allRecomend" {
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .recomend
             vc.course = recomendCourses
+        }else if segue.identifier == "celebrities" {
+            let vc = segue.destination as! CoursesViewController
+            vc.typeCourse = .celebrity
         }
         
     }
