@@ -138,6 +138,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 UIApplication.shared.open(Constants.telegramURL)
             case "Стать тренером":
                 UIApplication.shared.open(Constants.telegramURL)
+            case "Кошелёк":
+                performSegue(withIdentifier: "goToWithdraw", sender: self)
             default:
                 break
             }

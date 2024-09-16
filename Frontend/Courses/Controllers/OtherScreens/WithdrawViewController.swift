@@ -6,44 +6,58 @@
 //
 
 import UIKit
-import SDWebImage
 
 class WithdrawViewController: UIViewController {
 
     @IBOutlet weak var moneyCount: UILabel!
-    @IBOutlet weak var withdrawCollectionView: UICollectionView!
     @IBOutlet weak var withdrawTextField: UITextField!
+    @IBOutlet weak var cardTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        design()
-        withdrawCollectionView.delegate = self
-        withdrawCollectionView.dataSource = self
+        textFieldDesign()
+        cardTextField.delegate = self
     }
     
-    private func design() {
+    private func textFieldDesign() {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
         withdrawTextField.attributedPlaceholder = NSAttributedString(string: "от 100₽ до 50000₽", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font!])
+        cardTextField.attributedPlaceholder = NSAttributedString(string: "**** **** **** ****", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font!])
     }
 
+    @IBAction func sbp(_ sender: UIButton) {
+        performSegue(withIdentifier: "goToSBP", sender: self)
+    }
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        withdrawTextField.resignFirstResponder()
+        cardTextField.resignFirstResponder()
+    }
 }
 
-extension WithdrawViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        1
+extension WithdrawViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = cardTextField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        
+        if updatedText.count > 19 {
+            return false
+        }
+        
+        let digitsOnly = updatedText.replacingOccurrences(of: "\\D", with: "", options: .regularExpression)
+        cardTextField.text = formatCardNumber(digitsOnly)
+
+        return false
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = withdrawCollectionView.dequeueReusableCell(withReuseIdentifier: "withdraw", for: indexPath) as! WithdrawCollectionViewCell
-        cell.commission.text = "Комиссия: 0%"
-        cell.number.text = "*** 9952"
-        cell.image = UIImageView(image: UIImage(named: "next2"))
-        return cell
+    func formatCardNumber(_ number: String) -> String {
+        var formattedNumber = ""
+        for (index, character) in number.enumerated() {
+            if index > 0 && index % 4 == 0 {
+                formattedNumber.append(" ")
+            }
+                formattedNumber.append(character)
+        }
+        return formattedNumber
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 128, height: 100)
-    }
-    
-    
 }

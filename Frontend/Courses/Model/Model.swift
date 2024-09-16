@@ -15,6 +15,11 @@ class Constants {
 }
 
 // MARK: - Collection
+struct Banks {
+    let name: String
+    let image: String
+}
+
 struct Objects {
     let name: String
     let image: String
