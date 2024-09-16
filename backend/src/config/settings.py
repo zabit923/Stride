@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "dal",
     "dal_select2",
+
     "api.users",
     "api.courses",
     "api.oauth",
