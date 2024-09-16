@@ -33,6 +33,11 @@ class WithdrawViewController: UIViewController {
         withdrawTextField.resignFirstResponder()
         cardTextField.resignFirstResponder()
     }
+    
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension WithdrawViewController: UITextFieldDelegate {

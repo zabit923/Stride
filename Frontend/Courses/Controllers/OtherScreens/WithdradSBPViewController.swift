@@ -44,6 +44,10 @@ class WithdrawSBPViewController: UIViewController {
             banksTableView.isHidden = true
         }
     }
+    
+    @IBAction func back(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
 
 extension WithdrawSBPViewController: UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
