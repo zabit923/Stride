@@ -29,6 +29,10 @@ class RegistrViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumber.delegate = self
+        name.delegate = self
+        lastName.delegate = self
+        name.autocapitalizationType = .words
+        lastName.autocapitalizationType = .words
         startPosition = errorView.center
         view.addSubview(errorView)
         errorView.isHidden = true
@@ -83,6 +87,8 @@ class RegistrViewController: UIViewController {
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
                 registerBtn.isEnabled = true
+            } catch {
+                registerBtn.isEnabled = true
             }
         }
     }
@@ -125,13 +131,10 @@ class RegistrViewController: UIViewController {
 extension RegistrViewController: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return false }
-        let newString = (text as NSString).replacingCharacters(in: range, with: string)
-        if newString.format(with: "+X (XXX) XXX-XXXX").count >= 2 {
-            textField.text = newString.format(with: "+X (XXX) XXX-XXXX")
-            return false
-        } else {
-            return false
+        if textField == phoneNumber {
+            return ValidateTF().phone(textField, shouldChangeCharactersIn: range, replacementString: string)
+        }else {
+            return ValidateTF().nameAndSurname(textField, shouldChangeCharactersIn: range, replacementString: string)
         }
     }
 

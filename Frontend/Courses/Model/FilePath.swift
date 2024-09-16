@@ -58,6 +58,7 @@ class FilePath {
 
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: attributedString, requiringSecureCoding: false)
+            print(data)
             try data.write(to: fileURL)
             return fileURL
         } catch {

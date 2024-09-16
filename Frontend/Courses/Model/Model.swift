@@ -78,6 +78,12 @@ struct CourseDays {
     var dayID: Int
     var type: TypeDays = .noneSee
     var modules = [Modules]()
+    
+    init(dayID: Int, type: TypeDays, modules: [Modules] = [Modules]()) {
+        self.dayID = dayID
+        self.type = type
+        self.modules = modules.sorted(by: { $0.id < $1.id })
+    }
 }
 
 // MARK: - User

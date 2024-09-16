@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Lottie
 
 class AddModuleCoursesViewController: UIViewController {
 
-
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nameCourses: UILabel!
     @IBOutlet weak var heightViewDays: NSLayoutConstraint!
     @IBOutlet weak var viewDays: UIView!
@@ -34,15 +35,21 @@ class AddModuleCoursesViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadingSettings()
         addCourseInfo()
     }
 
     private func addCourseInfo() {
         Task {
-            course = try await Courses().getDaysInCourse(id: idCourse)
-            nameCourses.text = course.nameCourse
-            daysCollectionView.reloadData()
-            modulesCollectionView.reloadData()
+            do {
+                course = try await Courses().getDaysInCourse(id: idCourse)
+                nameCourses.text = course.nameCourse
+                loadingStop()
+                daysCollectionView.reloadData()
+                modulesCollectionView.reloadData()
+            }catch {
+                loadingStop()
+            }
         }
     }
 
@@ -89,6 +96,18 @@ class AddModuleCoursesViewController: UIViewController {
                 view.addSubview(errorView)
             }
         }
+    }
+    
+    private func loadingSettings() {
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.play()
+        loading.isHidden = false
+    }
+
+    private func loadingStop() {
+        loading.stop()
+        loading.isHidden = true
     }
     
     private func selectBack(deleteIndex: Int) {

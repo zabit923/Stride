@@ -7,9 +7,9 @@
 
 import UIKit
 import SDWebImage
+import Lottie
 
 class AddInfoAboutModuleViewController: UIViewController {
-
 
 
     @IBOutlet weak var saveBtn: UIButton!
@@ -63,6 +63,7 @@ class AddInfoAboutModuleViewController: UIViewController {
         }
         checkTFByCloseBtn()
     }
+
 
     func checkTFByCloseBtn() {
         if nameTextField.text == "" {

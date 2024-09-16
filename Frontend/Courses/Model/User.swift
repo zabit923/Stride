@@ -127,17 +127,20 @@ class User {
         let value = try await AF.request(url).serializingData().value
         let json = JSON(value)
         var celebrities = [UserStruct]()
-        let name = json["first_name"].stringValue
-        let surname = json["last_name"].stringValue
-        let email = json["email"].stringValue
-        let phone = json["phone_number"].stringValue
-        let isCoach = json["is_coach"].boolValue
-        var role = Role.user
-        if isCoach {
-            role = .coach
+        let arrayCount = json.arrayValue.count
+        for x in 0...arrayCount - 1 {
+            let name = json[x]["first_name"].stringValue
+            let surname = json[x]["last_name"].stringValue
+            let email = json[x]["email"].stringValue
+            let phone = json[x]["phone_number"].stringValue
+            let isCoach = json[x]["is_coach"].boolValue
+            let image = "\(Constants.url)\(json[x]["image"].stringValue)"
+            var role = Role.user
+            if isCoach {
+                role = .coach
+            }
+            celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone, avatarURL: URL(string: image)))
         }
-        print(json)
-        celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone))
         return celebrities
     }
 }

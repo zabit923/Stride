@@ -121,15 +121,6 @@ class InfoCoursesViewController: UIViewController {
             }
         }
     }
-
-    private func getEmail() async throws -> String {
-        let email = try await User().getMyInfo().email
-        return email
-    }
-
-    @IBAction func coach(_ sender: UIButton) {
-        performSegue(withIdentifier: "coach", sender: self)
-    }
     
     private func openTinkoffKassa() {
         Task {
@@ -152,10 +143,11 @@ class InfoCoursesViewController: UIViewController {
         let email = try await User().getMyInfo().email
         return email
     }
-    
+
     @IBAction func coach(_ sender: UIButton) {
         performSegue(withIdentifier: "coach", sender: self)
     }
+    
     
     @IBAction func buy(_ sender: UIButton) {
         if buy == false {
@@ -166,6 +158,7 @@ class InfoCoursesViewController: UIViewController {
             buyView.isEnabled = true
         }
     }
+    
 
 
     @IBAction func back(_ sender: UIButton) {

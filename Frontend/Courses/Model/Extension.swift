@@ -50,23 +50,18 @@ extension NSAttributedString {
 extension UIImage {
 
     func scaleImage(toSize size: CGSize) -> UIImage {
-        var scaledImageSize = size
-        let imageSize = self.size
-        let widthRatio = size.width / imageSize.width
-        let heightRatio = size.height / imageSize.height
-
-        if widthRatio < heightRatio {
-            scaledImageSize = CGSize(width: size.width, height: imageSize.height * widthRatio)
-        } else {
-            scaledImageSize = CGSize(width: imageSize.width * heightRatio, height: size.height)
-        }
-
-        UIGraphicsBeginImageContextWithOptions(scaledImageSize, false, 0.0)
-        self.draw(in: CGRect(origin: .zero, size: scaledImageSize))
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        let newImage: UIImage
+        let aspectWidth = size.width / self.size.width
+        let aspectHeight = size.height / self.size.height
+        let aspectRatio = min(aspectWidth, aspectHeight)
+        
+        let newSize = CGSize(width: self.size.width * aspectRatio, height: self.size.height * aspectRatio)
+        UIGraphicsBeginImageContext(newSize)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+        newImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
-        return scaledImage ?? self
+        return newImage
     }
 
     func withRoundedCorners(radius: CGFloat) -> UIImage {

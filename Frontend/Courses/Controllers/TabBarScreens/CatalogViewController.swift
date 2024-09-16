@@ -7,9 +7,12 @@
 
 import UIKit
 import SDWebImage
+import Lottie
 
 class CatalogViewController: UIViewController {
 
+    @IBOutlet weak var emptyBox: LottieAnimationView!
+    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var search: UITextField!
     @IBOutlet weak var catalogCollectionView: UICollectionView!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
@@ -29,14 +32,20 @@ class CatalogViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        design()
+    }
+    
+    private func design() {
         getCourses()
         getCategories()
+        emptySettings()
     }
 
     private func getCourses() {
         Task {
             let results = try await Courses().getAllCourses()
             courses = results
+            emptyCheck()
             catalogCollectionView.reloadData()
         }
     }
@@ -51,8 +60,22 @@ class CatalogViewController: UIViewController {
     private func searchCourse(text: String) {
         Task {
             courses = try await Courses().searchCourses(text: text)
+            emptyCheck()
             catalogCollectionView.reloadData()
         }
+    }
+    
+    private func emptyCheck() {
+        if courses.isEmpty == false {
+            emptyView.isHidden = true
+        }else {
+            emptyView.isHidden = false
+        }
+    }
+    
+    private func emptySettings() {
+        emptyBox.contentMode = .scaleToFill
+        emptyBox.play()
     }
 
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
