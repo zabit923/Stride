@@ -141,6 +141,8 @@ class InfoAboutMeViewController: UIViewController {
     }
 
     private func openPicker() {
+        heightTextField.resignFirstResponder()
+        weightTextField.resignFirstResponder()
         viewPV.isHidden = false
         datePicker.isHidden = true
         pickerView.isHidden = false
@@ -253,6 +255,8 @@ class InfoAboutMeViewController: UIViewController {
     }
 
     @IBAction func birthday(_ sender: UIButton) {
+        heightTextField.resignFirstResponder()
+        weightTextField.resignFirstResponder()
         picker = .birthday
         viewPV.isHidden = false
         datePicker.isHidden = false

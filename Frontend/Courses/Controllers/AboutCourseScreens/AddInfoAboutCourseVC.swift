@@ -162,6 +162,7 @@ class AddInfoAboutCourseVC: UIViewController {
                 addInfoInVar()
                 if create {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .post)
+                    create = false
                 }else {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }

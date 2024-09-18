@@ -27,9 +27,11 @@ class AddCourseViewController: UIViewController {
 
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
+    private var isSave = true
 
     var module = Modules(name: "", minutes: 0, id: 0)
     var nameCourse = ""
+    
 
     private var colorSelect = UIColor.white {
         didSet {
@@ -161,12 +163,30 @@ class AddCourseViewController: UIViewController {
             loadingSettings()
             try await Courses().addModulesData(text: text, moduleID: module.id)
             loadingStop()
+            isSave = true
         }catch ErrorNetwork.runtimeError(let error) {
             errorView.isHidden = false
             errorView.configure(title: "Ошибка", description: error)
             view.addSubview(errorView)
             loadingStop()
         }
+    }
+    
+    private func warningSave() {
+        let alert = UIAlertController(title: "Вы не сохранили изменения", message: "Вы точно хотите выйти?", preferredStyle: .alert)
+
+        let deleteAction = UIAlertAction(title: "Да", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { _ in
+            self.dismiss(animated: true)
+        }
+
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
     }
 
     // MARK: - UIButton
@@ -242,16 +262,17 @@ class AddCourseViewController: UIViewController {
         }
     }
 
-    @IBAction func tap(_ sender: UITapGestureRecognizer) {
-        textView.resignFirstResponder()
-    }
 
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
 
     @IBAction func back(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        if isSave == false {
+            warningSave()
+        }else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
 }
@@ -265,6 +286,7 @@ extension AddCourseViewController: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
+        isSave = false
         textStyleBar()
     }
 

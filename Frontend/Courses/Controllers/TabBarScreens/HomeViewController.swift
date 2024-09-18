@@ -34,7 +34,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingStart()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
@@ -123,7 +123,7 @@ class HomeViewController: UIViewController {
     }
 
     private func addProfile() {
-//        nameLbl.text = "\(user.name) \(user.surname)"
+        nameLbl.text = "\(user.name) \(user.surname)"
         if let ava = user.avatarURL {
             avatar.sd_setImage(with: ava)
         }
