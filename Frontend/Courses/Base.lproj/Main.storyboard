@@ -1050,7 +1050,7 @@
         <!--Главная-->
         <scene sceneID="gw2-ns-quT">
             <objects>
-                <viewController id="eEH-Ml-gVA" customClass="HomeViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" id="eEH-Ml-gVA" customClass="HomeViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ee9-Yk-YWw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4116,7 +4116,7 @@
         <!--Info Courses View Controller-->
         <scene sceneID="5Fw-C8-AjN">
             <objects>
-                <viewController wantsFullScreenLayout="YES" id="bWz-El-6Ec" customClass="InfoCoursesViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="courseInfoViewController" wantsFullScreenLayout="YES" id="bWz-El-6Ec" customClass="InfoCoursesViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K9w-jJ-fTq">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -6967,14 +6967,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yNH-bw-Rcl"/>
+        <segue reference="IVu-BL-rNu"/>
         <segue reference="M8w-WU-QND"/>
-        <segue reference="u6E-Jv-c8P"/>
-        <segue reference="HHf-kQ-icL"/>
-        <segue reference="eaT-yL-Yiu"/>
-        <segue reference="3aH-yg-pXb"/>
-        <segue reference="pPa-ol-Wiu"/>
-        <segue reference="7iD-6h-6hO"/>
+        <segue reference="RsJ-Z8-4Bo"/>
+        <segue reference="0B2-ml-wjG"/>
+        <segue reference="hAk-ad-GZt"/>
+        <segue reference="AOP-mt-L4O"/>
+        <segue reference="DFO-Ta-Hbe"/>
+        <segue reference="iWm-3v-hYp"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="apple" width="15.333333015441895" height="18"/>

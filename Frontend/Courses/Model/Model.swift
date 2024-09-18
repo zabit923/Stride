@@ -277,6 +277,11 @@ enum SelectBtn {
     case fifthButton
 }
 
+enum DeepLinking: String {
+    case course = "courses"
+    case user = "user"
+}
+
 // MARK: - Protocol
 
 protocol ChangeInfoModule: AnyObject {

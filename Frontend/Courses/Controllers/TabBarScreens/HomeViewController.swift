@@ -28,6 +28,7 @@ class HomeViewController: UIViewController {
         }
     }
     private var startPosition = CGPoint()
+    var aa = 0
 
 
     override func viewDidLoad() {
@@ -122,7 +123,7 @@ class HomeViewController: UIViewController {
     }
 
     private func addProfile() {
-        nameLbl.text = "\(user.name) \(user.surname)"
+//        nameLbl.text = "\(user.name) \(user.surname)"
         if let ava = user.avatarURL {
             avatar.sd_setImage(with: ava)
         }
