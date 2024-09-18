@@ -12,7 +12,7 @@ class WalletAdmin(admin.ModelAdmin):
 @admin.register(RequestFunds)
 class RequestFundsAdmin(admin.ModelAdmin):
     list_display = ('user', 'amount', 'created_at', 'status')
-    search_fields = ('user__username',)
+    search_fields = ('user__username', 'bank_name')
     list_filter = ('created_at', 'status')
     list_editable = ('status',)
     ordering = ('-created_at',)

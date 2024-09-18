@@ -6,7 +6,7 @@ from .models import RequestFunds, Wallet
 class RequestFundsSerializer(serializers.ModelSerializer):
     class Meta:
         model = RequestFunds
-        fields = ['user', 'card_number', 'phone_number', 'amount']
+        fields = ['user', 'card_number', 'phone_number', 'amount', 'bank_name']
 
     def validate(self, data):
         user = self.context['request'].user

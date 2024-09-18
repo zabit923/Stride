@@ -67,6 +67,14 @@ class RequestFunds(models.Model):
         help_text="+7 (123) 123-45-67",
         unique=True,
     )
+    bank_name = models.CharField(
+        verbose_name=_('Название банка'),
+        max_length=255,
+        blank=False,
+        null=False,
+        default='T-bank',
+        help_text="Введите название банка для перевода"
+    )
     amount = models.DecimalField(
         verbose_name=_('Сумма'),
         max_digits=10,
@@ -84,7 +92,7 @@ class RequestFunds(models.Model):
             raise ValidationError(_('Введите либо номер карты, либо номер телефона.'))
 
     def __str__(self):
-        return f'{self.user.username}: {self.amount} | {self.created_at}'
+        return f'{self.user.username}: {self.amount} | {self.created_at} | {self.bank_name}'
 
     class Meta:
         verbose_name = 'Запрос'
