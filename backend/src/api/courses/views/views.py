@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
@@ -11,7 +13,13 @@ from rest_framework.viewsets import ModelViewSet
 
 from ..filters import CategoryFilter
 from ..models import Category, Course, Day, Module
-from ..permissions import IsCoach, IsOwnerCourse, IsOwnerDay, IsOwnerModule
+from ..permissions import (
+    IsCoach,
+    IsOwnerCourse,
+    IsOwnerDay,
+    IsOwnerModule,
+    IsNotOwnerCourse
+)
 from ..serializers import (
     BuyCourseSerializer,
     CategorySerializer,
@@ -60,7 +68,6 @@ class CourseApiViewSet(ModelViewSet):
         if self.action in [
             "list",
             "retrieve",
-            "buy_course",
             "my_courses",
             "courses_by_id",
             "my_bought_courses",
@@ -68,6 +75,8 @@ class CourseApiViewSet(ModelViewSet):
             "recommended_courses",
         ]:
             self.permission_classes = [IsAuthenticated]
+        elif self.action == 'buy_course':
+            self.permission_classes = [IsNotOwnerCourse]
         elif self.action in ["update", "destroy"]:
             self.permission_classes = [IsOwnerCourse]
         else:
@@ -77,9 +86,20 @@ class CourseApiViewSet(ModelViewSet):
     @action(detail=True, methods=["post"], permission_classes=[IsAuthenticated])
     def buy_course(self, request, pk=None):
         course = self.get_object()
+        user = request.user
+
+        if MyCourses.objects.filter(user=user, course=course).exists():
+            return Response(
+                {"detail": "Вы уже купили этот курс."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         serializer = self.get_serializer(data={"course": course.id})
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        author_wallet = getattr(course.author, 'wallet', None)
+        author_wallet.balance += Decimal(course.price)
+        author_wallet.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
