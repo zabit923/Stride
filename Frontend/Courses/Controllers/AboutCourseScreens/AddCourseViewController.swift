@@ -8,9 +8,11 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import Lottie
 
 class AddCourseViewController: UIViewController {
 
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nameCourseLBL: UILabel!
     @IBOutlet weak var sizeFont: UILabel!
     @IBOutlet weak var colorView: UIView!
@@ -90,14 +92,30 @@ class AddCourseViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
         FilePath().deleteAlamofireFiles()
     }
+    
+    private func loadingSettings() {
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.play()
+        loading.isHidden = false
+    }
 
+    private func loadingStop() {
+        loading.stop()
+        loading.isHidden = true
+    }
 
 
     func getData() {
         Task {
-            guard let module = module.text else {return}
+            loadingSettings()
+            guard let module = module.text else {
+                loadingStop()
+                return
+            }
             let attributedString = try await FilePath().downloadFileWithURL(url: module)
             textView.attributedText = attributedString
+            loadingStop()
         }
     }
 
@@ -140,11 +158,14 @@ class AddCourseViewController: UIViewController {
 
     private func addCourse(text: NSAttributedString) async throws {
         do {
+            loadingSettings()
             try await Courses().addModulesData(text: text, moduleID: module.id)
+            loadingStop()
         }catch ErrorNetwork.runtimeError(let error) {
             errorView.isHidden = false
             errorView.configure(title: "Ошибка", description: error)
             view.addSubview(errorView)
+            loadingStop()
         }
     }
 
@@ -274,7 +295,7 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
-            let resizeImage = ImageResize.compressImageToMaxSizeImage(image: image, maxSizeInMB: 0.3)
+            let resizeImage = ImageResize.resizeAndCompressImage(image: image, maxSizeKB: 300)
             let roundedImage = resizeImage.withRoundedCorners(radius: 7)
             addImageInTextView(image: roundedImage)
             picker.dismiss(animated: true)

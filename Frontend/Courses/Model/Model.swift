@@ -15,9 +15,15 @@ class Constants {
 }
 
 // MARK: - Collection
+struct Banks {
+    let name: String
+    let image: String
+}
+
 struct Objects {
     let name: String
     let image: String
+    let imageForBtn: String
 }
 
 struct Category {
@@ -78,6 +84,12 @@ struct CourseDays {
     var dayID: Int
     var type: TypeDays = .noneSee
     var modules = [Modules]()
+    
+    init(dayID: Int, type: TypeDays, modules: [Modules] = [Modules]()) {
+        self.dayID = dayID
+        self.type = type
+        self.modules = modules.sorted(by: { $0.id < $1.id })
+    }
 }
 
 // MARK: - User

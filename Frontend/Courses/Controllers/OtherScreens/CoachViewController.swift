@@ -28,6 +28,7 @@ class CoachViewController: UIViewController {
 
     var courses = [Course]()
     var idCoach = 0
+    var selectCourse = Course()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,6 +146,25 @@ extension CoachViewController: SkeletonCollectionViewDelegate, SkeletonCollectio
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectCourse = courses[indexPath.row]
+        performSegue(withIdentifier: "info", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "info" {
+            let vc = segue.destination as! InfoCoursesViewController
+            vc.course = selectCourse
+            if selectCourse.isBought {
+                vc.buy = false
+            }else {
+                vc.buy = true
+            }
+        }
+        
     }
 
 

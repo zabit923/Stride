@@ -43,6 +43,7 @@
 		447D8C7F2C85DED400EF2217 /* TinkoffASDKUI in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C7E2C85DED400EF2217 /* TinkoffASDKUI */; };
 		447D8C812C85DEEB00EF2217 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D8C802C85DEEB00EF2217 /* Payment.swift */; };
 		447D8C8E2C89D09600EF2217 /* emptyBox.json in Resources */ = {isa = PBXBuildFile; fileRef = 447D8C8D2C89D09600EF2217 /* emptyBox.json */; };
+		448301822C9504B600E40DBA /* ValidateTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448301812C9504B600E40DBA /* ValidateTF.swift */; };
 		4488EA152C769D9D0086765F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488EA142C769D9D0086765F /* ErrorView.swift */; };
 		44907E482C91F4D6002D4617 /* ImageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44907E472C91F4D6002D4617 /* ImageResize.swift */; };
 		44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -82,10 +83,14 @@
 		751510412C34586D009978E6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751510402C34586D009978E6 /* SettingsViewController.swift */; };
 		753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */; };
 		753A4F7E2C341E98007A8194 /* Inter-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */; };
+		7555DEB52C986FC100B80A13 /* WithdradSBPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555DEB42C986FC100B80A13 /* WithdradSBPViewController.swift */; };
+		7555DEB72C98822000B80A13 /* BanksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555DEB62C98822000B80A13 /* BanksTableViewCell.swift */; };
 		7595784B2C5B9A7E00A9F811 /* AddInfoAboutModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */; };
 		75D68C612C80A361001407F0 /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D68C602C80A361001407F0 /* AddReviewViewController.swift */; };
 		75D7F3562C4299EF0083DBEF /* UD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D7F3552C4299EF0083DBEF /* UD.swift */; };
 		75DBBEF42C8221A10063A489 /* Stars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DBBEF32C8221A10063A489 /* Stars.swift */; };
+		75F6FDB22C9321F600A57EA9 /* WithdrawCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6FDB12C9321F600A57EA9 /* WithdrawCollectionViewCell.swift */; };
+		75F6FDB42C9323B500A57EA9 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F6FDB32C9323B500A57EA9 /* WithdrawViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -134,6 +139,7 @@
 		4464757A2C7496F100ACD3D7 /* FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePath.swift; sourceTree = "<group>"; };
 		447D8C802C85DEEB00EF2217 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		447D8C8D2C89D09600EF2217 /* emptyBox.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emptyBox.json; sourceTree = "<group>"; };
+		448301812C9504B600E40DBA /* ValidateTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateTF.swift; sourceTree = "<group>"; };
 		4488EA142C769D9D0086765F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		44907E472C91F4D6002D4617 /* ImageResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResize.swift; sourceTree = "<group>"; };
 		44932A982C81303A00E0F86F /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
@@ -168,10 +174,14 @@
 		751510402C34586D009978E6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		753A4F7B2C340DB7007A8194 /* MyCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoursesViewController.swift; sourceTree = "<group>"; };
 		753A4F7D2C341E98007A8194 /* Inter-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.ttf"; sourceTree = "<group>"; };
+		7555DEB42C986FC100B80A13 /* WithdradSBPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdradSBPViewController.swift; sourceTree = "<group>"; };
+		7555DEB62C98822000B80A13 /* BanksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BanksTableViewCell.swift; sourceTree = "<group>"; };
 		7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInfoAboutModuleViewController.swift; sourceTree = "<group>"; };
 		75D68C602C80A361001407F0 /* AddReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 		75D7F3552C4299EF0083DBEF /* UD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UD.swift; sourceTree = "<group>"; };
 		75DBBEF32C8221A10063A489 /* Stars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stars.swift; sourceTree = "<group>"; };
+		75F6FDB12C9321F600A57EA9 /* WithdrawCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawCollectionViewCell.swift; sourceTree = "<group>"; };
+		75F6FDB32C9323B500A57EA9 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +286,7 @@
 				4464757A2C7496F100ACD3D7 /* FilePath.swift */,
 				447D8C802C85DEEB00EF2217 /* Payment.swift */,
 				44907E472C91F4D6002D4617 /* ImageResize.swift */,
+				448301812C9504B600E40DBA /* ValidateTF.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -336,6 +347,7 @@
 				44BD6CDD2C432C45001645A0 /* DaysCourseCollectionViewCell.swift */,
 				44BD6CDF2C432C82001645A0 /* ModuleCourseCollectionViewCell.swift */,
 				44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */,
+				75F6FDB12C9321F600A57EA9 /* WithdrawCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -344,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				7515103E2C34583B009978E6 /* SettingsTableViewCell.swift */,
+				7555DEB62C98822000B80A13 /* BanksTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -371,6 +384,8 @@
 				75D68C602C80A361001407F0 /* AddReviewViewController.swift */,
 				44BD149B2C808106006D0722 /* PickerModelViewController.swift */,
 				44932A982C81303A00E0F86F /* PrivacyViewController.swift */,
+				75F6FDB32C9323B500A57EA9 /* WithdrawViewController.swift */,
+				7555DEB42C986FC100B80A13 /* WithdradSBPViewController.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -482,10 +497,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75F6FDB42C9323B500A57EA9 /* WithdrawViewController.swift in Sources */,
 				44D68B042C51B3EF00F8F476 /* CourseTextViewController.swift in Sources */,
 				447D8C812C85DEEB00EF2217 /* Payment.swift in Sources */,
 				444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */,
 				7595784B2C5B9A7E00A9F811 /* AddInfoAboutModuleViewController.swift in Sources */,
+				7555DEB52C986FC100B80A13 /* WithdradSBPViewController.swift in Sources */,
+				7555DEB72C98822000B80A13 /* BanksTableViewCell.swift in Sources */,
 				440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */,
 				75106D792C38AFDB0036042B /* InfoAboutMeViewController.swift in Sources */,
 				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
@@ -515,6 +533,7 @@
 				4488EA152C769D9D0086765F /* ErrorView.swift in Sources */,
 				446475792C726C4500ACD3D7 /* Categories.swift in Sources */,
 				44D68AF32C4ACC0C00F8F476 /* User.swift in Sources */,
+				75F6FDB22C9321F600A57EA9 /* WithdrawCollectionViewCell.swift in Sources */,
 				753A4F7C2C340DB7007A8194 /* MyCoursesViewController.swift in Sources */,
 				449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */,
 				75DBBEF42C8221A10063A489 /* Stars.swift in Sources */,
@@ -524,6 +543,7 @@
 				44D68B012C51B3EF00F8F476 /* AddCourseViewController.swift in Sources */,
 				44BD6CE42C440974001645A0 /* AddModuleCoursesViewController.swift in Sources */,
 				7508513B2C38763A00F5C0DC /* ChangeInformationViewController.swift in Sources */,
+				448301822C9504B600E40DBA /* ValidateTF.swift in Sources */,
 				440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */,
 				44064C9E2C28628000AB5227 /* Sign.swift in Sources */,
 				440CB67D2C5FA86F003FCAF0 /* CoachViewController.swift in Sources */,

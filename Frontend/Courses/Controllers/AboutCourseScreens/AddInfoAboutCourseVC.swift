@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Lottie
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var categoriesLbl: UILabel!
     @IBOutlet weak var imageBorder: Border!
@@ -51,12 +53,17 @@ class AddInfoAboutCourseVC: UIViewController {
     }
 
     private func getCourse() {
-        guard create == false else { return }
+        loadingSettings()
+        guard create == false else {
+            loadingStop()
+            return
+        }
         Task {
             infoCourses = try await Courses().getCoursesByID(id: idCourse)
             let categories = try await Categories().getCategories()
             selectCategory = categories.first(where: { $0.id == infoCourses.categoryID })
             categoriesLbl.text = selectCategory?.nameCategory
+            loadingStop()
             design()
         }
     }
@@ -88,8 +95,8 @@ class AddInfoAboutCourseVC: UIViewController {
             result = false
             priceBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {
-            if Int(price.text!)! > 200000 {
-                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 0 до 200.000 рублей")
+            if Int(price.text!)! > 200000 || Int(price.text!)! < 50 {
+                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 50 до 200.000 рублей")
                 result = false
                 errorView.isHidden = false
             }
@@ -120,6 +127,18 @@ class AddInfoAboutCourseVC: UIViewController {
         let coach = User.info
         coachPred.text = "\(coach.name) \(coach.surname)"
     }
+    
+    private func loadingSettings() {
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.play()
+        loading.isHidden = false
+    }
+
+    private func loadingStop() {
+        loading.stop()
+        loading.isHidden = true
+    }
 
     func addInfoInVar() {
         infoCourses.nameCourse = name.text!
@@ -130,9 +149,14 @@ class AddInfoAboutCourseVC: UIViewController {
     }
 
     @IBAction func save(_ sender: UIButton) {
+        loadingSettings()
         saveBtn.isEnabled = false
         errorView.isHidden = true
-        guard checkError() else {return}
+        guard checkError() else {
+            saveBtn.isEnabled = true
+            loadingStop()
+            return
+        }
         Task {
             do {
                 addInfoInVar()
@@ -142,10 +166,12 @@ class AddInfoAboutCourseVC: UIViewController {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }
                 saveBtn.isEnabled = true
+                loadingStop()
                 performSegue(withIdentifier: "goToAddModule", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
+                loadingStop()
                 saveBtn.isEnabled = true
             }
         }

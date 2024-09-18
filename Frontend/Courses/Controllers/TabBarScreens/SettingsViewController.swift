@@ -75,11 +75,11 @@ class SettingsViewController: UIViewController {
 
     private func addObjects() {
         if user.role == .coach {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "Мои курсы", image: "coursesHistory"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Добавить курс", image: "confirmAccount")]
-            arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Добавить курс", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Кошелёк", image: "wallet", imageForBtn: "next2")]
+            arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
         }else if user.role == .user {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information"), Objects(name: "Конфиденциальность", image: "confidentiality"), Objects(name: "Подтвердить аккаунт", image: "confirmAccount"), Objects(name: "Стать тренером", image: "becomeCoach")]
-            arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper"), Objects(name: "Политика конфиденциальности", image: "political")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Подтвердить аккаунт", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Стать тренером", image: "becomeCoach", imageForBtn: "next2")]
+            arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
         }
     }
 
@@ -111,6 +111,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             let cell = settingsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingsTableViewCell
             cell.im.image = UIImage(named: "\(arrayObjects[indexPath.row].image)")
             cell.lbl.text = arrayObjects[indexPath.row].name
+            cell.btn.setImage(UIImage(named: "\(arrayObjects[indexPath.row].imageForBtn)"), for: .normal)
             cell.selectionStyle = .none
             return cell
         }else{
@@ -137,6 +138,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 UIApplication.shared.open(Constants.telegramURL)
             case "Стать тренером":
                 UIApplication.shared.open(Constants.telegramURL)
+            case "Кошелёк":
+                performSegue(withIdentifier: "goToWithdraw", sender: self)
             default:
                 break
             }

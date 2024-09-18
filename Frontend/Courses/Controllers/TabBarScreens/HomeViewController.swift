@@ -140,7 +140,11 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func coursesFromStars(_ sender: UIButton) {
-        errorView.isHidden = false
+        if celebrities.isEmpty {
+            errorView.isHidden = false
+        }else {
+            performSegue(withIdentifier: "celebrities", sender: self)
+        }
     }
 
     @IBAction func swipeError(_ sender: UIPanGestureRecognizer) {
@@ -206,9 +210,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
-            cell.name.text = celebrities[indexPath.row].name + celebrities[indexPath.row].surname
+            cell.name.text = "\(celebrities[indexPath.row].name) \(celebrities[indexPath.row].surname)"
 //            cell.rating.text = "\(celebrities[indexPath.row].rating)"
-//            cell.im.sd_setImage(with: celebrities[indexPath.row].avatarURL)
+            cell.im.sd_setImage(with: celebrities[indexPath.row].avatarURL)
             return cell
         }
     }
@@ -219,6 +223,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             performSegue(withIdentifier: "infoCourses", sender: self)
         }
     }
+    
 
     private func cornerRadius(view: UIView, position: CACornerMask) -> UIView {
         view.clipsToBounds = true
@@ -228,7 +233,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         if segue.identifier == "infoCourses" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourses
@@ -241,8 +246,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .recomend
             vc.course = recomendCourses
+        }else if segue.identifier == "celebrities" {
+            let vc = segue.destination as! CoursesViewController
+            vc.typeCourse = .celebrity
         }
-
+        
     }
-
+    
 }
