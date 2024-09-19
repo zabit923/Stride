@@ -2,12 +2,19 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from config.yandex_s3_storage import ClientDocsStorage
+
+
 User = get_user_model()
 
 
 class Category(models.Model):
     title = models.CharField("Категория", max_length=128)
-    image = models.ImageField("Изображение", upload_to="category_images")
+    image = models.ImageField(
+        "Изображение",
+        storage=ClientDocsStorage(),
+        upload_to="category_images"
+    )
 
     class Meta:
         verbose_name = "Категория"
@@ -20,11 +27,21 @@ class Category(models.Model):
 class Module(models.Model):
     title = models.CharField(_("Название"), max_length=128, null=True, blank=True)
     image = models.ImageField(
-        _("Изображение"), upload_to="course_images", blank=True, null=True
+        _("Изображение"),
+        storage=ClientDocsStorage(),
+        upload_to="course_images",
+        blank=True,
+        null=True
     )
     desc = models.TextField(_("Описание"), max_length=100, blank=True, null=True)
     time_to_pass = models.IntegerField(_("Время на прохождение"), blank=True, null=True)
-    data = models.FileField(_("Данные"), upload_to="module_data", null=True, blank=True)
+    data = models.FileField(
+        _("Данные"),
+        storage=ClientDocsStorage(),
+        upload_to="module_data",
+        null=True,
+        blank=True
+    )
     day = models.ForeignKey(
         "Day", verbose_name=_("День"), on_delete=models.CASCADE, related_name="modules"
     )
@@ -66,7 +83,11 @@ class Course(models.Model):
     price = models.IntegerField(_("Цена"))
     desc = models.TextField(_("Описание"), max_length=2000)
     image = models.ImageField(
-        _("Изображение"), upload_to="course_images", blank=True, null=True
+        _("Изображение"),
+        storage=ClientDocsStorage(),
+        upload_to="course_images",
+        blank=True,
+        null=True
     )
     category = models.ForeignKey(
         Category,

@@ -3,6 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
+from config.yandex_s3_storage import ClientDocsStorage
+
 
 class User(AbstractUser):
     class GenderChoises(models.TextChoices):
@@ -37,8 +39,9 @@ class User(AbstractUser):
     desc = models.TextField(_("description"), max_length=300, blank=True, null=True)
     image = models.ImageField(
         _("avatar"),
+        storage=ClientDocsStorage(),
         upload_to="avatars/",
-        default="images/pngegg.png",
+        default="images/defaultLogo.png",
         null=True,
         blank=True,
     )

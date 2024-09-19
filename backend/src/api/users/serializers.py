@@ -87,6 +87,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserGetSerializer(serializers.ModelSerializer):
+    balance = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = User
         fields = [
@@ -105,7 +107,14 @@ class UserGetSerializer(serializers.ModelSerializer):
             "level",
             "target",
             "is_coach",
+            "balance",
         ]
+
+    def get_balance(self, obj):
+        if obj.is_coach:
+            return obj.wallet.balance
+        else:
+            return None
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
