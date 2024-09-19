@@ -41,6 +41,7 @@ class WithdrawViewController: UIViewController {
 }
 
 extension WithdrawViewController: UITextFieldDelegate {
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = cardTextField.text ?? ""
         guard let stringRange = Range(range, in: currentText) else { return false }

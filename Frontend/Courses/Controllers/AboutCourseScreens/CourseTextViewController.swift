@@ -8,7 +8,7 @@
 import UIKit
 import Lottie
 
-class CourseTextViewController: UIViewController {
+class CourseTextViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var textView: UITextView!
@@ -20,6 +20,7 @@ class CourseTextViewController: UIViewController {
         super.viewDidLoad()
         getData()
         design()
+        textView.delegate = self
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -35,7 +36,6 @@ class CourseTextViewController: UIViewController {
 
     private func design() {
         textView.textColor = .white
-        textView.isUserInteractionEnabled = false
         view.overrideUserInterfaceStyle = .dark
         loadingSettings()
         nameCourse.text = module.name
@@ -57,5 +57,7 @@ class CourseTextViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
-
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(scrollView.contentOffset)
+    }
 }

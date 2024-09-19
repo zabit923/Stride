@@ -95,8 +95,8 @@ class AddInfoAboutCourseVC: UIViewController {
             result = false
             priceBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {
-            if Int(price.text!)! > 200000 || Int(price.text!)! < 50 {
-                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 50 до 200.000 рублей")
+            if Int(price.text!)! > 200000 || Int(price.text!)! < 100 {
+                errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 100 до 200.000 рублей")
                 result = false
                 errorView.isHidden = false
             }
@@ -162,6 +162,7 @@ class AddInfoAboutCourseVC: UIViewController {
                 addInfoInVar()
                 if create {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .post)
+                    create = false
                 }else {
                     idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
                 }

@@ -97,7 +97,11 @@ class CoursesViewController: UIViewController {
             getCelebrityCourses()
         }
     }
-
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        textField.resignFirstResponder()
+    }
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -129,7 +133,7 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
         if typeCourse == .myCreate {
             selectIDCourse = course[indexPath.row].id
             performSegue(withIdentifier: "changeCourse", sender: self)
-        }else if typeCourse == .recomend {
+        }else {
             selectCourse = course[indexPath.row]
             performSegue(withIdentifier: "infoCourses", sender: self)
         }
@@ -144,6 +148,11 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
         }else if segue.identifier == "infoCourses" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourse
+            if selectCourse.isBought {
+                vc.buy = false
+            }else {
+                vc.buy = true
+            }
         }
     }
 
