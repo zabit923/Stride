@@ -7,6 +7,7 @@
 
 import UIKit
 import Lottie
+import CropViewController
 
 class ChangeInformationViewController: UIViewController {
 
@@ -158,20 +159,33 @@ class ChangeInformationViewController: UIViewController {
     }
 
 }
-extension ChangeInformationViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+extension ChangeInformationViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
 
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
-            avatar.image = image
-            avatarURL = url
+            ImageResize().deleteTempImage(atURL: url)
             picker.dismiss(animated: true)
+            let crop = CropImage(vc: self)
+            crop.showAvatarCrop(with: image)
+            crop.vcCrop.delegate = self
         }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        avatar.image = image
+        avatarURL = ImageResize().imageToURL(image: image, fileName: "avatar")
+        cropViewController.dismiss(animated: true)
+    }
+
 }
 extension ChangeInformationViewController: UITextFieldDelegate, UITextViewDelegate {
     

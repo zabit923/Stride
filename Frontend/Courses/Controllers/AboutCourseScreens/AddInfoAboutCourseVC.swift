@@ -7,6 +7,7 @@
 
 import UIKit
 import Lottie
+import CropViewController
 
 class AddInfoAboutCourseVC: UIViewController {
 
@@ -74,13 +75,15 @@ class AddInfoAboutCourseVC: UIViewController {
         }else {
             titleLbl.text = "Изменить курс"
         }
-        imagePred.sd_setImage(with: infoCourses.imageURL)
+        if imageURL == nil {
+            imagePred.sd_setImage(with: infoCourses.imageURL)
+            imageURL = infoCourses.imageURL
+        }
         namePred.text = infoCourses.nameCourse
         pricePred.text = "\(infoCourses.price)Р"
         name.text = infoCourses.nameCourse
         price.text = "\(infoCourses.price)"
         descriptionCourse.text = infoCourses.description
-        imageURL = infoCourses.imageURL
     }
 
     func checkError() -> Bool {
@@ -219,20 +222,33 @@ class AddInfoAboutCourseVC: UIViewController {
 
 
 }
-extension AddInfoAboutCourseVC: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
-
+extension AddInfoAboutCourseVC: UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
-            imagePred.image = image
-            imageURL = url
-            dismiss(animated: true)
+            ImageResize().deleteTempImage(atURL: url)
+            picker.dismiss(animated: true)
+            let crop = CropImage(vc: self)
+            crop.showMainImageCourse(with: image)
+            crop.vcCrop.delegate = self
         }
     }
 
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        imagePred.image = image
+        imageURL = ImageResize().imageToURL(image: image, fileName: "courseInfo")
+        cropViewController.dismiss(animated: true)
+    }
+    
 }
 extension AddInfoAboutCourseVC: UITextFieldDelegate {
 

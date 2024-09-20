@@ -316,7 +316,8 @@ extension AddCourseViewController: UITextViewDelegate {
 extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
+            ImageResize().deleteTempImage(atURL: url)
             let resizeImage = ImageResize.resizeAndCompressImage(image: image, maxSizeKB: 300)
             let roundedImage = resizeImage.withRoundedCorners(radius: 7)
             addImageInTextView(image: roundedImage)

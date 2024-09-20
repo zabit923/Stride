@@ -6993,9 +6993,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akw-wj-vbA">
-                                        <rect key="frame" x="30" y="16" width="8" height="22"/>
+                                        <rect key="frame" x="15" y="13" width="32" height="28"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="back"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="back"/>
                                         <connections>
                                             <action selector="back:" destination="GeP-xn-fBe" eventType="touchUpInside" id="zlU-e2-AS2"/>
                                         </connections>
@@ -7005,7 +7006,7 @@
                                 <constraints>
                                     <constraint firstItem="25v-Z7-2XO" firstAttribute="centerX" secondItem="iz1-ym-Yg5" secondAttribute="centerX" id="KjO-Ia-FbR"/>
                                     <constraint firstItem="akw-wj-vbA" firstAttribute="centerY" secondItem="iz1-ym-Yg5" secondAttribute="centerY" id="NWo-Tg-unD"/>
-                                    <constraint firstItem="akw-wj-vbA" firstAttribute="leading" secondItem="iz1-ym-Yg5" secondAttribute="leading" constant="30" id="gPB-4g-dEF"/>
+                                    <constraint firstItem="akw-wj-vbA" firstAttribute="leading" secondItem="iz1-ym-Yg5" secondAttribute="leading" constant="15" id="gPB-4g-dEF"/>
                                     <constraint firstItem="25v-Z7-2XO" firstAttribute="centerY" secondItem="iz1-ym-Yg5" secondAttribute="centerY" id="t7B-8f-eRi"/>
                                     <constraint firstAttribute="height" constant="54" id="zoJ-Ej-I6j"/>
                                 </constraints>
@@ -7059,6 +7060,9 @@
                                         <state key="normal" title="Вывести">
                                             <color key="titleColor" name="BlackMain"/>
                                         </state>
+                                        <connections>
+                                            <action selector="fluent:" destination="GeP-xn-fBe" eventType="touchUpInside" id="fsG-KA-U7Y"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="BlueMain"/>
@@ -7174,9 +7178,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceQ-Ik-qhf">
-                                        <rect key="frame" x="30" y="16" width="8" height="22"/>
+                                        <rect key="frame" x="15" y="13" width="32" height="28"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="back"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="back"/>
                                         <connections>
                                             <action selector="back:" destination="5o8-Mp-3M0" eventType="touchUpInside" id="Uh4-Te-hld"/>
                                         </connections>
@@ -7187,7 +7192,7 @@
                                     <constraint firstItem="xQP-Uf-ORo" firstAttribute="centerX" secondItem="Lnf-j8-YMM" secondAttribute="centerX" id="HiC-on-gmt"/>
                                     <constraint firstItem="xQP-Uf-ORo" firstAttribute="centerY" secondItem="Lnf-j8-YMM" secondAttribute="centerY" id="JIG-YH-nZx"/>
                                     <constraint firstItem="ceQ-Ik-qhf" firstAttribute="centerY" secondItem="Lnf-j8-YMM" secondAttribute="centerY" id="bfc-i2-DSJ"/>
-                                    <constraint firstItem="ceQ-Ik-qhf" firstAttribute="leading" secondItem="Lnf-j8-YMM" secondAttribute="leading" constant="30" id="nWQ-Uc-Dcq"/>
+                                    <constraint firstItem="ceQ-Ik-qhf" firstAttribute="leading" secondItem="Lnf-j8-YMM" secondAttribute="leading" constant="15" id="nWQ-Uc-Dcq"/>
                                     <constraint firstAttribute="height" constant="54" id="v5D-kj-O5C"/>
                                 </constraints>
                             </view>
@@ -7258,6 +7263,9 @@
                                         <state key="normal" title="Вывести">
                                             <color key="titleColor" name="BlackMain"/>
                                         </state>
+                                        <connections>
+                                            <action selector="fluent:" destination="5o8-Mp-3M0" eventType="touchUpInside" id="WpC-0E-NHL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" name="BlueMain"/>
@@ -7386,13 +7394,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IVu-BL-rNu"/>
+        <segue reference="jEY-vC-3ne"/>
         <segue reference="M8w-WU-QND"/>
-        <segue reference="u6E-Jv-c8P"/>
+        <segue reference="RsJ-Z8-4Bo"/>
         <segue reference="0B2-ml-wjG"/>
         <segue reference="hAk-ad-GZt"/>
         <segue reference="AOP-mt-L4O"/>
-        <segue reference="pPa-ol-Wiu"/>
+        <segue reference="YX4-7O-Lay"/>
         <segue reference="iWm-3v-hYp"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -7470,7 +7478,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

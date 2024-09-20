@@ -140,6 +140,7 @@ struct Coach {
     var countCourses: Int = 0
     var rating: Float = 0.0
     var myCourses = [Course]()
+    var money: Int = 0
 }
 
 struct InfoMe: Encodable {
@@ -213,6 +214,43 @@ enum TypeDays: String {
     }
 
 }
+
+enum PaymentMethod {
+    case card(cardNumber: String, amount: Int)
+    case sbp(phoneNumber: String, amount: Int, bank: String)
+
+    var cardNumber: String? {
+        if case .card(let number, _) = self {
+            return number
+        }
+        return nil
+    }
+
+    var amount: Int {
+        switch self {
+        case .card(_, let amount):
+            return amount
+        case .sbp(_, let amount, _):
+            return amount
+        }
+    }
+
+    var phoneNumber: String? {
+        if case .sbp(let number, _, _) = self {
+            return number
+        }
+        return nil
+    }
+
+    var bank: String? {
+        if case .sbp(_, _, let bank) = self {
+            return bank
+        }
+        return nil
+    }
+    
+}
+
 
 enum Goal: String {
     case loseWeight = "LW"

@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 import Lottie
+import CropViewController
 
 class AddInfoAboutModuleViewController: UIViewController {
 
@@ -172,17 +173,31 @@ class AddInfoAboutModuleViewController: UIViewController {
 
 }
 
-extension AddInfoAboutModuleViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
-
+extension AddInfoAboutModuleViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
-            imageBtn.setImage(image, for: .normal)
-            module.imageURL = url
-            dismiss(animated: true)
+            ImageResize().deleteTempImage(atURL: url)
+            picker.dismiss(animated: true)
+            let crop = CropImage(vc: self)
+            crop.showModuleImageCourse(with: image)
+            crop.vcCrop.delegate = self
         }
     }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        imageBtn.setImage(image, for: .normal)
+        module.imageURL = ImageResize().imageToURL(image: image, fileName: "\(UUID().uuidString)")
+        cropViewController.dismiss(animated: true)
+    }
+    
 }

@@ -96,7 +96,8 @@ class User {
         user.level = Level(rawValue: json["level"].stringValue)
         user.isCoach = json["is_coach"].boolValue
         user.coach.description = json["desc"].stringValue
-        user.avatarURL = URL(string: "\(Constants.url)\(json["image"].stringValue)")
+        user.coach.money = json["balance"].intValue
+        user.avatarURL = URL(string: "\(json["image"].stringValue)")
         if user.isCoach == true {
             user.role = .coach
         }else {
@@ -108,7 +109,7 @@ class User {
     }
 
     func getUserByID(id: Int) async throws -> UserStruct {
-        let url = Constants.url + "api/v1/users/\(id)"
+        let url = Constants.url + "api/v1/users/\(id)/"
         let value = try await AF.request(url).serializingData().value
         let json = JSON(value)
         var user = UserStruct()
@@ -119,6 +120,7 @@ class User {
         user.id = json["id"].intValue
         user.coach.description = json["desc"].stringValue
         user.avatarURL = URL(string: json["image"].stringValue)
+        print(user)
         return user
     }
 
@@ -134,7 +136,7 @@ class User {
             let email = json[x]["email"].stringValue
             let phone = json[x]["phone_number"].stringValue
             let isCoach = json[x]["is_coach"].boolValue
-            let image = "\(Constants.url)\(json[x]["image"].stringValue)"
+            let image = "\(json[x]["image"].stringValue)"
             var role = Role.user
             if isCoach {
                 role = .coach

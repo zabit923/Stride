@@ -163,6 +163,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
         }else if segue.identifier == "goToAddCourse" {
             let vc = segue.destination as! AddInfoAboutCourseVC
             vc.create = true
+        }else if segue.identifier == "goToWithdraw" {
+            let vc = segue.destination as! WithdrawViewController
+            vc.money = user.coach.money
         }
 
     }

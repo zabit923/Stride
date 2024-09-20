@@ -19,7 +19,7 @@ class CoachViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
 
-    var user: UserStruct = User.info {
+    private var user: UserStruct = User.info {
         didSet {
             sceletonAnimatedStop()
             addProfile()
@@ -54,6 +54,7 @@ class CoachViewController: UIViewController {
 
     private func getCoachInfo() async throws {
         user = try await User().getUserByID(id: idCoach)
+        print(user)
     }
 
     private func getCoachCourses() async throws {

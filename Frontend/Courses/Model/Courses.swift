@@ -261,11 +261,7 @@ class Courses {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response =  AF.upload(multipartFormData: { multipartFormData in
             if let imageURL = info.imageURL, "\(imageURL)".starts(with: "file") {
-                ImageResize.compressImageFromFileURL(fileURL: imageURL, maxSizeInMB: 1.0) { compressedURL in
-                    if let url = compressedURL {
-                        multipartFormData.append(url, withName: "image")
-                    }
-                }
+                multipartFormData.append(imageURL, withName: "image")
             }
             multipartFormData.append(Data(info.name.utf8), withName: "title")
             multipartFormData.append(Data(info.description!.utf8), withName: "desc")
