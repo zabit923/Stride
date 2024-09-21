@@ -82,6 +82,7 @@ class VhodViewController: UIViewController {
                 loadingStop()
             }catch {
                 loadingStop()
+                nextBtn.isEnabled = true
             }
         }
     }

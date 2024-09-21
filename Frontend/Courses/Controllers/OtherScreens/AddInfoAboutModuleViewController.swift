@@ -89,6 +89,35 @@ class AddInfoAboutModuleViewController: UIViewController {
         descriptionTextField.attributedPlaceholder = NSAttributedString(string: "Описание", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
         durationTextField.attributedPlaceholder = NSAttributedString(string: "Длительность", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
     }
+    
+    private func deleteModuleRequest() {
+        Task {
+            do {
+                try await Courses().deleteModule(moduleID: module.id)
+                delegate?.deleteModuleDismiss(moduleID: module.id)
+                dismiss(animated: true)
+            } catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
+        }
+    }
+    
+    func addAlert() {
+        let alert = UIAlertController(title: "Удалить модуль?", message: "Это действие невозможно отменить.", preferredStyle: .alert)
+
+        let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { _ in
+            self.deleteModuleRequest()
+        }
+
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
 
     func changeModule() {
         if let minutes = Int(durationTextField.text!) {
@@ -144,17 +173,7 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
 
     @IBAction func deleteModule(_ sender: UIButton) {
-        Task {
-            do {
-                try await Courses().deleteModule(moduleID: module.id)
-                delegate?.deleteModuleDismiss(moduleID: module.id)
-                dismiss(animated: true)
-            } catch ErrorNetwork.runtimeError(let error) {
-                errorView.isHidden = false
-                errorView.configure(title: "Ошибка", description: error)
-                view.addSubview(errorView)
-            }
-        }
+        addAlert()
     }
 
     @IBAction func clearInfo(_ sender: UIButton) {

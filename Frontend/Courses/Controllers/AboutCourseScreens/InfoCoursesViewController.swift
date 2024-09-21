@@ -49,6 +49,7 @@ class InfoCoursesViewController: UIViewController {
         Task {
             course = try await Courses().getCoursesByID(id: course.id)
             design()
+            reviewHiddenBtn()
         }
     }
 
@@ -80,18 +81,18 @@ class InfoCoursesViewController: UIViewController {
         coachName.setTitle(course.nameAuthor, for: .normal)
         im.sd_setImage(with: course.imageURL)
         countBuyer.text = "\(course.countBuyer)"
-        reviewHiddenBtn()
     }
 
     private func buyOrNextDesign() {
         if buy == false {
             buyView.setTitle("Оставить отзыв", for: .normal)
+            buyView.isHidden = true
             getCourse()
             priceView.isHidden = true
         }else {
             buyView.setTitle("Купить", for: .normal)
+            buyView.isHidden = false
             priceView.isHidden = false
-
         }
     }
 
