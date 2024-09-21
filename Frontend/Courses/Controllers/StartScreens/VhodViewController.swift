@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Lottie
 
 class VhodViewController: UIViewController {
 
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var passwordBorder: Border!
     @IBOutlet weak var phoneBorder: Border!
@@ -38,6 +40,20 @@ class VhodViewController: UIViewController {
         errorView.isHidden = false
         errorView.configure(title: "Ошибка", description: error)
     }
+    
+    private func loadingStart() {
+        loading.play()
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.isHidden = false
+        nextBtn.isHidden = true
+    }
+
+    private func loadingStop() {
+        loading.stop()
+        loading.isHidden = true
+        nextBtn.isHidden = false
+    }
 
     func checkInfo() throws {
         guard phone.text!.count > 2 else {
@@ -49,6 +65,7 @@ class VhodViewController: UIViewController {
     }
 
     @IBAction func vhod(_ sender: UIButton) {
+        loadingStart()
         nextBtn.isEnabled = false
         Task {
             do {
@@ -57,10 +74,14 @@ class VhodViewController: UIViewController {
                 let phoneNumberFormat = phone.text!.format(with: "+XXXXXXXXXXX")
                 try await Sign().vhod(phoneNumber: phoneNumberFormat, password: password.text!)
                 nextBtn.isEnabled = true
+                loadingStop()
                 performSegue(withIdentifier: "success", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
                 nextBtn.isEnabled = true
+                loadingStop()
+            }catch {
+                loadingStop()
             }
         }
     }

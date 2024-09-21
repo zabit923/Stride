@@ -31,8 +31,12 @@ class AddInfoAboutModuleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
-        startPosition = mainView.center
         textFieldsDesign()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        startPosition = mainView.frame.origin
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -112,7 +116,7 @@ class AddInfoAboutModuleViewController: UIViewController {
                 dismiss(animated: false)
             }else {
                 UIView.animate(withDuration: 0.5) {
-                    self.mainView.center = self.startPosition
+                    self.mainView.frame.origin = self.startPosition
                 }
             }
         default:

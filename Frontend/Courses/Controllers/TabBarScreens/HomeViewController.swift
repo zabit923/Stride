@@ -34,7 +34,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingStart()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center

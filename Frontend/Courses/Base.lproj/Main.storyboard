@@ -970,6 +970,17 @@
                                     <action selector="registr:" destination="2en-Zg-GVj" eventType="touchUpInside" id="HWf-4Q-Gb9"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lgu-Kf-wLJ" customClass="LottieAnimationView" customModule="Lottie">
+                                <rect key="frame" x="192.66666666666666" y="489" width="45" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="g6U-k3-Wgj"/>
+                                    <constraint firstAttribute="height" constant="45" id="qu0-XX-cFt"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="loading"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="DnT-aI-FeF">
                                 <rect key="frame" x="154" y="549" width="122" height="28"/>
                                 <subviews>
@@ -1001,12 +1012,14 @@
                             <constraint firstItem="C70-5q-ZUY" firstAttribute="top" secondItem="Gqg-PZ-US6" secondAttribute="bottom" constant="45" id="DHh-wq-1SH"/>
                             <constraint firstItem="bpB-69-zel" firstAttribute="trailing" secondItem="C70-5q-ZUY" secondAttribute="trailing" constant="30" id="Edp-WO-ae1"/>
                             <constraint firstItem="C70-5q-ZUY" firstAttribute="leading" secondItem="bpB-69-zel" secondAttribute="leading" constant="30" id="K8t-if-cQ0"/>
+                            <constraint firstItem="lgu-Kf-wLJ" firstAttribute="centerX" secondItem="OkA-eD-Ipt" secondAttribute="centerX" id="KKq-DM-zCC"/>
                             <constraint firstItem="Gqg-PZ-US6" firstAttribute="leading" secondItem="bpB-69-zel" secondAttribute="leading" constant="30" id="OMJ-rU-a0b"/>
                             <constraint firstItem="0zg-tf-AXH" firstAttribute="top" secondItem="bpB-69-zel" secondAttribute="top" constant="20" id="QyU-ZW-avk"/>
                             <constraint firstItem="0zg-tf-AXH" firstAttribute="leading" secondItem="bpB-69-zel" secondAttribute="leading" constant="35" id="URD-ZY-Sqq"/>
                             <constraint firstItem="Gqg-PZ-US6" firstAttribute="top" secondItem="IWc-p0-VLC" secondAttribute="bottom" constant="12" id="XXn-on-mRF"/>
                             <constraint firstItem="DnT-aI-FeF" firstAttribute="top" secondItem="C70-5q-ZUY" secondAttribute="bottom" constant="15" id="gSD-Op-gRP"/>
                             <constraint firstItem="DnT-aI-FeF" firstAttribute="centerX" secondItem="OkA-eD-Ipt" secondAttribute="centerX" id="i8v-pL-wDu"/>
+                            <constraint firstItem="lgu-Kf-wLJ" firstAttribute="top" secondItem="Gqg-PZ-US6" secondAttribute="bottom" constant="45" id="qX6-y7-Ldf"/>
                             <constraint firstItem="IWc-p0-VLC" firstAttribute="leading" secondItem="bpB-69-zel" secondAttribute="leading" constant="35" id="vo6-ZR-Jyv"/>
                             <constraint firstItem="IWc-p0-VLC" firstAttribute="top" secondItem="0zg-tf-AXH" secondAttribute="bottom" constant="10" id="yox-fW-WCJ"/>
                         </constraints>
@@ -1019,6 +1032,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="lastName" destination="7su-W0-4wt" id="JmN-vV-uIQ"/>
+                        <outlet property="loading" destination="lgu-Kf-wLJ" id="FUx-pt-R8w"/>
                         <outlet property="mail" destination="2f5-DU-qXf" id="qhn-zA-XKu"/>
                         <outlet property="mailBorder" destination="7Pe-Q8-8jt" id="bOp-ge-CXQ"/>
                         <outlet property="name" destination="vDt-vD-0tj" id="MZd-qV-N46"/>
@@ -2726,6 +2740,17 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjS-Zj-ICD" customClass="LottieAnimationView" customModule="Lottie">
+                                <rect key="frame" x="192.66666666666666" y="324" width="45" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="mDM-HG-8h6"/>
+                                    <constraint firstAttribute="width" constant="45" id="osr-QM-gft"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="loading"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pPJ-bd-p4S"/>
                         <color key="backgroundColor" name="BlackMain"/>
@@ -2743,10 +2768,12 @@
                             <constraint firstItem="zcV-dW-Nxl" firstAttribute="top" secondItem="kkX-Oh-A6f" secondAttribute="bottom" constant="25" id="dvL-om-IYs"/>
                             <constraint firstItem="XIh-bt-dv8" firstAttribute="leading" secondItem="pPJ-bd-p4S" secondAttribute="leading" constant="30" id="eTM-Fu-kaS"/>
                             <constraint firstItem="XIh-bt-dv8" firstAttribute="top" secondItem="JY0-PY-gpp" secondAttribute="bottom" constant="12" id="grW-H1-7Sq"/>
+                            <constraint firstItem="vjS-Zj-ICD" firstAttribute="centerX" secondItem="Dd5-bS-eJc" secondAttribute="centerX" id="h50-mP-9ob"/>
                             <constraint firstItem="pPJ-bd-p4S" firstAttribute="trailing" secondItem="kkX-Oh-A6f" secondAttribute="trailing" constant="30" id="jtu-21-S2R"/>
                             <constraint firstItem="kkX-Oh-A6f" firstAttribute="top" secondItem="OPg-Oo-UV2" secondAttribute="bottom" constant="45" id="nFR-Ie-XMA"/>
                             <constraint firstItem="zcV-dW-Nxl" firstAttribute="centerX" secondItem="Dd5-bS-eJc" secondAttribute="centerX" id="odi-vH-SfD"/>
                             <constraint firstItem="OPg-Oo-UV2" firstAttribute="top" secondItem="Vhs-Oq-Y2F" secondAttribute="bottom" constant="30" id="pnN-mH-v9f"/>
+                            <constraint firstItem="vjS-Zj-ICD" firstAttribute="top" secondItem="XIh-bt-dv8" secondAttribute="bottom" constant="45" id="wf5-NX-mxh"/>
                             <constraint firstItem="kkX-Oh-A6f" firstAttribute="leading" secondItem="pPJ-bd-p4S" secondAttribute="leading" constant="30" id="xM5-vd-23A"/>
                             <constraint firstItem="JY0-PY-gpp" firstAttribute="leading" secondItem="pPJ-bd-p4S" secondAttribute="leading" constant="35" id="zaZ-N2-K0R"/>
                         </constraints>
@@ -2758,6 +2785,7 @@
                     <navigationItem key="navigationItem" id="Dz3-FM-xbw"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="loading" destination="vjS-Zj-ICD" id="ctB-3m-eH7"/>
                         <outlet property="nextBtn" destination="Vhs-Oq-Y2F" id="cSc-3n-qdV"/>
                         <outlet property="password" destination="s48-G4-NeD" id="Bry-uj-GqW"/>
                         <outlet property="passwordBorder" destination="8TH-m0-RhL" id="ET8-KT-DxL"/>
@@ -7394,14 +7422,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="jEY-vC-3ne"/>
-        <segue reference="M8w-WU-QND"/>
-        <segue reference="RsJ-Z8-4Bo"/>
+        <segue reference="yNH-bw-Rcl"/>
+        <segue reference="afS-Cq-cau"/>
+        <segue reference="ID3-qF-T3b"/>
         <segue reference="0B2-ml-wjG"/>
-        <segue reference="hAk-ad-GZt"/>
-        <segue reference="AOP-mt-L4O"/>
+        <segue reference="eaT-yL-Yiu"/>
+        <segue reference="3aH-yg-pXb"/>
         <segue reference="YX4-7O-Lay"/>
-        <segue reference="iWm-3v-hYp"/>
+        <segue reference="7iD-6h-6hO"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="apple" width="15.333333015441895" height="18"/>

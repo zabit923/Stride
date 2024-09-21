@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Lottie
 
 class RegistrViewController: UIViewController {
 
+    @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var phoneBorder: Border!
     @IBOutlet weak var passwordAgoBorder: Border!
@@ -52,6 +54,20 @@ class RegistrViewController: UIViewController {
         errorView.isHidden = false
         errorView.configure(title: "Ошибка", description: error)
     }
+    
+    private func loadingStart() {
+        loading.play()
+        loading.loopMode = .loop
+        loading.contentMode = .scaleToFill
+        loading.isHidden = false
+        registerBtn.isHidden = true
+    }
+
+    private func loadingStop() {
+        loading.stop()
+        loading.isHidden = true
+        registerBtn.isHidden = false
+    }
 
     func checkInfo() throws {
         guard password.text == passwordAgo.text else {
@@ -75,6 +91,7 @@ class RegistrViewController: UIViewController {
     }
 
     @IBAction func registr(_ sender: UIButton) {
+        loadingStop()
         registerBtn.isEnabled = false
         Task {
             do {
@@ -83,11 +100,14 @@ class RegistrViewController: UIViewController {
                 let phoneNumberFormat = phoneNumber.text!.format(with: "+XXXXXXXXXXX")
                 try await Sign().registr(phoneNumber: phoneNumberFormat, password: password.text!, name: name.text!, lastName: lastName.text!, mail: mail.text!)
                 registerBtn.isEnabled = true
+                loadingStop()
                 performSegue(withIdentifier: "success", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
                 registerBtn.isEnabled = true
+                loadingStop()
             } catch {
+                loadingStop()
                 registerBtn.isEnabled = true
             }
         }
