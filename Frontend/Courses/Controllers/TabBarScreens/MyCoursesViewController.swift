@@ -96,6 +96,7 @@ class MyCoursesViewController: UIViewController {
         searchBtn.isHidden = false
         cancelBtn.isHidden = true
         search.resignFirstResponder()
+        emptyCheck()
     }
 
     @IBAction func tap(_ sender: UITapGestureRecognizer) {

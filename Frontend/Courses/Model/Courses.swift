@@ -451,7 +451,7 @@ class Courses {
         guard results.isEmpty == false else {return []}
 
         for x in 0...results.count - 1 {
-            let daysCount = json["results"][x]["days"].arrayValue.count
+            let daysCount = json["results"][x]["count_days"].intValue
             let title = json["results"][x]["title"].stringValue
             let price = json["results"][x]["price"].intValue
             let id = json["results"][x]["id"].intValue

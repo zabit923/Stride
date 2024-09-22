@@ -28,10 +28,6 @@ class CatalogViewController: UIViewController {
         catalogCollectionView.dataSource = self
         catalogCollectionView.delegate = self
         search.delegate = self
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         design()
     }
     

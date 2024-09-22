@@ -37,11 +37,12 @@ class HomeViewController: UIViewController {
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
+        design()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        design()
+        getUser()
     }
 
     override func viewDidLayoutSubviews() {
@@ -132,6 +133,8 @@ class HomeViewController: UIViewController {
     private func getBanners() {
         banners.append("first")
         banners.append("second")
+        banners.append("third")
+        banners.append("fourth")
         bannersCollectionView.reloadData()
     }
 
