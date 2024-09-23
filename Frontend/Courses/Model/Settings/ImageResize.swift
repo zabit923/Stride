@@ -34,20 +34,12 @@ class ImageResize {
         var imageData = resizeImage.jpegData(compressionQuality: compression)
         
         while imageData?.count ?? 0 > maxSizeInBytes && compression > 0 {
-            compression -= 0.1
+            compression -= 0.02
             imageData = image.jpegData(compressionQuality: compression)
         }
-
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let compressedImageURL = documentsDirectory.appendingPathComponent("compressedImage.jpg")
-
-        do {
-            try imageData?.write(to: compressedImageURL)
-            return compressedImageURL
-        } catch {
-            print("Ошибка при сохранении сжатого изображения: \(error)")
-            return nil
-        }
+        
+        let url = ImageResize().imageToURL(image: UIImage(data:imageData!)!, fileName: "compressedImage")
+        return url
     }
 
     
@@ -66,11 +58,22 @@ class ImageResize {
         var imageData = newImage.jpegData(compressionQuality: compression)
         
         while imageData?.count ?? 0 > maxFileSize && compression > 0 {
-            compression -= 0.1
+            compression -= 0.02
             imageData = newImage.jpegData(compressionQuality: compression)
         }
         
         return UIImage(data: imageData!)!
+    }
+
+    func imageToURL(image: UIImage, fileName: String) -> URL {
+        let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(fileName).jpg")
+
+        try? image.jpegData(compressionQuality: 0.8)?.write(to: tempURL, options: .atomic)
+        return tempURL
+    }
+    
+    func deleteTempImage(atURL: URL) {
+        try? FileManager.default.removeItem(at: atURL)
     }
 
 }

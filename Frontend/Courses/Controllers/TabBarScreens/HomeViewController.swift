@@ -34,15 +34,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingStart()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
+        design()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        design()
+        getUser()
     }
 
     override func viewDidLayoutSubviews() {
@@ -71,7 +71,7 @@ class HomeViewController: UIViewController {
 
     private func getRecomendCourses() {
         Task {
-            recomendCourses = try await Courses().getRecomendedCourses()
+            recomendCourses = try await Course().getRecomendedCourses()
             recomendCollectionView.reloadData()
         }
     }
@@ -133,6 +133,8 @@ class HomeViewController: UIViewController {
     private func getBanners() {
         banners.append("first")
         banners.append("second")
+        banners.append("third")
+        banners.append("fourth")
         bannersCollectionView.reloadData()
     }
 

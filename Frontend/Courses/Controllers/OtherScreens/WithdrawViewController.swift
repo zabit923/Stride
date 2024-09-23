@@ -13,10 +13,13 @@ class WithdrawViewController: UIViewController {
     @IBOutlet weak var withdrawTextField: UITextField!
     @IBOutlet weak var cardTextField: UITextField!
     
+    var money = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldDesign()
         cardTextField.delegate = self
+        moneyCount.text = "\(money)"
     }
     
     private func textFieldDesign() {
@@ -29,6 +32,20 @@ class WithdrawViewController: UIViewController {
         performSegue(withIdentifier: "goToSBP", sender: self)
     }
     
+    @IBAction func fluent(_ sender: UIButton) {
+        Task {
+            do {
+                guard let money = Int(withdrawTextField.text ?? "0") else { return }
+                let card: PaymentMethod = .card(cardNumber: cardTextField.text ?? "", amount: money)
+                try await Payment().fetchFunds(payment: card)
+                let result = Int(moneyCount.text!)! - money
+                moneyCount.text = "\(result)"
+            }catch ErrorNetwork.runtimeError(let error) {
+                print(error)
+            }
+        }
+    }
+    
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         withdrawTextField.resignFirstResponder()
         cardTextField.resignFirstResponder()
@@ -38,6 +55,14 @@ class WithdrawViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "goToSBP" {
+            let vc = segue.destination as! WithdrawSBPViewController
+            vc.money = money
+        }
+        
+    }
 }
 
 extension WithdrawViewController: UITextFieldDelegate {

@@ -14,7 +14,9 @@ class WithdrawSBPViewController: UIViewController {
     @IBOutlet weak var banksTableView: UITableView!
     @IBOutlet weak var numberTextField: UITextField!
     
+    var money = 0
     var arrayBanks = [Banks]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBank()
@@ -26,6 +28,7 @@ class WithdrawSBPViewController: UIViewController {
     
     private func design() {
         banksTableView.isHidden = true
+        moneyCount.text = "\(money)"
     }
     
     private func addBank() {
@@ -35,6 +38,10 @@ class WithdrawSBPViewController: UIViewController {
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         numberTextField.resignFirstResponder()
         banksTableView.isHidden = true
+    }
+    
+    @IBAction func fluent(_ sender: UIButton) {
+        
     }
     
     @IBAction func banksTV(_ sender: UIButton) {

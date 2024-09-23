@@ -17,7 +17,6 @@ class FilePath {
                 switch response.result {
                 case .success(let data):
                     guard let str = self.deserializeAttributedString(from: data) else {return}
-                    print(data)
                     continuation.resume(returning: str)
                 case .failure(let error):
                     continuation.resume(throwing: error)
@@ -58,7 +57,6 @@ class FilePath {
 
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: attributedString, requiringSecureCoding: false)
-            print(data)
             try data.write(to: fileURL)
             return fileURL
         } catch {

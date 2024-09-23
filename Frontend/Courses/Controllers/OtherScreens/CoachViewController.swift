@@ -19,7 +19,7 @@ class CoachViewController: UIViewController {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var coursesCollectionView: UICollectionView!
 
-    var user: UserStruct = User.info {
+    private var user: UserStruct = User.info {
         didSet {
             sceletonAnimatedStop()
             addProfile()
@@ -57,7 +57,7 @@ class CoachViewController: UIViewController {
     }
 
     private func getCoachCourses() async throws {
-        courses = try await Courses().getCoursesByUserID(id: idCoach)
+        courses = try await Course().getCoursesByUserID(id: idCoach)
         coursesCount.text = "\(courses.count)"
         rating.text = "\(averageRating())"
         coursesCollectionView.reloadData()

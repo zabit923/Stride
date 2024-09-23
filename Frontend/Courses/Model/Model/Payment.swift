@@ -5,11 +5,12 @@
 //  Created by Руслан on 02.09.2024.
 //
 
-import Foundation
+import SwiftyJSON
 import TinkoffASDKCore
 import TinkoffASDKUI
 import CryptoKit
 import UIKit
+import Alamofire
 
 
 class Payment {
@@ -27,6 +28,7 @@ class Payment {
     let uiSDKConfiguration = UISDKConfiguration()
 
 
+    // MARK: - Оплата
     func cardList(_ viewController: UIViewController, email: String) {
         self.email = email
         do {
@@ -73,4 +75,43 @@ class Payment {
         return paymentFlow
     }
 
+    
+    // MARK: - Вывод
+    
+    
+    func fetchFunds(payment: PaymentMethod) async throws {
+        let url = Constants.url + "api/v1/payments/request-funds"
+        
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        var parameters: Parameters
+        
+        
+        switch payment {
+        case .card:
+            parameters = [
+                "card_number": payment.cardNumber!,
+                "amount": "\(payment.amount)",
+            ]
+        case .sbp:
+            parameters = [
+                "phone_number": payment.phoneNumber!,
+                "amount": "\(payment.amount)",
+                "bank_name": payment.bank!
+            ]
+        }
+        
+        let response = AF.request(url, method: .post, parameters: parameters, headers: headers).serializingData()
+        let value = try await response.value
+        let code = await response.response.response?.statusCode
+        let json = JSON(value)
+        if code != 201 {
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
+        }
+    }
+    
 }

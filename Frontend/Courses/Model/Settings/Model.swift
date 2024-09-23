@@ -32,65 +32,6 @@ struct Category {
     var id: Int
 }
 
-// MARK: - Course
-struct Modules {
-    var text: URL?
-    var name: String
-    var minutes: Int
-    var imageURL: URL?
-    var description: String?
-    var id: Int
-    var isRead: Bool = false
-}
-
-struct Course {
-    var daysCount: Int
-    var nameCourse: String
-    var nameAuthor: String
-    var idAuthor: Int
-    var price: Int
-    var categoryID: Int = 0
-    var imageURL: URL?
-    var rating: Float
-    var myRating: Int
-    var progressInDays: Int = 0
-    var id: Int
-    var description: String
-    var dataCreated: String
-    var countBuyer: Int = 0
-    var isBought: Bool = false
-    var courseDays = [CourseDays]()
-
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false) {
-        self.daysCount = daysCount
-        self.nameCourse = nameCourse
-        self.nameAuthor = nameAuthor
-        self.price = price
-        self.categoryID = categoryID
-        self.imageURL = imageURL
-        self.rating = Comments().roundRating(rating: rating)
-        self.myRating = myRating
-        self.id = id
-        self.description = description
-        self.dataCreated = dataCreated
-        self.idAuthor = idAuthor
-        self.progressInDays = progressInDays
-        self.countBuyer = countBuyer
-        self.isBought = isBought
-    }
-}
-
-struct CourseDays {
-    var dayID: Int
-    var type: TypeDays = .noneSee
-    var modules = [Modules]()
-    
-    init(dayID: Int, type: TypeDays, modules: [Modules] = [Modules]()) {
-        self.dayID = dayID
-        self.type = type
-        self.modules = modules.sorted(by: { $0.id < $1.id })
-    }
-}
 
 // MARK: - User
 struct UserStruct {
@@ -140,6 +81,7 @@ struct Coach {
     var countCourses: Int = 0
     var rating: Float = 0.0
     var myCourses = [Course]()
+    var money: Int = 0
 }
 
 struct InfoMe: Encodable {
@@ -213,6 +155,43 @@ enum TypeDays: String {
     }
 
 }
+
+enum PaymentMethod {
+    case card(cardNumber: String, amount: Int)
+    case sbp(phoneNumber: String, amount: Int, bank: String)
+
+    var cardNumber: String? {
+        if case .card(let number, _) = self {
+            return number
+        }
+        return nil
+    }
+
+    var amount: Int {
+        switch self {
+        case .card(_, let amount):
+            return amount
+        case .sbp(_, let amount, _):
+            return amount
+        }
+    }
+
+    var phoneNumber: String? {
+        if case .sbp(let number, _, _) = self {
+            return number
+        }
+        return nil
+    }
+
+    var bank: String? {
+        if case .sbp(_, _, let bank) = self {
+            return bank
+        }
+        return nil
+    }
+    
+}
+
 
 enum Goal: String {
     case loseWeight = "LW"

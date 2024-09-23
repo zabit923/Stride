@@ -8,6 +8,7 @@
 import UIKit
 import SDWebImage
 import Lottie
+import CropViewController
 
 class AddInfoAboutModuleViewController: UIViewController {
 
@@ -30,8 +31,12 @@ class AddInfoAboutModuleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         design()
-        startPosition = mainView.center
         textFieldsDesign()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        startPosition = mainView.frame.origin
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +89,35 @@ class AddInfoAboutModuleViewController: UIViewController {
         descriptionTextField.attributedPlaceholder = NSAttributedString(string: "Описание", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
         durationTextField.attributedPlaceholder = NSAttributedString(string: "Длительность", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
     }
+    
+    private func deleteModuleRequest() {
+        Task {
+            do {
+                try await Course().deleteModule(moduleID: module.id)
+                delegate?.deleteModuleDismiss(moduleID: module.id)
+                dismiss(animated: true)
+            } catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }
+        }
+    }
+    
+    func addAlert() {
+        let alert = UIAlertController(title: "Удалить модуль?", message: "Это действие невозможно отменить.", preferredStyle: .alert)
+
+        let deleteAction = UIAlertAction(title: "Удалить", style: .destructive) { _ in
+            self.deleteModuleRequest()
+        }
+
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel)
+
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true)
+    }
 
     func changeModule() {
         if let minutes = Int(durationTextField.text!) {
@@ -111,7 +145,7 @@ class AddInfoAboutModuleViewController: UIViewController {
                 dismiss(animated: false)
             }else {
                 UIView.animate(withDuration: 0.5) {
-                    self.mainView.center = self.startPosition
+                    self.mainView.frame.origin = self.startPosition
                 }
             }
         default:
@@ -125,7 +159,7 @@ class AddInfoAboutModuleViewController: UIViewController {
         Task {
             do {
                 changeModule()
-                try await Courses().changeModuleInfo(info: module)
+                try await Course().changeModuleInfo(info: module)
                 delegate?.changeInfoModuleDismiss(module: module, moduleID: module.id)
                 saveBtn.isEnabled = true
                 dismiss(animated: true)
@@ -139,17 +173,7 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
 
     @IBAction func deleteModule(_ sender: UIButton) {
-        Task {
-            do {
-                try await Courses().deleteModule(moduleID: module.id)
-                delegate?.deleteModuleDismiss(moduleID: module.id)
-                dismiss(animated: true)
-            } catch ErrorNetwork.runtimeError(let error) {
-                errorView.isHidden = false
-                errorView.configure(title: "Ошибка", description: error)
-                view.addSubview(errorView)
-            }
-        }
+        addAlert()
     }
 
     @IBAction func clearInfo(_ sender: UIButton) {
@@ -172,17 +196,31 @@ class AddInfoAboutModuleViewController: UIViewController {
 
 }
 
-extension AddInfoAboutModuleViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
-
+extension AddInfoAboutModuleViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate, CropViewControllerDelegate {
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
-            imageBtn.setImage(image, for: .normal)
-            module.imageURL = url
-            dismiss(animated: true)
+            ImageResize().deleteTempImage(atURL: url)
+            picker.dismiss(animated: true)
+            let crop = CropImage(vc: self)
+            crop.showModuleImageCourse(with: image)
+            crop.vcCrop.delegate = self
         }
     }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didFinishCancelled cancelled: Bool) {
+        cropViewController.dismiss(animated: true)
+    }
+    
+    func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        imageBtn.setImage(image, for: .normal)
+        module.imageURL = ImageResize().imageToURL(image: image, fileName: "\(UUID().uuidString)")
+        cropViewController.dismiss(animated: true)
+    }
+    
 }

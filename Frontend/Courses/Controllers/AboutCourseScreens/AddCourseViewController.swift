@@ -27,6 +27,7 @@ class AddCourseViewController: UIViewController {
 
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
+    private var isChangedText = false
     private var isSave = true
 
     var module = Modules(name: "", minutes: 0, id: 0)
@@ -37,12 +38,14 @@ class AddCourseViewController: UIViewController {
         didSet {
             colorView.backgroundColor = colorSelect
             textView.typingAttributes[.foregroundColor] = colorSelect
+            selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
         }
     }
     private var fontSelect = UIFont.systemFont(ofSize: 16) {
         didSet {
             fontTitle.text = fontSelect.fontName
             textView.typingAttributes[.font] = fontSelect
+            selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
         }
     }
     private var alignment = NSMutableParagraphStyle().alignment {
@@ -161,7 +164,7 @@ class AddCourseViewController: UIViewController {
     private func addCourse(text: NSAttributedString) async throws {
         do {
             loadingSettings()
-            try await Courses().addModulesData(text: text, moduleID: module.id)
+            try await Course().addModulesData(text: text, moduleID: module.id)
             loadingStop()
             isSave = true
         }catch ErrorNetwork.runtimeError(let error) {
@@ -195,7 +198,8 @@ class AddCourseViewController: UIViewController {
         fontView.isHidden = true
         textView.isEditable = true
         textView.becomeFirstResponder()
-        selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
+        isChangedText = false
+//        selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
     }
 
 
@@ -221,9 +225,12 @@ class AddCourseViewController: UIViewController {
     }
 
     @IBAction func changedText(_ sender: UIButton) {
-        textView.resignFirstResponder()
+//        textView.resignFirstResponder()
+        textView.isSelectable = true
         textView.isEditable = false
+        textView.becomeFirstResponder()
         fontView.isHidden = false
+        isChangedText = true
         textStyleBar()
     }
 
@@ -278,6 +285,23 @@ class AddCourseViewController: UIViewController {
 }
 // MARK: - TextView
 extension AddCourseViewController: UITextViewDelegate {
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        let selectedRange = textView.selectedRange
+
+        if selectedRange.length > 0 && isChangedText {
+            let attributedText = textView.attributedText!
+            
+            let font = attributedText.attribute(.font, at: selectedRange.location, effectiveRange: nil) as? UIFont ?? textView.font
+            let color = attributedText.attribute(.foregroundColor, at: selectedRange.location, effectiveRange: nil) as? UIColor ?? textView.textColor
+            let size = font!.pointSize
+            
+            fontSelect = font!
+            colorSelect = color!
+            sizeFontSelect = size
+            
+        }
+    }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.typingAttributes[.font] as? UIFont != fontSelect {
@@ -316,7 +340,8 @@ extension AddCourseViewController: UITextViewDelegate {
 extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
+            ImageResize().deleteTempImage(atURL: url)
             let resizeImage = ImageResize.resizeAndCompressImage(image: image, maxSizeKB: 300)
             let roundedImage = resizeImage.withRoundedCorners(radius: 7)
             addImageInTextView(image: roundedImage)
