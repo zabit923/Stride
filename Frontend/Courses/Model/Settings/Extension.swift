@@ -84,14 +84,3 @@ extension UITextView {
         return NSRange(location: location, length: length)
     }
 }
-
-extension URL {
-    
-    func clearUrlCloud() -> URL {
-        let url = "\(self)"
-        let parts = url.split(separator: "?")
-        let cleanUrl = String(parts[0])
-        let resultURL = URL(string: cleanUrl)!
-        return resultURL
-    }
-}

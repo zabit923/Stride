@@ -137,9 +137,12 @@ class ChangeInformationViewController: UIViewController {
     }
 
     @IBAction func addImage(_ sender: UIButton) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true)
+        let privacy = Privacy().checkPhotoLibraryAuthorization()
+        if privacy {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            present(imagePickerController, animated: true)
+        }
     }
 
     @IBAction func tap(_ sender: UITapGestureRecognizer) {

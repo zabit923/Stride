@@ -219,13 +219,15 @@ class AddCourseViewController: UIViewController {
     }
 
     @IBAction func addImage(_ sender: UIButton) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true)
+        let privacy = Privacy().checkPhotoLibraryAuthorization()
+        if privacy {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            present(imagePickerController, animated: true)
+        }
     }
 
     @IBAction func changedText(_ sender: UIButton) {
-//        textView.resignFirstResponder()
         textView.isSelectable = true
         textView.isEditable = false
         textView.becomeFirstResponder()

@@ -28,7 +28,6 @@ class HomeViewController: UIViewController {
         }
     }
     private var startPosition = CGPoint()
-    var aa = 0
 
 
     override func viewDidLoad() {
