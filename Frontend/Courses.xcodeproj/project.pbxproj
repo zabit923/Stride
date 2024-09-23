@@ -83,6 +83,7 @@
 		44F395482C9B8BA200861759 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 44F395472C9B8BA200861759 /* CropViewController */; };
 		44F3954A2C9B8BA200861759 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 44F395492C9B8BA200861759 /* TOCropViewController */; };
 		44F3954C2C9B8BB900861759 /* CropImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F3954B2C9B8BB900861759 /* CropImage.swift */; };
+		44F741542CA1D0720041F8FA /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F741532CA1D0720041F8FA /* Privacy.swift */; };
 		7508513B2C38763A00F5C0DC /* ChangeInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7508513A2C38763A00F5C0DC /* ChangeInformationViewController.swift */; };
 		75106D792C38AFDB0036042B /* InfoAboutMeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75106D782C38AFDB0036042B /* InfoAboutMeViewController.swift */; };
 		7515103C2C343146009978E6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7515103B2C343146009978E6 /* ProfileViewController.swift */; };
@@ -179,6 +180,7 @@
 		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		44F3954B2C9B8BB900861759 /* CropImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropImage.swift; sourceTree = "<group>"; };
+		44F741532CA1D0720041F8FA /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		7508513A2C38763A00F5C0DC /* ChangeInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeInformationViewController.swift; sourceTree = "<group>"; };
 		75106D782C38AFDB0036042B /* InfoAboutMeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoAboutMeViewController.swift; sourceTree = "<group>"; };
 		7515103B2C343146009978E6 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 				444A07002C2B9D6C008F4E68 /* Extension.swift */,
 				75D7F3552C4299EF0083DBEF /* UD.swift */,
 				44064C9F2C28634C00AB5227 /* Model.swift */,
+				44F741532CA1D0720041F8FA /* Privacy.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				447D8C812C85DEEB00EF2217 /* Payment.swift in Sources */,
 				444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */,
 				7595784B2C5B9A7E00A9F811 /* AddInfoAboutModuleViewController.swift in Sources */,
+				44F741542CA1D0720041F8FA /* Privacy.swift in Sources */,
 				7555DEB52C986FC100B80A13 /* WithdradSBPViewController.swift in Sources */,
 				7555DEB72C98822000B80A13 /* BanksTableViewCell.swift in Sources */,
 				440DAB342C1748D400C576FB /* AppDelegate.swift in Sources */,
@@ -761,6 +765,8 @@
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This permission for profile photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This permission for profile photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -796,6 +802,8 @@
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This permission for profile photo";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This permission for profile photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

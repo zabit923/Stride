@@ -22,7 +22,7 @@ class User {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.upload(multipartFormData: { multipartFormData in
             if let avatarURL = user.avatarURL {
-                ImageResize.compressImageFromFileURL(fileURL: avatarURL, maxSizeInMB: 1.0) { compressedURL in
+                ImageResize.compressImageFromFileURL(fileURL: avatarURL, maxSizeInMB: 0.1) { compressedURL in
                     if let url = compressedURL {
                         multipartFormData.append(url, withName: "image")
                     }
@@ -97,7 +97,7 @@ class User {
         user.isCoach = json["is_coach"].boolValue
         user.coach.description = json["desc"].stringValue
         user.coach.money = json["balance"].intValue
-        user.avatarURL = URL(string: "\(json["image"].stringValue)")!.clearUrlCloud()
+        user.avatarURL = URL(string: "\(json["image"].stringValue)")
         if user.isCoach == true {
             user.role = .coach
         }else {
@@ -119,7 +119,7 @@ class User {
         user.phone = json["phone_number"].stringValue
         user.id = json["id"].intValue
         user.coach.description = json["desc"].stringValue
-        user.avatarURL = URL(string: json["image"].stringValue)!.clearUrlCloud()
+        user.avatarURL = URL(string: json["image"].stringValue)
         return user
     }
 
@@ -140,7 +140,7 @@ class User {
             if isCoach {
                 role = .coach
             }
-            celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone, avatarURL: URL(string: image)!.clearUrlCloud()))
+            celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone, avatarURL: URL(string: image)))
         }
         return celebrities
     }

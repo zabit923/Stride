@@ -30,11 +30,10 @@ class ImageResize {
         let maxSizeInBytes = Int(maxSizeInMB * 1024 * 1024)
         var compression: CGFloat = 1.0
         
-        let resizeImage = image.scaleImage(toSize: CGSize(width: 250, height: 250))
-        var imageData = resizeImage.jpegData(compressionQuality: compression)
+        var imageData = image.jpegData(compressionQuality: compression)
         
         while imageData?.count ?? 0 > maxSizeInBytes && compression > 0 {
-            compression -= 0.02
+            compression -= 0.1
             imageData = image.jpegData(compressionQuality: compression)
         }
         
@@ -68,7 +67,7 @@ class ImageResize {
     func imageToURL(image: UIImage, fileName: String) -> URL {
         let tempURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(fileName).jpg")
 
-        try? image.jpegData(compressionQuality: 0.8)?.write(to: tempURL, options: .atomic)
+        try? image.jpegData(compressionQuality: 0.1)?.write(to: tempURL, options: .atomic)
         return tempURL
     }
     

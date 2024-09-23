@@ -67,7 +67,7 @@ class UD {
         let current = UserDefaults.standard.bool(forKey: "current")
         return current
     }
-
+    
     func saveDaysCompletedInCourse(course: Course, countDaysCompleted: Int) {
         UserDefaults.standard.set(countDaysCompleted, forKey: "completedDays_\(course.id)")
     }

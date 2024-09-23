@@ -128,9 +128,12 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
 
     @IBAction func addImage(_ sender: UIButton) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        present(imagePicker, animated: true)
+        let privacy = Privacy().checkPhotoLibraryAuthorization()
+        if privacy {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            present(imagePicker, animated: true)
+        }
     }
 
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
