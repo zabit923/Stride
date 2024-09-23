@@ -70,7 +70,7 @@ class MyCoursesViewController: UIViewController {
 
     private func getMyBoughtCourses() {
         Task {
-            course = try await Courses().getBoughtCourses()
+            course = try await Course().getBoughtCourses()
             filteredCourse = course
             loading.stop()
             loading.isHidden = true

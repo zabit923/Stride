@@ -35,6 +35,8 @@ class ProfileViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         coursesCollectionView.delegate = self
         coursesCollectionView.dataSource = self
+        sceletonAnimatedStart()
+        design()
     }
 
 
@@ -45,9 +47,8 @@ class ProfileViewController: UIViewController {
 
     func design() {
         Task {
-            sceletonAnimatedStart()
             user = try await User().getMyInfo()
-            courses = try await Courses().getMyCreateCourses()
+            courses = try await Course().getMyCreateCourses()
             coursesCount.text = "\(courses.count)"
             rating.text = "\(averageRating())"
             coursesCollectionView.reloadData()
@@ -78,7 +79,7 @@ class ProfileViewController: UIViewController {
         avatar.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
         characteristic.isSkeletonable = true
         characteristic.linesCornerRadius = 5
-        characteristic.skeletonTextNumberOfLines = 3
+        characteristic.skeletonTextNumberOfLines = 0
         characteristic.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
         rating.isSkeletonable = true
         rating.linesCornerRadius = 5
@@ -90,7 +91,7 @@ class ProfileViewController: UIViewController {
         coursesCount.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
         name.isSkeletonable = true
         name.linesCornerRadius = 5
-        name.skeletonTextNumberOfLines = 1
+        name.skeletonTextNumberOfLines = 3
         name.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
 
         ratingBottom.isHidden = true

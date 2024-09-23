@@ -60,7 +60,7 @@ class AddInfoAboutCourseVC: UIViewController {
             return
         }
         Task {
-            infoCourses = try await Courses().getCoursesByID(id: idCourse)
+            infoCourses = try await Course().getCoursesByID(id: idCourse)
             let categories = try await Categories().getCategories()
             selectCategory = categories.first(where: { $0.id == infoCourses.categoryID })
             categoriesLbl.text = selectCategory?.nameCategory
@@ -164,10 +164,10 @@ class AddInfoAboutCourseVC: UIViewController {
             do {
                 addInfoInVar()
                 if create {
-                    idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .post)
+                    idCourse = try await Course().saveInfoCourse(info: infoCourses, method: .post)
                     create = false
                 }else {
-                    idCourse = try await Courses().saveInfoCourse(info: infoCourses, method: .patch)
+                    idCourse = try await Course().saveInfoCourse(info: infoCourses, method: .patch)
                 }
                 saveBtn.isEnabled = true
                 loadingStop()

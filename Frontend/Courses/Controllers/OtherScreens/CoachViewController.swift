@@ -57,7 +57,7 @@ class CoachViewController: UIViewController {
     }
 
     private func getCoachCourses() async throws {
-        courses = try await Courses().getCoursesByUserID(id: idCoach)
+        courses = try await Course().getCoursesByUserID(id: idCoach)
         coursesCount.text = "\(courses.count)"
         rating.text = "\(averageRating())"
         coursesCollectionView.reloadData()

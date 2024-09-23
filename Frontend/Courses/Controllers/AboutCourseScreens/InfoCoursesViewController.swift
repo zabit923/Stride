@@ -47,7 +47,7 @@ class InfoCoursesViewController: UIViewController {
 
     private func getCourse() {
         Task {
-            course = try await Courses().getCoursesByID(id: course.id)
+            course = try await Course().getCoursesByID(id: course.id)
             design()
             reviewHiddenBtn()
         }
@@ -112,7 +112,7 @@ class InfoCoursesViewController: UIViewController {
     private func buyCourseSuccesed() {
         Task {
             do {
-                try await Courses().buyCourse(id: course.id)
+                try await Course().buyCourse(id: course.id)
                 performSegue(withIdentifier: "goCourse", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false

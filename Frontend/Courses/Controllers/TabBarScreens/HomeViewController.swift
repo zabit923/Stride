@@ -71,7 +71,7 @@ class HomeViewController: UIViewController {
 
     private func getRecomendCourses() {
         Task {
-            recomendCourses = try await Courses().getRecomendedCourses()
+            recomendCourses = try await Course().getRecomendedCourses()
             recomendCollectionView.reloadData()
         }
     }

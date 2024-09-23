@@ -93,7 +93,7 @@ class AddInfoAboutModuleViewController: UIViewController {
     private func deleteModuleRequest() {
         Task {
             do {
-                try await Courses().deleteModule(moduleID: module.id)
+                try await Course().deleteModule(moduleID: module.id)
                 delegate?.deleteModuleDismiss(moduleID: module.id)
                 dismiss(animated: true)
             } catch ErrorNetwork.runtimeError(let error) {
@@ -159,7 +159,7 @@ class AddInfoAboutModuleViewController: UIViewController {
         Task {
             do {
                 changeModule()
-                try await Courses().changeModuleInfo(info: module)
+                try await Course().changeModuleInfo(info: module)
                 delegate?.changeInfoModuleDismiss(module: module, moduleID: module.id)
                 saveBtn.isEnabled = true
                 dismiss(animated: true)
