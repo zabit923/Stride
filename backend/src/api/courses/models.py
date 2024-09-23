@@ -68,6 +68,15 @@ class Module(models.Model):
             pass
         super(Module, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        if self.data:
+            self.data.delete(save=False)
+
+        if self.image:
+            self.image.delete(save=False)
+
+        super().delete(*args, **kwargs)
+
     def __str__(self):
         return f"{self.title} - {self.day.id} - {self.day.course.title}"
 
