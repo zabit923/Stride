@@ -16,6 +16,15 @@ class Category(models.Model):
         upload_to="category_images"
     )
 
+    def save(self, *args, **kwargs):
+        try:
+            old_instance = Category.objects.get(pk=self.pk)
+            if old_instance.image and old_instance.image != self.image:
+                old_instance.image.delete(save=False)
+        except Category.DoesNotExist:
+            pass
+        super(Category, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
@@ -45,6 +54,19 @@ class Module(models.Model):
     day = models.ForeignKey(
         "Day", verbose_name=_("День"), on_delete=models.CASCADE, related_name="modules"
     )
+
+    def save(self, *args, **kwargs):
+        try:
+            old_instance = Module.objects.get(pk=self.pk)
+
+            if old_instance.image and old_instance.image != self.image:
+                old_instance.image.delete(save=False)
+
+            if old_instance.data and old_instance.data != self.data:
+                old_instance.data.delete(save=False)
+        except Module.DoesNotExist:
+            pass
+        super(Module, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.title} - {self.day.id} - {self.day.course.title}"
@@ -97,6 +119,15 @@ class Course(models.Model):
         null=True,
     )
     created_at = models.DateField(_("Дата создания"), auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        try:
+            old_instance = Course.objects.get(pk=self.pk)
+            if old_instance.image and old_instance.image != self.image:
+                old_instance.image.delete(save=False)
+        except Course.DoesNotExist:
+            pass
+        super(Course, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.title} | автор: {self.author.username} | {self.price} руб."
