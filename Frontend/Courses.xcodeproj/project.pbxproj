@@ -281,21 +281,8 @@
 		440DAB472C17491600C576FB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				44064C9D2C28628000AB5227 /* Sign.swift */,
-				44064C9F2C28634C00AB5227 /* Model.swift */,
-				44064CA52C28773E00AB5227 /* Error.swift */,
-				444A07002C2B9D6C008F4E68 /* Extension.swift */,
-				75D7F3552C4299EF0083DBEF /* UD.swift */,
-				44D68AF22C4ACC0C00F8F476 /* User.swift */,
-				44E2440B2C5D6C7000EADF3D /* Courses.swift */,
-				44049A342C6F549F0014BD9C /* Realm.swift */,
-				446475742C72088300ACD3D7 /* Comments.swift */,
-				446475782C726C4500ACD3D7 /* Categories.swift */,
-				4464757A2C7496F100ACD3D7 /* FilePath.swift */,
-				447D8C802C85DEEB00EF2217 /* Payment.swift */,
-				44907E472C91F4D6002D4617 /* ImageResize.swift */,
-				448301812C9504B600E40DBA /* ValidateTF.swift */,
-				448301832C987A0700E40DBA /* DeepLinksManager.swift */,
+				440E1F6C2CA1671F002C6FC8 /* Settings */,
+				440E1F6D2CA1674C002C6FC8 /* Model */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -322,6 +309,35 @@
 				44064C872C27040B00AB5227 /* StartScreens */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		440E1F6C2CA1671F002C6FC8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				448301832C987A0700E40DBA /* DeepLinksManager.swift */,
+				44907E472C91F4D6002D4617 /* ImageResize.swift */,
+				448301812C9504B600E40DBA /* ValidateTF.swift */,
+				4464757A2C7496F100ACD3D7 /* FilePath.swift */,
+				44064CA52C28773E00AB5227 /* Error.swift */,
+				444A07002C2B9D6C008F4E68 /* Extension.swift */,
+				75D7F3552C4299EF0083DBEF /* UD.swift */,
+				44064C9F2C28634C00AB5227 /* Model.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		440E1F6D2CA1674C002C6FC8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				44064C9D2C28628000AB5227 /* Sign.swift */,
+				44D68AF22C4ACC0C00F8F476 /* User.swift */,
+				44E2440B2C5D6C7000EADF3D /* Courses.swift */,
+				44049A342C6F549F0014BD9C /* Realm.swift */,
+				446475742C72088300ACD3D7 /* Comments.swift */,
+				446475782C726C4500ACD3D7 /* Categories.swift */,
+				447D8C802C85DEEB00EF2217 /* Payment.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		44D68B002C51B3EF00F8F476 /* AboutCourseScreens */ = {
@@ -720,7 +736,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DKHFV79UK7;
+				DEVELOPMENT_TEAM = L9A8M2B6SF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
@@ -736,7 +752,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
+				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -755,7 +771,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DKHFV79UK7;
+				DEVELOPMENT_TEAM = L9A8M2B6SF;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
@@ -771,7 +787,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
+				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -25,7 +25,7 @@ class Categories {
             let title = json["results"][x]["title"].stringValue
             let image = json["results"][x]["image"].stringValue
             let id = json["results"][x]["id"].intValue
-            categories.append(Category(nameCategory: title, imageURL: URL(string: image)!, id: id))
+            categories.append(Category(nameCategory: title, imageURL: URL(string: image)!.clearUrlCloud(), id: id))
         }
         return categories
     }

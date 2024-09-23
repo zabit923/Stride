@@ -1120,7 +1120,7 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notifications" translatesAutoresizingMaskIntoConstraints="NO" id="zkw-ce-fEX">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="notifications" translatesAutoresizingMaskIntoConstraints="NO" id="zkw-ce-fEX">
                                         <rect key="frame" x="380" y="14" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="Hkw-Zc-c35"/>
@@ -4197,6 +4197,7 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dAH-ER-N69">
                                                 <rect key="frame" x="15" y="15" width="400" height="200"/>
+                                                <color key="backgroundColor" name="LightBlackMain"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="BKW-DJ-Cdm"/>
                                                 </constraints>
@@ -4409,6 +4410,7 @@
                                                                 </textView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cZO-sk-cwh">
                                                                     <rect key="frame" x="0.0" y="0.0" width="46" height="46"/>
+                                                                    <color key="backgroundColor" name="LightBlackMain"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="46" id="Nej-P2-KGE"/>
                                                                         <constraint firstAttribute="width" constant="46" id="vcU-gs-XZy"/>
@@ -4821,23 +4823,21 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7h-Q8-cKw" customClass="Border" customModule="Courses" customModuleProvider="target">
                                                     <rect key="frame" x="231" y="76" width="85" height="24"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNZ-lK-jPc">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Приступить" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xub-oP-BKX">
                                                             <rect key="frame" x="0.0" y="0.0" width="85" height="24"/>
                                                             <fontDescription key="fontDescription" name="Commissioner-Thin_Medium" family="Commissioner" pointSize="8"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                            <state key="normal" title="Приступить">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                        </button>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="xub-oP-BKX" firstAttribute="top" secondItem="C7h-Q8-cKw" secondAttribute="top" id="5mJ-Lu-cu3"/>
                                                         <constraint firstAttribute="height" constant="24" id="DOq-y0-nh0"/>
-                                                        <constraint firstItem="hNZ-lK-jPc" firstAttribute="leading" secondItem="C7h-Q8-cKw" secondAttribute="leading" id="TEl-or-wbk"/>
+                                                        <constraint firstAttribute="bottom" secondItem="xub-oP-BKX" secondAttribute="bottom" id="NBj-4O-bNQ"/>
                                                         <constraint firstAttribute="width" constant="85" id="W6h-f4-hhb"/>
-                                                        <constraint firstItem="hNZ-lK-jPc" firstAttribute="top" secondItem="C7h-Q8-cKw" secondAttribute="top" id="aNi-Ag-HbB"/>
-                                                        <constraint firstAttribute="trailing" secondItem="hNZ-lK-jPc" secondAttribute="trailing" id="jh8-G4-SEG"/>
-                                                        <constraint firstAttribute="bottom" secondItem="hNZ-lK-jPc" secondAttribute="bottom" id="jsz-x5-Ixg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="xub-oP-BKX" secondAttribute="trailing" id="a2O-cq-Wrq"/>
+                                                        <constraint firstItem="xub-oP-BKX" firstAttribute="leading" secondItem="C7h-Q8-cKw" secondAttribute="leading" id="s9H-F0-pm2"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="border">
@@ -6233,17 +6233,10 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PmG-Dg-XWn" customClass="Border" customModule="Courses" customModuleProvider="target">
                                                     <rect key="frame" x="231" y="76" width="85" height="24"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0X-Q7-4Ll">
-                                                            <rect key="frame" x="25" y="7" width="35" height="10"/>
-                                                            <attributedString key="attributedText">
-                                                                <fragment content="Перейти">
-                                                                    <attributes>
-                                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <font key="NSFont" metaFont="system" size="8"/>
-                                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                                    </attributes>
-                                                                </fragment>
-                                                            </attributedString>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Перейти" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N0X-Q7-4Ll">
+                                                            <rect key="frame" x="0.0" y="0.0" width="85" height="24"/>
+                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="8"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -6251,8 +6244,10 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="85" id="5Ez-Yq-qGj"/>
                                                         <constraint firstAttribute="height" constant="24" id="5xi-E9-vWM"/>
-                                                        <constraint firstItem="N0X-Q7-4Ll" firstAttribute="centerY" secondItem="PmG-Dg-XWn" secondAttribute="centerY" id="I7A-Kx-XNZ"/>
-                                                        <constraint firstItem="N0X-Q7-4Ll" firstAttribute="centerX" secondItem="PmG-Dg-XWn" secondAttribute="centerX" id="R4y-bb-Yza"/>
+                                                        <constraint firstItem="N0X-Q7-4Ll" firstAttribute="top" secondItem="PmG-Dg-XWn" secondAttribute="top" id="A8O-Yn-j9B"/>
+                                                        <constraint firstItem="N0X-Q7-4Ll" firstAttribute="leading" secondItem="PmG-Dg-XWn" secondAttribute="leading" id="DZ5-vN-2j5"/>
+                                                        <constraint firstAttribute="trailing" secondItem="N0X-Q7-4Ll" secondAttribute="trailing" id="Hag-ci-TQh"/>
+                                                        <constraint firstAttribute="bottom" secondItem="N0X-Q7-4Ll" secondAttribute="bottom" id="kow-aD-7cg"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="border">
@@ -6387,7 +6382,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4601" y="1096"/>
+            <point key="canvasLocation" x="4600.4651162790697" y="1095.7081545064379"/>
         </scene>
         <!--Privacy View Controller-->
         <scene sceneID="kxt-6f-WUI">
@@ -6801,6 +6796,7 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Gj-0D-7M0">
                                         <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                                        <color key="backgroundColor" name="LightBlackMain"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="110" id="1Vs-CN-nPY"/>
                                             <constraint firstAttribute="height" constant="110" id="4vY-ag-fgk"/>
@@ -7423,10 +7419,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yNH-bw-Rcl"/>
-        <segue reference="afS-Cq-cau"/>
-        <segue reference="VAz-Cz-udn"/>
-        <segue reference="0B2-ml-wjG"/>
+        <segue reference="jEY-vC-3ne"/>
+        <segue reference="M8w-WU-QND"/>
+        <segue reference="RsJ-Z8-4Bo"/>
+        <segue reference="HHf-kQ-icL"/>
         <segue reference="eaT-yL-Yiu"/>
         <segue reference="3aH-yg-pXb"/>
         <segue reference="DFO-Ta-Hbe"/>

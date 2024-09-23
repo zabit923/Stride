@@ -97,7 +97,7 @@ class User {
         user.isCoach = json["is_coach"].boolValue
         user.coach.description = json["desc"].stringValue
         user.coach.money = json["balance"].intValue
-        user.avatarURL = URL(string: "\(json["image"].stringValue)")
+        user.avatarURL = URL(string: "\(json["image"].stringValue)")!.clearUrlCloud()
         if user.isCoach == true {
             user.role = .coach
         }else {
@@ -119,8 +119,7 @@ class User {
         user.phone = json["phone_number"].stringValue
         user.id = json["id"].intValue
         user.coach.description = json["desc"].stringValue
-        user.avatarURL = URL(string: json["image"].stringValue)
-        print(user)
+        user.avatarURL = URL(string: json["image"].stringValue)!.clearUrlCloud()
         return user
     }
 
@@ -141,7 +140,7 @@ class User {
             if isCoach {
                 role = .coach
             }
-            celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone, avatarURL: URL(string: image)))
+            celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone, avatarURL: URL(string: image)!.clearUrlCloud()))
         }
         return celebrities
     }

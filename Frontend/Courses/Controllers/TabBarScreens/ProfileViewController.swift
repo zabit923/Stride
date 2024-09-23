@@ -112,9 +112,7 @@ class ProfileViewController: UIViewController {
         characteristic.text = user.coach.description
         name.text = "\(user.surname) \(user.name)"
         rating.text = "\(0.0)"
-        if let avatar = user.avatarURL {
-            self.avatar.sd_setImage(with: avatar)
-        }
+        avatar.sd_setImage(with: user.avatarURL)
     }
 
 
@@ -133,7 +131,9 @@ extension ProfileViewController: SkeletonCollectionViewDelegate, SkeletonCollect
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
-        cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
+        if cell.image.image == nil {
+            cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
+        }
         return cell
     }
 

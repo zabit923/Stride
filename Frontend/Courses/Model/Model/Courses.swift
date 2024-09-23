@@ -37,7 +37,7 @@ class Courses {
                     let title = json["days"][x]["modules"][y]["title"].stringValue
                     let image = json["days"][x]["modules"][y]["image"].stringValue
                     let desc = json["days"][x]["modules"][y]["desc"].stringValue
-                    modules.append(Modules(text: URL(string: text), name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id))
+                    modules.append(Modules(text: URL(string: text)!.clearUrlCloud(), name: title, minutes: min, imageURL: URL(string: image)!.clearUrlCloud(), description: desc, id: id))
                 }
             }
             course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules))
@@ -74,7 +74,7 @@ class Courses {
             let countBuyer = json["results"][x]["bought_count"].intValue
             let rating = json["results"][x]["rating"].floatValue
             let isBought = json["results"][x]["bought"].boolValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image)!.clearUrlCloud(), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
         }
 
         return courses
@@ -100,7 +100,7 @@ class Courses {
         let category = json["category"].intValue
         let boughtCount = json["bought_count"].intValue
         let isBought = json["bought"].boolValue
-        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount, isBought: isBought)
+        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image)!.clearUrlCloud(),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount, isBought: isBought)
         return course
     }
 
@@ -128,7 +128,7 @@ class Courses {
             let countBuyer = json[x]["bought_count"].intValue
             let rating = json[x]["rating"].floatValue
             let isBought = json[x]["bought"].boolValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image)!.clearUrlCloud(), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
         }
         return courses
     }
@@ -157,7 +157,7 @@ class Courses {
             let countBuyer = json[x]["bought_count"].intValue
             let rating = json[x]["rating"].floatValue
             let isBought = json[x]["bought"].boolValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image)!.clearUrlCloud(), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer, isBought: isBought))
         }
 
         return courses
@@ -187,7 +187,7 @@ class Courses {
             let countBuyer = json[x]["bought_count"].intValue
             let rating = json[x]["rating"].floatValue
             let isBought = json[x]["bought"].boolValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer,isBought: isBought))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image)!.clearUrlCloud(), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer,isBought: isBought))
         }
 
         return courses
@@ -220,7 +220,7 @@ class Courses {
             let rating = json[x]["rating"].floatValue
             let myRating = json[x]["my_rating"]["rating"].intValue
             let progressInDays = UD().getDaysCompletedInCourse(courseID: id)
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image)!.clearUrlCloud(), rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays))
         }
         return courses
     }
@@ -247,7 +247,7 @@ class Courses {
             let authorSurname = json[x]["author"]["last_name"].stringValue
             let authorID = json[x]["author"]["id"].intValue
             let rating = json[x]["rating"].floatValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image),rating: rating, id: id, description: description, dataCreated: dataCreated))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image)!.clearUrlCloud(),rating: rating, id: id, description: description, dataCreated: dataCreated))
         }
 
         return courses
@@ -463,7 +463,7 @@ class Courses {
             let authorID = json["results"][x]["author"]["id"].intValue
             let countBuyer = json["results"][x]["bought_count"].intValue
             let rating = json["results"][x]["rating"].floatValue
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image)!.clearUrlCloud(), rating: rating, id: id, description: description, dataCreated: dataCreated, countBuyer: countBuyer))
         }
 
         return courses

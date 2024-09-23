@@ -13,15 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene,willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let url = connectionOptions.urlContexts.first?.url else {
-            return
-        }
-        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-              let hosts = components.host,
-              let courseID = components.queryItems!.first(where: { $0.name == "id" })?.value  else {return}
-        
-        
-        guard let id = Int(courseID) else {return}
+        DeepLinksManager().fetchURL(connectionOptions: connectionOptions)
     }
                                         
 
