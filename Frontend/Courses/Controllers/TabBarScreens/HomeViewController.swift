@@ -51,13 +51,17 @@ class HomeViewController: UIViewController {
     }
 
     private func loadingStart() {
-        performSegue(withIdentifier: "loading", sender: self)
+        if DeepLinksManager.isLink == false {
+            performSegue(withIdentifier: "loading", sender: self)
+        }
     }
 
     private func getUser() {
-        Task {
-            user = try await User().getMyInfo()
-            self.navigationController?.popToViewController(tabBarController!, animated: false)
+        if DeepLinksManager.isLink == false {
+            Task {
+                user = try await User().getMyInfo()
+                self.navigationController?.popToViewController(tabBarController!, animated: false)
+            }
         }
     }
 
@@ -251,6 +255,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }else if segue.identifier == "celebrities" {
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .celebrity
+        }else if segue.identifier == "deepLink" {
+            let vc = segue.destination as! InfoCoursesViewController
+            guard let id = DeepLinksManager.courseID else { return }
+            vc.course.id = id
         }
         
     }

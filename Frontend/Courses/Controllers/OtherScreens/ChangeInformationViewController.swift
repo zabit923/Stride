@@ -167,6 +167,7 @@ extension ChangeInformationViewController: UIImagePickerControllerDelegate & UIN
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
+            print(5555)
             ImageResize().deleteTempImage(atURL: url)
             picker.dismiss(animated: true)
             let crop = CropImage(vc: self)

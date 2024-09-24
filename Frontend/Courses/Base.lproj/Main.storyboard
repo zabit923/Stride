@@ -1744,6 +1744,7 @@
                         <segue destination="bWz-El-6Ec" kind="show" identifier="infoCourses" id="RsJ-Z8-4Bo"/>
                         <segue destination="XLU-y8-2Py" kind="show" identifier="loading" animates="NO" id="rhX-nD-bMC"/>
                         <segue destination="LT7-Zo-YpS" kind="show" identifier="celebrities" id="YX4-7O-Lay"/>
+                        <segue destination="bWz-El-6Ec" kind="show" identifier="deepLink" id="38y-op-05K"/>
                     </connections>
                 </viewController>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="bIx-P8-vIm">
@@ -3349,11 +3350,11 @@
             <objects>
                 <viewController id="6l9-38-ujn" customClass="SettingsViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EB3-eB-fo3">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="849"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZTc-0A-RMc">
-                                <rect key="frame" x="0.0" y="113" width="430" height="736"/>
+                                <rect key="frame" x="0.0" y="113" width="430" height="785"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Rq-Ys-Use">
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="612"/>
@@ -3676,7 +3677,6 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Профиль" image="profile" selectedImage="profileBlue" id="46A-fS-6dz"/>
                     <navigationItem key="navigationItem" id="uYL-dH-Men"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="avatar" destination="R9y-j0-2Jc" id="hpF-Z1-8hG"/>
                         <outlet property="backBtn" destination="yXG-97-UgI" id="r0p-4v-Hrd"/>
@@ -3701,7 +3701,7 @@
             <objects>
                 <viewController id="xp8-FY-DrM" customClass="ChangeInformationViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MT2-ee-4Sp">
-                        <rect key="frame" x="0.0" y="0.0" width="430" height="849"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0h-uh-GbX">
@@ -3746,7 +3746,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="EAw-O2-fPX">
-                                <rect key="frame" x="0.0" y="113" width="430" height="681"/>
+                                <rect key="frame" x="0.0" y="113" width="430" height="730"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uye-Fd-w5o">
                                         <rect key="frame" x="0.0" y="8" width="430" height="650"/>
@@ -4086,7 +4086,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="7nL-3t-V3L"/>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jjY-bK-1YJ">
-                                <rect key="frame" x="30" y="799" width="370" height="50"/>
+                                <rect key="frame" x="30" y="848" width="370" height="50"/>
                                 <color key="backgroundColor" name="BlueMain"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="dSM-8k-O1W"/>
@@ -4156,7 +4156,7 @@
         <!--Info Courses View Controller-->
         <scene sceneID="5Fw-C8-AjN">
             <objects>
-                <viewController storyboardIdentifier="courseInfoViewController" wantsFullScreenLayout="YES" id="bWz-El-6Ec" customClass="InfoCoursesViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoCoursesViewController" wantsFullScreenLayout="YES" id="bWz-El-6Ec" customClass="InfoCoursesViewController" customModule="Courses" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K9w-jJ-fTq">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -7419,14 +7419,14 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yNH-bw-Rcl"/>
+        <segue reference="jEY-vC-3ne"/>
         <segue reference="afS-Cq-cau"/>
-        <segue reference="VAz-Cz-udn"/>
+        <segue reference="38y-op-05K"/>
         <segue reference="HHf-kQ-icL"/>
-        <segue reference="eaT-yL-Yiu"/>
-        <segue reference="3aH-yg-pXb"/>
-        <segue reference="pPa-ol-Wiu"/>
-        <segue reference="7iD-6h-6hO"/>
+        <segue reference="hAk-ad-GZt"/>
+        <segue reference="AOP-mt-L4O"/>
+        <segue reference="YX4-7O-Lay"/>
+        <segue reference="iWm-3v-hYp"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="apple" width="15.333333015441895" height="18"/>
@@ -7500,7 +7500,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -35,6 +35,7 @@ class InfoCoursesViewController: UIViewController {
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
         startPosition = errorView.center
+        deepLinkGetCourse()
         buyOrNextDesign()
         getComments()
         design()
@@ -81,6 +82,19 @@ class InfoCoursesViewController: UIViewController {
         coachName.setTitle(course.nameAuthor, for: .normal)
         im.sd_setImage(with: course.imageURL)
         countBuyer.text = "\(course.countBuyer)"
+    }
+    
+    private func deepLinkGetCourse() {
+        if DeepLinksManager.isLink {
+            DeepLinksManager.isLink = false
+            getCourse()
+            if course.isBought {
+                buy = false
+            }else {
+                buy = true
+            }
+            buyOrNextDesign()
+        }
     }
 
     private func buyOrNextDesign() {
