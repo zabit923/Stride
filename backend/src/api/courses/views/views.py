@@ -4,13 +4,14 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import CreateAPIView, DestroyAPIView, UpdateAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
+from common.utils import CustomHttpResponseRedirect
 from ..filters import CategoryFilter
 from ..models import Category, Course, Day, Module
 from ..permissions import (
@@ -156,6 +157,14 @@ class CourseApiViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+
+@api_view(['GET'])
+def deep_link_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    app_deep_link = f"stridecourses://courses/{course_id}"
+    print(app_deep_link)
+    return CustomHttpResponseRedirect(app_deep_link)
 
 
 class CategoryApiViewSet(ModelViewSet):
