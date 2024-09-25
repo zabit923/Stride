@@ -67,7 +67,7 @@ class ModulesCourseViewController: UIViewController {
         Task {
             loading.play()
             do {
-                course = try await Courses().getDaysInCourse(id: idCourse)
+                course = try await Course().getDaysInCourse(id: idCourse)
                 if course.courseDays.isEmpty == false {
                     course.courseDays[0].type = .current
                 }

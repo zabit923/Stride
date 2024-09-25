@@ -35,6 +35,7 @@ class InfoCoursesViewController: UIViewController {
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
         startPosition = errorView.center
+        deepLinkGetCourse()
         buyOrNextDesign()
         getComments()
         design()
@@ -47,8 +48,9 @@ class InfoCoursesViewController: UIViewController {
 
     private func getCourse() {
         Task {
-            course = try await Courses().getCoursesByID(id: course.id)
+            course = try await Course().getCoursesByID(id: course.id)
             design()
+            reviewHiddenBtn()
         }
     }
 
@@ -80,18 +82,31 @@ class InfoCoursesViewController: UIViewController {
         coachName.setTitle(course.nameAuthor, for: .normal)
         im.sd_setImage(with: course.imageURL)
         countBuyer.text = "\(course.countBuyer)"
-        reviewHiddenBtn()
+    }
+    
+    private func deepLinkGetCourse() {
+        if DeepLinksManager.isLink {
+            DeepLinksManager.isLink = false
+            getCourse()
+            if course.isBought {
+                buy = false
+            }else {
+                buy = true
+            }
+            buyOrNextDesign()
+        }
     }
 
     private func buyOrNextDesign() {
         if buy == false {
             buyView.setTitle("Оставить отзыв", for: .normal)
+            buyView.isHidden = true
             getCourse()
             priceView.isHidden = true
         }else {
             buyView.setTitle("Купить", for: .normal)
+            buyView.isHidden = false
             priceView.isHidden = false
-
         }
     }
 
@@ -111,7 +126,7 @@ class InfoCoursesViewController: UIViewController {
     private func buyCourseSuccesed() {
         Task {
             do {
-                try await Courses().buyCourse(id: course.id)
+                try await Course().buyCourse(id: course.id)
                 performSegue(withIdentifier: "goCourse", sender: self)
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false

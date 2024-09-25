@@ -28,21 +28,20 @@ class HomeViewController: UIViewController {
         }
     }
     private var startPosition = CGPoint()
-    var aa = 0
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         loadingStart()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
+        design()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        design()
+        getUser()
     }
 
     override func viewDidLayoutSubviews() {
@@ -52,13 +51,17 @@ class HomeViewController: UIViewController {
     }
 
     private func loadingStart() {
-        performSegue(withIdentifier: "loading", sender: self)
+        if DeepLinksManager.isLink == false {
+            performSegue(withIdentifier: "loading", sender: self)
+        }
     }
 
     private func getUser() {
-        Task {
-            user = try await User().getMyInfo()
-            self.navigationController?.popToViewController(tabBarController!, animated: false)
+        if DeepLinksManager.isLink == false {
+            Task {
+                user = try await User().getMyInfo()
+                self.navigationController?.popToViewController(tabBarController!, animated: false)
+            }
         }
     }
 
@@ -71,7 +74,7 @@ class HomeViewController: UIViewController {
 
     private func getRecomendCourses() {
         Task {
-            recomendCourses = try await Courses().getRecomendedCourses()
+            recomendCourses = try await Course().getRecomendedCourses()
             recomendCollectionView.reloadData()
         }
     }
@@ -133,6 +136,8 @@ class HomeViewController: UIViewController {
     private func getBanners() {
         banners.append("first")
         banners.append("second")
+        banners.append("third")
+        banners.append("fourth")
         bannersCollectionView.reloadData()
     }
 
@@ -250,6 +255,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }else if segue.identifier == "celebrities" {
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .celebrity
+        }else if segue.identifier == "deepLink" {
+            let vc = segue.destination as! InfoCoursesViewController
+            guard let id = DeepLinksManager.courseID else { return }
+            vc.course.id = id
         }
         
     }

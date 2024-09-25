@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from rest_framework import status, viewsets
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,6 +13,7 @@ from .serializers import (
     UserGetSerializer,
     UserUpdateSerializer,
 )
+from common.utils import CustomHttpResponseRedirect
 
 User = get_user_model()
 
@@ -60,3 +62,11 @@ class UserViewSet(viewsets.ModelViewSet):
         celebrities = User.objects.filter(is_celebrity=True)
         serialized_data = UserGetSerializer(celebrities, many=True).data
         return Response(serialized_data)
+
+
+@api_view(['GET'])
+def deep_link_user_profile(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    app_deep_link = f"stridecourses://users/{user_id}"
+    print(app_deep_link)
+    return CustomHttpResponseRedirect(app_deep_link)

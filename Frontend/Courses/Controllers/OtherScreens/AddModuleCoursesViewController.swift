@@ -42,7 +42,7 @@ class AddModuleCoursesViewController: UIViewController {
     private func addCourseInfo() {
         Task {
             do {
-                course = try await Courses().getDaysInCourse(id: idCourse)
+                course = try await Course().getDaysInCourse(id: idCourse)
                 nameCourses.text = course.nameCourse
                 loadingStop()
                 daysCollectionView.reloadData()
@@ -73,7 +73,7 @@ class AddModuleCoursesViewController: UIViewController {
     private func addDay() {
         Task {
             do {
-                let id = try await Courses().addDaysInCourse(courseID: idCourse)
+                let id = try await Course().addDaysInCourse(courseID: idCourse)
                 course.courseDays.append(CourseDays(dayID: id, type: .noneSee))
                 daysCollectionView.insertItems(at: [IndexPath(item: course.courseDays.count - 1, section: 0)])
             }catch ErrorNetwork.runtimeError(let error) {
@@ -87,7 +87,7 @@ class AddModuleCoursesViewController: UIViewController {
     private func addModule(dayID: Int) {
         Task {
             do {
-                let id = try await Courses().addModulesInCourse(dayID: dayID)
+                let id = try await Course().addModulesInCourse(dayID: dayID)
                 course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id))
                 modulesCollectionView.insertItems(at: [IndexPath(item: course.courseDays[selectDay].modules.count - 1, section: 0)])
             }catch ErrorNetwork.runtimeError(let error) {
@@ -119,7 +119,7 @@ class AddModuleCoursesViewController: UIViewController {
     private func deleteDay(dayID: Int) {
         Task {
             do {
-                try await Courses().deleteDay(dayID: dayID)
+                try await Course().deleteDay(dayID: dayID)
                 for x in 0...course.courseDays.count - 1 {
                     if course.courseDays[x].dayID == dayID {
                         selectBack(deleteIndex: x)

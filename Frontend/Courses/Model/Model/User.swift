@@ -22,7 +22,7 @@ class User {
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.upload(multipartFormData: { multipartFormData in
             if let avatarURL = user.avatarURL {
-                ImageResize.compressImageFromFileURL(fileURL: avatarURL, maxSizeInMB: 1.0) { compressedURL in
+                ImageResize.compressImageFromFileURL(fileURL: avatarURL, maxSizeInMB: 0.1) { compressedURL in
                     if let url = compressedURL {
                         multipartFormData.append(url, withName: "image")
                     }
@@ -120,7 +120,6 @@ class User {
         user.id = json["id"].intValue
         user.coach.description = json["desc"].stringValue
         user.avatarURL = URL(string: json["image"].stringValue)
-        print(user)
         return user
     }
 

@@ -57,7 +57,7 @@ class CoursesViewController: UIViewController {
 
     private func getMyCreateCourses() {
         Task {
-            course = try await Courses().getMyCreateCourses()
+            course = try await Course().getMyCreateCourses()
             filteredCourse = course
             emptyCheck()
             catalogCollectionView.reloadData()
@@ -66,7 +66,7 @@ class CoursesViewController: UIViewController {
 
     private func getRecomendCourses() {
         Task {
-            course = try await Courses().getRecomendedCourses()
+            course = try await Course().getRecomendedCourses()
             filteredCourse = course
             emptyCheck()
             catalogCollectionView.reloadData()
@@ -75,7 +75,7 @@ class CoursesViewController: UIViewController {
 
     private func getCelebrityCourses() {
         Task {
-            course = try await Courses().getCoursesByCelebrity()
+            course = try await Course().getCoursesByCelebrity()
             filteredCourse = course
             emptyCheck()
             catalogCollectionView.reloadData()

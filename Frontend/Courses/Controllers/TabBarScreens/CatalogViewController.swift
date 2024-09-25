@@ -28,10 +28,6 @@ class CatalogViewController: UIViewController {
         catalogCollectionView.dataSource = self
         catalogCollectionView.delegate = self
         search.delegate = self
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         design()
     }
     
@@ -43,7 +39,7 @@ class CatalogViewController: UIViewController {
 
     private func getCourses() {
         Task {
-            let results = try await Courses().getAllCourses()
+            let results = try await Course().getAllCourses()
             courses = results
             emptyCheck()
             catalogCollectionView.reloadData()
@@ -59,7 +55,7 @@ class CatalogViewController: UIViewController {
 
     private func searchCourse(text: String) {
         Task {
-            courses = try await Courses().searchCourses(text: text)
+            courses = try await Course().searchCourses(text: text)
             emptyCheck()
             catalogCollectionView.reloadData()
         }
