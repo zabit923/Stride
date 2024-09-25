@@ -33,16 +33,16 @@ jobs:
       TEST_RUNNER: xmlrunner.extra.djangotestrunner.XMLTestRunner
       ADD_LOGS: "false"
       SQL_ENGINE: "django.db.backends.postgresql"
-      SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
-      SQL_USER: ${{ secrets.SQL_USER }}
-      SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-      SQL_HOST: ${{ secrets.SQL_HOST }}
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
-      YANDEX_CLIENT_DOCS_BUCKET_NAME: ${{ secrets.YANDEX_CLIENT_DOCS_BUCKET_NAME }}
-      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      SQL_DATABASE: ${{ SQL_DATABASE }}
+      SQL_USER: ${{ SQL_USER }}
+      SQL_PASSWORD: ${{ SQL_PASSWORD }}
+      SQL_HOST: ${{ SQL_HOST }}
+      SECRET_KEY: ${{ SECRET_KEY }}
+      GOOGLE_CLIENT_ID: ${{ GOOGLE_CLIENT_ID }}
+      GOOGLE_SECRET: ${{ GOOGLE_SECRET }}
+      YANDEX_CLIENT_DOCS_BUCKET_NAME: ${{ YANDEX_CLIENT_DOCS_BUCKET_NAME }}
+      AWS_ACCESS_KEY: ${{ AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ AWS_SECRET_ACCESS_KEY }}
 
     services:
       postgres:
