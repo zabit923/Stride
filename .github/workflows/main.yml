@@ -26,7 +26,7 @@ jobs:
           pre-commit run -av --show-diff-on-failure
 
   test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: python:3.11
     env:
