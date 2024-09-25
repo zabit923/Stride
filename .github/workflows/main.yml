@@ -53,13 +53,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Python environment and Install Dependencies
-        run: |
-            python -m venv venv
-            bash -c "source venv/bin/activate && pip install --upgrade pip && cd backend && pip install -r requirements.txt"
-
       - name: Run Tests
         run: |
-          bash -c "source venv/bin/activate"
+          python -m venv venv
+          bash -c "source venv/bin/activate && pip install --upgrade pip && cd backend && pip install -r requirements.txt"
           pip install 'psycopg2>=2.8.4,<3.0'
-          cd backend/src && python manage.py test --parallel
+          cd src && python manage.py test --parallel
