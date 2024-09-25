@@ -14,12 +14,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Install Lint Dependencies
+        
+      - name: Install Git and Lint Dependencies
         run: |
-          apt update && apt-get install -y gettext libgettextpo-dev
+          apt update && apt-get install -y gettext libgettextpo-dev git
           pip install --upgrade pip
-          pip install pre-commit
-          pip install autoflake
+          pip install pre-commit autoflake
+          
       - name: Run Linting
         run: |
           pre-commit run -av --show-diff-on-failure
@@ -28,15 +29,15 @@ jobs:
     runs-on: self-hosted
     container:
       image: python:3.11
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: /home  
-        TEST_RUNNER: xmlrunner.extra.djangotestrunner.XMLTestRunner
-        ADD_LOGS: "false"
-        SQL_ENGINE: "django.db.backends.postgresql"
-        SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
-        SQL_USER: ${{ secrets.SQL_USER }}
-        SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-        SQL_HOST: ${{ secrets.SQL_HOST }}
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: /home  
+      TEST_RUNNER: xmlrunner.extra.djangotestrunner.XMLTestRunner
+      ADD_LOGS: "false"
+      SQL_ENGINE: "django.db.backends.postgresql"
+      SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
+      SQL_USER: ${{ secrets.SQL_USER }}
+      SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+      SQL_HOST: ${{ secrets.SQL_HOST }}
 
     services:
       postgres:
@@ -49,22 +50,18 @@ jobs:
           - 5432:5432
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Set up Python environment
-      run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install --upgrade pip
+      - name: Set up Python environment and Install Dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
+          cd backend && pip install -r requirements.txt
 
-    - name: Install dependencies
-      run: |
-        source venv/bin/activate
-        cd backend && pip install -r requirements.txt
-
-    - name: Run Tests
-      run: |
-        source venv/bin/activate
-        pip install 'psycopg2>=2.8.4,<3.0'
-        cd backend/src && python manage.py test --parallel
+      - name: Run Tests
+        run: |
+          source venv/bin/activate
+          pip install 'psycopg2>=2.8.4,<3.0'
+          cd backend/src && python manage.py test --parallel
