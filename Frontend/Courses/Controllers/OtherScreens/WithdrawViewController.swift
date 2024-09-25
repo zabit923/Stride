@@ -9,17 +9,26 @@ import UIKit
 
 class WithdrawViewController: UIViewController {
 
+    @IBOutlet weak var finishBtn: UIButton!
+    @IBOutlet weak var withdrawBorder: Border!
+    @IBOutlet weak var cardBorder: Border!
     @IBOutlet weak var moneyCount: UILabel!
     @IBOutlet weak var withdrawTextField: UITextField!
     @IBOutlet weak var cardTextField: UITextField!
     
     var money = 0
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    var startPosition = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearError()
         textFieldDesign()
         cardTextField.delegate = self
         moneyCount.text = "\(money)"
+        startPosition = errorView.center
+        view.addSubview(errorView)
+        errorView.isHidden = true
     }
     
     private func textFieldDesign() {
@@ -27,21 +36,58 @@ class WithdrawViewController: UIViewController {
         withdrawTextField.attributedPlaceholder = NSAttributedString(string: "от 100₽ до 50000₽", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font!])
         cardTextField.attributedPlaceholder = NSAttributedString(string: "**** **** **** ****", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font!])
     }
+    
+    func clearError() {
+        withdrawBorder.color = .lightBlackMain
+        cardBorder.color = .lightBlackMain
+        errorView.isHidden = true
+    }
+    
+    func addError(error: String) {
+        errorView.isHidden = false
+        errorView.configure(title: "Ошибка", description: error)
+    }
+    
+    private func checkInfo() throws {
+        guard cardTextField.text!.isEmpty == false else {
+            cardBorder.color = .errorRed
+            throw ErrorNetwork.notFound }
+        guard cardTextField.text!.count == 19 else {
+            cardBorder.color = .errorRed
+            addError(error: "Неправильный формат банковской карты")
+            throw ErrorNetwork.notFound }
+        guard withdrawTextField.text!.isEmpty == false else {
+            withdrawBorder.color = .errorRed
+            throw ErrorNetwork.notFound }
+        guard Int(withdrawTextField.text!)! >= 100 && Int(withdrawTextField.text!)! <= 50000 else {
+            withdrawBorder.color = .errorRed
+            addError(error: "Вывод средств от 100₽ до 50000₽")
+            throw ErrorNetwork.notFound }
+        
+    }
 
     @IBAction func sbp(_ sender: UIButton) {
         performSegue(withIdentifier: "goToSBP", sender: self)
     }
     
     @IBAction func fluent(_ sender: UIButton) {
+        finishBtn.isEnabled = false
         Task {
             do {
+                clearError()
+                try checkInfo()
                 guard let money = Int(withdrawTextField.text ?? "0") else { return }
-                let card: PaymentMethod = .card(cardNumber: cardTextField.text ?? "", amount: money)
+                let cardFormat = cardTextField.text!.format(with: "XXXX XXXX XXXX XXXX")
+                let card: PaymentMethod = .card(cardNumber: cardFormat, amount: money)
                 try await Payment().fetchFunds(payment: card)
+                finishBtn.isEnabled = true
                 let result = Int(moneyCount.text!)! - money
                 moneyCount.text = "\(result)"
             }catch ErrorNetwork.runtimeError(let error) {
-                print(error)
+                addError(error: error)
+                finishBtn.isEnabled = true
+            }catch {
+                finishBtn.isEnabled = true
             }
         }
     }
@@ -51,12 +97,14 @@ class WithdrawViewController: UIViewController {
         cardTextField.resignFirstResponder()
     }
     
+    
+    
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "goToSBP" {
             let vc = segue.destination as! WithdrawSBPViewController
             vc.money = money
