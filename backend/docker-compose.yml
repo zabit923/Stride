@@ -2,7 +2,7 @@ services:
   stride-project:
     restart: always
     build:
-      context: ../../../../..
+      context: .
     ports:
       - '8000:8000'
     volumes:
