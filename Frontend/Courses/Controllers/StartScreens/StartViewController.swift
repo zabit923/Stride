@@ -13,6 +13,7 @@ class StartViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         view.overrideUserInterfaceStyle = .dark
         self.navigationController?.navigationBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         current()
     }
 

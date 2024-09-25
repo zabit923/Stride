@@ -16,7 +16,6 @@ class DeepLinksManager {
     
     func fetchURL(connectionOptions: UIScene.ConnectionOptions) {
         guard let url = connectionOptions.urlContexts.first?.url else { return }
-        
         guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
         
         DeepLinksManager.hosts = components.host
