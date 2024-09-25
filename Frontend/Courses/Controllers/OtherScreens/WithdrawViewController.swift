@@ -9,6 +9,7 @@ import UIKit
 
 class WithdrawViewController: UIViewController {
 
+    @IBOutlet weak var finishBtn: UIButton!
     @IBOutlet weak var withdrawBorder: Border!
     @IBOutlet weak var cardBorder: Border!
     @IBOutlet weak var moneyCount: UILabel!
@@ -21,6 +22,7 @@ class WithdrawViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clearError()
         textFieldDesign()
         cardTextField.delegate = self
         moneyCount.text = "\(money)"
@@ -69,6 +71,7 @@ class WithdrawViewController: UIViewController {
     }
     
     @IBAction func fluent(_ sender: UIButton) {
+        finishBtn.isEnabled = false
         Task {
             do {
                 clearError()
@@ -77,12 +80,14 @@ class WithdrawViewController: UIViewController {
                 let cardFormat = cardTextField.text!.format(with: "XXXX XXXX XXXX XXXX")
                 let card: PaymentMethod = .card(cardNumber: cardFormat, amount: money)
                 try await Payment().fetchFunds(payment: card)
+                finishBtn.isEnabled = true
                 let result = Int(moneyCount.text!)! - money
                 moneyCount.text = "\(result)"
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
+                finishBtn.isEnabled = true
             }catch {
-                
+                finishBtn.isEnabled = true
             }
         }
     }
@@ -91,6 +96,9 @@ class WithdrawViewController: UIViewController {
         withdrawTextField.resignFirstResponder()
         cardTextField.resignFirstResponder()
     }
+    
+    
+    
     
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
