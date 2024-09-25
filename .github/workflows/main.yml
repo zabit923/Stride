@@ -32,11 +32,10 @@ jobs:
     env:
       TEST_RUNNER: xmlrunner.extra.djangotestrunner.XMLTestRunner
       ADD_LOGS: "false"
-      SQL_ENGINE: "django.db.backends.postgresql"
-      SQL_DATABASE: ${{ secrets.SQL_DATABASE }}
-      SQL_USER: ${{ secrets.SQL_USER }}
-      SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
-      SQL_HOST: ${{ secrets.SQL_HOST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASS: ${{ secrets.DB_PASS }}
+      DB_HOST: ${{ secrets.DB_HOST }}
       SECRET_KEY: "test"
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
@@ -48,9 +47,9 @@ jobs:
       postgres:
         image: postgres:14-alpine
         env:
-          POSTGRES_DB: ${{ secrets.SQL_DATABASE }}
-          POSTGRES_USER: ${{ secrets.SQL_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.SQL_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
         ports:
           - 5432:5432
 
