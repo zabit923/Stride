@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", default='chepopalo')
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASS'),
-        'HOST': 'database',
+        'HOST': os.getenv('DB_HOST', default='localhost'),
         'PORT': 5432
      }
 }

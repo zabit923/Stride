@@ -1,0 +1,63 @@
+name: Django CI
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Install Git and Lint Dependencies
+        run: |
+          apt update && apt-get install -y gettext libgettextpo-dev git
+          pip install --upgrade pip
+          pip install pre-commit autoflake
+          
+      - name: Run Linting
+        run: |
+          pre-commit run -av --show-diff-on-failure
+
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11
+    env:
+      TEST_RUNNER: xmlrunner.extra.djangotestrunner.XMLTestRunner
+      ADD_LOGS: "false"
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASS: ${{ secrets.DB_PASS }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      SECRET_KEY: "test"
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+      YANDEX_CLIENT_DOCS_BUCKET_NAME: ${{ secrets.YANDEX_CLIENT_DOCS_BUCKET_NAME }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    services:
+      postgres:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Tests
+        run: |
+          python -m venv venv
+          bash -c "source venv/bin/activate && pip install --upgrade pip && cd backend && pip install -r requirements.txt && cd src && python manage.py test --parallel"
