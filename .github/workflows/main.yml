@@ -38,6 +38,12 @@ jobs:
       SQL_USER: ${{ secrets.SQL_USER }}
       SQL_PASSWORD: ${{ secrets.SQL_PASSWORD }}
       SQL_HOST: ${{ secrets.SQL_HOST }}
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+      YANDEX_CLIENT_DOCS_BUCKET_NAME: ${{ secrets.YANDEX_CLIENT_DOCS_BUCKET_NAME }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     services:
       postgres:
