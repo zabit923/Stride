@@ -30,7 +30,6 @@ jobs:
     container:
       image: python:3.11
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: /home  
       TEST_RUNNER: xmlrunner.extra.djangotestrunner.XMLTestRunner
       ADD_LOGS: "false"
       SQL_ENGINE: "django.db.backends.postgresql"
