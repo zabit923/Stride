@@ -90,6 +90,7 @@ class ShortCourseSerializer(serializers.ModelSerializer):
             "count_days",
             "bought",
             "bought_count",
+            'is_draft',
             "rating",
             "my_rating",
         )
@@ -124,6 +125,7 @@ class CourseSerializer(serializers.ModelSerializer):
     days = DaySerializer(read_only=True, many=True)
     bought_count = serializers.SerializerMethodField(read_only=True)
     image = serializers.ImageField(required=False)
+    bought = serializers.SerializerMethodField(read_only=True)
     rating = serializers.SerializerMethodField(read_only=True)
     my_rating = serializers.SerializerMethodField(read_only=True)
 
@@ -140,12 +142,18 @@ class CourseSerializer(serializers.ModelSerializer):
             "created_at",
             "days",
             "bought_count",
+            "bought",
             "rating",
+            'is_draft',
             "my_rating",
         )
 
     def get_bought_count(self, obj):
         return obj.buyers.count()
+
+    def get_bought(self, obj):
+        user = self.context["request"].user
+        return MyCourses.objects.filter(user=user, course=obj).exists()
 
     def get_rating(self, obj):
         avg_rating = obj.ratings.aggregate(average=Avg("rating"))["average"]

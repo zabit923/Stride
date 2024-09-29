@@ -103,6 +103,11 @@ class CourseApiViewSet(ModelViewSet):
         author_wallet.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def list(self, request, *args, **kwargs):
+        courses = Course.objects.filter(is_draft=False)
+        serializer = self.get_serializer(courses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
     def my_courses(self, request):
         user = request.user
@@ -113,7 +118,7 @@ class CourseApiViewSet(ModelViewSet):
     @action(detail=True, methods=["get"], permission_classes=[IsAuthenticated])
     def courses_by_id(self, request, pk=None):
         author = get_object_or_404(User, pk=pk)
-        courses = Course.objects.filter(author=author)
+        courses = Course.objects.filter(author=author, is_draft=False)
         serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -127,7 +132,7 @@ class CourseApiViewSet(ModelViewSet):
     @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
     def celebrities_courses(self, request):
         celebrity_users = User.objects.filter(is_celebrity=True)
-        courses = Course.objects.filter(author__in=celebrity_users)
+        courses = Course.objects.filter(author__in=celebrity_users, is_draft=False)
         serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -137,21 +142,21 @@ class CourseApiViewSet(ModelViewSet):
         user_target = user.target
         if user_target == "LW":
             category = Category.objects.get(title="Сброс веса")
-            courses = Course.objects.filter(category=category)
+            courses = Course.objects.filter(category=category, is_draft=False)
             if len(courses) == 0:
                 courses = Course.objects.all()
         elif user_target == "GW":
             category = Category.objects.get(title="Набор веса")
-            courses = Course.objects.filter(category=category)
+            courses = Course.objects.filter(category=category, is_draft=False)
             if len(courses) == 0:
                 courses = Course.objects.all()
         elif user_target == "HL":
             category = Category.objects.get(title="Здоровье")
-            courses = Course.objects.filter(category=category)
+            courses = Course.objects.filter(category=category, is_draft=False)
             if len(courses) == 0:
-                courses = Course.objects.all()
+                courses = Course.objects.filter(is_draft=False)
         else:
-            courses = Course.objects.all()
+            courses = Course.objects.filter(is_draft=False)
         serializer = self.get_serializer(courses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

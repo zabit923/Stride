@@ -127,6 +127,7 @@ class Course(models.Model):
         on_delete=models.SET_NULL,
         null=True,
     )
+    is_draft = models.BooleanField(_('Черновик'), default=False)
     created_at = models.DateField(_("Дата создания"), auto_now_add=True)
 
     def save(self, *args, **kwargs):

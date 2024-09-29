@@ -66,7 +66,7 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         try:
             old_instance = User.objects.get(pk=self.pk)
-            if old_instance.image and old_instance.image != self.image:
+            if old_instance.image and old_instance.image != self.image and old_instance.image.name != 'images/defaultLogo.png':
                 old_instance.image.delete(save=False)
         except User.DoesNotExist:
             pass
