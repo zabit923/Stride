@@ -106,8 +106,8 @@ class CourseApiViewSet(ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         courses = Course.objects.filter(is_draft=False)
-        serializer = self.get_serializer(courses, many=True)
         page = self.paginate_queryset(courses)
+        serializer = self.get_serializer(page, many=True)
         return self.get_paginated_response(serializer.data)
 
     @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
