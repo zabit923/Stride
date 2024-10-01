@@ -7,6 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import action, api_view
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import CreateAPIView, DestroyAPIView, UpdateAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -106,7 +107,8 @@ class CourseApiViewSet(ModelViewSet):
     def list(self, request, *args, **kwargs):
         courses = Course.objects.filter(is_draft=False)
         serializer = self.get_serializer(courses, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        page = self.paginate_queryset(courses)
+        return self.get_paginated_response(serializer.data)
 
     @action(detail=False, methods=["get"], permission_classes=[IsAuthenticated])
     def my_courses(self, request):
