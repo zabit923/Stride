@@ -7,7 +7,6 @@ from rest_framework import status
 from rest_framework.decorators import action, api_view
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import CreateAPIView, DestroyAPIView, UpdateAPIView
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -30,6 +29,7 @@ from ..serializers import (
     ModuleSerializer,
     MyCourses,
     ShortCourseSerializer,
+    ModuleUpdateSerializer,
 )
 
 User = get_user_model()
@@ -243,7 +243,7 @@ class ModuleDeleteApiView(DestroyAPIView):
 
 class ModuleUpdateApiView(UpdateAPIView):
     queryset = Module.objects.all()
-    serializer_class = ModuleSerializer
+    serializer_class = ModuleUpdateSerializer
     permission_classes = [
         IsOwnerModule,
     ]

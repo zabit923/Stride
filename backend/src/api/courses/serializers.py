@@ -21,6 +21,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ModuleSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     data = serializers.FileField(required=False)
+    index = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Module
@@ -29,6 +30,34 @@ class ModuleSerializer(serializers.ModelSerializer):
             "title",
             "image",
             "desc",
+            'index',
+            "time_to_pass",
+            "data",
+            "day",
+        )
+
+    def update(self, instance, validated_data):
+        validated_data.pop("day", None)
+        return super().update(instance, validated_data)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation.pop("day", None)
+        return representation
+
+
+class ModuleUpdateSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+    data = serializers.FileField(required=False)
+
+    class Meta:
+        model = Module
+        fields = (
+            "id",
+            "title",
+            "image",
+            "desc",
+            'index',
             "time_to_pass",
             "data",
             "day",
