@@ -1,2 +1,5 @@
 .pg-env
 ../.DS_Store
+.idea
+../venv/
+../.idea/
