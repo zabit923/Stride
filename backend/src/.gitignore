@@ -77,3 +77,5 @@ dmypy.json
 .pytype/
 cython_debug/
 .env
+../.idea/
+../venv/

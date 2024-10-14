@@ -7,8 +7,7 @@ from common.factories.courses_factories import (
     CategoryFactory,
     CourseFactory,
     DayFactory,
-    ModuleFactory,
-    MyCoursesFactory
+    ModuleFactory
 )
 from api.courses.models import Course, MyCourses
 

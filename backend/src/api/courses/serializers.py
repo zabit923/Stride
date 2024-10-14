@@ -21,6 +21,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ModuleSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     data = serializers.FileField(required=False)
+    index = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Module
@@ -29,6 +30,34 @@ class ModuleSerializer(serializers.ModelSerializer):
             "title",
             "image",
             "desc",
+            'index',
+            "time_to_pass",
+            "data",
+            "day",
+        )
+
+    def update(self, instance, validated_data):
+        validated_data.pop("day", None)
+        return super().update(instance, validated_data)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation.pop("day", None)
+        return representation
+
+
+class ModuleUpdateSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+    data = serializers.FileField(required=False)
+
+    class Meta:
+        model = Module
+        fields = (
+            "id",
+            "title",
+            "image",
+            "desc",
+            'index',
             "time_to_pass",
             "data",
             "day",
@@ -90,6 +119,7 @@ class ShortCourseSerializer(serializers.ModelSerializer):
             "count_days",
             "bought",
             "bought_count",
+            'is_draft',
             "rating",
             "my_rating",
         )
@@ -124,6 +154,7 @@ class CourseSerializer(serializers.ModelSerializer):
     days = DaySerializer(read_only=True, many=True)
     bought_count = serializers.SerializerMethodField(read_only=True)
     image = serializers.ImageField(required=False)
+    bought = serializers.SerializerMethodField(read_only=True)
     rating = serializers.SerializerMethodField(read_only=True)
     my_rating = serializers.SerializerMethodField(read_only=True)
 
@@ -140,12 +171,18 @@ class CourseSerializer(serializers.ModelSerializer):
             "created_at",
             "days",
             "bought_count",
+            "bought",
             "rating",
+            'is_draft',
             "my_rating",
         )
 
     def get_bought_count(self, obj):
         return obj.buyers.count()
+
+    def get_bought(self, obj):
+        user = self.context["request"].user
+        return MyCourses.objects.filter(user=user, course=obj).exists()
 
     def get_rating(self, obj):
         avg_rating = obj.ratings.aggregate(average=Avg("rating"))["average"]
