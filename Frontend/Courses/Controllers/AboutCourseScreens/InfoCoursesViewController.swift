@@ -172,7 +172,8 @@ class InfoCoursesViewController: UIViewController {
             performSegue(withIdentifier: "goToAddReview", sender: self)
         }else{
             buyView.isEnabled = false
-            openTinkoffKassa()
+//            openTinkoffKassa()
+            self.buyCourseSuccesed()
             buyView.isEnabled = true
         }
     }
