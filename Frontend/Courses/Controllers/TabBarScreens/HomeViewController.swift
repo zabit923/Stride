@@ -55,11 +55,22 @@ class HomeViewController: UIViewController {
             performSegue(withIdentifier: "loading", sender: self)
         }
     }
+    
+    private func updateApp() {
+        Task {
+            let isLastVersion = try await AppStoreVersion().checkVersionApp()
+            if isLastVersion == false {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let updateViewController = storyboard.instantiateViewController(identifier: "UpdateViewController")
+                navigationController!.pushViewController(updateViewController, animated: true)
+            }
+        }
+    }
 
     private func getUser() {
-        if DeepLinksManager.isLink == false {
-            Task {
-                user = try await User().getMyInfo()
+        Task {
+            user = try await User().getMyInfo()
+            if DeepLinksManager.isLink == false {
                 self.navigationController?.popToViewController(tabBarController!, animated: false)
             }
         }
@@ -127,9 +138,7 @@ class HomeViewController: UIViewController {
 
     private func addProfile() {
         nameLbl.text = "\(user.name) \(user.surname)"
-        if let ava = user.avatarURL {
-            avatar.sd_setImage(with: ava)
-        }
+        avatar.sd_setImage(with: user.avatarURL!)
     }
 
 
@@ -255,10 +264,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }else if segue.identifier == "celebrities" {
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .celebrity
-        }else if segue.identifier == "deepLink" {
-            let vc = segue.destination as! InfoCoursesViewController
-            guard let id = DeepLinksManager.courseID else { return }
-            vc.course.id = id
         }
         
     }

@@ -39,6 +39,7 @@
 		440E1F762CA16C86002C6FC8 /* CourseJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E1F752CA16C86002C6FC8 /* CourseJSON.swift */; };
 		4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442F3D72C31BFDB00203A36 /* PageLayout.swift */; };
 		444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A07002C2B9D6C008F4E68 /* Extension.swift */; };
+		4450B3C92CB6066900F1F54B /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4450B3C82CB6066900F1F54B /* UpdateViewController.swift */; };
 		446475752C72088300ACD3D7 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475742C72088300ACD3D7 /* Comments.swift */; };
 		446475792C726C4500ACD3D7 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475782C726C4500ACD3D7 /* Categories.swift */; };
 		4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4464757A2C7496F100ACD3D7 /* FilePath.swift */; };
@@ -54,6 +55,7 @@
 		44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A982C81303A00E0F86F /* PrivacyViewController.swift */; };
 		44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */; };
 		44962E962C821B3600CB6A1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44962E942C821B3600CB6A1C /* Main.storyboard */; };
+		449880CA2CB621280052C3C3 /* NavigationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449880C92CB621280052C3C3 /* NavigationControllerDelegate.swift */; };
 		449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0D82C337099000D4528 /* CatalogViewController.swift */; };
 		449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */; };
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
@@ -145,6 +147,7 @@
 		440E1F752CA16C86002C6FC8 /* CourseJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseJSON.swift; sourceTree = "<group>"; };
 		4442F3D72C31BFDB00203A36 /* PageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayout.swift; sourceTree = "<group>"; };
 		444A07002C2B9D6C008F4E68 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		4450B3C82CB6066900F1F54B /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		446475742C72088300ACD3D7 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		446475782C726C4500ACD3D7 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		4464757A2C7496F100ACD3D7 /* FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePath.swift; sourceTree = "<group>"; };
@@ -157,6 +160,7 @@
 		44932A982C81303A00E0F86F /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStartViewController.swift; sourceTree = "<group>"; };
 		44962E952C821B3600CB6A1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		449880C92CB621280052C3C3 /* NavigationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerDelegate.swift; sourceTree = "<group>"; };
 		449CF0D82C337099000D4528 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 				44064C8A2C28516C00AB5227 /* VhodViewController.swift */,
 				44064C8C2C285DA600AB5227 /* RegistrViewController.swift */,
 				44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */,
+				4450B3C82CB6066900F1F54B /* UpdateViewController.swift */,
 			);
 			path = StartScreens;
 			sourceTree = "<group>";
@@ -363,9 +368,11 @@
 		44D68B002C51B3EF00F8F476 /* AboutCourseScreens */ = {
 			isa = PBXGroup;
 			children = (
+				7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */,
+				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
 				44BD6CDB2C428A2C001645A0 /* ModulesCourseViewController.swift */,
-				44D68AFB2C51B3EF00F8F476 /* AddCourseViewController.swift */,
 				44D68AFC2C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift */,
+				44D68AFB2C51B3EF00F8F476 /* AddCourseViewController.swift */,
 				44D68AFD2C51B3EF00F8F476 /* CoursesViewController.swift */,
 				44D68AFE2C51B3EF00F8F476 /* CourseTextViewController.swift */,
 				44D68AFF2C51B3EF00F8F476 /* InfoCoursesViewController.swift */,
@@ -424,14 +431,13 @@
 			children = (
 				7508513A2C38763A00F5C0DC /* ChangeInformationViewController.swift */,
 				75106D782C38AFDB0036042B /* InfoAboutMeViewController.swift */,
-				44BD6CE32C440974001645A0 /* AddModuleCoursesViewController.swift */,
-				7595784A2C5B9A7D00A9F811 /* AddInfoAboutModuleViewController.swift */,
 				440CB67C2C5FA86F003FCAF0 /* CoachViewController.swift */,
 				75D68C602C80A361001407F0 /* AddReviewViewController.swift */,
 				44BD149B2C808106006D0722 /* PickerModelViewController.swift */,
 				44932A982C81303A00E0F86F /* PrivacyViewController.swift */,
 				75F6FDB32C9323B500A57EA9 /* WithdrawViewController.swift */,
 				7555DEB42C986FC100B80A13 /* WithdradSBPViewController.swift */,
+				449880C92CB621280052C3C3 /* NavigationControllerDelegate.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -566,9 +572,11 @@
 				44F3954C2C9B8BB900861759 /* CropImage.swift in Sources */,
 				7515103C2C343146009978E6 /* ProfileViewController.swift in Sources */,
 				75D7F3562C4299EF0083DBEF /* UD.swift in Sources */,
+				449880CA2CB621280052C3C3 /* NavigationControllerDelegate.swift in Sources */,
 				44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */,
 				449CF0D92C337099000D4528 /* CatalogViewController.swift in Sources */,
 				44BD6CDE2C432C45001645A0 /* DaysCourseCollectionViewCell.swift in Sources */,
+				4450B3C92CB6066900F1F54B /* UpdateViewController.swift in Sources */,
 				44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */,
 				449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */,
 				44064C892C27042100AB5227 /* StartViewController.swift in Sources */,
@@ -686,7 +694,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -743,7 +751,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -772,13 +780,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride55;
+				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -809,13 +817,13 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride55;
+				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

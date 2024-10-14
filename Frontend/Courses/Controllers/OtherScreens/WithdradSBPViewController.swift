@@ -40,7 +40,7 @@ class WithdrawSBPViewController: UIViewController {
     
     private func textFieldDesign() {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
-        withdrawTextField.attributedPlaceholder = NSAttributedString(string: "от 1₽ до 50000₽", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font!])
+        withdrawTextField.attributedPlaceholder = NSAttributedString(string: "от 100₽ до 50000₽", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font!])
     }
     
     private func design() {
@@ -58,6 +58,11 @@ class WithdrawSBPViewController: UIViewController {
         numberBorder.color = .lightBlackMain
         bankBorder.color = .lightBlackMain
         errorView.isHidden = true
+    }
+    
+    func addSuccess() {
+        errorView.isHidden = false
+        errorView.configureSuccess(title: "Успешно", description: "Средства будут выведены в течении 48 часов")
     }
     
     func addError(error: String) {
@@ -82,7 +87,7 @@ class WithdrawSBPViewController: UIViewController {
             throw ErrorNetwork.notFound }
         guard Int(withdrawTextField.text!)! >= 100 && Int(withdrawTextField.text!)! <= 50000 else {
             withdrawBorder.color = .errorRed
-            addError(error: "Вывод средств от 100₽ до 50000₽")
+            addError(error: "Вывод средств от 1₽ до 50000₽")
             throw ErrorNetwork.notFound }
         
     }
@@ -98,6 +103,7 @@ class WithdrawSBPViewController: UIViewController {
     }
     
     @IBAction func fluent(_ sender: UIButton) {
+       
         finishBtn.isEnabled = false
         Task {
             do {
@@ -109,6 +115,7 @@ class WithdrawSBPViewController: UIViewController {
                 finishBtn.isEnabled = true
                 let result = Int(moneyCount.text!)! - money
                 moneyCount.text = "\(result)"
+                addSuccess()
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
                 finishBtn.isEnabled = true

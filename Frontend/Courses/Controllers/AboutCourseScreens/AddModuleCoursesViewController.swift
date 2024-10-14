@@ -58,6 +58,7 @@ class AddModuleCoursesViewController: UIViewController {
         daysCollectionView.dataSource = self
         modulesCollectionView.delegate = self
         modulesCollectionView.dataSource = self
+        addGestureRecognizeByCollectionView()
 
         layout.pageWidth = 350
         layout.itemSize = CGSize(width: 40, height: 40)
@@ -69,7 +70,28 @@ class AddModuleCoursesViewController: UIViewController {
         daysCollectionView.collectionViewLayout = layout
         daysCollectionView.decelerationRate = .fast
     }
+    
+    private func addGestureRecognizeByCollectionView() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongGesture(_:)))
+        modulesCollectionView.addGestureRecognizer(gesture)
+    }
 
+    @objc func handleLongGesture(_ gesture: UILongPressGestureRecognizer) {
+        guard let collectionView = modulesCollectionView else { return }
+        switch gesture.state {
+        case .began:
+            guard let indexPath = collectionView.indexPathForItem(at: gesture.location(in: collectionView)) else { return }
+            
+            collectionView.beginInteractiveMovementForItem(at: indexPath)
+        case .changed:
+            collectionView.updateInteractiveMovementTargetPosition(gesture.location(in: collectionView))
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
+    }
+    
     private func addDay() {
         Task {
             do {
@@ -84,10 +106,10 @@ class AddModuleCoursesViewController: UIViewController {
         }
     }
 
-    private func addModule(dayID: Int) {
+    private func addModule(dayID: Int, position: Int) {
         Task {
             do {
-                let id = try await Course().addModulesInCourse(dayID: dayID)
+                let id = try await Course().addModulesInCourse(dayID: dayID, position: position)
                 course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id))
                 modulesCollectionView.insertItems(at: [IndexPath(item: course.courseDays[selectDay].modules.count - 1, section: 0)])
             }catch ErrorNetwork.runtimeError(let error) {
@@ -237,7 +259,12 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
                 cell.settingsBtn2.addTarget(self, action: #selector(settings), for: .touchUpInside)
             }
             cell.name.text = course.courseDays[selectDay].modules[indexPath.row].name
-            cell.time.text = "\(course.courseDays[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
+            if course.courseDays[selectDay].modules[indexPath.row].minutes == 0 {
+                cell.time.isHidden = true
+            }else {
+                cell.time.isHidden = false
+                cell.time.text = "\(course.courseDays[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
+            }
             cell.descrLbl.text = course.courseDays[selectDay].modules[indexPath.row].description
             return cell
         }
@@ -256,7 +283,7 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         }else {
 
             if indexPath.row == course.courseDays[selectDay].modules.count {
-                addModule(dayID: course.courseDays[selectDay].dayID)
+                addModule(dayID: course.courseDays[selectDay].dayID, position: indexPath.row)
             }else {
                 selectModule = course.courseDays[selectDay].modules[indexPath.row]
                 performSegue(withIdentifier: "goToAddCourse2", sender: self)
@@ -287,6 +314,24 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         }else {
             return CGSize(width: width, height: 120)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == course.courseDays[selectDay].modules.count {
+            return false
+        }else {
+            return true
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard destinationIndexPath.row != course.courseDays[selectDay].modules.count else {
+            collectionView.moveItem(at: destinationIndexPath, to: sourceIndexPath)
+            return
+        }
+        
+        
+
     }
 
     @objc func deleteDayBtn(sender: UIButton) {

@@ -7,13 +7,14 @@
 
 import UIKit
 
-class StartViewController: UIViewController, UIGestureRecognizerDelegate {
+class StartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.overrideUserInterfaceStyle = .dark
         self.navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        navigationController?.delegate = self
         current()
     }
 

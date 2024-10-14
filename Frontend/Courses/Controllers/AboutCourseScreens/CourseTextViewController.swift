@@ -51,6 +51,7 @@ class CourseTextViewController: UIViewController {
             loading.isHidden = true
         }
     }
+    
 
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)

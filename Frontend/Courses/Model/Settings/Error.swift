@@ -17,21 +17,21 @@ enum ErrorNetwork: Error {
 class Network {
 
     func checkNetwork() -> Bool {
-            let monitor = NWPathMonitor()
-            var isInternetAvailable = false
-
-            monitor.pathUpdateHandler = { path in
-                if path.status == .satisfied {
-                    isInternetAvailable = true
-                } else {
-                    isInternetAvailable = false
-                }
-                monitor.cancel()
+        let monitor = NWPathMonitor()
+        var isInternetAvailable = false
+        
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied {
+                isInternetAvailable = true
+            } else {
+                isInternetAvailable = false
             }
-
-            monitor.start(queue: .global())
-
-            return isInternetAvailable
+            monitor.cancel()
         }
+        
+        monitor.start(queue: .global())
+        
+        return isInternetAvailable
+    }
 
 }

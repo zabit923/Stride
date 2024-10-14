@@ -11,6 +11,7 @@ import CropViewController
 
 class ChangeInformationViewController: UIViewController {
 
+    @IBOutlet weak var heightScroll: NSLayoutConstraint!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var descriptionView: UIView!
@@ -79,8 +80,10 @@ class ChangeInformationViewController: UIViewController {
             user = try await User().getMyInfo()
             if user.role == .user {
                 descriptionView.isHidden = true
+                heightScroll.constant = 530
             }else {
                 descriptionView.isHidden = false
+                heightScroll.constant = 650
             }
             addText()
         }
@@ -167,7 +170,6 @@ extension ChangeInformationViewController: UIImagePickerControllerDelegate & UIN
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
-            print(5555)
             ImageResize().deleteTempImage(atURL: url)
             picker.dismiss(animated: true)
             let crop = CropImage(vc: self)

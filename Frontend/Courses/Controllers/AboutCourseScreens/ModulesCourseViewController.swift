@@ -163,7 +163,12 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
                 cell.im.sd_setImage(with: image)
             }
             cell.name.text = course.courseDays[selectDay].modules[indexPath.row].name
-            cell.time.text = "\(course.courseDays[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
+            if course.courseDays[selectDay].modules[indexPath.row].minutes == 0 {
+                cell.time.isHidden = true
+            }else {
+                cell.time.isHidden = false
+                cell.time.text = "\(course.courseDays[selectDay].modules[indexPath.row].minutes) минут(ы/а)"
+            }
             cell.descrLbl.text = course.courseDays[selectDay].modules[indexPath.row].description
 
             return cell
