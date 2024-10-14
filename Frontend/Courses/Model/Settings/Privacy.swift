@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import Photos
+import Alamofire
+import SwiftyJSON
 
 class Privacy {
     
@@ -48,4 +50,33 @@ class Privacy {
         guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
         rootViewController.present(alert, animated: true, completion: nil)
     }
+}
+
+class AppStoreVersion {
+    
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+    
+    private func versionMaxAllowed(maxVersion:Double) -> Bool {
+        if Double(version)! < maxVersion {
+            return false
+        }else {
+            return true
+        }
+    }
+    
+    func getVersionAppStore() async throws -> Double {
+//        let urlString = "https://itunes.apple.com/lookup?bundleId=com.courses.Stride"
+        let urlString = "https://itunes.apple.com/lookup?bundleId=com.company.XTENNISX2"
+        let value = try await AF.request(urlString,method: .get).serializingData().value
+        let json = JSON(value)
+        let version = json["results"][0]["version"].doubleValue
+        print(version)
+        return version
+    }
+    
+    func checkVersionApp() async throws -> Bool {
+        let maxVersion = try await getVersionAppStore()
+        return versionMaxAllowed(maxVersion: maxVersion)
+    }
+    
 }

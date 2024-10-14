@@ -49,7 +49,6 @@ class ProfileViewController: UIViewController {
         Task {
             user = try await User().getMyInfo()
             courses = try await Course().getMyCreateCourses()
-            print(courses)
             coursesCount.text = "\(courses.count)"
             rating.text = "\(averageRating())"
             coursesCollectionView.reloadData()
@@ -133,6 +132,11 @@ extension ProfileViewController: SkeletonCollectionViewDelegate, SkeletonCollect
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+        if courses[indexPath.row].isDraft {
+            cell.isDraftView.isHidden = false
+        }else {
+            cell.isDraftView.isHidden = true
+        }
         cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
         return cell
     }

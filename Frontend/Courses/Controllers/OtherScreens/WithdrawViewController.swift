@@ -17,7 +17,7 @@ class WithdrawViewController: UIViewController {
     @IBOutlet weak var cardTextField: UITextField!
     
     var money = 0
-    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 40, height: 70))
     var startPosition = CGPoint()
     
     override func viewDidLoad() {
@@ -41,6 +41,11 @@ class WithdrawViewController: UIViewController {
         withdrawBorder.color = .lightBlackMain
         cardBorder.color = .lightBlackMain
         errorView.isHidden = true
+    }
+    
+    func addSuccess() {
+        errorView.isHidden = false
+        errorView.configureSuccess(title: "Успешно", description: "Средства будут выведены в течении 48 часов")
     }
     
     func addError(error: String) {
@@ -83,6 +88,7 @@ class WithdrawViewController: UIViewController {
                 finishBtn.isEnabled = true
                 let result = Int(moneyCount.text!)! - money
                 moneyCount.text = "\(result)"
+                addSuccess()
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)
                 finishBtn.isEnabled = true
@@ -97,7 +103,9 @@ class WithdrawViewController: UIViewController {
         cardTextField.resignFirstResponder()
     }
     
-    
+    @IBAction func swipeError(_ sender: UIPanGestureRecognizer) {
+        errorView.swipe(sender: sender, startPosition: startPosition)
+    }
     
     
     @IBAction func back(_ sender: UIButton) {

@@ -16,7 +16,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>com.courses.Stride</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>stridecourses</string>

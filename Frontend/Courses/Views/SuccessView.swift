@@ -1,14 +1,14 @@
 //
-//  ErrorView.swift
+//  SuccessView.swift
 //  Courses
 //
-//  Created by Руслан on 22.08.2024.
+//  Created by Руслан on 29.09.2024.
 //
 
 import Foundation
 import UIKit
 
-class ErrorView: UIView {
+class SuccessView: UIView {
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,7 +54,7 @@ class ErrorView: UIView {
     }
 
     private func designView() {
-        self.backgroundColor = UIColor.errorRed
+        self.backgroundColor = UIColor.success
         self.layer.cornerRadius = 10
     }
 
@@ -80,22 +80,13 @@ class ErrorView: UIView {
             contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 15),
         ])
     }
-    
+
     // Setters for data
-    func configure(image: UIImage = UIImage.error, title: String, description: String) {
+    func configure(image: UIImage = UIImage.success, title: String, description: String) {
         imageView.image = image
         titleLabel.text = title
         descriptionLabel.text = description
-        self.backgroundColor = UIColor.errorRed
     }
-    
-    func configureSuccess(image: UIImage = UIImage.success, title: String, description: String) {
-        imageView.image = image
-        titleLabel.text = title
-        descriptionLabel.text = description
-        self.backgroundColor = UIColor.success
-    }
-    
 
     func swipe(sender: UIPanGestureRecognizer, startPosition: CGPoint) {
         let translation = sender.translation(in: self)

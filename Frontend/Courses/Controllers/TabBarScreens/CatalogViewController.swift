@@ -41,6 +41,7 @@ class CatalogViewController: UIViewController {
         Task {
             let results = try await Course().getAllCourses()
             courses = results
+            print(courses)
             emptyCheck()
             catalogCollectionView.reloadData()
         }

@@ -35,9 +35,6 @@ class InfoCoursesViewController: UIViewController {
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
         startPosition = errorView.center
-        deepLinkGetCourse()
-        buyOrNextDesign()
-        getComments()
         design()
     }
 
@@ -49,8 +46,12 @@ class InfoCoursesViewController: UIViewController {
     private func getCourse() {
         Task {
             course = try await Course().getCoursesByID(id: course.id)
+            if course.isBought {
+                buy = false
+            }else {
+                buy = true
+            }
             design()
-            reviewHiddenBtn()
         }
     }
 
@@ -75,46 +76,48 @@ class InfoCoursesViewController: UIViewController {
 
 
     private func design() {
-        price.text = "\(course.price)"
-        descriptionText.text = course.description
-        dateCreate.text = course.dataCreated
-        name.text = course.nameCourse
-        coachName.setTitle(course.nameAuthor, for: .normal)
-        im.sd_setImage(with: course.imageURL)
-        countBuyer.text = "\(course.countBuyer)"
-    }
-    
-    private func deepLinkGetCourse() {
-        if DeepLinksManager.isLink {
-            DeepLinksManager.isLink = false
+        if course.nameCourse == "" {
             getCourse()
-            if course.isBought {
-                buy = false
-            }else {
-                buy = true
-            }
+        }else {
+            price.text = "\(course.price)"
+            descriptionText.text = course.description
+            dateCreate.text = course.dataCreated
+            name.text = course.nameCourse
+            coachName.setTitle(course.nameAuthor, for: .normal)
+            im.sd_setImage(with: course.imageURL)
+            countBuyer.text = "\(course.countBuyer)"
             buyOrNextDesign()
+            getComments()
         }
     }
 
     private func buyOrNextDesign() {
+        guard myCourse() == false else { return }
+        
         if buy == false {
+            
             buyView.setTitle("Оставить отзыв", for: .normal)
-            buyView.isHidden = true
-            getCourse()
             priceView.isHidden = true
+            if course.myRating == 0 {
+                buyView.isHidden = false
+            }else {
+                buyView.isHidden = true
+            }
+            
         }else {
             buyView.setTitle("Купить", for: .normal)
             buyView.isHidden = false
             priceView.isHidden = false
         }
     }
-
-    private func reviewHiddenBtn() {
-        if course.myRating == 0 {
-            buyView.isHidden = false
-        }else {
+    
+    private func myCourse() -> Bool {
+        if User.info.id == course.idAuthor {
             buyView.isHidden = true
+            priceView.isHidden = true
+            return true
+        }else {
+            return false
         }
     }
 
@@ -169,13 +172,18 @@ class InfoCoursesViewController: UIViewController {
             performSegue(withIdentifier: "goToAddReview", sender: self)
         }else{
             buyView.isEnabled = false
-            openTinkoffKassa()
+//            openTinkoffKassa()
+            self.buyCourseSuccesed()
             buyView.isEnabled = true
         }
     }
     
 
-
+    @IBAction func share(_ sender: UIButton) {
+        let link = DeepLinksManager.getLinkAboutCourse(idCourse: course.id)
+        DeepLinksManager.openShareViewController(url: link, self)
+    }
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }

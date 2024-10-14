@@ -31,7 +31,8 @@ class CourseJSON {
                     let title = json["days"][x]["modules"][y]["title"].stringValue
                     let image = json["days"][x]["modules"][y]["image"].stringValue
                     let desc = json["days"][x]["modules"][y]["desc"].stringValue
-                    modules.append(Modules(text: URL(string: text), name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id))
+                    let index = json["days"][x]["modules"][y]["index"].intValue
+                    modules.append(Modules(text: URL(string: text), name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id, position: index))
                 }
             }
             course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules))
@@ -68,7 +69,6 @@ class CourseJSON {
             let progressInDays = UD().getDaysCompletedInCourse(courseID: id)
             courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated,progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought))
         }
-
         return courses
     }
     
@@ -94,8 +94,9 @@ class CourseJSON {
             let countBuyer = json[x]["bought_count"].intValue
             let rating = json[x]["rating"].floatValue
             let isBought = json[x]["bought"].boolValue
+            let isDraft = json[x]["is_draft"].boolValue
             let progressInDays = UD().getDaysCompletedInCourse(courseID: id)
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought, isDraft: isDraft))
         }
         return courses
     }

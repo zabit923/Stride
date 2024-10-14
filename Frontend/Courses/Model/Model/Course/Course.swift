@@ -19,6 +19,7 @@ struct Modules {
     var description: String?
     var id: Int
     var isRead: Bool = false
+    var position: Int = 0
 }
 
 
@@ -52,8 +53,9 @@ class Course {
     var countBuyer: Int = 0
     var isBought: Bool = false
     var courseDays = [CourseDays]()
+    var isDraft: Bool
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false) {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false, isDraft: Bool = true) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
@@ -69,6 +71,7 @@ class Course {
         self.progressInDays = progressInDays
         self.countBuyer = countBuyer
         self.isBought = isBought
+        self.isDraft = isDraft
     }
     
     private var mananger = CourseMananger()
@@ -167,12 +170,17 @@ class Course {
         }
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response = AF.upload(multipartFormData: { multipartFormData in
+            // Image
             if "\(info.imageURL!)".starts(with: "file") {
                 ImageResize.compressImageFromFileURL(fileURL: info.imageURL!, maxSizeInMB: 0.1) { compressedURL in
                     if let url = compressedURL {
                         multipartFormData.append(url, withName: "image")
                     }
                 }
+            }
+            // Черновик
+            if method == .post {
+                multipartFormData.append(Data("\(info.isDraft)".utf8), withName: "is_draft")
             }
             multipartFormData.append(Data(info.nameCourse.utf8), withName: "title")
             multipartFormData.append(Data("\(info.price)".utf8), withName: "price")
@@ -222,10 +230,13 @@ class Course {
         return id
     }
 
-    func addModulesInCourse(dayID: Int) async throws -> Int {
+    func addModulesInCourse(dayID: Int, position: Int) async throws -> Int {
         let url = Constants.url + "api/v1/module/create/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-        let response = AF.request(url, method: .post, headers: headers).serializingData()
+        let parameters = [
+            "index": position
+        ]
+        let response = AF.request(url, method: .post, parameters: parameters, headers: headers).serializingData()
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)

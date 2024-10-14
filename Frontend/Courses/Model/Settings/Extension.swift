@@ -77,11 +77,49 @@ extension UIImage {
 }
 
 extension UITextView {
+    
     func convertUITextRangeToNSRange(range: UITextRange) -> NSRange {
         let beginning = self.beginningOfDocument
         let location = self.offset(from: beginning, to: range.start)
         let length = self.offset(from: range.start, to: range.end)
         return NSRange(location: location, length: length)
     }
+    
+    // Undo Redo
+    func replaceRange(_ range: NSRange, withAttributedText text: NSAttributedString) {
+         let previousText = attributedText.attributedSubstring(from: range)
+         let previousSelectedRange = selectedRange
+
+         undoManager?.registerUndo(withTarget: self, handler: { target in
+             target.replaceRange(NSMakeRange(range.location, text.length),
+                                 withAttributedText: previousText)
+         })
+
+         textStorage.replaceCharacters(in: range, with: text)
+         selectedRange = NSMakeRange(previousSelectedRange.location, text.length)
+     }
 }
 
+
+
+extension String {
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return nil }
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return nil
+        }
+    }
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? ""
+    }
+}
+
+extension NSAttributedString {
+    
+    func htmlString() -> String? {
+        let htmlData = try? self.data(from: NSRange(location: 0, length: self.length), documentAttributes: [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.html])
+        return String(data: htmlData ?? Data(), encoding: .utf8)
+    }
+}

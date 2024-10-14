@@ -12,6 +12,8 @@ import Lottie
 
 class AddCourseViewController: UIViewController {
 
+    @IBOutlet weak var redo: UIButton!
+    @IBOutlet weak var undo: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nameCourseLBL: UILabel!
     @IBOutlet weak var sizeFont: UILabel!
@@ -19,10 +21,7 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var fontTitle: UILabel!
     @IBOutlet weak var fontView: UIView!
     @IBOutlet weak var bottomConsoleView: NSLayoutConstraint!
-    @IBOutlet weak var defaultAligment: UIButton!
-    @IBOutlet weak var rightAligment: UIButton!
-    @IBOutlet weak var centerAlingment: UIButton!
-    @IBOutlet weak var leftAlingment: UIButton!
+    @IBOutlet weak var alingment: UIButton!
     @IBOutlet weak var textView: UITextView!
 
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
@@ -37,14 +36,14 @@ class AddCourseViewController: UIViewController {
     private var colorSelect = UIColor.white {
         didSet {
             colorView.backgroundColor = colorSelect
-            textView.typingAttributes[.foregroundColor] = colorSelect
+//            textView.typingAttributes[.foregroundColor] = colorSelect
             selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
         }
     }
     private var fontSelect = UIFont.systemFont(ofSize: 16) {
         didSet {
             fontTitle.text = fontSelect.fontName
-            textView.typingAttributes[.font] = fontSelect
+//            textView.typingAttributes[.font] = fontSelect
             selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
         }
     }
@@ -52,9 +51,9 @@ class AddCourseViewController: UIViewController {
         didSet {
             let paragraph = NSMutableParagraphStyle()
             paragraph.alignment = alignment
-            textView.typingAttributes[.paragraphStyle] = paragraph
-            clearTextAlingment()
+//            textView.typingAttributes[.paragraphStyle] = paragraph
             changedAlignment(alignment)
+            selectText(attributes: [.paragraphStyle: paragraph])
         }
     }
     private var sizeFontSelect = 16.0 {
@@ -68,6 +67,7 @@ class AddCourseViewController: UIViewController {
         super.viewDidLoad()
         textView.textColor = .white
         textView.delegate = self
+        textView.allowsEditingTextAttributes = true
         view.overrideUserInterfaceStyle = .dark
         getData()
         design()
@@ -125,39 +125,54 @@ class AddCourseViewController: UIViewController {
     }
 
     private func design() {
-        nameCourseLBL.text = nameCourse
+        nameCourseLBL.text = module.name
     }
 
 
     private func changedAlignment(_ alignment: NSTextAlignment) {
         switch alignment {
         case .left:
-            leftAlingment.setImage(UIImage.leftTextFull, for: .normal)
+            alingment.setImage(UIImage.leftTextFull, for: .normal)
+            alingment.tag = 1
         case .center:
-            centerAlingment.setImage(UIImage.centerTextFull, for: .normal)
+            alingment.setImage(UIImage.centerTextFull, for: .normal)
+            alingment.tag = 2
         case .right:
-            rightAligment.setImage(UIImage.rightTextFull, for: .normal)
-        case .natural:
-            defaultAligment.setImage(UIImage.defaulTextFull, for: .normal)
+            alingment.setImage(UIImage.rightTextFull, for: .normal)
+            alingment.tag = 3
+        case .justified:
+            alingment.setImage(UIImage.defaulTextFull, for: .normal)
+            alingment.tag = 0
         default:
             break
         }
     }
 
-    private func clearTextAlingment() {
-        leftAlingment.setImage(UIImage.leftText, for: .normal)
-        centerAlingment.setImage(UIImage.centerText, for: .normal)
-        rightAligment.setImage(UIImage.rightText, for: .normal)
-        defaultAligment.setImage(UIImage.defaultText, for: .normal)
+    private func checkUndoRedo() {
+        if textView.undoManager?.canUndo == true {
+            undo.setImage(UIImage.undoFill, for: .normal)
+        }else {
+            undo.setImage(UIImage.undo, for: .normal)
+        }
+        
+        if textView.undoManager?.canRedo == true {
+            redo.setImage(UIImage.rendoFill, for: .normal)
+        }else {
+            redo.setImage(UIImage.rendo, for: .normal)
+        }
     }
+    
 
     private func selectText(attributes: [NSAttributedString.Key: Any]) {
         guard let selectedRange = textView.selectedTextRange else { return }
         let selectedText = textView.text(in: selectedRange)
         guard selectedText != "" else {return}
         let nsRange = textView.convertUITextRangeToNSRange(range: selectedRange)
+        let previousAttributes = textView.attributedText.attributedSubstring(from: nsRange)
+        textView.replaceRange(nsRange, withAttributedText: previousAttributes)
         textView.textStorage.addAttributes(attributes, range: nsRange)
         textView.selectedTextRange = selectedRange
+        checkUndoRedo()
     }
 
 
@@ -199,7 +214,7 @@ class AddCourseViewController: UIViewController {
         textView.isEditable = true
         textView.becomeFirstResponder()
         isChangedText = false
-//        selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
+        checkUndoRedo()
     }
 
 
@@ -243,24 +258,33 @@ class AddCourseViewController: UIViewController {
         vc.delegate = self
         present(vc, animated: true)
     }
-
+    
+    @IBAction func undo(_ sender: UIButton) {
+        if sender.tag == 0 {
+            textView.undoManager?.undo()
+        }else {
+            textView.undoManager?.redo()
+        }
+        checkUndoRedo()
+    }
+    
     @IBAction func alignment(_ sender: UIButton) {
-        clearTextAlingment()
         switch sender.tag {
         case 0:
             alignment = .left
+            sender.tag = 1
         case 1:
             alignment = .center
+            sender.tag = 2
         case 2:
             alignment = .right
+            sender.tag = 3
         case 3:
-            alignment = .natural
+            alignment = .justified
+            sender.tag = 0
         default:
             break
         }
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = alignment
-        selectText(attributes: [.paragraphStyle: paragraph])
     }
 
     @IBAction func stepper(_ sender: UIButton) {
@@ -285,6 +309,7 @@ class AddCourseViewController: UIViewController {
     }
 
 }
+
 // MARK: - TextView
 extension AddCourseViewController: UITextViewDelegate {
     
@@ -296,12 +321,12 @@ extension AddCourseViewController: UITextViewDelegate {
             
             let font = attributedText.attribute(.font, at: selectedRange.location, effectiveRange: nil) as? UIFont ?? textView.font
             let color = attributedText.attribute(.foregroundColor, at: selectedRange.location, effectiveRange: nil) as? UIColor ?? textView.textColor
+            
             let size = font!.pointSize
             
             fontSelect = font!
             colorSelect = color!
             sizeFontSelect = size
-            
         }
     }
 
@@ -309,9 +334,11 @@ extension AddCourseViewController: UITextViewDelegate {
         if textView.typingAttributes[.font] as? UIFont != fontSelect {
             textView.typingAttributes[.font] = fontSelect
         }
+        
     }
 
     func textViewDidChange(_ textView: UITextView) {
+        checkUndoRedo()
         isSave = false
         textStyleBar()
     }
@@ -344,7 +371,7 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             ImageResize().deleteTempImage(atURL: url)
-            let resizeImage = ImageResize.resizeAndCompressImage(image: image, maxSizeKB: 300)
+            let resizeImage = ImageResize.resizeAndCompressImage(image: image, maxSizeKB: 100)
             let roundedImage = resizeImage.withRoundedCorners(radius: 7)
             addImageInTextView(image: roundedImage)
             picker.dismiss(animated: true)

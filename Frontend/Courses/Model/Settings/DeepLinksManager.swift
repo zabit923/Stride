@@ -7,9 +7,12 @@
 
 import Foundation
 import UIKit
+import Social
+
 
 class DeepLinksManager {
     
+    static var url = ""
     static var isLink = false
     static var hosts: String?
     static var courseID: Int?
@@ -37,8 +40,18 @@ class DeepLinksManager {
         guard let navigationController = window.rootViewController as? UINavigationController else { return }
         
         navigationController.pushViewController(vc, animated: true)
-        //        viewController.performSegue(withIdentifier: "deepLink", sender: self)
     }
     
+    static func getLinkAboutCourse(idCourse: Int) -> URL {
+        let link = URL(string: "https://stridecourses.ru/api/v1/deeplink/courses/\(idCourse)")!
+        return link
+    }
+    
+    static func openShareViewController(url: URL, _ viewController: UIViewController) {
+        let items = [url]
+        
+        let shareController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        viewController.present(shareController, animated: true)
+    }
     
 }

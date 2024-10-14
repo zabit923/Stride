@@ -120,9 +120,7 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
 
     func changeModule() {
-        if let minutes = Int(durationTextField.text!) {
-            module.minutes = minutes
-        }
+        module.minutes = Int(durationTextField.text!) ?? 0
         module.name = nameTextField.text!
         module.description = descriptionTextField.text!
     }
