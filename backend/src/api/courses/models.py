@@ -44,7 +44,7 @@ class Module(models.Model):
     )
     desc = models.TextField(_("Описание"), max_length=100, blank=True, null=True)
     time_to_pass = models.IntegerField(_("Время на прохождение"), blank=True, null=True)
-    index = models.IntegerField(_('Индекс'))
+    order = models.IntegerField(_('Порядок'))
     data = models.FileField(
         _("Данные"),
         storage=ClientDocsStorage(),
@@ -70,9 +70,9 @@ class Module(models.Model):
         super(Module, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        modules_to_shift = Module.objects.filter(day=self.day, index__gt=self.index)
+        modules_to_shift = Module.objects.filter(day=self.day, order__gt=self.order)
         for module in modules_to_shift:
-            module.index -= 1
+            module.order -= 1
             module.save()
         if self.data:
             self.data.delete(save=False)
@@ -86,7 +86,7 @@ class Module(models.Model):
     class Meta:
         verbose_name = "Модуль"
         verbose_name_plural = "Модули"
-        ordering = ['index']
+        ordering = ['order']
 
 
 class Day(models.Model):
