@@ -21,7 +21,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class ModuleSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     data = serializers.FileField(required=False)
-    index = serializers.IntegerField(read_only=True)
+    order = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Module
@@ -30,15 +30,18 @@ class ModuleSerializer(serializers.ModelSerializer):
             "title",
             "image",
             "desc",
-            'index',
+            'order',
             "time_to_pass",
             "data",
             "day",
         )
 
-    def update(self, instance, validated_data):
-        validated_data.pop("day", None)
-        return super().update(instance, validated_data)
+    def create(self, validated_data):
+        day = validated_data.get("day")
+        count_modules = day.modules.count()
+        validated_data['order'] = count_modules + 1
+
+        return super().create(validated_data)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
@@ -57,14 +60,43 @@ class ModuleUpdateSerializer(serializers.ModelSerializer):
             "title",
             "image",
             "desc",
-            'index',
+            'order',
             "time_to_pass",
             "data",
             "day",
         )
 
+    def shift_module_orders(self, instance, new_order):
+        day = instance.day
+
+        if new_order > instance.order:
+            modules_to_shift = Module.objects.filter(
+                day=day,
+                order__gt=instance.order,
+                order__lte=new_order
+            )
+            for module in modules_to_shift:
+                module.order -= 1
+                module.save()
+        elif new_order < instance.order:
+            modules_to_shift = Module.objects.filter(
+                day=day,
+                order__lt=instance.order,
+                order__gte=new_order
+            )
+            for module in modules_to_shift:
+                module.order += 1
+                module.save()
+
+        instance.order = new_order
+
     def update(self, instance, validated_data):
         validated_data.pop("day", None)
+
+        new_order = validated_data.get('order')
+        if new_order and new_order != instance.order:
+            self.shift_module_orders(instance, new_order)
+
         return super().update(instance, validated_data)
 
     def to_representation(self, instance):
