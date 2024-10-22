@@ -11,7 +11,8 @@ import UIKit
 
 class Constants {
     static let url = "https://stridecourses.ru/"
-    static let telegramURL = URL(string: "https://t.me/StrideCoursesBot")!
+    static let telegramURL = URL(string: "https://t.me/+ydJXQ2Xo8PBkYWUy")!
+    static let formsURL = URL(string: "https://forms.yandex.ru/u/670e623ef47e734408a563df/")!
 }
 
 // MARK: - Collection

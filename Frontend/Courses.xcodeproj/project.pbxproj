@@ -335,6 +335,7 @@
 				444A07002C2B9D6C008F4E68 /* Extension.swift */,
 				75D7F3552C4299EF0083DBEF /* UD.swift */,
 				44064C9F2C28634C00AB5227 /* Model.swift */,
+				449880C92CB621280052C3C3 /* NavigationControllerDelegate.swift */,
 				44F741532CA1D0720041F8FA /* Privacy.swift */,
 			);
 			path = Settings;
@@ -437,7 +438,6 @@
 				44932A982C81303A00E0F86F /* PrivacyViewController.swift */,
 				75F6FDB32C9323B500A57EA9 /* WithdrawViewController.swift */,
 				7555DEB42C986FC100B80A13 /* WithdradSBPViewController.swift */,
-				449880C92CB621280052C3C3 /* NavigationControllerDelegate.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -767,8 +767,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L9A8M2B6SF;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = DMM8286TLA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
@@ -785,7 +785,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -794,7 +794,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -804,8 +804,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = L9A8M2B6SF;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = DMM8286TLA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
@@ -822,7 +822,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -831,7 +831,7 @@
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

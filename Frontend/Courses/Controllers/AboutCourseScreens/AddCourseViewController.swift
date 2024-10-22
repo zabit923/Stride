@@ -59,6 +59,8 @@ class AddCourseViewController: UIViewController {
     private var sizeFontSelect = 16.0 {
         didSet {
             fontSelect = UIFont(descriptor: fontSelect.fontDescriptor, size: sizeFontSelect)
+            let roundedSize = round(sizeFontSelect * 10) / 10
+            sizeFontSelect = roundedSize
             sizeFont.text = "\(sizeFontSelect) пт"
         }
     }
@@ -324,8 +326,12 @@ extension AddCourseViewController: UITextViewDelegate {
             
             let size = font!.pointSize
             
-            fontSelect = font!
-            colorSelect = color!
+            if let font = font {
+                fontSelect = font
+            }
+            if let color = color {
+                colorSelect = color
+            }
             sizeFontSelect = size
         }
     }
@@ -338,6 +344,7 @@ extension AddCourseViewController: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
+        print(textView.text)
         checkUndoRedo()
         isSave = false
         textStyleBar()
@@ -355,9 +362,10 @@ extension AddCourseViewController: UITextViewDelegate {
         }
         if let color = textView.typingAttributes[.foregroundColor] as? UIColor {
             colorSelect = color
+            print(1, color)
         }else {
-            let color = colorSelect
-            colorSelect = color
+            colorSelect = .white
+            print(2, colorSelect)
         }
         if let align = textView.typingAttributes[.paragraphStyle] as? NSParagraphStyle {
             alignment = align.alignment
@@ -415,6 +423,10 @@ extension AddCourseViewController: UIFontPickerViewControllerDelegate {
 extension AddCourseViewController: UIColorPickerViewControllerDelegate {
 
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        colorSelect = viewController.selectedColor
+    }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         colorSelect = viewController.selectedColor
     }
 

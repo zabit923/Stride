@@ -10,7 +10,6 @@ import UIKit
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var celebrityCollectionView: UICollectionView!
-    @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var bannersCollectionView: UICollectionView!
@@ -27,6 +26,7 @@ class HomeViewController: UIViewController {
             addProfile()
         }
     }
+    private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
 
 
@@ -36,6 +36,8 @@ class HomeViewController: UIViewController {
         collectionViewSettings()
         tabbar()
         startPosition = errorView.center
+        view.addSubview(errorView)
+        errorView.isHidden = true
         design()
     }
 
@@ -157,6 +159,7 @@ class HomeViewController: UIViewController {
     @IBAction func coursesFromStars(_ sender: UIButton) {
         if celebrities.isEmpty {
             errorView.isHidden = false
+            errorView.configureUnavailable(title: "Cкоро", description: "В данный момент недоступно")
         }else {
             performSegue(withIdentifier: "celebrities", sender: self)
         }
@@ -252,11 +255,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if segue.identifier == "infoCourses" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourses
-            if selectCourses.isBought {
-                vc.buy = false
-            }else {
-                vc.buy = true
-            }
         }else if segue.identifier == "allRecomend" {
             let vc = segue.destination as! CoursesViewController
             vc.typeCourse = .recomend

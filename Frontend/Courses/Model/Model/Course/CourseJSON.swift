@@ -31,14 +31,13 @@ class CourseJSON {
                     let title = json["days"][x]["modules"][y]["title"].stringValue
                     let image = json["days"][x]["modules"][y]["image"].stringValue
                     let desc = json["days"][x]["modules"][y]["desc"].stringValue
-                    let index = json["days"][x]["modules"][y]["index"].intValue
+                    let index = json["days"][x]["modules"][y]["order"].intValue
                     modules.append(Modules(text: URL(string: text), name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id, position: index))
                 }
             }
             course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules))
             modules.removeAll()
         }
-
         course = RealmValue().addCompletedDays(course: course)
         return course
     }

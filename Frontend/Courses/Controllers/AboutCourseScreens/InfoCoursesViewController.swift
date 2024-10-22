@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import SkeletonView
 
 class InfoCoursesViewController: UIViewController {
 
+    @IBOutlet weak var stackBtn: UIStackView!
     @IBOutlet weak var reviewsLbl: UILabel!
     @IBOutlet weak var reviewsConstant: NSLayoutConstraint!
     @IBOutlet weak var coachName: UIButton!
@@ -27,7 +29,6 @@ class InfoCoursesViewController: UIViewController {
 
     var course = Course()
     var reviews = [Reviews]()
-    var buy: Bool?
 
 
     override func viewDidLoad() {
@@ -35,7 +36,7 @@ class InfoCoursesViewController: UIViewController {
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
         startPosition = errorView.center
-        design()
+        getCourse()
     }
 
     override func viewDidLayoutSubviews() {
@@ -44,13 +45,9 @@ class InfoCoursesViewController: UIViewController {
     }
 
     private func getCourse() {
+        sceletonAnimatedStart()
         Task {
             course = try await Course().getCoursesByID(id: course.id)
-            if course.isBought {
-                buy = false
-            }else {
-                buy = true
-            }
             design()
         }
     }
@@ -76,25 +73,46 @@ class InfoCoursesViewController: UIViewController {
 
 
     private func design() {
-        if course.nameCourse == "" {
-            getCourse()
-        }else {
-            price.text = "\(course.price)"
-            descriptionText.text = course.description
-            dateCreate.text = course.dataCreated
-            name.text = course.nameCourse
-            coachName.setTitle(course.nameAuthor, for: .normal)
-            im.sd_setImage(with: course.imageURL)
-            countBuyer.text = "\(course.countBuyer)"
-            buyOrNextDesign()
-            getComments()
-        }
+        sceletonAnimatedStop()
+        price.text = "\(course.price)"
+        descriptionText.text = course.description
+        dateCreate.text = course.dataCreated
+        name.text = course.nameCourse
+        coachName.setTitle(course.nameAuthor, for: .normal)
+        im.sd_setImage(with: course.imageURL)
+        countBuyer.text = "\(course.countBuyer)"
+        buyOrNextDesign()
+        getComments()
+    }
+    
+    private func sceletonAnimatedStart() {
+        reviewsCollectionView.isSkeletonable = true
+        reviewsCollectionView.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
+        im.isSkeletonable = true
+        im.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
+        name.isSkeletonable = true
+        name.linesCornerRadius = 5
+        name.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
+        descriptionText.isSkeletonable = true
+        descriptionText.linesCornerRadius = 5
+        descriptionText.skeletonTextNumberOfLines = 5
+        descriptionText.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor.lightBlackMain))
+
+        stackBtn.isHidden = true
+    }
+    
+    private func sceletonAnimatedStop() {
+        reviewsCollectionView.hideSkeleton(transition: .none)
+        im.hideSkeleton(transition: .none)
+        name.hideSkeleton(transition: .none)
+        descriptionText.hideSkeleton(transition: .none)
+        stackBtn.isHidden = false
     }
 
     private func buyOrNextDesign() {
         guard myCourse() == false else { return }
-        
-        if buy == false {
+
+        if course.isBought == true {
             
             buyView.setTitle("Оставить отзыв", for: .normal)
             priceView.isHidden = true
@@ -168,12 +186,11 @@ class InfoCoursesViewController: UIViewController {
     
     
     @IBAction func buy(_ sender: UIButton) {
-        if buy == false {
+        if course.isBought == true {
             performSegue(withIdentifier: "goToAddReview", sender: self)
         }else{
             buyView.isEnabled = false
-//            openTinkoffKassa()
-            self.buyCourseSuccesed()
+            openTinkoffKassa()
             buyView.isEnabled = true
         }
     }

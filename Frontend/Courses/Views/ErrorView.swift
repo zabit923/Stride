@@ -96,6 +96,13 @@ class ErrorView: UIView {
         self.backgroundColor = UIColor.success
     }
     
+    func configureUnavailable(image: UIImage = UIImage.error, title: String, description: String) {
+        imageView.image = image
+        titleLabel.text = title
+        descriptionLabel.text = description
+        self.backgroundColor = UIColor.lightBlackMain
+    }
+    
 
     func swipe(sender: UIPanGestureRecognizer, startPosition: CGPoint) {
         let translation = sender.translation(in: self)

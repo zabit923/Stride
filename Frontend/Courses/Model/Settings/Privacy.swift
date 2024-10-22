@@ -65,12 +65,10 @@ class AppStoreVersion {
     }
     
     func getVersionAppStore() async throws -> Double {
-//        let urlString = "https://itunes.apple.com/lookup?bundleId=com.courses.Stride"
-        let urlString = "https://itunes.apple.com/lookup?bundleId=com.company.XTENNISX2"
+        let urlString = "https://itunes.apple.com/lookup?bundleId=com.courses.Stride"
         let value = try await AF.request(urlString,method: .get).serializingData().value
         let json = JSON(value)
         let version = json["results"][0]["version"].doubleValue
-        print(version)
         return version
     }
     

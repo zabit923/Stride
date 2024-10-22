@@ -11,6 +11,7 @@ import CropViewController
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var shareBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var categoriesLbl: UILabel!
@@ -49,6 +50,7 @@ class AddInfoAboutCourseVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        checkCreate()
         getCourse()
         addCoach()
     }
@@ -70,11 +72,7 @@ class AddInfoAboutCourseVC: UIViewController {
     }
 
     private func design() {
-        if create {
-            titleLbl.text = "Создать курс"
-        }else {
-            titleLbl.text = "Изменить курс"
-        }
+        checkCreate()
         if imageURL == nil {
             imagePred.sd_setImage(with: infoCourses.imageURL)
             imageURL = infoCourses.imageURL
@@ -84,6 +82,16 @@ class AddInfoAboutCourseVC: UIViewController {
         name.text = infoCourses.nameCourse
         price.text = "\(infoCourses.price)"
         descriptionCourse.text = infoCourses.description
+    }
+    
+    private func checkCreate() {
+        if create {
+            titleLbl.text = "Создать курс"
+            shareBtn.isHidden = true
+        }else {
+            titleLbl.text = "Изменить курс"
+            shareBtn.isHidden = false
+        }
     }
 
     func checkError() -> Bool {
@@ -98,7 +106,13 @@ class AddInfoAboutCourseVC: UIViewController {
             result = false
             priceBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {
-            if Int(price.text!)! > 200000 || Int(price.text!)! < 100 {
+            guard let intValue = Int(price.text!) else {
+                errorView.configure(title: "Ошибка", description: "")
+                result = false
+                errorView.isHidden = false
+                priceBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
+                return false}
+            if intValue > 200000 || Int(price.text!)! < 100 {
                 errorView.configure(title: "Ошибка", description: "Цена курса должна быть от 100 до 200.000 рублей")
                 result = false
                 errorView.isHidden = false
@@ -136,11 +150,13 @@ class AddInfoAboutCourseVC: UIViewController {
         loading.contentMode = .scaleToFill
         loading.play()
         loading.isHidden = false
+        saveBtn.isHidden = true
     }
 
     private func loadingStop() {
         loading.stop()
         loading.isHidden = true
+        saveBtn.isHidden = false
     }
 
     func addInfoInVar() {
@@ -148,9 +164,16 @@ class AddInfoAboutCourseVC: UIViewController {
         infoCourses.price = Int(price.text!) ?? 0
         infoCourses.description = descriptionCourse.text!
         infoCourses.imageURL = imageURL
-        infoCourses.categoryID = selectCategory!.id
+        if let selectCategory = selectCategory {
+            infoCourses.categoryID = selectCategory.id
+        }
     }
-
+    
+    @IBAction func share(_ sender: UIButton) {
+        let link = DeepLinksManager.getLinkAboutCourse(idCourse: idCourse)
+        DeepLinksManager.openShareViewController(url: link, self)
+    }
+    
     @IBAction func save(_ sender: UIButton) {
         loadingSettings()
         saveBtn.isEnabled = false
@@ -166,6 +189,7 @@ class AddInfoAboutCourseVC: UIViewController {
                 if create {
                     idCourse = try await Course().saveInfoCourse(info: infoCourses, method: .post)
                     create = false
+                    shareBtn.isHidden = false
                 }else {
                     idCourse = try await Course().saveInfoCourse(info: infoCourses, method: .patch)
                 }

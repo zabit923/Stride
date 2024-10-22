@@ -18,6 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             DeepLinksManager().openCourses(with: window!)
         }
     }
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url {
+            DeepLinksManager().fetchURL(url: url)
+            if DeepLinksManager.isLink {
+                DeepLinksManager().openCourses(with: window!, isOpen: true)
+            }
+        }
+    }
                                         
 
     func sceneDidDisconnect(_ scene: UIScene) {

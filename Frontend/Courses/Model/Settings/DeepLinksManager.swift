@@ -29,17 +29,33 @@ class DeepLinksManager {
         }
     }
     
+    func fetchURL(url: URL) {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
+        
+        DeepLinksManager.hosts = components.host
+        
+        if let pathComponents = components.path.split(separator: "/").compactMap({ String($0) }).last, let courseID = Int(pathComponents) {
+            DeepLinksManager.courseID = courseID
+            DeepLinksManager.isLink = true
+        }
+    }
     
-    func openCourses(with window: UIWindow) {
+    
+    func openCourses(with window: UIWindow, isOpen: Bool = false) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         guard let vc = storyboard.instantiateViewController(identifier: "InfoCoursesViewController") as? InfoCoursesViewController else { return }
+        guard let vcHome = storyboard.instantiateViewController(identifier: "UITabBarController") as? UITabBarController else { return }
+        
         
         vc.course.id = DeepLinksManager.courseID!
         
         guard let navigationController = window.rootViewController as? UINavigationController else { return }
-        
+        if isOpen == false {
+            navigationController.pushViewController(vcHome, animated: true)
+        }
         navigationController.pushViewController(vc, animated: true)
+        navigationController.navigationBar.isHidden = true
     }
     
     static func getLinkAboutCourse(idCourse: Int) -> URL {

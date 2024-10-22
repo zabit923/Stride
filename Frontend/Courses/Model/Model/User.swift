@@ -128,8 +128,9 @@ class User {
         let value = try await AF.request(url).serializingData().value
         let json = JSON(value)
         var celebrities = [UserStruct]()
-        let arrayCount = json.arrayValue.count
-        for x in 0...arrayCount - 1 {
+        let array = json.arrayValue
+        guard array.isEmpty == false else {return []}
+        for x in 0...array.count - 1 {
             let name = json[x]["first_name"].stringValue
             let surname = json[x]["last_name"].stringValue
             let email = json[x]["email"].stringValue

@@ -10,10 +10,10 @@ import UIKit
 extension StartViewController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if viewController is InfoCoursesViewController {
-            navigationController.interactivePopGestureRecognizer?.isEnabled = true
-        } else {
+        if viewController is UITabBarController {
             navigationController.interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            navigationController.interactivePopGestureRecognizer?.isEnabled = true
         }
     }
     

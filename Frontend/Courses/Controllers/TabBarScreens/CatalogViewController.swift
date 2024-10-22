@@ -103,7 +103,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.nameCourse.text = courses[indexPath.row].nameCourse
             cell.price.text = "Цена: \(courses[indexPath.row].price)Р"
             cell.rating.text = "\(courses[indexPath.row].rating)"
-            cell.daysCount.text = "\(courses[indexPath.row].daysCount) дней"
+            cell.daysCount.text = "\(courses[indexPath.row].daysCount) этапов"
             return cell
         }
 
@@ -130,11 +130,6 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
         if segue.identifier == "info" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourse
-            if selectCourse.isBought {
-                vc.buy = false
-            }else {
-                vc.buy = true
-            }
         }
 
     }

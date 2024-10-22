@@ -110,8 +110,8 @@ class AddModuleCoursesViewController: UIViewController {
         Task {
             do {
                 let id = try await Course().addModulesInCourse(dayID: dayID, position: position)
-                course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id))
-                modulesCollectionView.insertItems(at: [IndexPath(item: course.courseDays[selectDay].modules.count - 1, section: 0)])
+                course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id, position: position))
+                modulesCollectionView.insertItems(at: [IndexPath(item: position, section: 0)])
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
@@ -135,6 +135,12 @@ class AddModuleCoursesViewController: UIViewController {
     private func selectBack(deleteIndex: Int) {
         if selectDay == course.courseDays.count - 1 {
             selectDay -= 1
+        }
+    }
+    
+    private func changePositionModule(module: Modules) {
+        Task {
+            try await Course().changePositionModule(info: module)
         }
     }
     
@@ -330,8 +336,14 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             return
         }
         
+        var module = course.courseDays[selectDay].modules[sourceIndexPath.row]
+        module.position = destinationIndexPath.row + 1
+        changePositionModule(module: module)
         
-
+        let movedModule = course.courseDays[selectDay].modules.remove(at: sourceIndexPath.row)
+        course.courseDays[selectDay].modules.insert(movedModule, at: destinationIndexPath.row)
+        
+        
     }
 
     @objc func deleteDayBtn(sender: UIButton) {

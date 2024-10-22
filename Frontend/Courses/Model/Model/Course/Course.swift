@@ -31,7 +31,7 @@ struct CourseDays {
     init(dayID: Int, type: TypeDays, modules: [Modules] = [Modules]()) {
         self.dayID = dayID
         self.type = type
-        self.modules = modules.sorted(by: { $0.id < $1.id })
+        self.modules = modules.sorted(by: { $0.position < $1.position })
     }
 }
 
@@ -81,9 +81,11 @@ class Course {
 
     func getDaysInCourse(id: Int) async throws -> Course {
         let value = try await mananger.getDaysValue(id: id)
-        let course = try await json.daysInCourse(value: value)
+        var course = try await json.daysInCourse(value: value)
         return course
     }
+
+
 
     // MARK: - Получить курсы
 
@@ -144,7 +146,9 @@ class Course {
                 }
             }
             multipartFormData.append(Data(info.name.utf8), withName: "title")
-            multipartFormData.append(Data(info.description!.utf8), withName: "desc")
+            if let description = info.description {
+                multipartFormData.append(Data(description.utf8), withName: "desc")
+            }
             multipartFormData.append(Data("\(info.minutes)".utf8), withName: "time_to_pass")
         }, to: url, method: .patch, headers: headers).serializingData()
         let value = try await response.value
@@ -154,12 +158,31 @@ class Course {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue
                 throw ErrorNetwork.runtimeError(error)
-            }else {
+            } else {
                 throw ErrorNetwork.runtimeError("Неизвестная ошибка")
             }
         }
     }
-
+    
+    func changePositionModule(info: Modules) async throws {
+        let url = Constants.url + "api/v1/module/update/\(info.id)/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let parameters = [
+            "order": info.position
+        ]
+        let response =  AF.request(url, method: .patch, parameters: parameters, headers: headers).serializingData()
+        let value = try await response.value
+        let code = await response.response.response?.statusCode
+        let json = JSON(value)
+        if code != 200 {
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            } else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
+        }
+    }
 
     // MARK: - Добавить
 
@@ -233,10 +256,7 @@ class Course {
     func addModulesInCourse(dayID: Int, position: Int) async throws -> Int {
         let url = Constants.url + "api/v1/module/create/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
-        let parameters = [
-            "index": position
-        ]
-        let response = AF.request(url, method: .post, parameters: parameters, headers: headers).serializingData()
+        let response = AF.request(url, method: .post, headers: headers).serializingData()
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)
