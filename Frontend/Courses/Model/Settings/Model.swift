@@ -27,12 +27,6 @@ struct Objects {
     let imageForBtn: String
 }
 
-struct Category {
-    var nameCategory: String
-    var imageURL: URL
-    var id: Int
-}
-
 
 // MARK: - User
 struct UserStruct {
@@ -266,6 +260,13 @@ enum SelectBtn {
 enum DeepLinking: String {
     case course = "courses"
     case user = "user"
+}
+
+enum InfoCourses {
+    case bought
+    case review
+    case send
+    case nothing
 }
 
 // MARK: - Protocol

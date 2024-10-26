@@ -18,18 +18,31 @@ extension UIImage {
 
     func scaleImage(toSize size: CGSize) -> UIImage {
         let newImage: UIImage
-        let aspectWidth = size.width / self.size.width
-        let aspectHeight = size.height / self.size.height
-        let aspectRatio = min(aspectWidth, aspectHeight)
-        
-        let newSize = CGSize(width: self.size.width * aspectRatio, height: self.size.height * aspectRatio)
-        UIGraphicsBeginImageContext(newSize)
-        self.draw(in: CGRect(origin: .zero, size: newSize))
+        UIGraphicsBeginImageContext(size)
+        self.draw(in: CGRect(origin: .zero, size: size))
         newImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return newImage
-    }
+      }
+
+
+
+
+//    func scaleImage(toSize size: CGSize) -> UIImage {
+//        let newImage: UIImage
+//        let aspectWidth = size.width / self.size.width
+//        let aspectHeight = size.height / self.size.height
+//        let aspectRatio = min(aspectWidth, aspectHeight)
+//        
+//        let newSize = CGSize(width: self.size.width * aspectRatio, height: self.size.height * aspectRatio)
+//        UIGraphicsBeginImageContext(newSize)
+//        self.draw(in: CGRect(origin: .zero, size: newSize))
+//        newImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
+//        UIGraphicsEndImageContext()
+//
+//        return newImage
+//    }
 
     func withRoundedCorners(radius: CGFloat) -> UIImage {
         let rect = CGRect(origin: .zero, size: self.size)

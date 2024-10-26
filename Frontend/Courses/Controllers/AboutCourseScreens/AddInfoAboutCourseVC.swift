@@ -63,7 +63,7 @@ class AddInfoAboutCourseVC: UIViewController {
         }
         Task {
             infoCourses = try await Course().getCoursesByID(id: idCourse)
-            let categories = try await Categories().getCategories()
+            let categories = try await Category.getCategories()
             selectCategory = categories.first(where: { $0.id == infoCourses.categoryID })
             categoriesLbl.text = selectCategory?.nameCategory
             loadingStop()

@@ -110,7 +110,8 @@ class User {
 
     func getUserByID(id: Int) async throws -> UserStruct {
         let url = Constants.url + "api/v1/users/\(id)/"
-        let value = try await AF.request(url).serializingData().value
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var user = UserStruct()
         user.name = json["first_name"].stringValue

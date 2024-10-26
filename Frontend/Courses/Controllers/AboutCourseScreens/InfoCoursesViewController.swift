@@ -29,6 +29,7 @@ class InfoCoursesViewController: UIViewController {
 
     var course = Course()
     var reviews = [Reviews]()
+    var interface: InfoCourses = .nothing
 
 
     override func viewDidLoad() {
@@ -81,7 +82,8 @@ class InfoCoursesViewController: UIViewController {
         coachName.setTitle(course.nameAuthor, for: .normal)
         im.sd_setImage(with: course.imageURL)
         countBuyer.text = "\(course.countBuyer)"
-        buyOrNextDesign()
+        interfaceCheck()
+        interfaceDesign()
         getComments()
     }
     
@@ -109,23 +111,46 @@ class InfoCoursesViewController: UIViewController {
         stackBtn.isHidden = false
     }
 
-    private func buyOrNextDesign() {
-        guard myCourse() == false else { return }
+    private func interfaceCheck() {
+        if myCourse() == true {
+            if course.isDraft == true {
+                interface = .send
+            }else {
+                interface = .nothing
+            }
+            return
+        }
 
         if course.isBought == true {
-            
-            buyView.setTitle("Оставить отзыв", for: .normal)
-            priceView.isHidden = true
             if course.myRating == 0 {
-                buyView.isHidden = false
+                interface = .review
+                return
             }else {
-                buyView.isHidden = true
+                interface = .nothing
+                return
             }
-            
         }else {
+            interface = .bought
+            return
+        }
+    }
+    
+    private func interfaceDesign() {
+        switch interface {
+        case .bought:
             buyView.setTitle("Купить", for: .normal)
             buyView.isHidden = false
             priceView.isHidden = false
+        case .review:
+            buyView.setTitle("Оставить отзыв", for: .normal)
+            priceView.isHidden = true
+            buyView.isHidden = false
+        case .send:
+            buyView.setTitle("Отправить на проверку", for: .normal)
+            buyView.isHidden = false
+        case .nothing:
+            buyView.isHidden = true
+            priceView.isHidden = true
         }
     }
     
@@ -160,6 +185,7 @@ class InfoCoursesViewController: UIViewController {
     
     private func openTinkoffKassa() {
         Task {
+            buyView.isEnabled = false
             guard let priceInt = Int(price.text!) else { return }
             let email = try await getEmail()
             Payment().configure(self, email: email, price: priceInt) { result in
@@ -171,6 +197,7 @@ class InfoCoursesViewController: UIViewController {
                 case .cancelled(_):
                     break
                 }
+                self.buyView.isEnabled = true
             }
         }
     }
@@ -186,12 +213,12 @@ class InfoCoursesViewController: UIViewController {
     
     
     @IBAction func buy(_ sender: UIButton) {
-        if course.isBought == true {
+        if interface == .review {
             performSegue(withIdentifier: "goToAddReview", sender: self)
-        }else{
-            buyView.isEnabled = false
+        }else if interface == .bought{
             openTinkoffKassa()
-            buyView.isEnabled = true
+        }else if interface == .send {
+            // Отправить на проверку
         }
     }
     

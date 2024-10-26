@@ -10,6 +10,7 @@ import Lottie
 
 class AddModuleCoursesViewController: UIViewController {
 
+    @IBOutlet weak var successBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nameCourses: UILabel!
     @IBOutlet weak var heightViewDays: NSLayoutConstraint!
@@ -37,6 +38,14 @@ class AddModuleCoursesViewController: UIViewController {
         super.viewWillAppear(animated)
         loadingSettings()
         addCourseInfo()
+    }
+    
+    private func checkDraft() {
+        if course.isDraft == true {
+            successBtn.isHidden = false
+        }else {
+            successBtn.isHidden = true
+        }
     }
 
     private func addCourseInfo() {
@@ -130,6 +139,7 @@ class AddModuleCoursesViewController: UIViewController {
     private func loadingStop() {
         loading.stop()
         loading.isHidden = true
+        checkDraft()
     }
     
     private func selectBack(deleteIndex: Int) {
@@ -166,7 +176,11 @@ class AddModuleCoursesViewController: UIViewController {
     }
 
 
-
+    
+    @IBAction func success(_ sender: UIButton) {
+        performSegue(withIdentifier: "preview", sender: self)
+    }
+    
     @IBAction func longClickInView(_ sender: UILongPressGestureRecognizer) {
         if scaleView == false {
             if sender.state == .began {
@@ -308,6 +322,9 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             let vc = segue.destination as! AddInfoAboutModuleViewController
             vc.module = selectModule
             vc.delegate = self
+        }else if segue.identifier == "preview" {
+            let vc = segue.destination as! InfoCoursesViewController
+            vc.course.id = course.id
         }
 
     }

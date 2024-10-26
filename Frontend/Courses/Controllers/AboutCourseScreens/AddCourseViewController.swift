@@ -36,14 +36,14 @@ class AddCourseViewController: UIViewController {
     private var colorSelect = UIColor.white {
         didSet {
             colorView.backgroundColor = colorSelect
-//            textView.typingAttributes[.foregroundColor] = colorSelect
+            textView.typingAttributes[.foregroundColor] = colorSelect
             selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
         }
     }
     private var fontSelect = UIFont.systemFont(ofSize: 16) {
         didSet {
             fontTitle.text = fontSelect.fontName
-//            textView.typingAttributes[.font] = fontSelect
+            textView.typingAttributes[.font] = fontSelect
             selectText(attributes: [.font: fontSelect, .foregroundColor: colorSelect])
         }
     }
@@ -51,7 +51,7 @@ class AddCourseViewController: UIViewController {
         didSet {
             let paragraph = NSMutableParagraphStyle()
             paragraph.alignment = alignment
-//            textView.typingAttributes[.paragraphStyle] = paragraph
+            textView.typingAttributes[.paragraphStyle] = paragraph
             changedAlignment(alignment)
             selectText(attributes: [.paragraphStyle: paragraph])
         }
@@ -67,9 +67,8 @@ class AddCourseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        textView.textColor = .white
         textView.delegate = self
-        textView.allowsEditingTextAttributes = true
+//        textView.allowsEditingTextAttributes = true
         view.overrideUserInterfaceStyle = .dark
         getData()
         design()
@@ -103,6 +102,7 @@ class AddCourseViewController: UIViewController {
     private func loadingSettings() {
         loading.loopMode = .loop
         loading.contentMode = .scaleToFill
+        
         loading.play()
         loading.isHidden = false
     }
@@ -195,7 +195,7 @@ class AddCourseViewController: UIViewController {
     private func warningSave() {
         let alert = UIAlertController(title: "Вы не сохранили изменения", message: "Вы точно хотите выйти?", preferredStyle: .alert)
 
-        let deleteAction = UIAlertAction(title: "Да", style: .default) { _ in
+        let deleteAction = UIAlertAction(title: "Выйти", style: .default) { _ in
             self.navigationController?.popViewController(animated: true)
         }
 
@@ -324,27 +324,22 @@ extension AddCourseViewController: UITextViewDelegate {
             let font = attributedText.attribute(.font, at: selectedRange.location, effectiveRange: nil) as? UIFont ?? textView.font
             let color = attributedText.attribute(.foregroundColor, at: selectedRange.location, effectiveRange: nil) as? UIColor ?? textView.textColor
             
-            let size = font!.pointSize
+            
             
             if let font = font {
                 fontSelect = font
+                sizeFontSelect = font.pointSize
             }
+            
             if let color = color {
                 colorSelect = color
             }
-            sizeFontSelect = size
-        }
-    }
-
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.typingAttributes[.font] as? UIFont != fontSelect {
-            textView.typingAttributes[.font] = fontSelect
+            
         }
         
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        print(textView.text)
         checkUndoRedo()
         isSave = false
         textStyleBar()
@@ -362,10 +357,8 @@ extension AddCourseViewController: UITextViewDelegate {
         }
         if let color = textView.typingAttributes[.foregroundColor] as? UIColor {
             colorSelect = color
-            print(1, color)
         }else {
             colorSelect = .white
-            print(2, colorSelect)
         }
         if let align = textView.typingAttributes[.paragraphStyle] as? NSParagraphStyle {
             alignment = align.alignment
@@ -379,9 +372,8 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             ImageResize().deleteTempImage(atURL: url)
-            let resizeImage = ImageResize.resizeAndCompressImage(image: image, maxSizeKB: 100)
-            let roundedImage = resizeImage.withRoundedCorners(radius: 7)
-            addImageInTextView(image: roundedImage)
+            let resizeImage = ImageResize.resizeAndCompressImage(image: image, maxSizeKB: 300 * 1024)
+            addImageInTextView(image: resizeImage)
             picker.dismiss(animated: true)
         }
     }
@@ -391,10 +383,12 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
     }
 
 
-
     private func addImageInTextView(image: UIImage) {
         let attachment = NSTextAttachment()
-        attachment.image = image
+        let cornerImage = image.withRoundedCorners(radius: 15)
+        attachment.image = cornerImage
+        let targetSize = resizeImageAboutTextView(image: image)
+        attachment.bounds = CGRect(origin: .zero, size: targetSize)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         let attributedString = NSMutableAttributedString(attachment: attachment)
@@ -402,6 +396,13 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
         let combinedString = NSMutableAttributedString(attributedString: self.textView.attributedText)
         combinedString.insert(attributedString, at: textView.selectedRange.location)
         self.textView.attributedText = combinedString
+    }
+    
+    private func resizeImageAboutTextView(image: UIImage) -> CGSize {
+        let targetWidth = UIScreen.main.bounds.width - 30
+        let aspectRatio = image.size.height / image.size.width
+        let targetSize = CGSize(width: targetWidth, height: targetWidth * aspectRatio)
+        return targetSize
     }
 
 

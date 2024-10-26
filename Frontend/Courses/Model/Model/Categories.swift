@@ -9,9 +9,19 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class Categories {
+class Category {
+    
+    var nameCategory: String
+    var imageURL: URL
+    var id: Int
+    
+    init(nameCategory: String, imageURL: URL, id: Int) {
+        self.nameCategory = nameCategory
+        self.imageURL = imageURL
+        self.id = id
+    }
 
-    func getCategories() async throws -> [Category] {
+    static func getCategories() async throws -> [Category] {
         let url = Constants.url + "api/v1/categories/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value

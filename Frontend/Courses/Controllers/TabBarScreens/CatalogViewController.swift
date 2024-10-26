@@ -11,6 +11,9 @@ import Lottie
 
 class CatalogViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var loading: LottieAnimationView!
+    @IBOutlet weak var catalogHeight: NSLayoutConstraint!
     @IBOutlet weak var emptyBox: LottieAnimationView!
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var search: UITextField!
@@ -20,9 +23,11 @@ class CatalogViewController: UIViewController {
     var categories = [Category]()
     var courses = [Course]()
     private var selectCourse = Course()
+    private var loadingMoreData = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         catalogCollectionView.dataSource = self
@@ -31,25 +36,55 @@ class CatalogViewController: UIViewController {
         design()
     }
     
+    
+    private func changeHeightCollection() {
+        catalogHeight.constant = catalogCollectionView.contentSize.height
+    }
+    
     private func design() {
         getCourses()
         getCategories()
         emptySettings()
+        loading.play()
+        loading.loopMode = .loop
     }
 
-    private func getCourses() {
+    private func getCourses(page: String? = nil) {
         Task {
-            let results = try await Course().getAllCourses()
-            courses = results
-            print(courses)
-            emptyCheck()
-            catalogCollectionView.reloadData()
+            do {
+                let results = try await Course().getAllCourses(page: page)
+                courses += results
+                print(results)
+                emptyCheck()
+                catalogCollectionView.reloadData()
+                loadingMoreData = false
+                catalogCollectionView.layoutIfNeeded()
+                changeHeightCollection()
+            }catch {
+                loadingMoreData = false
+            }
+        }
+    }
+    
+    private func getCoursesByCategory(id: Int) {
+        Task {
+            do {
+                let results = try await Course().getAllCourses(categoryID: id)
+                courses = results
+                emptyCheck()
+                catalogCollectionView.reloadData()
+                loadingMoreData = false
+                catalogCollectionView.layoutIfNeeded()
+                changeHeightCollection()
+            }catch {
+                loadingMoreData = false
+            }
         }
     }
 
     private func getCategories() {
         Task {
-            categories = try await Categories().getCategories()
+            categories = try await Category.getCategories()
             categoryCollectionView.reloadData()
         }
     }
@@ -59,6 +94,10 @@ class CatalogViewController: UIViewController {
             courses = try await Course().searchCourses(text: text)
             emptyCheck()
             catalogCollectionView.reloadData()
+            loading.isHidden = true
+            loading.stop()
+            catalogCollectionView.layoutIfNeeded()
+            changeHeightCollection()
         }
     }
     
@@ -113,6 +152,8 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
         if collectionView == catalogCollectionView {
             selectCourse = courses[indexPath.row]
             performSegue(withIdentifier: "info", sender: self)
+        }else if collectionView == categoryCollectionView {
+            getCoursesByCategory(id: categories[indexPath.row].id)
         }
     }
 
@@ -124,6 +165,31 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: 100, height: 128)
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentHeight = catalogCollectionView.contentSize.height
+        let scrollViewHeight = scrollView.frame.size.height
+        let scrollOffset = scrollView.contentOffset.y
+        
+        let nextURL = courses[courses.count - 1].next
+         
+        if scrollOffset >= contentHeight - scrollViewHeight && loadingMoreData == false && nextURL != "" {
+            loading.isHidden = false
+            loading.play()
+            loadingMoreData = true
+            getCourses(page: nextURL)
+        }
+        
+        checkLastPage(nextURL: nextURL)
+    }
+    
+    private func checkLastPage(nextURL:String?) {
+        if nextURL == "" {
+            loading.stop()
+            loading.isHidden = true
+        }
+    }
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 

@@ -18,12 +18,26 @@ class CourseMananger {
         return value
     }
     
-    func getAllCourses() async throws -> Data {
-        let url = Constants.url + "api/v1/courses/"
+    func getAllCourses(page: String?) async throws -> Data {
+        var url = Constants.url + "api/v1/courses/"
+        
+        if let page = page {
+            url = page
+        }
+        
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         return value
     }
+    
+    func getCoursesByCategory(id: Int) async throws -> Data {
+        var url = Constants.url + "api/v1/courses/?category=\(id)"
+        
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
+        return value
+    }
+    
     
     func getCoursesByID(id: Int) async throws -> Data {
         let url = Constants.url + "api/v1/courses/\(id)/"

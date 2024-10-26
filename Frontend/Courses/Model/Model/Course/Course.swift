@@ -54,8 +54,9 @@ class Course {
     var isBought: Bool = false
     var courseDays = [CourseDays]()
     var isDraft: Bool
+    var next: String = ""
 
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false, isDraft: Bool = true) {
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false, isDraft: Bool = true, next: String = "") {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
@@ -72,6 +73,7 @@ class Course {
         self.countBuyer = countBuyer
         self.isBought = isBought
         self.isDraft = isDraft
+        self.next = next
     }
     
     private var mananger = CourseMananger()
@@ -81,7 +83,7 @@ class Course {
 
     func getDaysInCourse(id: Int) async throws -> Course {
         let value = try await mananger.getDaysValue(id: id)
-        var course = try await json.daysInCourse(value: value)
+        let course = try await json.daysInCourse(value: value)
         return course
     }
 
@@ -89,8 +91,14 @@ class Course {
 
     // MARK: - Получить курсы
 
-    func getAllCourses() async throws -> [Course] {
-        let value = try await mananger.getAllCourses()
+    func getAllCourses(page: String? = nil) async throws -> [Course] {
+        let value = try await mananger.getAllCourses(page: page)
+        let courses = json.allCourses(value: value)
+        return courses
+    }
+    
+    func getAllCourses(categoryID: Int) async throws -> [Course] {
+        let value = try await mananger.getCoursesByCategory(id: categoryID)
         let courses = json.allCourses(value: value)
         return courses
     }
@@ -230,6 +238,11 @@ class Course {
                 throw ErrorNetwork.runtimeError("Неизвестная ошибка")
             }
         }
+        
+        if method == .post {
+            let _ = try await addDaysInCourse(courseID: json["id"].intValue)
+        }
+        
         let idCourse = json["id"].intValue
         return idCourse
     }

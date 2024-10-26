@@ -17,6 +17,7 @@ class CourseJSON {
         var modules = [Modules]()
         course.nameCourse = json["title"].stringValue
         course.id = json["id"].intValue
+        course.isDraft = json["is_draft"].boolValue
         let daysCount = json["days"].arrayValue.count
         guard daysCount > 0 else {throw ErrorNetwork.runtimeError("Пустой массив")}
 
@@ -65,8 +66,9 @@ class CourseJSON {
             let countBuyer = json["results"][x]["bought_count"].intValue
             let rating = json["results"][x]["rating"].floatValue
             let isBought = json["results"][x]["bought"].boolValue
+            let next = json["next"].stringValue
             let progressInDays = UD().getDaysCompletedInCourse(courseID: id)
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated,progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought))
+            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated,progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought, next: next))
         }
         return courses
     }
@@ -118,7 +120,8 @@ class CourseJSON {
         let category = json["category"].intValue
         let boughtCount = json["bought_count"].intValue
         let isBought = json["bought"].boolValue
-        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount, isBought: isBought)
+        let isDraft = json["is_draft"].boolValue
+        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount, isBought: isBought, isDraft: isDraft)
         return course
     }
 }
