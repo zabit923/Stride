@@ -17,19 +17,55 @@ class LoadingStartViewController: UIViewController {
 
     private var titles = [String]()
     private var images = [String]()
+    
+    var delegate: LoadingData!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        updateApp()
+        checkError()
         allTitle()
         allImages()
         randomImageAndTitle()
         loadingSettings()
     }
+    
+    private func checkError() {
+        Task {
+            let update = try await updateApp()
+            if update == true {
+                getData()
+            }
+        }
+    }
+    
+    private func getData() {
+        Task{
+            let user = try await User().getMyInfo()
+            let celebrities = try await User().getCelebreties()
+            let recomendCourses = try await Course().getRecomendedCourses()
+            delegate.getData(user: user, celebrity: celebrities, recomended: recomendCourses)
+            navigationController?.popViewController(animated: false)
+        }
+    }
+    
+    
 
     private func loadingSettings() {
         loading.loopMode = .loop
         loading.contentMode = .scaleAspectFill
         loading.play()
+    }
+    
+    private func updateApp() async throws -> Bool{
+        let isLastVersion = try await AppStoreVersion().checkVersionApp()
+        if isLastVersion == false {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let updateViewController = storyboard.instantiateViewController(identifier: "UpdateViewController")
+            navigationController!.pushViewController(updateViewController, animated: false)
+        }
+        return isLastVersion
     }
 
     private func allTitle() {

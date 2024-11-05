@@ -135,23 +135,7 @@ class AddInfoAboutModuleViewController: UIViewController {
     }
 
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: mainView)
-        switch sender.state {
-        case .changed:
-            guard translation.y > 0 else { return }
-            mainView.center = CGPoint(x: mainView.center.x, y: mainView.center.y +  translation.y)
-            sender.setTranslation(CGPoint.zero, in: mainView)
-        case .ended:
-            if sender.velocity(in: mainView).y > 500 {
-                dismiss(animated: false)
-            }else {
-                UIView.animate(withDuration: 0.5) {
-                    self.mainView.frame.origin = self.startPosition
-                }
-            }
-        default:
-            break
-        }
+        errorView.swipe(sender: sender, startPosition: startPosition)
     }
 
     @IBAction func save(_ sender: UIButton) {

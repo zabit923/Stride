@@ -54,7 +54,7 @@ class SettingsViewController: UIViewController {
     }
 
     private func hiddenBtn() {
-        if user.role == .user {
+        if user.role == .user || user.role == .admin  {
             backBtn.isHidden = true
         }else if user.role == .coach {
             backBtn.isHidden = false
@@ -74,11 +74,15 @@ class SettingsViewController: UIViewController {
     }
 
     private func addObjects() {
+        print(user.role)
         if user.role == .coach {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), /*Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"),*/ Objects(name: "Добавить курс", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Кошелёк", image: "wallet", imageForBtn: "next2")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Добавить курс", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Кошелёк", image: "wallet", imageForBtn: "next2")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
         }else if user.role == .user {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), /*Objects(name: "Конфиденциальность",, image: "confidentiality", imageForBtn: "next2"),*/ /*Objects(name: "Подтвердить аккаунт", image: "confirmAccount", imageForBtn: "next2"),*/ Objects(name: "Стать тренером", image: "becomeCoach", imageForBtn: "next2")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), /*Objects(name: "Подтвердить аккаунт", image: "confirmAccount", imageForBtn: "next2"),*/ Objects(name: "Стать тренером", image: "becomeCoach", imageForBtn: "next2")]
+            arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
+        }else if user.role == .admin {
+            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Админ панель", image: "adminPanel", imageForBtn: "next2")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
         }
     }
@@ -131,7 +135,7 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             case "Мои курсы":
                 performSegue(withIdentifier: "myCourse", sender: self)
             case "Конфиденциальность":
-                break
+                performSegue(withIdentifier: "conf", sender: self)
             case "Добавить курс":
                 performSegue(withIdentifier: "goToAddCourse", sender: self)
 //            case "Подтвердить аккаунт":
@@ -140,6 +144,8 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
                 UIApplication.shared.open(Constants.formsURL)
             case "Кошелёк":
                 performSegue(withIdentifier: "goToWithdraw", sender: self)
+            case "Админ панель":
+                performSegue(withIdentifier: "admin", sender: self)
             default:
                 break
             }

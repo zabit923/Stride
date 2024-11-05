@@ -37,6 +37,7 @@ class FilePath {
     // Расспаковать файл
     func deserializeAttributedString(from data: Data) -> NSAttributedString? {
         do {
+            print(data)
             if let attributedString = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? NSAttributedString {
                 return getImagesFromAttributedString(attributedString)
             } else {

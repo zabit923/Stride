@@ -42,7 +42,6 @@ struct UserStruct {
     var level: Level?
     var goal: Goal?
     var coach = Coach()
-    var isCoach: Bool?
     var myCourses = [Course]()
     var id = 0
     var token = ""
@@ -97,6 +96,11 @@ struct Reviews {
     var text: String
     var date: String
     var courseID: Int
+}
+
+struct Payments {
+    var paymentsInfo: PaymentMethod
+    var paymentID: Int
 }
 
 // MARK: - enum
@@ -223,6 +227,41 @@ enum Goal: String {
     }
 }
 
+enum Verification: String {
+    case proccessVerificate = "VERIFICATION_PROCCESS"
+    case noneVerificate = "NON_VERIFICATE"
+    case proccess = "PROCCESS"
+    case verificate = "VERIFICATE"
+
+    func thirdString() -> String {
+        switch self {
+        case .proccessVerificate:
+            return "VERIFICATION_PROCCESS"
+        case .noneVerificate:
+            return "NON_VERIFICATE"
+        case .proccess:
+            return "PROCCESS"
+        case .verificate:
+            return "VERIFICATE"
+        }
+    }
+
+    static func thirdGoal(_ verificate: String) -> Verification? {
+        switch verificate {
+        case "VERIFICATION_PROCCESS":
+            return .proccessVerificate
+        case "NON_VERIFICATE":
+            return .noneVerificate
+        case "PROCCESS":
+            return .proccess
+        case "VERIFICATE":
+            return .verificate
+        default:
+            return nil
+        }
+    }
+}
+
 enum Role: String {
     case coach = "Coach"
     case user = "User"
@@ -267,6 +306,7 @@ enum InfoCourses {
     case review
     case send
     case nothing
+    case adminVerification
 }
 
 // MARK: - Protocol
@@ -278,4 +318,8 @@ protocol ChangeInfoModule: AnyObject {
 
 protocol AddCategoryDelegate: AnyObject {
     func category(category: Category)
+}
+
+protocol LoadingData {
+    func getData(user: UserStruct, celebrity: [UserStruct], recomended: [Course])
 }

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		44049A2E2C6CE0C30014BD9C /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44049A2D2C6CE0C30014BD9C /* credentials.plist */; };
-		44049A352C6F549F0014BD9C /* Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44049A342C6F549F0014BD9C /* Realm.swift */; };
-		44049A3A2C6F56F60014BD9C /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; };
 		44064C752C26ED8E00AB5227 /* Commissioner-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */; };
 		44064C772C26ED9500AB5227 /* Commissioner-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */; };
 		44064C792C26ED9D00AB5227 /* Commissioner-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */; };
@@ -37,12 +35,14 @@
 		440E1F722CA169E9002C6FC8 /* CourseMananger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E1F712CA169E9002C6FC8 /* CourseMananger.swift */; };
 		440E1F742CA16AD1002C6FC8 /* CourseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E1F732CA16AD1002C6FC8 /* CourseErrors.swift */; };
 		440E1F762CA16C86002C6FC8 /* CourseJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440E1F752CA16C86002C6FC8 /* CourseJSON.swift */; };
+		441E4AEF2CD2AD6100800EE4 /* СonfidentialityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441E4AEE2CD2AD6100800EE4 /* СonfidentialityViewController.swift */; };
 		4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4442F3D72C31BFDB00203A36 /* PageLayout.swift */; };
 		444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444A07002C2B9D6C008F4E68 /* Extension.swift */; };
 		4450B3C92CB6066900F1F54B /* UpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4450B3C82CB6066900F1F54B /* UpdateViewController.swift */; };
 		446475752C72088300ACD3D7 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475742C72088300ACD3D7 /* Comments.swift */; };
 		446475792C726C4500ACD3D7 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446475782C726C4500ACD3D7 /* Categories.swift */; };
 		4464757B2C7496F100ACD3D7 /* FilePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4464757A2C7496F100ACD3D7 /* FilePath.swift */; };
+		4475CE712CD1240100B44299 /* AdminMoneyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4475CE702CD1240100B44299 /* AdminMoneyInfoViewController.swift */; };
 		447D8C7D2C85DED400EF2217 /* TinkoffASDKCore in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C7C2C85DED400EF2217 /* TinkoffASDKCore */; };
 		447D8C7F2C85DED400EF2217 /* TinkoffASDKUI in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C7E2C85DED400EF2217 /* TinkoffASDKUI */; };
 		447D8C812C85DEEB00EF2217 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D8C802C85DEEB00EF2217 /* Payment.swift */; };
@@ -51,7 +51,6 @@
 		448301842C987A0700E40DBA /* DeepLinksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448301832C987A0700E40DBA /* DeepLinksManager.swift */; };
 		4488EA152C769D9D0086765F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488EA142C769D9D0086765F /* ErrorView.swift */; };
 		44907E482C91F4D6002D4617 /* ImageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44907E472C91F4D6002D4617 /* ImageResize.swift */; };
-		44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 44049A392C6F56F60014BD9C /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A982C81303A00E0F86F /* PrivacyViewController.swift */; };
 		44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A9A2C81F87B00E0F86F /* LoadingStartViewController.swift */; };
 		44962E962C821B3600CB6A1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44962E942C821B3600CB6A1C /* Main.storyboard */; };
@@ -61,6 +60,11 @@
 		449CF0DD2C3370E0000D4528 /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */; };
 		449CF0DF2C337100000D4528 /* Commissioner-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */; };
 		44A406832C762FE1005509D0 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 44A406822C762FE1005509D0 /* SkeletonView */; };
+		44BC59022CCEE6F600AD7FFA /* RefreshControll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BC59012CCEE6F600AD7FFA /* RefreshControll.swift */; };
+		44BC59052CCFF34A00AD7FFA /* AdminMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BC59042CCFF34A00AD7FFA /* AdminMainViewController.swift */; };
+		44BC59072CCFF36200AD7FFA /* AdminCoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BC59062CCFF36200AD7FFA /* AdminCoursesViewController.swift */; };
+		44BC59092CCFF37500AD7FFA /* AdminOtherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BC59082CCFF37500AD7FFA /* AdminOtherViewController.swift */; };
+		44BC590B2CD0FB7E00AD7FFA /* Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BC590A2CD0FB7E00AD7FFA /* Admin.swift */; };
 		44BD149C2C808106006D0722 /* PickerModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149B2C808106006D0722 /* PickerModelViewController.swift */; };
 		44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */; };
 		44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */; };
@@ -110,7 +114,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44932A972C812CA900E0F86F /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,7 +122,6 @@
 
 /* Begin PBXFileReference section */
 		44049A2D2C6CE0C30014BD9C /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
-		44049A342C6F549F0014BD9C /* Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Realm.swift; sourceTree = "<group>"; };
 		44064C742C26ED8E00AB5227 /* Commissioner-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Medium.ttf"; sourceTree = "<group>"; };
 		44064C762C26ED9500AB5227 /* Commissioner-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-SemiBold.ttf"; sourceTree = "<group>"; };
 		44064C782C26ED9D00AB5227 /* Commissioner-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Regular.ttf"; sourceTree = "<group>"; };
@@ -145,12 +147,16 @@
 		440E1F712CA169E9002C6FC8 /* CourseMananger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseMananger.swift; sourceTree = "<group>"; };
 		440E1F732CA16AD1002C6FC8 /* CourseErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseErrors.swift; sourceTree = "<group>"; };
 		440E1F752CA16C86002C6FC8 /* CourseJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseJSON.swift; sourceTree = "<group>"; };
+		441E4AEE2CD2AD6100800EE4 /* СonfidentialityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СonfidentialityViewController.swift"; sourceTree = "<group>"; };
+		441E4AF02CD2BD2E00800EE4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		441E4AF12CD2BD2E00800EE4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		4442F3D72C31BFDB00203A36 /* PageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLayout.swift; sourceTree = "<group>"; };
 		444A07002C2B9D6C008F4E68 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		4450B3C82CB6066900F1F54B /* UpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewController.swift; sourceTree = "<group>"; };
 		446475742C72088300ACD3D7 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		446475782C726C4500ACD3D7 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		4464757A2C7496F100ACD3D7 /* FilePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePath.swift; sourceTree = "<group>"; };
+		4475CE702CD1240100B44299 /* AdminMoneyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMoneyInfoViewController.swift; sourceTree = "<group>"; };
 		447D8C802C85DEEB00EF2217 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		447D8C8D2C89D09600EF2217 /* emptyBox.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emptyBox.json; sourceTree = "<group>"; };
 		448301812C9504B600E40DBA /* ValidateTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateTF.swift; sourceTree = "<group>"; };
@@ -165,6 +171,11 @@
 		449CF0DA2C3370CA000D4528 /* CoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DC2C3370E0000D4528 /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		449CF0DE2C337100000D4528 /* Commissioner-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Commissioner-Bold.ttf"; sourceTree = "<group>"; };
+		44BC59012CCEE6F600AD7FFA /* RefreshControll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControll.swift; sourceTree = "<group>"; };
+		44BC59042CCFF34A00AD7FFA /* AdminMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMainViewController.swift; sourceTree = "<group>"; };
+		44BC59062CCFF36200AD7FFA /* AdminCoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCoursesViewController.swift; sourceTree = "<group>"; };
+		44BC59082CCFF37500AD7FFA /* AdminOtherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminOtherViewController.swift; sourceTree = "<group>"; };
+		44BC590A2CD0FB7E00AD7FFA /* Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Admin.swift; sourceTree = "<group>"; };
 		44BD149B2C808106006D0722 /* PickerModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModelViewController.swift; sourceTree = "<group>"; };
 		44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CelebrityCollectionViewCell.swift; sourceTree = "<group>"; };
 		44BD6CD92C407864001645A0 /* ReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -211,7 +222,6 @@
 				44064C972C2861CA00AB5227 /* SwiftyJSON in Frameworks */,
 				447D8C7D2C85DED400EF2217 /* TinkoffASDKCore in Frameworks */,
 				44D68AF82C5051E100F8F476 /* GoogleSignInSwift in Frameworks */,
-				44049A3A2C6F56F60014BD9C /* RealmSwift in Frameworks */,
 				44F395482C9B8BA200861759 /* CropViewController in Frameworks */,
 				44064C9C2C2861D700AB5227 /* SDWebImageMapKit in Frameworks */,
 				44064C922C2861B900AB5227 /* Alamofire in Frameworks */,
@@ -309,6 +319,7 @@
 				4442F3D72C31BFDB00203A36 /* PageLayout.swift */,
 				4488EA142C769D9D0086765F /* ErrorView.swift */,
 				44F3954B2C9B8BB900861759 /* CropImage.swift */,
+				44BC59012CCEE6F600AD7FFA /* RefreshControll.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -316,6 +327,7 @@
 		440DAB492C17492900C576FB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				44BC59032CCFF33200AD7FFA /* AdminPanelScreens */,
 				44D68B002C51B3EF00F8F476 /* AboutCourseScreens */,
 				753A4F7A2C340C73007A8194 /* OtherScreens */,
 				753A4F792C340A90007A8194 /* TabBarScreens */,
@@ -337,6 +349,7 @@
 				44064C9F2C28634C00AB5227 /* Model.swift */,
 				449880C92CB621280052C3C3 /* NavigationControllerDelegate.swift */,
 				44F741532CA1D0720041F8FA /* Privacy.swift */,
+				44BC590A2CD0FB7E00AD7FFA /* Admin.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -347,7 +360,6 @@
 				440E1F702CA169D3002C6FC8 /* Course */,
 				44064C9D2C28628000AB5227 /* Sign.swift */,
 				44D68AF22C4ACC0C00F8F476 /* User.swift */,
-				44049A342C6F549F0014BD9C /* Realm.swift */,
 				446475742C72088300ACD3D7 /* Comments.swift */,
 				446475782C726C4500ACD3D7 /* Categories.swift */,
 				447D8C802C85DEEB00EF2217 /* Payment.swift */,
@@ -364,6 +376,17 @@
 				440E1F752CA16C86002C6FC8 /* CourseJSON.swift */,
 			);
 			path = Course;
+			sourceTree = "<group>";
+		};
+		44BC59032CCFF33200AD7FFA /* AdminPanelScreens */ = {
+			isa = PBXGroup;
+			children = (
+				44BC59042CCFF34A00AD7FFA /* AdminMainViewController.swift */,
+				44BC59062CCFF36200AD7FFA /* AdminCoursesViewController.swift */,
+				44BC59082CCFF37500AD7FFA /* AdminOtherViewController.swift */,
+				4475CE702CD1240100B44299 /* AdminMoneyInfoViewController.swift */,
+			);
+			path = AdminPanelScreens;
 			sourceTree = "<group>";
 		};
 		44D68B002C51B3EF00F8F476 /* AboutCourseScreens */ = {
@@ -438,6 +461,7 @@
 				44932A982C81303A00E0F86F /* PrivacyViewController.swift */,
 				75F6FDB32C9323B500A57EA9 /* WithdrawViewController.swift */,
 				7555DEB42C986FC100B80A13 /* WithdradSBPViewController.swift */,
+				441E4AEE2CD2AD6100800EE4 /* СonfidentialityViewController.swift */,
 			);
 			path = OtherScreens;
 			sourceTree = "<group>";
@@ -467,7 +491,6 @@
 				44DFB11D2C3BE46B005C8F44 /* Lottie */,
 				44D68AF52C5051E100F8F476 /* GoogleSignIn */,
 				44D68AF72C5051E100F8F476 /* GoogleSignInSwift */,
-				44049A392C6F56F60014BD9C /* RealmSwift */,
 				44A406822C762FE1005509D0 /* SkeletonView */,
 				447D8C7C2C85DED400EF2217 /* TinkoffASDKCore */,
 				447D8C7E2C85DED400EF2217 /* TinkoffASDKUI */,
@@ -495,11 +518,11 @@
 			};
 			buildConfigurationList = 440DAB2B2C1748D400C576FB /* Build configuration list for PBXProject "Courses" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ru;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ru,
 			);
 			mainGroup = 440DAB272C1748D400C576FB;
 			packageReferences = (
@@ -508,7 +531,6 @@
 				44064C982C2861D700AB5227 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				44DFB11C2C3BE46A005C8F44 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				44D68AF42C5051E100F8F476 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */,
 				44A406812C762FE1005509D0 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				447D8C7B2C85DED300EF2217 /* XCRemoteSwiftPackageReference "tinkoff-asdk-ios" */,
 				44F395462C9B8BA200861759 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
@@ -555,6 +577,7 @@
 				75F6FDB42C9323B500A57EA9 /* WithdrawViewController.swift in Sources */,
 				44D68B042C51B3EF00F8F476 /* CourseTextViewController.swift in Sources */,
 				447D8C812C85DEEB00EF2217 /* Payment.swift in Sources */,
+				44BC590B2CD0FB7E00AD7FFA /* Admin.swift in Sources */,
 				444A07012C2B9D6C008F4E68 /* Extension.swift in Sources */,
 				7595784B2C5B9A7E00A9F811 /* AddInfoAboutModuleViewController.swift in Sources */,
 				44F741542CA1D0720041F8FA /* Privacy.swift in Sources */,
@@ -580,9 +603,10 @@
 				44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */,
 				449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */,
 				44064C892C27042100AB5227 /* StartViewController.swift in Sources */,
+				44BC59092CCFF37500AD7FFA /* AdminOtherViewController.swift in Sources */,
 				44907E482C91F4D6002D4617 /* ImageResize.swift in Sources */,
+				4475CE712CD1240100B44299 /* AdminMoneyInfoViewController.swift in Sources */,
 				446475752C72088300ACD3D7 /* Comments.swift in Sources */,
-				44049A352C6F549F0014BD9C /* Realm.swift in Sources */,
 				44BD6CE02C432C82001645A0 /* ModuleCourseCollectionViewCell.swift in Sources */,
 				448301842C987A0700E40DBA /* DeepLinksManager.swift in Sources */,
 				4442F3D82C31BFDB00203A36 /* PageLayout.swift in Sources */,
@@ -590,6 +614,7 @@
 				44064C812C26F0E800AB5227 /* Border.swift in Sources */,
 				44064C8F2C285F7C00AB5227 /* TextFieldFormat.swift in Sources */,
 				44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */,
+				44BC59022CCEE6F600AD7FFA /* RefreshControll.swift in Sources */,
 				4488EA152C769D9D0086765F /* ErrorView.swift in Sources */,
 				446475792C726C4500ACD3D7 /* Categories.swift in Sources */,
 				44D68AF32C4ACC0C00F8F476 /* User.swift in Sources */,
@@ -605,12 +630,15 @@
 				44BD6CE42C440974001645A0 /* AddModuleCoursesViewController.swift in Sources */,
 				7508513B2C38763A00F5C0DC /* ChangeInformationViewController.swift in Sources */,
 				448301822C9504B600E40DBA /* ValidateTF.swift in Sources */,
+				44BC59072CCFF36200AD7FFA /* AdminCoursesViewController.swift in Sources */,
 				440DAB362C1748D400C576FB /* SceneDelegate.swift in Sources */,
 				44064C9E2C28628000AB5227 /* Sign.swift in Sources */,
 				440CB67D2C5FA86F003FCAF0 /* CoachViewController.swift in Sources */,
+				44BC59052CCFF34A00AD7FFA /* AdminMainViewController.swift in Sources */,
 				44064C8B2C28516C00AB5227 /* VhodViewController.swift in Sources */,
 				75D68C612C80A361001407F0 /* AddReviewViewController.swift in Sources */,
 				44BD6CDC2C428A2C001645A0 /* ModulesCourseViewController.swift in Sources */,
+				441E4AEF2CD2AD6100800EE4 /* СonfidentialityViewController.swift in Sources */,
 				7515103F2C34583B009978E6 /* SettingsTableViewCell.swift in Sources */,
 				440E1F742CA16AD1002C6FC8 /* CourseErrors.swift in Sources */,
 				44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */,
@@ -627,6 +655,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				440DAB3F2C1748D600C576FB /* Base */,
+				441E4AF12CD2BD2E00800EE4 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -635,6 +664,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				44962E952C821B3600CB6A1C /* Base */,
+				441E4AF02CD2BD2E00800EE4 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -647,6 +677,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -710,6 +741,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -767,14 +799,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = DMM8286TLA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This permission for profile photo";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This permission for profile photo";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Это приложение позволяет вам сохранять фотографии и видео, созданные в приложении, в вашей фотобиблиотеке для легкого доступа и публикации.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Это приложение позволяет вам выбрать фотографию из вашей фототеки для использования в качестве изображения профиля.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -785,7 +817,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 2.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -804,14 +836,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = DMM8286TLA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Stride;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This permission for profile photo";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This permission for profile photo";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Это приложение позволяет вам сохранять фотографии и видео, созданные в приложении, в вашей фотобиблиотеке для легкого доступа и публикации.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Это приложение позволяет вам выбрать фотографию из вашей фототеки для использования в качестве изображения профиля.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -822,7 +854,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 2.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -859,14 +891,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		44064C902C2861B900AB5227 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -934,11 +958,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		44049A392C6F56F60014BD9C /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 44049A362C6F56F60014BD9C /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		44064C912C2861B900AB5227 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 44064C902C2861B900AB5227 /* XCRemoteSwiftPackageReference "Alamofire" */;

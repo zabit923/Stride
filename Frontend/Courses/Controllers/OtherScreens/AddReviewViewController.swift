@@ -104,6 +104,7 @@ class AddReviewViewController: UIViewController {
             break
         }
     }
+    
     @IBAction func finish(_ sender: UIButton)  {
         sendReviewBtn.isEnabled = false
         if check() == true {

@@ -111,7 +111,7 @@ class ErrorView: UIView {
             self.center = CGPoint(x: self.center.x, y: self.center.y +  translation.y)
             sender.setTranslation(CGPoint.zero, in: self)
         case .ended:
-            if self.center.y <= 40 {
+            if self.center.y <= 50 {
                 self.self.isHidden = true
             }
             UIView.animate(withDuration: 0.5) {

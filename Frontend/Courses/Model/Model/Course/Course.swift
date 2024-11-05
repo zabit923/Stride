@@ -18,7 +18,7 @@ struct Modules {
     var imageURL: URL?
     var description: String?
     var id: Int
-    var isRead: Bool = false
+    var isCompleted: Bool = false
     var position: Int = 0
 }
 
@@ -27,11 +27,13 @@ struct CourseDays {
     var dayID: Int
     var type: TypeDays = .noneSee
     var modules = [Modules]()
+    var completed: Bool = false
     
-    init(dayID: Int, type: TypeDays, modules: [Modules] = [Modules]()) {
+    init(dayID: Int, type: TypeDays, modules: [Modules] = [Modules](), completed: Bool = false) {
         self.dayID = dayID
         self.type = type
         self.modules = modules.sorted(by: { $0.position < $1.position })
+        self.completed = completed
     }
 }
 
@@ -55,8 +57,9 @@ class Course {
     var courseDays = [CourseDays]()
     var isDraft: Bool
     var next: String = ""
-
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false, isDraft: Bool = true, next: String = "") {
+    var verification: Verification = .proccess
+    
+    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false, isDraft: Bool = true, next: String = "", verification: Verification = .proccess) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
         self.nameAuthor = nameAuthor
@@ -74,23 +77,24 @@ class Course {
         self.isBought = isBought
         self.isDraft = isDraft
         self.next = next
+        self.verification = verification
     }
     
     private var mananger = CourseMananger()
     private var json = CourseJSON()
-
+    
     // MARK: - Получить дни и модули
-
+    
     func getDaysInCourse(id: Int) async throws -> Course {
         let value = try await mananger.getDaysValue(id: id)
         let course = try await json.daysInCourse(value: value)
         return course
     }
-
-
-
+    
+    
+    
     // MARK: - Получить курсы
-
+    
     func getAllCourses(page: String? = nil) async throws -> [Course] {
         let value = try await mananger.getAllCourses(page: page)
         let courses = json.allCourses(value: value)
@@ -102,48 +106,54 @@ class Course {
         let courses = json.allCourses(value: value)
         return courses
     }
-
+    
     func getCoursesByID(id: Int) async throws -> Course {
         let value = try await mananger.getCoursesByID(id: id)
         let course = json.course(value: value)
         return course
     }
-
+    
     func getCoursesByUserID(id: Int) async throws -> [Course] {
         let value = try await mananger.getCoursesByUserID(id: id)
         let courses = json.allCoursesByUser(value: value)
         return courses
     }
-
+    
     func getCoursesByCelebrity() async throws -> [Course] {
         let value = try await mananger.getCoursesByCelebrity()
         let courses = json.allCoursesByUser(value: value)
         return courses
     }
-
+    
+    func getPopularCourses() async throws -> [Course] {
+        let value = try await mananger.getPopularCourses()
+        let courses = json.allCourses(value: value)
+        return courses
+    }
+    
     func getRecomendedCourses() async throws -> [Course] {
         let value = try await mananger.getRecomendedCourses()
         let courses = json.allCoursesByUser(value: value)
         return courses
     }
-
-
+    
+    
     // MARK: - Получить мои курсы
-
+    
     func getBoughtCourses() async throws -> [Course] {
         let value = try await mananger.getBoughtCourses()
         let courses = json.allCoursesByUser(value: value)
         return courses
     }
-
+    
     func getMyCreateCourses() async throws -> [Course] {
         let value = try await mananger.getMyCreateCourses()
         let courses = json.allCoursesByUser(value: value)
         return courses
     }
-
+    
     // MARK: - Изменить
-
+    
     func changeModuleInfo(info: Modules) async throws {
         let url = Constants.url + "api/v1/module/update/\(info.id)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -191,9 +201,15 @@ class Course {
             }
         }
     }
-
+    
+    func completedModule(id: Int) async throws {
+        let url = Constants.url + "api/v1/courses/\(id)/complete-module/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let response = try await AF.request(url, method: .post, headers: headers).serializingData().value
+    }
+    
     // MARK: - Добавить
-
+    
     func saveInfoCourse(info: Course, method: HTTPMethod = .post) async throws -> Int {
         var url = Constants.url + "api/v1/courses/"
         if method == .patch {
@@ -229,7 +245,7 @@ class Course {
                 throw ErrorNetwork.runtimeError("Неизвестная ошибка")
             }
         }
-
+        
         if code != 201 && method == .post {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue
@@ -246,7 +262,7 @@ class Course {
         let idCourse = json["id"].intValue
         return idCourse
     }
-
+    
     func addDaysInCourse(courseID: Int) async throws -> Int {
         let url = Constants.url + "api/v1/day/create/\(courseID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -265,7 +281,7 @@ class Course {
         let id = json["id"].intValue
         return id
     }
-
+    
     func addModulesInCourse(dayID: Int, position: Int) async throws -> Int {
         let url = Constants.url + "api/v1/module/create/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -284,7 +300,7 @@ class Course {
         let id = json["id"].intValue
         return id
     }
-
+    
     func addModulesData(text: NSAttributedString, moduleID: Int) async throws {
         let url = Constants.url + "api/v1/module/update/\(moduleID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -305,9 +321,9 @@ class Course {
             }
         }
     }
-
+    
     // MARK: - Удалить
-
+    
     func deleteModule(moduleID: Int) async throws {
         let url = Constants.url + "api/v1/module/delete/\(moduleID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -324,16 +340,16 @@ class Course {
             }
         }
     }
-
+    
     func deleteDay(dayID: Int) async throws {
         let url = Constants.url + "api/v1/day/delete/\(dayID)/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let response =  AF.request(url, method: .delete, headers: headers).serializingData()
         let value = try await response.value
     }
-
+    
     // MARK: - Купить курс
-
+    
     func buyCourse(id: Int) async throws  {
         let url = Constants.url + "api/v1/courses/\(id)/buy_course/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
@@ -350,12 +366,34 @@ class Course {
             }
         }
     }
-
+    
     // MARK: - Поиск
     func searchCourses(text: String) async throws -> [Course] {
         let value = try await mananger.searchCourses(text: text)
         let courses = json.allCourses(value: value)
         return courses
     }
-
+    
+    // MARK: - Отправить курс на проверку
+    func sendCoursesVerification(idCourse: Int) async throws {
+        let url = Constants.url + "api/v1/courses/\(idCourse)/send_to_verificate/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        
+        let response = AF.request(url, method: .post, headers: headers).serializingData()
+        
+        let value = try await response.value
+        let code = await response.response.response?.statusCode
+        let json = JSON(value)
+        
+        if code != 200 {
+            if let dictionary = json.dictionary {
+                let error = dictionary.first!.value[0].stringValue
+                throw ErrorNetwork.runtimeError(error)
+            }else {
+                throw ErrorNetwork.runtimeError("Неизвестная ошибка")
+            }
+        }
+    }
+    
+    
 }

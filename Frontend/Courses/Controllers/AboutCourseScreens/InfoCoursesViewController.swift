@@ -10,6 +10,7 @@ import SkeletonView
 
 class InfoCoursesViewController: UIViewController {
 
+    @IBOutlet weak var cancelBtnAdmin: UIButton!
     @IBOutlet weak var stackBtn: UIStackView!
     @IBOutlet weak var reviewsLbl: UILabel!
     @IBOutlet weak var reviewsConstant: NSLayoutConstraint!
@@ -37,6 +38,8 @@ class InfoCoursesViewController: UIViewController {
         reviewsCollectionView.delegate = self
         reviewsCollectionView.dataSource = self
         startPosition = errorView.center
+        view.addSubview(errorView)
+        errorView.isHidden = true
         getCourse()
     }
 
@@ -112,10 +115,17 @@ class InfoCoursesViewController: UIViewController {
     }
 
     private func interfaceCheck() {
+        guard interface != .adminVerification else { return }
+        
         if myCourse() == true {
-            if course.isDraft == true {
+            switch course.verification {
+            case .proccessVerificate:
+                interface = .nothing
+            case .noneVerificate:
                 interface = .send
-            }else {
+            case .proccess:
+                interface = .send
+            case .verificate:
                 interface = .nothing
             }
             return
@@ -141,16 +151,30 @@ class InfoCoursesViewController: UIViewController {
             buyView.setTitle("Купить", for: .normal)
             buyView.isHidden = false
             priceView.isHidden = false
+            cancelBtnAdmin.isHidden = true
+            stackBtn.distribution = .fill
         case .review:
             buyView.setTitle("Оставить отзыв", for: .normal)
             priceView.isHidden = true
             buyView.isHidden = false
+            cancelBtnAdmin.isHidden = true
+            stackBtn.distribution = .fill
         case .send:
             buyView.setTitle("Отправить на проверку", for: .normal)
             buyView.isHidden = false
+            cancelBtnAdmin.isHidden = true
+            stackBtn.distribution = .fill
         case .nothing:
             buyView.isHidden = true
             priceView.isHidden = true
+            cancelBtnAdmin.isHidden = true
+            stackBtn.distribution = .fill
+        case .adminVerification:
+            buyView.setTitle("Подтвердить", for: .normal)
+            buyView.isHidden = false
+            priceView.isHidden = true
+            cancelBtnAdmin.isHidden = false
+            stackBtn.distribution = .fillEqually
         }
     }
     
@@ -206,6 +230,46 @@ class InfoCoursesViewController: UIViewController {
         let email = try await User().getMyInfo().email
         return email
     }
+    
+    private func sendCoursesVerification() {
+        Task {
+            do {
+                try await Course().sendCoursesVerification(idCourse: course.id)
+                errorView.configureSuccess(title: "Успешно", description: "Проверим в течение 48 часов")
+                errorView.isHidden = false
+                interfaceCheck()
+            }catch {
+                errorView.configure(title: "Ошибка", description: "Попробуйте позже")
+                errorView.isHidden = false
+            }
+        }
+    }
+    
+    private func successVerificationCourseAdmin() {
+        Task {
+            do {
+                try await Admin().successCourses(idCourses: course.id)
+                let adminMainVC = navigationController!.viewControllers[navigationController!.viewControllers.count - 4]
+                navigationController?.popToViewController(adminMainVC, animated: true)
+
+            }catch {
+                errorView.configure(title: "Ошибка", description: "Попробуйте позже")
+                errorView.isHidden = false
+            }
+        }
+    }
+    
+    private func cancelVerificationCourseAdmin() {
+        Task {
+            do {
+                try await Admin().cancelCourses(idCourses: course.id)
+                navigationController?.popViewController(animated: true)
+            }catch {
+                errorView.configure(title: "Ошибка", description: "Попробуйте позже")
+                errorView.isHidden = false
+            }
+        }
+    }
 
     @IBAction func coach(_ sender: UIButton) {
         performSegue(withIdentifier: "coach", sender: self)
@@ -218,9 +282,17 @@ class InfoCoursesViewController: UIViewController {
         }else if interface == .bought{
             openTinkoffKassa()
         }else if interface == .send {
-            // Отправить на проверку
+            sendCoursesVerification()
+        }else if interface == .adminVerification {
+            if sender.tag == 0 {
+                successVerificationCourseAdmin()
+            }else {
+                cancelVerificationCourseAdmin()
+            }
         }
     }
+    
+    
     
 
     @IBAction func share(_ sender: UIButton) {

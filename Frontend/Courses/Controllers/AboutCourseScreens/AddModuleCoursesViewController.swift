@@ -27,6 +27,7 @@ class AddModuleCoursesViewController: UIViewController {
     private var selectDay: Int = 0
     private var selectModule = Modules(name: "", minutes: 0, id: 0)
     var idCourse = 0
+    var role: InfoCourses = .send
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +41,21 @@ class AddModuleCoursesViewController: UIViewController {
         addCourseInfo()
     }
     
-    private func checkDraft() {
-        if course.isDraft == true {
+    private func checkRole() {
+        guard role != .adminVerification else { successBtn.isHidden = false; return }
+        
+        switch course.verification {
+        case .proccessVerificate:
+            role = .send
+            successBtn.isHidden = true
+        case .noneVerificate:
+            role = .nothing
             successBtn.isHidden = false
-        }else {
+        case .proccess:
+            role = .nothing
+            successBtn.isHidden = false
+        case .verificate:
+            role = .send
             successBtn.isHidden = true
         }
     }
@@ -139,7 +151,7 @@ class AddModuleCoursesViewController: UIViewController {
     private func loadingStop() {
         loading.stop()
         loading.isHidden = true
-        checkDraft()
+        checkRole()
     }
     
     private func selectBack(deleteIndex: Int) {
@@ -325,6 +337,7 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
         }else if segue.identifier == "preview" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course.id = course.id
+            vc.interface = role
         }
 
     }

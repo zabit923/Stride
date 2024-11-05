@@ -63,6 +63,15 @@ class CoursesViewController: UIViewController {
             catalogCollectionView.reloadData()
         }
     }
+    
+    private func getPopularCourses() {
+        Task {
+            course = try await Course().getPopularCourses()
+            filteredCourse = course
+            emptyCheck()
+            catalogCollectionView.reloadData()
+        }
+    }
 
     private func getRecomendCourses() {
         Task {
@@ -91,7 +100,8 @@ class CoursesViewController: UIViewController {
             titleLbl.text = "Рекомендованные курсы"
             getRecomendCourses()
         case .popular:
-            break
+            titleLbl.text = "Популярные курсы"
+            getPopularCourses()
         case .celebrity:
             titleLbl.text = "Курсы от знаменитостей"
             getCelebrityCourses()
@@ -131,12 +141,13 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if typeCourse == .myCreate {
-            selectIDCourse = course[indexPath.row].id
+            selectIDCourse = filteredCourse[indexPath.row].id
             performSegue(withIdentifier: "changeCourse", sender: self)
         }else {
-            selectCourse = course[indexPath.row]
+            selectCourse = filteredCourse[indexPath.row]
             performSegue(withIdentifier: "infoCourses", sender: self)
         }
+        textField.text = ""
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

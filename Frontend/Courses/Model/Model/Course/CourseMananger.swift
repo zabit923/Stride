@@ -60,6 +60,13 @@ class CourseMananger {
         return value
     }
     
+    func getPopularCourses() async throws -> Data {
+        let url = Constants.url + "api/v1/courses/popular_courses/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
+        return value
+    }
+    
     func getRecomendedCourses() async throws -> Data {
         let url = Constants.url + "api/v1/courses/recommended_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]

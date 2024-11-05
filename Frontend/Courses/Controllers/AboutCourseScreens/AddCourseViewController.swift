@@ -9,9 +9,10 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import Lottie
+import WebKit
 
 class AddCourseViewController: UIViewController {
-
+    
     @IBOutlet weak var redo: UIButton!
     @IBOutlet weak var undo: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
@@ -23,16 +24,16 @@ class AddCourseViewController: UIViewController {
     @IBOutlet weak var bottomConsoleView: NSLayoutConstraint!
     @IBOutlet weak var alingment: UIButton!
     @IBOutlet weak var textView: UITextView!
-
+    
     private let errorView = ErrorView(frame: CGRect(x: 25, y: 54, width: UIScreen.main.bounds.width - 50, height: 70))
     private var startPosition = CGPoint()
     private var isChangedText = false
     private var isSave = true
-
+    
     var module = Modules(name: "", minutes: 0, id: 0)
     var nameCourse = ""
     
-
+    
     private var colorSelect = UIColor.white {
         didSet {
             colorView.backgroundColor = colorSelect
@@ -64,23 +65,23 @@ class AddCourseViewController: UIViewController {
             sizeFont.text = "\(sizeFontSelect) пт"
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.delegate = self
-//        textView.allowsEditingTextAttributes = true
+        //        textView.allowsEditingTextAttributes = true
         view.overrideUserInterfaceStyle = .dark
         getData()
         design()
         startPosition = errorView.center
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillDisappear), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillAppear), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
-
+    
     @objc func keyboardWillAppear(notification:Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -88,11 +89,11 @@ class AddCourseViewController: UIViewController {
             bottomConsoleView.constant = keyboardHeight - 30
         }
     }
-
+    
     @objc func keyboardWillDisappear() {
         bottomConsoleView.constant = 0
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
@@ -106,13 +107,13 @@ class AddCourseViewController: UIViewController {
         loading.play()
         loading.isHidden = false
     }
-
+    
     private func loadingStop() {
         loading.stop()
         loading.isHidden = true
     }
-
-
+    
+    
     func getData() {
         Task {
             loadingSettings()
@@ -122,15 +123,25 @@ class AddCourseViewController: UIViewController {
             }
             let attributedString = try await FilePath().downloadFileWithURL(url: module)
             textView.attributedText = attributedString
+            
             loadingStop()
         }
     }
-
+    
+    private func downloadImageByURL() {
+        let links = textView.getURLs()
+        
+        for link in links {
+            addImageInTextView(imageURL: link)
+        }
+    }
+    
+    
     private func design() {
         nameCourseLBL.text = module.name
     }
-
-
+    
+    
     private func changedAlignment(_ alignment: NSTextAlignment) {
         switch alignment {
         case .left:
@@ -149,7 +160,7 @@ class AddCourseViewController: UIViewController {
             break
         }
     }
-
+    
     private func checkUndoRedo() {
         if textView.undoManager?.canUndo == true {
             undo.setImage(UIImage.undoFill, for: .normal)
@@ -164,7 +175,7 @@ class AddCourseViewController: UIViewController {
         }
     }
     
-
+    
     private func selectText(attributes: [NSAttributedString.Key: Any]) {
         guard let selectedRange = textView.selectedTextRange else { return }
         let selectedText = textView.text(in: selectedRange)
@@ -176,8 +187,8 @@ class AddCourseViewController: UIViewController {
         textView.selectedTextRange = selectedRange
         checkUndoRedo()
     }
-
-
+    
+    
     private func addCourse(text: NSAttributedString) async throws {
         do {
             loadingSettings()
@@ -194,23 +205,23 @@ class AddCourseViewController: UIViewController {
     
     private func warningSave() {
         let alert = UIAlertController(title: "Вы не сохранили изменения", message: "Вы точно хотите выйти?", preferredStyle: .alert)
-
+        
         let deleteAction = UIAlertAction(title: "Выйти", style: .default) { _ in
             self.navigationController?.popViewController(animated: true)
         }
-
+        
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel) { _ in
             self.dismiss(animated: true)
         }
-
+        
         alert.addAction(deleteAction)
         alert.addAction(cancelAction)
-
+        
         present(alert, animated: true)
     }
-
+    
     // MARK: - UIButton
-
+    
     @IBAction func okFont(_ sender: Any) {
         fontView.isHidden = true
         textView.isEditable = true
@@ -218,23 +229,23 @@ class AddCourseViewController: UIViewController {
         isChangedText = false
         checkUndoRedo()
     }
-
-
-
+    
+    
+    
     @IBAction func save(_ sender: UIButton) {
         textView.resignFirstResponder()
         Task {
             try await addCourse(text: textView.attributedText)
         }
     }
-
+    
     @IBAction func color(_ sender: UIButton) {
         let picker = UIColorPickerViewController()
         picker.selectedColor = colorView.backgroundColor!
         picker.delegate = self
         self.present(picker, animated: true, completion: nil)
     }
-
+    
     @IBAction func addImage(_ sender: UIButton) {
         let privacy = Privacy().checkPhotoLibraryAuthorization()
         if privacy {
@@ -243,7 +254,7 @@ class AddCourseViewController: UIViewController {
             present(imagePickerController, animated: true)
         }
     }
-
+    
     @IBAction func changedText(_ sender: UIButton) {
         textView.isSelectable = true
         textView.isEditable = false
@@ -252,7 +263,7 @@ class AddCourseViewController: UIViewController {
         isChangedText = true
         textStyleBar()
     }
-
+    
     @IBAction func fontBtn(_ sender: UIButton) {
         let config = UIFontPickerViewController.Configuration()
         config.includeFaces = false
@@ -288,7 +299,7 @@ class AddCourseViewController: UIViewController {
             break
         }
     }
-
+    
     @IBAction func stepper(_ sender: UIButton) {
         if sender.tag == 0 {
             sizeFontSelect -= 1
@@ -296,12 +307,12 @@ class AddCourseViewController: UIViewController {
             sizeFontSelect += 1
         }
     }
-
-
+    
+    
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
-
+    
     @IBAction func back(_ sender: UIButton) {
         if isSave == false {
             warningSave()
@@ -309,7 +320,7 @@ class AddCourseViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
-
+    
 }
 
 // MARK: - TextView
@@ -317,7 +328,7 @@ extension AddCourseViewController: UITextViewDelegate {
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         let selectedRange = textView.selectedRange
-
+        
         if selectedRange.length > 0 && isChangedText {
             let attributedText = textView.attributedText!
             
@@ -338,13 +349,13 @@ extension AddCourseViewController: UITextViewDelegate {
         }
         
     }
-
+    
     func textViewDidChange(_ textView: UITextView) {
         checkUndoRedo()
         isSave = false
         textStyleBar()
     }
-
+    
     private func textStyleBar() {
         if let font = textView.typingAttributes[.font] as? UIFont {
             fontSelect = font
@@ -364,11 +375,11 @@ extension AddCourseViewController: UITextViewDelegate {
             alignment = align.alignment
         }
     }
-
+    
 }
 // MARK: - Image
 extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage, let url = info[.imageURL] as? URL {
             ImageResize().deleteTempImage(atURL: url)
@@ -377,12 +388,12 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
             picker.dismiss(animated: true)
         }
     }
-
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
-
-
+    
+    
     private func addImageInTextView(image: UIImage) {
         let attachment = NSTextAttachment()
         let cornerImage = image.withRoundedCorners(radius: 15)
@@ -398,22 +409,52 @@ extension AddCourseViewController: UIImagePickerControllerDelegate & UINavigatio
         self.textView.attributedText = combinedString
     }
     
+    private func addImageInTextView(imageURL: URL) {
+        let attachment = NSTextAttachment()
+        
+        if let imageData = try? Data(contentsOf: imageURL),
+           let image = UIImage(data: imageData) {
+            
+            let cornerImage = image.withRoundedCorners(radius: 15)
+            
+            attachment.image = cornerImage
+            
+            let targetSize = resizeImageAboutTextView(image: cornerImage)
+            attachment.bounds = CGRect(origin: .zero, size: targetSize)
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            
+            let attributedString = NSMutableAttributedString(attachment: attachment)
+            attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+            
+            if let range = textView.attributedText.string.range(of: imageURL.absoluteString) {
+                
+                let combinedString = NSMutableAttributedString(attributedString: self.textView.attributedText)
+                combinedString.replaceCharacters(in: NSRange(range, in: combinedString.string), with: attributedString)
+                self.textView.attributedText = combinedString
+            }
+        }
+    }
+
+
+    
     private func resizeImageAboutTextView(image: UIImage) -> CGSize {
         let targetWidth = UIScreen.main.bounds.width - 30
         let aspectRatio = image.size.height / image.size.width
         let targetSize = CGSize(width: targetWidth, height: targetWidth * aspectRatio)
         return targetSize
     }
-
-
+    
+    
 }
 // MARK: - Font
 extension AddCourseViewController: UIFontPickerViewControllerDelegate {
-
+    
     func fontPickerViewControllerDidCancel(_ viewController: UIFontPickerViewController) {
         viewController.dismiss(animated: true)
     }
-
+    
     func fontPickerViewControllerDidPickFont(_ viewController: UIFontPickerViewController) {
         guard let descriptor = viewController.selectedFontDescriptor else {return}
         fontSelect = UIFont(descriptor: descriptor, size: sizeFontSelect)
@@ -422,7 +463,7 @@ extension AddCourseViewController: UIFontPickerViewControllerDelegate {
 }
 // MARK: - Color
 extension AddCourseViewController: UIColorPickerViewControllerDelegate {
-
+    
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         colorSelect = viewController.selectedColor
     }
@@ -430,5 +471,5 @@ extension AddCourseViewController: UIColorPickerViewControllerDelegate {
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         colorSelect = viewController.selectedColor
     }
-
+    
 }

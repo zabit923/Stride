@@ -131,13 +131,27 @@ extension ProfileViewController: SkeletonCollectionViewDelegate, SkeletonCollect
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+        descriptionCell(cell: cell, indexPath: indexPath)
+        cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
+        return cell
+    }
+    
+    private func descriptionCell(cell: CoursesCollectionViewCell, indexPath: IndexPath) {
         if courses[indexPath.row].isDraft {
             cell.isDraftView.isHidden = false
+            switch courses[indexPath.row].verification {
+            case .proccess:
+                cell.descriptionDraft.text = "Черновик"
+            case .noneVerificate:
+                cell.descriptionDraft.text = "Отменено"
+            case .proccessVerificate:
+                cell.descriptionDraft.text = "Проверка"
+            case .verificate:
+                cell.isDraftView.isHidden = true
+            }
         }else {
             cell.isDraftView.isHidden = true
         }
-        cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
-        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

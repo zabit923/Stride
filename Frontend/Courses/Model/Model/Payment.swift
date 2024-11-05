@@ -81,7 +81,7 @@ class Payment {
     
     
     func fetchFunds(payment: PaymentMethod) async throws {
-        let url = Constants.url + "api/v1/payments/request-funds"
+        let url = Constants.url + "api/v1/payments/"
         
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         var parameters: Parameters
@@ -105,6 +105,7 @@ class Payment {
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)
+        print(json)
         if code != 201 {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue

@@ -16,6 +16,9 @@ class UpdateViewController: UIViewController {
     
 
    
+    @IBAction func update(_ sender: UIButton) {
+        UIApplication.shared.open(URL(string: "https://apps.apple.com/app/6737005692")!)
+    }
     
 
 }

@@ -9,6 +9,7 @@ import UIKit
 
 class CoursesCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var descriptionDraft: UILabel!
     @IBOutlet weak var isDraftView: UIView!
     @IBOutlet weak var nameAuthor: UILabel!
     @IBOutlet weak var price: UILabel!

@@ -78,6 +78,22 @@ extension UITextView {
          textStorage.replaceCharacters(in: range, with: text)
          selectedRange = NSMakeRange(previousSelectedRange.location, text.length)
      }
+    
+    func getURLs() -> [URL] {
+        // Используйте регулярное выражение для поиска URL
+        let pattern = "(https?://[\\w\\.-]+(/[\\w\\.-]+)+)"
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+        
+        // Извлечение URL из совпадений
+        return matches.compactMap { match in
+            let range = Range(match.range, in: text)!
+            return URL(string: String(text[range]))
+        }
+    }
+
+
+
 }
 
 

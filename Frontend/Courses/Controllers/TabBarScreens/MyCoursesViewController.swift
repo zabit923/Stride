@@ -105,7 +105,8 @@ class MyCoursesViewController: UIViewController {
 
 }
 
-extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredCourse.count
     }
@@ -127,6 +128,11 @@ extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDat
         selectIDCourse = filteredCourse[indexPath.row].id
         performSegue(withIdentifier: "course", sender: self)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width - 50, height: 120)
+    }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 

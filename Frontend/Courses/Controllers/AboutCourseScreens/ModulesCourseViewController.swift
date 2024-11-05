@@ -62,6 +62,12 @@ class ModulesCourseViewController: UIViewController {
         loading.isHidden = true
         infoBtn.isHidden = false
     }
+    
+    private func completedModule(_ module: Modules) {
+        Task {
+            try await Course().completedModule(id: module.id)
+        }
+    }
 
     private func getCourseInfo() {
         Task {
@@ -79,6 +85,30 @@ class ModulesCourseViewController: UIViewController {
                 loadingStop()
             }
         }
+    }
+    
+    private func checkDayCompleted() {
+        for x in 0...course.courseDays.count - 1 {
+            
+            course.courseDays[x].completed = checkModulesCompleted(day: x)
+            
+            if x == selectDay {
+                course.courseDays[x].type = .current
+            }else if course.courseDays[x].completed == true {
+                course.courseDays[x].type = .before
+            }else if course.courseDays[x].completed == false {
+                course.courseDays[x].type = .noneSee
+            }
+        }
+    }
+    
+    private func checkModulesCompleted(day: Int) -> Bool {
+        for x in 0...course.courseDays[day].modules.count - 1 {
+            if course.courseDays[day].modules[x].isCompleted == false {
+                return false
+            }
+        }
+        return true
     }
 
     @IBAction func longClickInView(_ sender: UILongPressGestureRecognizer) {
@@ -142,6 +172,8 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
 
             cell.lbl.text = "\(indexPath.row + 1)"
 
+            checkDayCompleted()
+            
             switch course.courseDays[indexPath.row].type {
             case .current:
                 cell.current()
@@ -177,14 +209,13 @@ extension ModulesCourseViewController: UICollectionViewDelegate, UICollectionVie
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == daysCollectionView {
-            course = RealmValue().addCompletedDays(course: course)
-            course.courseDays[indexPath.row].type = .current
             selectDay = indexPath.row
             modulesCollectionView.reloadData()
             daysCollectionView.reloadData()
         }else {
             let module = course.courseDays[selectDay].modules[indexPath.row]
-            RealmValue().addCompletedModule(course: course, module: module)
+            completedModule(module)
+            course.courseDays[selectDay].modules[indexPath.row].isCompleted = true
             selectModule = module
             performSegue(withIdentifier: "goToText", sender: self)
         }
