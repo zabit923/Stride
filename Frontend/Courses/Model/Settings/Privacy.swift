@@ -56,9 +56,9 @@ class AppStoreVersion {
     
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     
-    private func versionMaxAllowed(maxVersion:String) -> Bool {
-        print(version, maxVersion)
-        if version == maxVersion {
+    private func versionMaxAllowed(maxVersion: String) -> Bool {
+        let result = maxVersion.compare(version, options: .numeric) == .orderedSame
+        if result {
             return true
         }else {
             return false

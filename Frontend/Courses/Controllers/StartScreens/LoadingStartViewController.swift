@@ -23,7 +23,6 @@ class LoadingStartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        updateApp()
         checkError()
         allTitle()
         allImages()
@@ -33,10 +32,7 @@ class LoadingStartViewController: UIViewController {
     
     private func checkError() {
         Task {
-            let update = try await updateApp()
-            if update == true {
-                getData()
-            }
+            getData()
         }
     }
     
@@ -58,7 +54,7 @@ class LoadingStartViewController: UIViewController {
         loading.play()
     }
     
-    private func updateApp() async throws -> Bool{
+    private func updateApp() async throws -> Bool {
         let isLastVersion = try await AppStoreVersion().checkVersionApp()
         if isLastVersion == false {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
