@@ -88,11 +88,15 @@ class CourseMananger {
         return value
     }
     
-    func searchCourses(text: String) async throws -> Data {
+    func searchCourses(text: String, category: Category?) async throws -> Data {
         let url = Constants.url + "api/v1/autocomplete/courses/"
-        let parameters = [
+        var parameters: Parameters = [
             "title": text
         ]
+        if let category = category {
+            parameters["category"] = category.id
+        }
+        print(parameters, category)
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, parameters: parameters, headers: headers).serializingData().value
         return value

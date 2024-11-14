@@ -47,8 +47,10 @@
 		447D8C7F2C85DED400EF2217 /* TinkoffASDKUI in Frameworks */ = {isa = PBXBuildFile; productRef = 447D8C7E2C85DED400EF2217 /* TinkoffASDKUI */; };
 		447D8C812C85DEEB00EF2217 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D8C802C85DEEB00EF2217 /* Payment.swift */; };
 		447D8C8E2C89D09600EF2217 /* emptyBox.json in Resources */ = {isa = PBXBuildFile; fileRef = 447D8C8D2C89D09600EF2217 /* emptyBox.json */; };
+		447FE4932CDD2300007C5B31 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447FE4922CDD2300007C5B31 /* MainTabBarController.swift */; };
 		448301822C9504B600E40DBA /* ValidateTF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448301812C9504B600E40DBA /* ValidateTF.swift */; };
 		448301842C987A0700E40DBA /* DeepLinksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448301832C987A0700E40DBA /* DeepLinksManager.swift */; };
+		448765082CE00D15008A1E44 /* SettingsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448765072CE00D15008A1E44 /* SettingsCollectionViewCell.swift */; };
 		4488EA152C769D9D0086765F /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488EA142C769D9D0086765F /* ErrorView.swift */; };
 		44907E482C91F4D6002D4617 /* ImageResize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44907E472C91F4D6002D4617 /* ImageResize.swift */; };
 		44932A992C81303A00E0F86F /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44932A982C81303A00E0F86F /* PrivacyViewController.swift */; };
@@ -83,6 +85,7 @@
 		44DFB1162C3B199A005C8F44 /* RecomendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DFB1152C3B199A005C8F44 /* RecomendationCollectionViewCell.swift */; };
 		44DFB11B2C3B2637005C8F44 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 44DFB11A2C3B2637005C8F44 /* loading.json */; };
 		44DFB11E2C3BE46B005C8F44 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 44DFB11D2C3BE46B005C8F44 /* Lottie */; };
+		44E00B922CE39F2400E62089 /* CoachCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E00B912CE39F2400E62089 /* CoachCollectionViewCell.swift */; };
 		44E2440C2C5D6C7000EADF3D /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E2440B2C5D6C7000EADF3D /* Course.swift */; };
 		44E906342C29A59B00FFA6DD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906332C29A59B00FFA6DD /* HomeViewController.swift */; };
 		44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */; };
@@ -159,8 +162,11 @@
 		4475CE702CD1240100B44299 /* AdminMoneyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMoneyInfoViewController.swift; sourceTree = "<group>"; };
 		447D8C802C85DEEB00EF2217 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		447D8C8D2C89D09600EF2217 /* emptyBox.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emptyBox.json; sourceTree = "<group>"; };
+		447FE4922CDD2300007C5B31 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		448301812C9504B600E40DBA /* ValidateTF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateTF.swift; sourceTree = "<group>"; };
 		448301832C987A0700E40DBA /* DeepLinksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinksManager.swift; sourceTree = "<group>"; };
+		448765072CE00D15008A1E44 /* SettingsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionViewCell.swift; sourceTree = "<group>"; };
+		448765092CE01C2E008A1E44 /* Courses.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Courses.entitlements; sourceTree = "<group>"; };
 		4488EA142C769D9D0086765F /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		44907E472C91F4D6002D4617 /* ImageResize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResize.swift; sourceTree = "<group>"; };
 		44932A982C81303A00E0F86F /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
@@ -191,6 +197,7 @@
 		44D68AFF2C51B3EF00F8F476 /* InfoCoursesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoCoursesViewController.swift; sourceTree = "<group>"; };
 		44DFB1152C3B199A005C8F44 /* RecomendationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendationCollectionViewCell.swift; sourceTree = "<group>"; };
 		44DFB11A2C3B2637005C8F44 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		44E00B912CE39F2400E62089 /* CoachCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachCollectionViewCell.swift; sourceTree = "<group>"; };
 		44E2440B2C5D6C7000EADF3D /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		44E906332C29A59B00FFA6DD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		44E906362C2ADE8700FFA6DD /* BannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -283,6 +290,7 @@
 		440DAB322C1748D400C576FB /* Courses */ = {
 			isa = PBXGroup;
 			children = (
+				448765092CE01C2E008A1E44 /* Courses.entitlements */,
 				440DAB472C17491600C576FB /* Model */,
 				440DAB482C17491D00C576FB /* Views */,
 				440DAB492C17492900C576FB /* Controllers */,
@@ -320,6 +328,7 @@
 				4488EA142C769D9D0086765F /* ErrorView.swift */,
 				44F3954B2C9B8BB900861759 /* CropImage.swift */,
 				44BC59012CCEE6F600AD7FFA /* RefreshControll.swift */,
+				447FE4922CDD2300007C5B31 /* MainTabBarController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +434,8 @@
 				44BD6CDF2C432C82001645A0 /* ModuleCourseCollectionViewCell.swift */,
 				44BD149D2C80A141006D0722 /* CelebrityCollectionViewCell.swift */,
 				75F6FDB12C9321F600A57EA9 /* WithdrawCollectionViewCell.swift */,
+				448765072CE00D15008A1E44 /* SettingsCollectionViewCell.swift */,
+				44E00B912CE39F2400E62089 /* CoachCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -587,6 +598,7 @@
 				75106D792C38AFDB0036042B /* InfoAboutMeViewController.swift in Sources */,
 				44064C8D2C285DA600AB5227 /* RegistrViewController.swift in Sources */,
 				44932A9B2C81F87B00E0F86F /* LoadingStartViewController.swift in Sources */,
+				448765082CE00D15008A1E44 /* SettingsCollectionViewCell.swift in Sources */,
 				44D68B022C51B3EF00F8F476 /* AddInfoAboutCourseVC.swift in Sources */,
 				44BD149E2C80A141006D0722 /* CelebrityCollectionViewCell.swift in Sources */,
 				44064CA02C28634C00AB5227 /* Model.swift in Sources */,
@@ -604,6 +616,7 @@
 				449CF0DB2C3370CA000D4528 /* CoursesCollectionViewCell.swift in Sources */,
 				44064C892C27042100AB5227 /* StartViewController.swift in Sources */,
 				44BC59092CCFF37500AD7FFA /* AdminOtherViewController.swift in Sources */,
+				447FE4932CDD2300007C5B31 /* MainTabBarController.swift in Sources */,
 				44907E482C91F4D6002D4617 /* ImageResize.swift in Sources */,
 				4475CE712CD1240100B44299 /* AdminMoneyInfoViewController.swift in Sources */,
 				446475752C72088300ACD3D7 /* Comments.swift in Sources */,
@@ -613,6 +626,7 @@
 				44E906372C2ADE8700FFA6DD /* BannerCollectionViewCell.swift in Sources */,
 				44064C812C26F0E800AB5227 /* Border.swift in Sources */,
 				44064C8F2C285F7C00AB5227 /* TextFieldFormat.swift in Sources */,
+				44E00B922CE39F2400E62089 /* CoachCollectionViewCell.swift in Sources */,
 				44BD6CDA2C407864001645A0 /* ReviewsCollectionViewCell.swift in Sources */,
 				44BC59022CCEE6F600AD7FFA /* RefreshControll.swift in Sources */,
 				4488EA152C769D9D0086765F /* ErrorView.swift in Sources */,
@@ -798,8 +812,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Courses/Courses.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DMM8286TLA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
@@ -817,7 +832,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.5;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -835,8 +850,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Courses/Courses.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DMM8286TLA;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Courses/Info.plist;
@@ -854,7 +870,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1.5;
+				MARKETING_VERSION = 3.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.courses.Stride;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

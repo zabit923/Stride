@@ -30,6 +30,7 @@ struct Objects {
 
 // MARK: - User
 struct UserStruct {
+    var userName: String
     var role: Role
     var name: String
     var surname: String
@@ -46,12 +47,15 @@ struct UserStruct {
     var id = 0
     var token = ""
 
-    init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "", id: Int = 0) {
+    init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "", id: Int = 0, avatarURL: URL? = nil) {
         self.role = role
         self.name = name
         self.surname = surname
         self.email = email
+        self.id = id
         self.phone = phone
+        self.userName = "\(self.name) \(self.surname)"
+        self.avatarURL = avatarURL
     }
 
     init(role: Role, name: String, surname: String, email: String, phone: String, height: Double? = nil, weight: Double? = nil, birthday: String? = nil, description: String? = nil, avatarURL: URL? = nil, level: Level? = nil, goal: Goal? = nil, myCourses: [Course] = [Course](), id: Int = 0) {
@@ -67,6 +71,7 @@ struct UserStruct {
         self.level = level
         self.goal = goal
         self.myCourses = myCourses
+        self.userName = "\(self.name) \(self.surname)"
     }
 }
 

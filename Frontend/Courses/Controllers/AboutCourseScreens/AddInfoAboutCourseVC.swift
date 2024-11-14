@@ -63,9 +63,6 @@ class AddInfoAboutCourseVC: UIViewController {
         }
         Task {
             infoCourses = try await Course().getCoursesByID(id: idCourse)
-            let categories = try await Category.getCategories()
-            selectCategory = categories.first(where: { $0.id == infoCourses.categoryID })
-            categoriesLbl.text = selectCategory?.nameCategory
             loadingStop()
             design()
         }
@@ -77,6 +74,7 @@ class AddInfoAboutCourseVC: UIViewController {
             imagePred.sd_setImage(with: infoCourses.imageURL)
             imageURL = infoCourses.imageURL
         }
+        categoriesLbl.text = infoCourses.category.nameCategory
         namePred.text = infoCourses.nameCourse
         pricePred.text = "\(infoCourses.price)Р"
         name.text = infoCourses.nameCourse
@@ -131,7 +129,7 @@ class AddInfoAboutCourseVC: UIViewController {
         }else {
             imageBorder.layer.borderColor = UIColor.lightBlackMain.cgColor
         }
-        if categoriesLbl.text!.isEmpty {
+        if categoriesLbl.text == "" {
             result = false
             categoryBorder.layer.borderColor = UIColor.errorRed.cgColor
         }else {
@@ -165,7 +163,7 @@ class AddInfoAboutCourseVC: UIViewController {
         infoCourses.description = descriptionCourse.text!
         infoCourses.imageURL = imageURL
         if let selectCategory = selectCategory {
-            infoCourses.categoryID = selectCategory.id
+            infoCourses.category.id = selectCategory.id
         }
     }
     

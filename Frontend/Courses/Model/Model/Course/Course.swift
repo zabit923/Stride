@@ -41,10 +41,9 @@ struct CourseDays {
 class Course {
     var daysCount: Int
     var nameCourse: String
-    var nameAuthor: String
-    var idAuthor: Int
+    var author: UserStruct = UserStruct()
     var price: Int
-    var categoryID: Int = 0
+    var category: Category = Category()
     var imageURL: URL?
     var rating: Float
     var myRating: Int
@@ -59,19 +58,18 @@ class Course {
     var next: String = ""
     var verification: Verification = .proccess
     
-    init(daysCount: Int = 0, nameCourse: String = "", nameAuthor: String = "", idAuthor: Int = 0, price: Int = 0, categoryID: Int = 0, imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false, isDraft: Bool = true, next: String = "", verification: Verification = .proccess) {
+    init(daysCount: Int = 0, nameCourse: String = "", price: Int = 0, category: Category = Category(), imageURL: URL? = nil, rating: Float = 0.0, myRating:Int = 0, id: Int = 0, description: String = "", dataCreated: String = "", progressInDays: Int = 0, countBuyer: Int = 0, isBought: Bool = false, isDraft: Bool = true, next: String = "", verification: Verification = .proccess, author: UserStruct = UserStruct()) {
         self.daysCount = daysCount
         self.nameCourse = nameCourse
-        self.nameAuthor = nameAuthor
         self.price = price
-        self.categoryID = categoryID
+        self.author = author
+        self.category = category
         self.imageURL = imageURL
         self.rating = Comments().roundRating(rating: rating)
         self.myRating = myRating
         self.id = id
         self.description = description
         self.dataCreated = dataCreated
-        self.idAuthor = idAuthor
         self.progressInDays = progressInDays
         self.countBuyer = countBuyer
         self.isBought = isBought
@@ -232,7 +230,7 @@ class Course {
             multipartFormData.append(Data(info.nameCourse.utf8), withName: "title")
             multipartFormData.append(Data("\(info.price)".utf8), withName: "price")
             multipartFormData.append(Data(info.description.utf8), withName: "desc")
-            multipartFormData.append(Data("\(info.categoryID)".utf8), withName: "category")
+            multipartFormData.append(Data("\(info.category.id)".utf8), withName: "category_id")
         }, to: url, method: method, headers: headers).serializingData()
         let value = try await response.value
         let code = await response.response.response?.statusCode
@@ -368,8 +366,8 @@ class Course {
     }
     
     // MARK: - Поиск
-    func searchCourses(text: String) async throws -> [Course] {
-        let value = try await mananger.searchCourses(text: text)
+    func searchCourses(text: String, category: Category?) async throws -> [Course] {
+        let value = try await mananger.searchCourses(text: text, category: category)
         let courses = json.allCourses(value: value)
         return courses
     }

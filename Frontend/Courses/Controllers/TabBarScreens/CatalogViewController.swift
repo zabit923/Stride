@@ -24,7 +24,7 @@ class CatalogViewController: UIViewController {
     var categories = [Category]()
     var courses = [Course]()
     private var selectCourse = Course()
-    private var selectCategory: Int?
+    private var selectCategory: Category?
     private var loadingMoreData = false
 
     override func viewDidLoad() {
@@ -106,7 +106,7 @@ class CatalogViewController: UIViewController {
 
     private func searchCourse(text: String) {
         Task {
-            courses = try await Course().searchCourses(text: text)
+            courses = try await Course().searchCourses(text: text, category: selectCategory)
             emptyCheck()
             catalogCollectionView.reloadData()
             loadingPage.isHidden = true
@@ -149,14 +149,14 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as! CategoriesCollectionViewCell
             cell.image.sd_setImage(with: categories[indexPath.row].imageURL)
             cell.nameCategory.text = categories[indexPath.row].nameCategory
-            cell.selectCategory(select: selectCategory, indexPath: indexPath.row)
+            cell.selectCategory(selectCategoryID: selectCategory?.id, categoryID: categories[indexPath.row].id)
             return cell
         }else {
             let cell = catalogCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
             cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
-            cell.nameAuthor.text = courses[indexPath.row].nameAuthor
+            cell.nameAuthor.text = courses[indexPath.row].author.userName
             cell.nameCourse.text = courses[indexPath.row].nameCourse
-            cell.price.text = "Цена: \(courses[indexPath.row].price)Р"
+            cell.price.text = "\(courses[indexPath.row].price)₽"
             cell.rating.text = "\(courses[indexPath.row].rating)"
             cell.daysCount.text = "\(courses[indexPath.row].daysCount) этапов"
             return cell
@@ -168,25 +168,33 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             selectCourse = courses[indexPath.row]
             performSegue(withIdentifier: "info", sender: self)
         }else if collectionView == categoryCollectionView {
-            if selectCategory == indexPath.row {
-                loadCourses(indexPath: indexPath)
+            if selectCategory?.id == categories[indexPath.row].id {
+                loadCourses()
             }else {
                 loadCategory(indexPath: indexPath)
             }
         }
     }
     
-    private func loadCourses(indexPath: IndexPath) {
+    private func loadCourses() {
         selectCategory = nil
         courses.removeAll()
         catalogCollectionView.reloadData()
         categoryCollectionView.reloadData()
-        getCourses()
+        if search.text == "" {
+            getCourses()
+        }else {
+            searchCourse(text: search.text!)
+        }
     }
     
     private func loadCategory(indexPath: IndexPath) {
-        selectCategory = indexPath.row
-        getCoursesByCategory(id: categories[indexPath.row].id)
+        selectCategory = categories[indexPath.row]
+        if search.text == "" {
+            getCoursesByCategory(id: categories[indexPath.row].id)
+        }else {
+            searchCourse(text: search.text!)
+        }
         categoryCollectionView.reloadData()
     }
 
@@ -205,6 +213,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             let scrollViewHeight = scrollView.frame.size.height
             let scrollOffset = scrollView.contentOffset.y
             
+            guard courses.isEmpty == false else { return }
             let nextURL = courses[courses.count - 1].next
             
             if scrollOffset >= contentHeight - scrollViewHeight && loadingMoreData == false && nextURL != "" {
@@ -240,7 +249,6 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension CatalogViewController: UITextFieldDelegate {
 
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        disableSelectCategory()
         searchCourse(text: textField.text!)
     }
 

@@ -32,7 +32,6 @@ class Sign {
             guard let email = user.profile?.email else {return}
 
             Task {
-                print(idToken)
                 try await self.saveInBDGoogle(token: idToken, name: name, email: email)
             }
         }

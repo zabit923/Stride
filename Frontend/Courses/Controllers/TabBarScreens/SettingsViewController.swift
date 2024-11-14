@@ -15,7 +15,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var backBtn: UIButton!
-    @IBOutlet weak var settingsTableView: UITableView!
+    @IBOutlet weak var settingsCollectionView: UICollectionView!
     @IBOutlet weak var settingsTableView2: UITableView!
 
     var arrayObjects = [Objects]()
@@ -28,8 +28,8 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        settingsTableView.delegate = self
-        settingsTableView.dataSource = self
+        settingsCollectionView.delegate = self
+        settingsCollectionView.dataSource = self
         settingsTableView2.dataSource = self
         settingsTableView2.delegate = self
         addObjects()
@@ -62,7 +62,7 @@ class SettingsViewController: UIViewController {
     }
 
     private func changeHeightTable() {
-        tbvConstant.constant = settingsTableView.contentSize.height
+        tbvConstant.constant = settingsCollectionView.contentSize.height
     }
 
     private func addProfile() {
@@ -74,7 +74,6 @@ class SettingsViewController: UIViewController {
     }
 
     private func addObjects() {
-        print(user.role)
         if user.role == .coach {
             arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Добавить курс", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Кошелёк", image: "wallet", imageForBtn: "next2")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
@@ -99,65 +98,72 @@ class SettingsViewController: UIViewController {
 
 }
 
+extension SettingsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return arrayObjects.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "settingsMain", for: indexPath) as! SettingsCollectionViewCell
+        cell.im.image = UIImage(named: arrayObjects[indexPath.row].image)
+        cell.name.text = arrayObjects[indexPath.row].name
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch arrayObjects[indexPath.row].name {
+        case "Информация о себе":
+            performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
+        case "Мои курсы":
+            performSegue(withIdentifier: "myCourse", sender: self)
+        case "Конфиденциальность":
+            performSegue(withIdentifier: "conf", sender: self)
+        case "Добавить курс":
+            performSegue(withIdentifier: "goToAddCourse", sender: self)
+//            case "Подтвердить аккаунт":
+//                UIApplication.shared.open(Constants.formsURL)
+        case "Стать тренером":
+            UIApplication.shared.open(Constants.formsURL)
+        case "Кошелёк":
+            performSegue(withIdentifier: "goToWithdraw", sender: self)
+        case "Админ панель":
+            performSegue(withIdentifier: "admin", sender: self)
+        default:
+            break
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let widthScreen = UIScreen.main.bounds.width - 50
+        let widthCell = widthScreen / 2
+        return CGSize(width: widthCell, height: 100)
+    }
+    
+}
+
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == settingsTableView {
-            return arrayObjects.count
-        }else{
-            return arrayObjects2.count
-        }
-
+        return arrayObjects2.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == settingsTableView {
-            let cell = settingsTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SettingsTableViewCell
-            cell.im.image = UIImage(named: "\(arrayObjects[indexPath.row].image)")
-            cell.lbl.text = arrayObjects[indexPath.row].name
-            cell.btn.setImage(UIImage(named: "\(arrayObjects[indexPath.row].imageForBtn)"), for: .normal)
-            cell.selectionStyle = .none
-            return cell
-        }else{
-            let cell = settingsTableView2.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! SettingsTableViewCell
-            cell.im.image = UIImage(named: "\(arrayObjects2[indexPath.row].image)")
-            cell.lbl.text = arrayObjects2[indexPath.row].name
-            cell.selectionStyle = .none
-            return cell
-        }
+        let cell = settingsTableView2.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! SettingsTableViewCell
+        cell.im.image = UIImage(named: "\(arrayObjects2[indexPath.row].image)")
+        cell.lbl.text = arrayObjects2[indexPath.row].name
+        cell.selectionStyle = .none
+        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == settingsTableView {
-            switch arrayObjects[indexPath.row].name {
-            case "Информация о себе":
-                performSegue(withIdentifier: "goToInfoAboutMe", sender: self)
-            case "Мои курсы":
-                performSegue(withIdentifier: "myCourse", sender: self)
-            case "Конфиденциальность":
-                performSegue(withIdentifier: "conf", sender: self)
-            case "Добавить курс":
-                performSegue(withIdentifier: "goToAddCourse", sender: self)
-//            case "Подтвердить аккаунт":
-//                UIApplication.shared.open(Constants.formsURL)
-            case "Стать тренером":
-                UIApplication.shared.open(Constants.formsURL)
-            case "Кошелёк":
-                performSegue(withIdentifier: "goToWithdraw", sender: self)
-            case "Админ панель":
-                performSegue(withIdentifier: "admin", sender: self)
-            default:
-                break
-            }
-        }else if tableView == settingsTableView2 {
-            switch arrayObjects2[indexPath.row].name {
-            case "Политика конфиденциальности":
-                performSegue(withIdentifier: "privacy", sender: self)
-            case "Нужна помощь? Напиши нам":
-                UIApplication.shared.open(Constants.telegramURL)
-            default:
-                break
-            }
+        switch arrayObjects2[indexPath.row].name {
+        case "Политика конфиденциальности":
+            performSegue(withIdentifier: "privacy", sender: self)
+        case "Нужна помощь? Напиши нам":
+            UIApplication.shared.open(Constants.telegramURL)
+        default:
+            break
         }
     }
 

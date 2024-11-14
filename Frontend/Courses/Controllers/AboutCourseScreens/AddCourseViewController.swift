@@ -69,7 +69,6 @@ class AddCourseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.delegate = self
-        //        textView.allowsEditingTextAttributes = true
         view.overrideUserInterfaceStyle = .dark
         getData()
         design()

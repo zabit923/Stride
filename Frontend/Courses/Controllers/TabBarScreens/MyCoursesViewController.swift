@@ -114,7 +114,7 @@ extension MyCoursesViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = myCoursesCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: filteredCourse[indexPath.row].imageURL)
-        cell.nameAuthor.text = "Тренер: \(filteredCourse[indexPath.row].nameAuthor)"
+        cell.nameAuthor.text = "Тренер: \(filteredCourse[indexPath.row].author.userName)"
         cell.nameCourse.text = filteredCourse[indexPath.row].nameCourse
         cell.rating.text = "\(filteredCourse[indexPath.row].rating)"
         cell.progressInDays.text = "\(filteredCourse[indexPath.row].progressInDays)/\(filteredCourse[indexPath.row].daysCount)"

@@ -126,9 +126,9 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: filteredCourse[indexPath.row].imageURL)
-        cell.nameAuthor.text = filteredCourse[indexPath.row].nameAuthor
+        cell.nameAuthor.text = filteredCourse[indexPath.row].author.userName
         cell.nameCourse.text = filteredCourse[indexPath.row].nameCourse
-        cell.price.text = "\(filteredCourse[indexPath.row].price)Р"
+        cell.price.text = "\(filteredCourse[indexPath.row].price)₽"
         cell.rating.text = "\(filteredCourse[indexPath.row].rating)"
         cell.daysCount.text = "\(filteredCourse[indexPath.row].daysCount) этапов"
         return cell

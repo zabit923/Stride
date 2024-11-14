@@ -12,10 +12,10 @@ import SwiftyJSON
 class Category {
     
     var nameCategory: String
-    var imageURL: URL
+    var imageURL: URL?
     var id: Int
     
-    init(nameCategory: String, imageURL: URL, id: Int) {
+    init(nameCategory: String = "", imageURL: URL? = nil, id: Int = 0) {
         self.nameCategory = nameCategory
         self.imageURL = imageURL
         self.id = id

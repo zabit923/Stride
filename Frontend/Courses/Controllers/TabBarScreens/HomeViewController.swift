@@ -10,6 +10,7 @@ import Lottie
 
 class HomeViewController: UIViewController {
     
+    @IBOutlet weak var coachCollectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var celebrityCollectionView: UICollectionView!
     @IBOutlet weak var avatar: UIImageView!
@@ -124,6 +125,8 @@ class HomeViewController: UIViewController {
         
         celebrityCollectionView.delegate = self
         celebrityCollectionView.dataSource = self
+        coachCollectionView.delegate = self
+        coachCollectionView.dataSource = self
     }
     
     private func design() {
@@ -175,12 +178,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return Int.max
         }else if collectionView == celebrityCollectionView {
             return celebrities.count
-        }else {
+        }else if collectionView == recomendCollectionView {
             if recomendCourses.count <= 6 {
                 return recomendCourses.count
             }else {
                 return 6
             }
+        }else {
+            return 7
         }
     }
     
@@ -204,15 +209,19 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             cell.im.sd_setImage(with: recomendCourses[indexPath.row].imageURL)
             cell.name.text = recomendCourses[indexPath.row].nameCourse
-            cell.trener.text = "Тренер: \(recomendCourses[indexPath.row].nameAuthor)"
+            cell.trener.text = "Тренер: \(recomendCourses[indexPath.row].author.userName)"
             cell.rating.text = "\(recomendCourses[indexPath.row].rating)"
             
             return cell
-        }else {
+        }else if collectionView == celebrityCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "celebrity", for: indexPath) as! CelebrityCollectionViewCell
             cell.name.text = "\(celebrities[indexPath.row].name) \(celebrities[indexPath.row].surname)"
             //            cell.rating.text = "\(celebrities[indexPath.row].rating)"
             cell.im.sd_setImage(with: celebrities[indexPath.row].avatarURL)
+            return cell
+        }else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "coach", for: indexPath) as! CoachCollectionViewCell
+            cell.starPosititon(rating: 2.6)
             return cell
         }
     }

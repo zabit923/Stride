@@ -13,10 +13,10 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameCategory: UILabel!
     @IBOutlet weak var image: UIImageView!
     
-    func selectCategory(select: Int?, indexPath: Int) {
-        if select == nil {
+    func selectCategory(selectCategoryID: Int?, categoryID: Int) {
+        if selectCategoryID == nil {
             selectCategory.layer.borderColor = UIColor.clear.cgColor
-        }else if select == indexPath {
+        }else if selectCategoryID == categoryID {
             selectCategory.layer.borderColor = UIColor.blueMain.cgColor
         }else {
             selectCategory.layer.borderColor = UIColor.clear.cgColor

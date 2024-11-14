@@ -105,7 +105,6 @@ class Payment {
         let value = try await response.value
         let code = await response.response.response?.statusCode
         let json = JSON(value)
-        print(json)
         if code != 201 {
             if let dictionary = json.dictionary {
                 let error = dictionary.first!.value[0].stringValue

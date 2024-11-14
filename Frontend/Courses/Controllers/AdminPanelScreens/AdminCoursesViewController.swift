@@ -59,7 +59,7 @@ extension AdminCoursesViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
-        cell.nameAuthor.text = courses[indexPath.row].nameAuthor
+        cell.nameAuthor.text = courses[indexPath.row].author.userName
         cell.nameCourse.text = courses[indexPath.row].nameCourse
         cell.price.text = "Цена: \(courses[indexPath.row].price)Р"
         cell.rating.text = "\(courses[indexPath.row].rating)"
