@@ -40,6 +40,7 @@ class AddModuleCoursesViewController: UIViewController {
         loadingSettings()
         addCourseInfo()
     }
+
     
     private func checkRole() {
         guard role != .adminVerification else { successBtn.isHidden = false; return }

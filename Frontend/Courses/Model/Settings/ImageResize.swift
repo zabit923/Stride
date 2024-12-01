@@ -56,7 +56,6 @@ class ImageResize {
         while scaleFactor > 0.1 && (newImage == nil || newImage!.jpegData(compressionQuality: 1.0)!.count > maxSizeKB) {
             scaleFactor -= 0.1
             let newSize = CGSize(width: image.size.width * scaleFactor, height: image.size.height * scaleFactor)
-            print(newSize)
             newImage = image.scaleImage(toSize: newSize)
         }
         

@@ -69,7 +69,7 @@ class AddCourseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.delegate = self
-        view.overrideUserInterfaceStyle = .dark
+        self.overrideUserInterfaceStyle = .dark
         getData()
         design()
         startPosition = errorView.center

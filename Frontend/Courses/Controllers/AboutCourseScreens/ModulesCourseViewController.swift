@@ -7,6 +7,7 @@
 
 import UIKit
 import Lottie
+import ScreenShield
 
 class ModulesCourseViewController: UIViewController {
 
@@ -33,6 +34,7 @@ class ModulesCourseViewController: UIViewController {
         collectionSettings()
         getCourseInfo()
     }
+
 
     private func collectionSettings() {
         daysCollectionView.delegate = self
@@ -88,6 +90,8 @@ class ModulesCourseViewController: UIViewController {
     }
     
     private func checkDayCompleted() {
+        guard course.courseDays.isEmpty == false else { return }
+        
         for x in 0...course.courseDays.count - 1 {
             
             course.courseDays[x].completed = checkModulesCompleted(day: x)

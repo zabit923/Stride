@@ -75,7 +75,7 @@ class SettingsViewController: UIViewController {
 
     private func addObjects() {
         if user.role == .coach {
-            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Добавить курс", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Кошелёк", image: "wallet", imageForBtn: "next2")]
+            arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), Objects(name: "Добавить курс", image: "confirmAccount", imageForBtn: "next2"), Objects(name: "Кошелёк", image: "wallet", imageForBtn: "next2"), Objects(name: "Промокоды", image: "promoSettings", imageForBtn: "next2")]
             arrayObjects2 = [Objects(name: "Нужна помощь? Напиши нам", image: "helper", imageForBtn: "next2"), Objects(name: "Политика конфиденциальности", image: "political", imageForBtn: "next2")]
         }else if user.role == .user {
             arrayObjects = [Objects(name: "Информация о себе", image: "information", imageForBtn: "next2"), Objects(name: "Мои курсы", image: "coursesHistory", imageForBtn: "next2"), Objects(name: "Конфиденциальность", image: "confidentiality", imageForBtn: "next2"), /*Objects(name: "Подтвердить аккаунт", image: "confirmAccount", imageForBtn: "next2"),*/ Objects(name: "Стать тренером", image: "becomeCoach", imageForBtn: "next2")]
@@ -129,6 +129,8 @@ extension SettingsViewController: UICollectionViewDelegate, UICollectionViewData
             performSegue(withIdentifier: "goToWithdraw", sender: self)
         case "Админ панель":
             performSegue(withIdentifier: "admin", sender: self)
+        case "Промокоды":
+            performSegue(withIdentifier: "promo", sender: self)
         default:
             break
         }

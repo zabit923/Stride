@@ -16,6 +16,28 @@ class User {
         return UD().getMyInfo()
     }
 
+    func getAllCoachs() async throws -> [UserStruct] {
+        let url = Constants.url + "api/v1/users/get_coaches/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(
+            url,method: .get,
+            headers: headers
+        ).serializingData().value
+        let json = JSON(value)["results"]
+        var users = [UserStruct]()
+        let array = json.arrayValue
+        guard array.isEmpty == false else {return []}
+        for x in 0...array.count - 1 {
+            var user = UserStruct(name: json[x]["first_name"].stringValue, surname: json[x]["last_name"].stringValue)
+            user.email = json[x]["email"].stringValue
+            user.id = json[x]["id"].intValue
+            user.phone = json[x]["phone_number"].stringValue
+            user.avatarURL = URL(string: json[x]["image"].stringValue)
+            user.coach.rating = json[x]["avg_rating"].floatValue
+            users.append(user)
+        }
+        return users
+    }
 
     func changeInfoUser(id: Int, user: UserStruct) async throws {
         let url = Constants.url + "api/v1/users/\(id)/"
@@ -167,4 +189,5 @@ class User {
             throw ErrorNetwork.runtimeError("Ошибка")
         }
     }
+    
 }

@@ -11,6 +11,7 @@ import CropViewController
 
 class AddInfoAboutCourseVC: UIViewController {
 
+    @IBOutlet weak var promoCollectionView: UICollectionView!
     @IBOutlet weak var shareBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var saveBtn: UIButton!
@@ -35,12 +36,16 @@ class AddInfoAboutCourseVC: UIViewController {
     private var infoCourses = Course()
     private var imageURL: URL?
     private var selectCategory: Category?
+    private var promocodes = [Promocodes]()
+    private var isCategory = true
     var idCourse = 0
     var create = true
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        promoCollectionView.delegate = self
+        promoCollectionView.dataSource = self
         price.delegate = self
         name.delegate = self
         startPosition = errorView.center
@@ -54,6 +59,36 @@ class AddInfoAboutCourseVC: UIViewController {
         getCourse()
         addCoach()
     }
+    
+    private func getPromocodesByCourse() {
+        Task {
+            let results = try await Promocodes().getPromoToCourses(courseID: idCourse)
+            promocodes = results
+            promoCollectionView.reloadData()
+        }
+    }
+    
+    @objc func deletePromo(sender: UIButton) {
+        Task {
+            sender.isEnabled = false
+            do {
+                try await Promocodes().deletePromocodesToCourses(courseID: idCourse, promocode: promocodes[sender.tag])
+                promocodes.remove(at: sender.tag)
+                promoCollectionView.reloadData()
+                sender.isEnabled = true
+            }catch ErrorNetwork.runtimeError(let error) {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+                sender.isEnabled = true
+            }catch {
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: "Попробуйте позже")
+                view.addSubview(errorView)
+                sender.isEnabled = true
+            }
+        }
+    }
 
     private func getCourse() {
         loadingSettings()
@@ -63,6 +98,7 @@ class AddInfoAboutCourseVC: UIViewController {
         }
         Task {
             infoCourses = try await Course().getCoursesByID(id: idCourse)
+            getPromocodesByCourse()
             loadingStop()
             design()
         }
@@ -76,7 +112,7 @@ class AddInfoAboutCourseVC: UIViewController {
         }
         categoriesLbl.text = infoCourses.category.nameCategory
         namePred.text = infoCourses.nameCourse
-        pricePred.text = "\(infoCourses.price)Р"
+        pricePred.text = "\(infoCourses.price)₽"
         name.text = infoCourses.nameCourse
         price.text = "\(infoCourses.price)"
         descriptionCourse.text = infoCourses.description
@@ -156,6 +192,8 @@ class AddInfoAboutCourseVC: UIViewController {
         loading.isHidden = true
         saveBtn.isHidden = false
     }
+    
+    
 
     func addInfoInVar() {
         infoCourses.nameCourse = name.text!
@@ -215,6 +253,7 @@ class AddInfoAboutCourseVC: UIViewController {
 
 
     @IBAction func categories(_ sender: UIButton) {
+        isCategory = true
         performSegue(withIdentifier: "category", sender: self)
     }
 
@@ -236,6 +275,7 @@ class AddInfoAboutCourseVC: UIViewController {
         }else if segue.identifier == "category" {
             let vc = segue.destination as! PickerModelViewController
             vc.delegate = self
+            vc.isCategory = isCategory
         }
 
     }
@@ -293,3 +333,45 @@ extension AddInfoAboutCourseVC: AddCategoryDelegate {
     }
 
 }
+extension AddInfoAboutCourseVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return promocodes.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "promocodes", for: indexPath) as! PromoCollectionViewCell
+        if indexPath.row == 0 {
+            cell.promoName.text = "Добавить"
+            cell.delete.isHidden = true
+        }else {
+            cell.promoName.text = promocodes[indexPath.row - 1].name
+            cell.delete.isHidden = false
+            cell.delete.tag = indexPath.row - 1
+            cell.delete.addTarget(self, action: #selector(deletePromo), for: .touchUpInside)
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            isCategory = false
+            performSegue(withIdentifier: "category", sender: self)
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.row == 0 {
+            return CGSize(width: 70, height: 30)
+        }else {
+            let label = UILabel()
+            label.font = UIFont(name: "Commissioner-Medium", size: 12)!
+            label.text = promocodes[indexPath.row - 1].name
+            let textSize = label.sizeThatFits(CGSize(width: collectionView.bounds.width, height: CGFloat.greatestFiniteMagnitude)).width + 30
+            return CGSize(width: textSize, height: 30)
+        }
+    }
+    
+}
+

@@ -96,7 +96,6 @@ class CourseMananger {
         if let category = category {
             parameters["category"] = category.id
         }
-        print(parameters, category)
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, parameters: parameters, headers: headers).serializingData().value
         return value

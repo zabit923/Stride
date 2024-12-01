@@ -321,6 +321,12 @@ protocol ChangeInfoModule: AnyObject {
     func deleteModuleDismiss(moduleID: Int)
 }
 
+protocol PromoCodeDelegate: AnyObject {
+    func delete(promoCode: Promocodes)
+    func create(promoCode: Promocodes)
+    func change(promoCode: Promocodes)
+}
+
 protocol AddCategoryDelegate: AnyObject {
     func category(category: Category)
 }

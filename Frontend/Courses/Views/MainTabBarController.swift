@@ -8,45 +8,63 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
+    
+    private let maskView = UIView()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setTabBarApearence()
         setViewControllersInTaBar()
     }
-    
-    private func setViewControllersInTaBar() {
-        guard let vc = viewControllers else { return }
-        for x in 0...vc.count - 1 {
-            if let image = vc[x].tabBarItem.selectedImage {
-                vc[x].tabBarItem.selectedImage = image.withRenderingMode(.alwaysOriginal)
-            }
-            if let image = vc[x].tabBarItem.image {
-                vc[x].tabBarItem.image = image.withRenderingMode(.alwaysOriginal)
-            }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            setViewControllersInTaBar()
         }
     }
     
-    private func generateVC(vc: UIViewController ,image:UIImage, selectedImage: UIImage) -> UIViewController {
-        let viewController = vc
-        viewController.tabBarItem.image = image.withRenderingMode(.alwaysOriginal)
-        viewController.tabBarItem.selectedImage = selectedImage.withRenderingMode(.alwaysOriginal)
-        return viewController
+    private func setViewControllersInTaBar() {
+        guard let vc = viewControllers else { return }
+        let theme = traitCollection.userInterfaceStyle
+        print(vc.count)
+        vc[0].tabBarItem = selectImageByTabBarItem(image: "home", theme: theme)
+        vc[1].tabBarItem = selectImageByTabBarItem(image: "catalog", theme: theme)
+        vc[2].tabBarItem = selectImageByTabBarItem(image: "courses", theme: theme)
+        vc[3].tabBarItem = selectImageByTabBarItem(image: "profile", theme: theme)
+        if vc.count == 5 {
+            vc[4].tabBarItem = selectImageByTabBarItem(image: "profile", theme: theme)
+        }
     }
+    
+    private func selectImageByTabBarItem(image: String, theme: UIUserInterfaceStyle ) -> UITabBarItem {
+        let item = UITabBarItem()
+        
+        if theme == .dark {
+            item.selectedImage = UIImage(named: image + "Select")?.withRenderingMode(.alwaysOriginal)
+            item.image = UIImage(named: image)?.withRenderingMode(.alwaysOriginal)
+        }else {
+            item.selectedImage = UIImage(named: image + "Select" + "Light")?.withRenderingMode(.alwaysOriginal)
+            item.image = UIImage(named: image + "Light")?.withRenderingMode(.alwaysOriginal)
+        }
+        
+        return item
+    }
+   
+
+
 
     private func setTabBarApearence() {
         let width = tabBar.bounds.width - 70
         let height: CGFloat = 60
         
-        let roundLayer = CAShapeLayer()
-        let bezierPath = UIBezierPath(roundedRect: CGRect(x: tabBar.bounds.minX + 35, y: tabBar.bounds.minY - 5, width: width, height: height), cornerRadius: 20)
         
-//        roundLayer.strokeColor = UIColor.blackMain.cgColor
-//        roundLayer.lineWidth = 1
-        roundLayer.fillColor = UIColor.lightBlackMain.cgColor
-        roundLayer.path = bezierPath.cgPath
+        maskView.frame = CGRect(x: tabBar.bounds.minX + 35, y: tabBar.bounds.minY - 10, width: width, height: height)
+        maskView.backgroundColor = UIColor.tabBar
+        maskView.layer.cornerRadius = 30
+        tabBar.addSubview(maskView)
         
-        tabBar.layer.insertSublayer(roundLayer, at: 0)
         tabBar.itemWidth = 45
         tabBar.backgroundColor = .clear
         tabBar.backgroundImage = UIImage()

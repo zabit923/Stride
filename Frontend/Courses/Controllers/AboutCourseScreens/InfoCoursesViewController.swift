@@ -11,6 +11,13 @@ import SDWebImage
 
 class InfoCoursesViewController: UIViewController {
 
+    @IBOutlet weak var promoMainText: UILabel!
+    @IBOutlet weak var oldPrice: UILabel!
+    @IBOutlet weak var promoMainBtn: UIButton!
+    @IBOutlet weak var promoSuccessInfo: UILabel!
+    @IBOutlet weak var promoSucces: UIImageView!
+    @IBOutlet weak var promoInfoView: UIView!
+    @IBOutlet weak var promoTextField: UITextField!
     @IBOutlet weak var similarCourseLbl: UILabel!
     @IBOutlet weak var similarCoursesCollectionView: UICollectionView!
     @IBOutlet weak var userAvatar: UIImageView!
@@ -49,6 +56,18 @@ class InfoCoursesViewController: UIViewController {
             priceLbl.text = "₽\(price)"
         }
     }
+    var sale: Int? = nil {
+        didSet {
+            if sale != nil {
+                oldPrice.attributedText = "₽\(price)".strikeText()
+                price = price - sale!
+                oldPrice.isHidden = false
+            }else {
+                oldPrice.isHidden = true
+                price = price + oldValue!
+            }
+        }
+    }
 
 
     override func viewDidLoad() {
@@ -57,6 +76,7 @@ class InfoCoursesViewController: UIViewController {
         reviewsCollectionView.dataSource = self
         similarCoursesCollectionView.delegate = self
         similarCoursesCollectionView.dataSource = self
+        promoTextField.delegate = self
         startPosition = errorView.center
         view.addSubview(errorView)
         errorView.isHidden = true
@@ -326,11 +346,63 @@ class InfoCoursesViewController: UIViewController {
             }
         }
     }
+    
+    private func usedPromocodes() {
+        Task {
+            do {
+                let promo = try await Promocodes().usedPromocode(promoTextField.text!, courseID: course.id)
+                promoSuccessDesign(promo: promo)
+                promoMainBtn.tag = 1
+            }catch ErrorNetwork.runtimeError(let error) {
+                promoMainBtn.tag = 0
+                errorView.isHidden = false
+                errorView.configure(title: "Ошибка", description: error)
+                view.addSubview(errorView)
+            }catch {
+                promoMainBtn.tag = 0
+                errorView.configure(title: "Ошибка", description: "Попробуйте позже")
+                errorView.isHidden = false
+            }
+        }
+    }
+    
+    private func promoSuccessDesign(promo: Promocodes) {
+        promoSucces.isHidden = false
+        promoSuccessInfo.isHidden = false
+        promoMainText.isHidden = false
+        promoTextField.isHidden = true
+        promoTextField.resignFirstResponder()
+        promoMainText.text = promo.name
+        let saleAfterPromo = price / 100 * promo.procent
+        promoSuccessInfo.text = "\(promo.procent)% cкидка (-₽\(saleAfterPromo).00)"
+        sale = saleAfterPromo
+        promoMainBtn.setTitle("", for: .normal)
+        promoMainBtn.setImage(UIImage.closeGray, for: .normal)
+    }
+    
+    private func promoClose() {
+        promoSucces.isHidden = true
+        promoSuccessInfo.isHidden = true
+        promoMainText.isHidden = true
+        promoTextField.isHidden = false
+        sale = nil
+        promoMainBtn.setTitle("Подтвердить", for: .normal)
+        promoMainBtn.setImage(nil, for: .normal)
+    }
 
     @IBAction func coach(_ sender: UIButton) {
         performSegue(withIdentifier: "coach", sender: self)
     }
     
+    @IBAction func promoSelect(_ sender: UIButton) {
+        if sender.tag == 0 {
+            usedPromocodes()
+            sender.tag = 1
+        }else {
+            promoClose()
+            sender.tag = 0
+        }
+    }
     
     @IBAction func buy(_ sender: UIButton) {
         if interface == .review {
@@ -356,6 +428,15 @@ class InfoCoursesViewController: UIViewController {
         DeepLinksManager.openShareViewController(url: link, self)
     }
     
+    
+    @IBAction func infoAboutPromo(_ sender: UIButton) {
+        if sender.tag == 0 {
+            promoInfoView.isHidden = false
+        }else {
+            promoInfoView.isHidden = true
+        }
+    }
+    
     @IBAction func back(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -377,7 +458,12 @@ class InfoCoursesViewController: UIViewController {
     @IBAction func swipe(_ sender: UIPanGestureRecognizer) {
         errorView.swipe(sender: sender, startPosition: startPosition)
     }
-
+    
+    
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        promoTextField.resignFirstResponder()
+    }
+    
 }
 extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -437,4 +523,27 @@ extension InfoCoursesViewController: UICollectionViewDelegate, UICollectionViewD
     }
 
 
+}
+extension InfoCoursesViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        promoMainBtn.isHidden = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text == "" {
+            promoMainBtn.isHidden = true
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        let characterSet = CharacterSet(charactersIn: string.uppercased())
+        return allowedCharacters.isSuperset(of: characterSet)
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        textField.text = textField.text?.uppercased()
+    }
+    
 }

@@ -34,8 +34,8 @@ class CourseTextViewController: UIViewController {
     }
 
     private func design() {
+        self.overrideUserInterfaceStyle = .dark
         textView.textColor = .white
-        view.overrideUserInterfaceStyle = .dark
         loadingSettings()
         nameCourse.text = module.name
     }

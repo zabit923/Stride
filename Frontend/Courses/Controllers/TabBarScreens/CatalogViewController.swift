@@ -11,6 +11,8 @@ import Lottie
 
 class CatalogViewController: UIViewController {
 
+    @IBOutlet weak var instagrampostFilterSegment: UIButton!
+    @IBOutlet weak var groupPostFilterSegment: UIButton!
     @IBOutlet weak var loadingMain: LottieAnimationView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var loadingPage: LottieAnimationView!
@@ -26,6 +28,7 @@ class CatalogViewController: UIViewController {
     private var selectCourse = Course()
     private var selectCategory: Category?
     private var loadingMoreData = false
+    private var postFilterSegment: PostSegmented!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,7 @@ class CatalogViewController: UIViewController {
         catalogCollectionView.dataSource = self
         catalogCollectionView.delegate = self
         search.delegate = self
+        postFilterSegment = PostSegmented(firstBtn: groupPostFilterSegment, secondBtn: instagrampostFilterSegment)
         design()
     }
     
@@ -128,7 +132,20 @@ class CatalogViewController: UIViewController {
         emptyBox.contentMode = .scaleToFill
         emptyBox.play()
     }
-
+    
+    
+    
+    @IBAction func filterPost(_ sender: UIButton) {
+        if sender == groupPostFilterSegment {
+            postFilterSegment.onFirst()
+        }else {
+            postFilterSegment.onSecond()
+        }
+        catalogCollectionView.reloadData()
+        catalogCollectionView.layoutIfNeeded()
+        changeHeightCollection()
+    }
+    
     @IBAction func tap(_ sender: UITapGestureRecognizer) {
         search.resignFirstResponder()
     }
@@ -152,7 +169,7 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.selectCategory(selectCategoryID: selectCategory?.id, categoryID: categories[indexPath.row].id)
             return cell
         }else {
-            let cell = catalogCollectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
+            let cell = catalogCollectionView.dequeueReusableCell(withReuseIdentifier: postFilterSegment.collectionIdentifier, for: indexPath) as! CoursesCollectionViewCell
             cell.image.sd_setImage(with: courses[indexPath.row].imageURL)
             cell.nameAuthor.text = courses[indexPath.row].author.userName
             cell.nameCourse.text = courses[indexPath.row].nameCourse
@@ -200,8 +217,13 @@ extension CatalogViewController: UICollectionViewDelegate, UICollectionViewDataS
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == catalogCollectionView {
-            let width = UIScreen.main.bounds.width / 2 - 30
-            return CGSize(width: width, height: 180)
+            if postFilterSegment.selectFirst {
+                let width = UIScreen.main.bounds.width / 2 - 30
+                return CGSize(width: width, height: 180)
+            }else {
+                let width = catalogCollectionView.bounds.width
+                return CGSize(width: width, height: 180)
+            }
         }else {
             return CGSize(width: 100, height: 128)
         }

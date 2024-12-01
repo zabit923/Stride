@@ -70,6 +70,7 @@ class AppStoreVersion {
         let value = try await AF.request(urlString,method: .get).serializingData().value
         let json = JSON(value)
         let version = json["results"][0]["version"].stringValue
+        print(version, self.version)
         return version
     }
     

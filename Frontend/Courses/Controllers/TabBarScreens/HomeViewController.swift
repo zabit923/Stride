@@ -20,6 +20,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var recomendCollectionView: UICollectionView!
     
     private var banners = [String]()
+    private var coachs = [UserStruct]()
+    private var selectCoachs = UserStruct()
     private var recomendCourses = [Course]()
     private var celebrities = [UserStruct]()
     private let layout = PageLayout()
@@ -49,6 +51,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getUser()
+        getCoachs()
     }
     
     override func viewDidLayoutSubviews() {
@@ -67,6 +70,12 @@ class HomeViewController: UIViewController {
     }
     
     
+    private func getCoachs() {
+        Task {
+            coachs = try await User().getAllCoachs()
+            coachCollectionView.reloadData()
+        }
+    }
     
     private func getUser() {
         Task {
@@ -185,7 +194,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return 6
             }
         }else {
-            return 7
+            return coachs.count
         }
     }
     
@@ -221,7 +230,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             return cell
         }else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "coach", for: indexPath) as! CoachCollectionViewCell
-            cell.starPosititon(rating: 2.6)
+            cell.starPosititon(rating: coachs[indexPath.row].coach.rating)
+            cell.name.text = coachs[indexPath.row].userName
+            cell.im.sd_setImage(with: coachs[indexPath.row].avatarURL)
+            cell.rating.text = "\(coachs[indexPath.row].coach.rating)"
             return cell
         }
     }
@@ -230,6 +242,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if collectionView == recomendCollectionView {
             selectCourses = recomendCourses[indexPath.row]
             performSegue(withIdentifier: "infoCourses", sender: self)
+        }else if collectionView == coachCollectionView {
+            selectCoachs = coachs[indexPath.row]
+            performSegue(withIdentifier: "coach", sender: self)
         }
     }
     
@@ -259,6 +274,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }else if segue.identifier == "loading" {
             let vc = segue.destination as! LoadingStartViewController
             vc.delegate = self
+        }else if segue.identifier == "coach" {
+            let vc = segue.destination as! CoachViewController
+            vc.idCoach = selectCoachs.id
         }
         
         

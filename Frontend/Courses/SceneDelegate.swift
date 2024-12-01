@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import ScreenProtectorKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    var protectScreen = ProtectScreen()
+    
+    
     func scene(_ scene: UIScene,willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         DeepLinksManager().fetchURL(connectionOptions: connectionOptions)
         if DeepLinksManager.isLink {

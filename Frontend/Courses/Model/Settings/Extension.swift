@@ -26,24 +26,6 @@ extension UIImage {
         return newImage
       }
 
-
-
-
-//    func scaleImage(toSize size: CGSize) -> UIImage {
-//        let newImage: UIImage
-//        let aspectWidth = size.width / self.size.width
-//        let aspectHeight = size.height / self.size.height
-//        let aspectRatio = min(aspectWidth, aspectHeight)
-//        
-//        let newSize = CGSize(width: self.size.width * aspectRatio, height: self.size.height * aspectRatio)
-//        UIGraphicsBeginImageContext(newSize)
-//        self.draw(in: CGRect(origin: .zero, size: newSize))
-//        newImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
-//        UIGraphicsEndImageContext()
-//
-//        return newImage
-//    }
-
     func withRoundedCorners(radius: CGFloat) -> UIImage {
         let rect = CGRect(origin: .zero, size: self.size)
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
@@ -109,6 +91,12 @@ extension String {
     }
     var htmlToString: String {
         return htmlToAttributedString?.string ?? ""
+    }
+    
+    func strikeText() -> NSMutableAttributedString {
+        let attributeString = NSMutableAttributedString(string: self)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributeString.length))
+        return attributeString
     }
 }
 
