@@ -1,0 +1,232 @@
+{
+  "main": {
+    "id": "6fe4f442df0f3ffd",
+    "type": "split",
+    "children": [
+      {
+        "id": "3fab3323e617fbef",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2aa3b30ac1063ab9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "conflict-files-obsidian-git.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "conflict-files-obsidian-git"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6551e0df3d1660bb",
+    "type": "split",
+    "children": [
+      {
+        "id": "7d6cb26b3b97d955",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dc406b9f7109f8dc",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Файловый менеджер"
+            }
+          },
+          {
+            "id": "f59a8be1710872a2",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Поиск"
+            }
+          },
+          {
+            "id": "3ebd8e21ebe2ac1f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Закладки"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "02cd9aa4dbeba87f",
+    "type": "split",
+    "children": [
+      {
+        "id": "2bdec3478989a796",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "600388cf6a06333e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Безымянная Kanban-доска.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Обратные ссылки для Безымянная Kanban-доска"
+            }
+          },
+          {
+            "id": "3314d7f9f4715167",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Безымянная Kanban-доска.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Исходящие ссылки из Безымянная Kanban-доска"
+            }
+          },
+          {
+            "id": "db9e93a75d04c9f4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Теги"
+            }
+          },
+          {
+            "id": "440ab199f9b350ab",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Безымянная Kanban-доска.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Структура Безымянная Kanban-доска"
+            }
+          },
+          {
+            "id": "9c63165ed1c2a53c",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Меню быстрого перехода": false,
+      "graph:Граф": false,
+      "canvas:Создать новый холст": false,
+      "daily-notes:Сегодняшняя заметка": false,
+      "templates:Вставить шаблон": false,
+      "command-palette:Открыть палитру команд": false,
+      "obsidian-kanban:Создать новую доску": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "2aa3b30ac1063ab9",
+  "lastOpenFiles": [
+    "Stride/Добро пожаловать.md",
+    "Stride",
+    "images/Таргет/image9.png",
+    "images/Таргет/image8.png",
+    "images/Таргет/image6-4.png",
+    "images/Таргет/image5-1.png",
+    "images/Таргет/image4-2.png",
+    "images/Таргет/image3-5.png",
+    "images/Таргет/image2-8.png",
+    "images/Таргет/image16.png",
+    "images/Таргет/image13.png",
+    "images/Таргет/image14.png",
+    "images/Таргет",
+    "images",
+    "conflict-files-obsidian-git.md",
+    "Технический отдел/Корзина/Обдумать тему с целевой аудиторией для курса.md",
+    "Технический отдел/5 обновление/Текстовый редактор.md",
+    "Технический отдел/5 обновление/Сертефицированные тренеры.md",
+    "Технический отдел/5 обновление/Каталог курсов.md",
+    "Технический отдел/Корзина",
+    "Технический отдел/Запрос средств.md",
+    "Технический отдел/Задачи Русик.md",
+    "Технический отдел/Бизнес план.md",
+    "Технический отдел/Без названия.xlsx",
+    "Технический отдел/5 обновление",
+    "Технический отдел",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Техническое задание для Дизайнера.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Техническое задание для Дизайнера Моушен графики.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/ТЗ дизайне таргет.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Как использовать метрики эффективности рекламы.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Ключевые фразы для таргета.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Итоговая сумма расходов.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Идея 2.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Анализ конкурентов.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/Идея 1.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи/KPI.md",
+    "Отдел Маркетинга/Целевая аудитория/Целевая аудитория таргет.md",
+    "Отдел Маркетинга/Таргет/ТЗ дизайне таргет.md",
+    "Отдел Маркетинга/Таргет/Помощь и теоремы.md",
+    "Отдел Маркетинга/Таргет/Корзинка Хажи",
+    "Отдел Маркетинга/Таргет/Доска задач.md",
+    "Отдел Маркетинга/Таргет/Бизнес план.md",
+    "Отдел Маркетинга/Воронка продаж Stride/Воронка продаж.md",
+    "Отдел Маркетинга/Целевая аудитория",
+    "Отдел Маркетинга/Таргет",
+    "Общая папка/Затраты Excel.md"
+  ]
+}
