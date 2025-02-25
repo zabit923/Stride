@@ -13,14 +13,19 @@
             "state": {
               "type": "kanban",
               "state": {
-                "file": "Отдел продаж/Безымянная Kanban-доска.md",
+                "file": "Отдел Маркетинга/Таргет/Доска задач.md",
                 "kanbanViewState": {
                   "kanban-plugin": "board",
-                  "list-collapse": []
+                  "list-collapse": [
+                    false,
+                    false,
+                    false,
+                    false
+                  ]
                 }
               },
               "icon": "lucide-trello",
-              "title": "Безымянная Kanban-доска"
+              "title": "Доска задач"
             }
           }
         ]
@@ -182,10 +187,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "dc406b9f7109f8dc",
+  "active": "1d49ac8db489c1ac",
   "lastOpenFiles": [
-    "Отдел продаж/Задачи.md",
     "Отдел продаж/Безымянная Kanban-доска.md",
+    "Отдел продаж/Задачи.md",
     "Общая папка/Затраты Excel.md",
     "Отдел продаж/Без названия.canvas",
     "images/Таргет/Снимок экрана 2024-07-09 в 00.26.28.png",
