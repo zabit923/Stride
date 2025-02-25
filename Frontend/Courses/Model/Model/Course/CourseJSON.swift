@@ -13,16 +13,19 @@ class CourseJSON {
     // MARK: - Days JSON
     func daysInCourse(value: Data) async throws -> Course {
         let json = JSON(value)
-        var course = Course()
+        let course = Course()
         var modules = [Modules]()
         course.nameCourse = json["title"].stringValue
         course.id = json["id"].intValue
+        course.isDraft = json["is_draft"].boolValue
+        course.verification = Verification(rawValue: json["verification"].stringValue) ?? .proccess
         let daysCount = json["days"].arrayValue.count
         guard daysCount > 0 else {throw ErrorNetwork.runtimeError("Пустой массив")}
 
         for x in 0...daysCount - 1 {
             let idDay = json["days"][x]["id"].intValue
             let modulesArray = json["days"][x]["modules"].arrayValue
+            let completed = json["days"][x]["day_completed"].boolValue
             if modulesArray.isEmpty == false {
                 for y in 0...modulesArray.count - 1 {
                     let id = json["days"][x]["modules"][y]["id"].intValue
@@ -31,15 +34,14 @@ class CourseJSON {
                     let title = json["days"][x]["modules"][y]["title"].stringValue
                     let image = json["days"][x]["modules"][y]["image"].stringValue
                     let desc = json["days"][x]["modules"][y]["desc"].stringValue
-                    let index = json["days"][x]["modules"][y]["index"].intValue
-                    modules.append(Modules(text: URL(string: text), name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id, position: index))
+                    let index = json["days"][x]["modules"][y]["order"].intValue
+                    let completed = json["days"][x]["modules"][y]["module_complete"].boolValue
+                    modules.append(Modules(text: URL(string: text), name: title, minutes: min, imageURL: URL(string: image), description: desc, id: id, isCompleted: completed, position: index))
                 }
             }
-            course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules))
+            course.courseDays.append(CourseDays(dayID: idDay, type: .noneSee, modules: modules, completed: completed))
             modules.removeAll()
         }
-
-        course = RealmValue().addCompletedDays(course: course)
         return course
     }
     
@@ -63,11 +65,14 @@ class CourseJSON {
             let authorName = json["results"][x]["author"]["first_name"].stringValue
             let authorSurname = json["results"][x]["author"]["last_name"].stringValue
             let authorID = json["results"][x]["author"]["id"].intValue
+            let authorAvatar = json["results"][x]["author"]["image"].stringValue
+            let author = UserStruct(name:authorName, surname: authorSurname, id: authorID, avatarURL: URL(string: authorAvatar))
             let countBuyer = json["results"][x]["bought_count"].intValue
             let rating = json["results"][x]["rating"].floatValue
             let isBought = json["results"][x]["bought"].boolValue
-            let progressInDays = UD().getDaysCompletedInCourse(courseID: id)
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated,progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought))
+            let next = json["next"].stringValue
+            let progressInDays = json["results"][x]["completed_days_count"].intValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought, next: next, author: UserStruct(name:authorName, surname: authorSurname, id: authorID)))
         }
         return courses
     }
@@ -91,12 +96,15 @@ class CourseJSON {
             let authorName = json[x]["author"]["first_name"].stringValue
             let authorSurname = json[x]["author"]["last_name"].stringValue
             let authorID = json[x]["author"]["id"].intValue
+            let authorAvatar = json[x]["author"]["image"].stringValue
+            let author = UserStruct(name:authorName, surname: authorSurname, id: authorID, avatarURL: URL(string: authorAvatar))
             let countBuyer = json[x]["bought_count"].intValue
             let rating = json[x]["rating"].floatValue
             let isBought = json[x]["bought"].boolValue
             let isDraft = json[x]["is_draft"].boolValue
-            let progressInDays = UD().getDaysCompletedInCourse(courseID: id)
-            courses.append(Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)", idAuthor: authorID, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought, isDraft: isDraft))
+            let verification = Verification(rawValue: json[x]["verification"].stringValue) ?? .proccess
+            let progressInDays = json[x]["completed_days_count"].intValue
+            courses.append(Course(daysCount: daysCount, nameCourse: title, price: price, imageURL: URL(string: image), rating: rating, id: id, description: description, dataCreated: dataCreated, progressInDays: progressInDays, countBuyer: countBuyer, isBought: isBought, isDraft: isDraft, verification: verification, author: author))
         }
         return courses
     }
@@ -114,12 +122,19 @@ class CourseJSON {
         let authorName = json["author"]["first_name"].stringValue
         let authorSurname = json["author"]["last_name"].stringValue
         let authorID = json["author"]["id"].intValue
+        let authorAvatar = json["author"]["image"].stringValue
+        let author = UserStruct(name:authorName, surname: authorSurname, id: authorID, avatarURL: URL(string: authorAvatar))
         let rating = json["rating"].floatValue
         let myRating = json["my_rating"]["rating"].intValue
-        let category = json["category"].intValue
+        let categoryID = json["category"]["id"].intValue
+        let categoryTitle = json["category"]["title"].stringValue
+        let categoryImage = json["category"]["image"].stringValue
+        let category = Category(nameCategory: categoryTitle, imageURL: URL(string: categoryImage), id: categoryID)
         let boughtCount = json["bought_count"].intValue
         let isBought = json["bought"].boolValue
-        let course = Course(daysCount: daysCount, nameCourse: title, nameAuthor: "\(authorName) \(authorSurname)",idAuthor: authorID, price: price, categoryID: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount, isBought: isBought)
+        let isDraft = json["is_draft"].boolValue
+        let verification = Verification(rawValue: json["verification"].stringValue) ?? .proccess
+        let course = Course(daysCount: daysCount, nameCourse: title, price: price, category: category, imageURL: URL(string: image),rating: rating, myRating: myRating, id: id, description: description, dataCreated: dataCreated, countBuyer: boughtCount, isBought: isBought, isDraft: isDraft, verification: verification, author: author)
         return course
     }
 }

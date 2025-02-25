@@ -11,11 +11,12 @@ class UpdateViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-    
 
    
+    @IBAction func update(_ sender: UIButton) {
+        UIApplication.shared.open(URL(string: "https://apps.apple.com/ru/app/stride/id6737005692")!)
+    }
     
 
 }

@@ -56,21 +56,21 @@ class AppStoreVersion {
     
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     
-    private func versionMaxAllowed(maxVersion:Double) -> Bool {
-        if Double(version)! < maxVersion {
-            return false
-        }else {
+    private func versionMaxAllowed(maxVersion: String) -> Bool {
+        let result = maxVersion.compare(version, options: .numeric) == .orderedSame
+        if result {
             return true
+        }else {
+            return false
         }
     }
     
-    func getVersionAppStore() async throws -> Double {
-//        let urlString = "https://itunes.apple.com/lookup?bundleId=com.courses.Stride"
-        let urlString = "https://itunes.apple.com/lookup?bundleId=com.company.XTENNISX2"
+    func getVersionAppStore() async throws -> String {
+        let urlString = "https://itunes.apple.com/lookup?bundleId=com.courses.Stride"
         let value = try await AF.request(urlString,method: .get).serializingData().value
         let json = JSON(value)
-        let version = json["results"][0]["version"].doubleValue
-        print(version)
+        let version = json["results"][0]["version"].stringValue
+        print(version, self.version)
         return version
     }
     

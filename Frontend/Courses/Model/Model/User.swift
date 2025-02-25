@@ -16,6 +16,28 @@ class User {
         return UD().getMyInfo()
     }
 
+    func getAllCoachs() async throws -> [UserStruct] {
+        let url = Constants.url + "api/v1/users/get_coaches/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(
+            url,method: .get,
+            headers: headers
+        ).serializingData().value
+        let json = JSON(value)["results"]
+        var users = [UserStruct]()
+        let array = json.arrayValue
+        guard array.isEmpty == false else {return []}
+        for x in 0...array.count - 1 {
+            var user = UserStruct(name: json[x]["first_name"].stringValue, surname: json[x]["last_name"].stringValue)
+            user.email = json[x]["email"].stringValue
+            user.id = json[x]["id"].intValue
+            user.phone = json[x]["phone_number"].stringValue
+            user.avatarURL = URL(string: json[x]["image"].stringValue)
+            user.coach.rating = json[x]["avg_rating"].floatValue
+            users.append(user)
+        }
+        return users
+    }
 
     func changeInfoUser(id: Int, user: UserStruct) async throws {
         let url = Constants.url + "api/v1/users/\(id)/"
@@ -94,13 +116,16 @@ class User {
         user.birthday = json["date_of_birth"].stringValue
         user.goal = Goal(rawValue: json["target"].stringValue)
         user.level = Level(rawValue: json["level"].stringValue)
-        user.isCoach = json["is_coach"].boolValue
         user.coach.description = json["desc"].stringValue
         user.coach.money = json["balance"].intValue
         user.avatarURL = URL(string: "\(json["image"].stringValue)")
-        if user.isCoach == true {
+        let isCoach = json["is_coach"].boolValue
+        let admin = json["is_staff"].boolValue
+        if admin == true {
+            user.role = .admin
+        }else if isCoach == true {
             user.role = .coach
-        }else {
+        }else if isCoach == false {
             user.role = .user
         }
         UD().saveMyInfo(user)
@@ -110,7 +135,8 @@ class User {
 
     func getUserByID(id: Int) async throws -> UserStruct {
         let url = Constants.url + "api/v1/users/\(id)/"
-        let value = try await AF.request(url).serializingData().value
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var user = UserStruct()
         user.name = json["first_name"].stringValue
@@ -125,23 +151,43 @@ class User {
 
     func getCelebreties() async throws -> [UserStruct] {
         let url = Constants.url + "api/v1/users/get_all_celebrity/"
-        let value = try await AF.request(url).serializingData().value
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
         let json = JSON(value)
         var celebrities = [UserStruct]()
-        let arrayCount = json.arrayValue.count
-        for x in 0...arrayCount - 1 {
+        let array = json.arrayValue
+        guard array.isEmpty == false else {return []}
+        for x in 0...array.count - 1 {
             let name = json[x]["first_name"].stringValue
             let surname = json[x]["last_name"].stringValue
             let email = json[x]["email"].stringValue
             let phone = json[x]["phone_number"].stringValue
-            let isCoach = json[x]["is_coach"].boolValue
             let image = "\(json[x]["image"].stringValue)"
             var role = Role.user
-            if isCoach {
+            let isCoach = json["is_coach"].boolValue
+            let admin = json["is_staff"].boolValue
+            if admin == true {
+                role = .admin
+            }else if isCoach == true {
                 role = .coach
+            }else if isCoach == false {
+                role = .user
             }
             celebrities.append(UserStruct(role: role, name: name, surname: surname, email: email, phone: phone, avatarURL: URL(string: image)))
         }
         return celebrities
     }
+    
+    func deleteAccount() async throws {
+        let url = Constants.url + "api/v1/users/delete-profile/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        
+        let response = AF.request(url, method: .delete, headers: headers).serializingData()
+        let code = await response.response.response?.statusCode
+        
+        if code != 204 {
+            throw ErrorNetwork.runtimeError("Ошибка")
+        }
+    }
+    
 }

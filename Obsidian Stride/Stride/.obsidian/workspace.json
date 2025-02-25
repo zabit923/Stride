@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "3fab3323e617fbef",
+        "id": "ab776155e5b45c0e",
         "type": "tabs",
         "children": [
           {
-            "id": "2aa3b30ac1063ab9",
+            "id": "1d49ac8db489c1ac",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "conflict-files-obsidian-git.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "conflict-files-obsidian-git"
+              "title": "Новая вкладка"
             }
           }
         ]
@@ -180,8 +176,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2aa3b30ac1063ab9",
+  "active": "9c63165ed1c2a53c",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
     "Stride/Добро пожаловать.md",
     "Stride",
     "images/Таргет/image9.png",
@@ -196,7 +193,6 @@
     "images/Таргет/image14.png",
     "images/Таргет",
     "images",
-    "conflict-files-obsidian-git.md",
     "Технический отдел/Корзина/Обдумать тему с целевой аудиторией для курса.md",
     "Технический отдел/5 обновление/Текстовый редактор.md",
     "Технический отдел/5 обновление/Сертефицированные тренеры.md",

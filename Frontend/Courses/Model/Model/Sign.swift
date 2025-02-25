@@ -32,7 +32,6 @@ class Sign {
             guard let email = user.profile?.email else {return}
 
             Task {
-                print(idToken)
                 try await self.saveInBDGoogle(token: idToken, name: name, email: email)
             }
         }
@@ -47,7 +46,6 @@ class Sign {
         ]
         let value = try await AF.request(url, method: .post, parameters: parameters).serializingData().value
         let json = JSON(value)
-        print(json)
     }
 
 

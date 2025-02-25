@@ -7,18 +7,6 @@
 
 import UIKit
 
-extension NSAttributedString {
-
-
-    func attributedStringToData() -> Data? {
-        guard let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) else {
-            print("Ошибка сериализации NSAttributedString")
-            return nil
-        }
-        return data
-    }
-}
-
 extension Data {
     func retrieveDataToString() -> NSAttributedString {
         let attributedString = (try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(self) as? NSAttributedString)!
@@ -26,43 +14,17 @@ extension Data {
     }
 }
 
-extension NSAttributedString {
-    func toDictionary() -> [String: Any] {
-        let string = self.string
-        var attributes = [String: Any]()
-        self.enumerateAttributes(in: NSRange(location: 0, length: string.count), options: []) { (attrs, range, _) in
-            for (key, value) in attrs {
-                let keyString = (key as? NSAttributedString.Key)?.rawValue ?? ""
-                if let value = value as? [String: Any] {
-                    attributes[keyString] = value
-                } else if let value = value as? Any {
-                    attributes[keyString] = value
-                }
-            }
-        }
-
-        return ["string": string, "attributes": attributes]
-    }
-}
-
-
-
 extension UIImage {
 
     func scaleImage(toSize size: CGSize) -> UIImage {
         let newImage: UIImage
-        let aspectWidth = size.width / self.size.width
-        let aspectHeight = size.height / self.size.height
-        let aspectRatio = min(aspectWidth, aspectHeight)
-        
-        let newSize = CGSize(width: self.size.width * aspectRatio, height: self.size.height * aspectRatio)
-        UIGraphicsBeginImageContext(newSize)
-        self.draw(in: CGRect(origin: .zero, size: newSize))
+        UIGraphicsBeginImageContext(size)
+        self.draw(in: CGRect(origin: .zero, size: size))
         newImage = UIGraphicsGetImageFromCurrentImageContext() ?? self
         UIGraphicsEndImageContext()
 
         return newImage
-    }
+      }
 
     func withRoundedCorners(radius: CGFloat) -> UIImage {
         let rect = CGRect(origin: .zero, size: self.size)
@@ -98,6 +60,22 @@ extension UITextView {
          textStorage.replaceCharacters(in: range, with: text)
          selectedRange = NSMakeRange(previousSelectedRange.location, text.length)
      }
+    
+    func getURLs() -> [URL] {
+        // Используйте регулярное выражение для поиска URL
+        let pattern = "(https?://[\\w\\.-]+(/[\\w\\.-]+)+)"
+        let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+        
+        // Извлечение URL из совпадений
+        return matches.compactMap { match in
+            let range = Range(match.range, in: text)!
+            return URL(string: String(text[range]))
+        }
+    }
+
+
+
 }
 
 
@@ -113,6 +91,12 @@ extension String {
     }
     var htmlToString: String {
         return htmlToAttributedString?.string ?? ""
+    }
+    
+    func strikeText() -> NSMutableAttributedString {
+        let attributeString = NSMutableAttributedString(string: self)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributeString.length))
+        return attributeString
     }
 }
 

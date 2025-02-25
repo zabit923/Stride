@@ -81,7 +81,7 @@ class Payment {
     
     
     func fetchFunds(payment: PaymentMethod) async throws {
-        let url = Constants.url + "api/v1/payments/request-funds"
+        let url = Constants.url + "api/v1/payments/"
         
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         var parameters: Parameters

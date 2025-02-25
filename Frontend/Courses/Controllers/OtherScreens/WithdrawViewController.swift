@@ -30,7 +30,7 @@ class WithdrawViewController: UIViewController {
         view.addSubview(errorView)
         errorView.isHidden = true
     }
-    
+
     private func textFieldDesign() {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
         withdrawTextField.attributedPlaceholder = NSAttributedString(string: "от 100₽ до 50000₽", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray, NSAttributedString.Key.font: font!])
@@ -81,13 +81,14 @@ class WithdrawViewController: UIViewController {
             do {
                 clearError()
                 try checkInfo()
-                guard let money = Int(withdrawTextField.text ?? "0") else { return }
+                guard let moneyFluent = Int(withdrawTextField.text ?? "0") else { return }
                 let cardFormat = cardTextField.text!.format(with: "XXXX XXXX XXXX XXXX")
-                let card: PaymentMethod = .card(cardNumber: cardFormat, amount: money)
+                let card: PaymentMethod = .card(cardNumber: cardFormat, amount: moneyFluent)
                 try await Payment().fetchFunds(payment: card)
                 finishBtn.isEnabled = true
-                let result = Int(moneyCount.text!)! - money
-                moneyCount.text = "\(result)"
+                let result = Int(moneyCount.text!)! - moneyFluent
+                money = result
+                moneyCount.text = "\(money)"
                 addSuccess()
             }catch ErrorNetwork.runtimeError(let error) {
                 addError(error: error)

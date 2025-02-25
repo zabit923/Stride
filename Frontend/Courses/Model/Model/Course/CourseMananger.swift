@@ -18,12 +18,26 @@ class CourseMananger {
         return value
     }
     
-    func getAllCourses() async throws -> Data {
-        let url = Constants.url + "api/v1/courses/"
+    func getAllCourses(page: String?) async throws -> Data {
+        var url = Constants.url + "api/v1/courses/"
+        
+        if let page = page {
+            url = page
+        }
+        
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         return value
     }
+    
+    func getCoursesByCategory(id: Int) async throws -> Data {
+        var url = Constants.url + "api/v1/courses/?category=\(id)"
+        
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
+        return value
+    }
+    
     
     func getCoursesByID(id: Int) async throws -> Data {
         let url = Constants.url + "api/v1/courses/\(id)/"
@@ -41,6 +55,13 @@ class CourseMananger {
     
     func getCoursesByCelebrity() async throws -> Data {
         let url = Constants.url + "api/v1/courses/celebrities_courses/"
+        let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
+        let value = try await AF.request(url, headers: headers).serializingData().value
+        return value
+    }
+    
+    func getPopularCourses() async throws -> Data {
+        let url = Constants.url + "api/v1/courses/popular_courses/"
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, headers: headers).serializingData().value
         return value
@@ -67,11 +88,14 @@ class CourseMananger {
         return value
     }
     
-    func searchCourses(text: String) async throws -> Data {
+    func searchCourses(text: String, category: Category?) async throws -> Data {
         let url = Constants.url + "api/v1/autocomplete/courses/"
-        let parameters = [
+        var parameters: Parameters = [
             "title": text
         ]
+        if let category = category {
+            parameters["category"] = category.id
+        }
         let headers: HTTPHeaders = ["Authorization": "Bearer \(User.info.token)"]
         let value = try await AF.request(url, parameters: parameters, headers: headers).serializingData().value
         return value

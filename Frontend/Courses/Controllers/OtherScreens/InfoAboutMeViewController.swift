@@ -100,14 +100,14 @@ class InfoAboutMeViewController: UIViewController {
     func datePickerDesign() {
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(datePickerValueChanged(sender:)), for: UIControl.Event.valueChanged)
-        datePicker.setValue(UIColor.white, forKey: "textColor")
+        datePicker.setValue(UIColor.grayMain, forKey: "textColor")
         datePicker.maximumDate = Date()
     }
 
     func design() {
         let font = UIFont(name: "Commissioner-SemiBold", size: 12)
-        heightTextField.attributedPlaceholder = NSAttributedString(string: "Рост", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
-        weightTextField.attributedPlaceholder = NSAttributedString(string: "Вес", attributes: [NSAttributedString.Key.foregroundColor: UIColor.forTextFields, NSAttributedString.Key.font: font!])
+        heightTextField.attributedPlaceholder = NSAttributedString(string: "Рост", attributes: [NSAttributedString.Key.foregroundColor: UIColor.grayMain, NSAttributedString.Key.font: font!])
+        weightTextField.attributedPlaceholder = NSAttributedString(string: "Вес", attributes: [NSAttributedString.Key.foregroundColor: UIColor.grayMain, NSAttributedString.Key.font: font!])
         intentionArray = [Goal.loseWeight.thirdString(), Goal.gainWeight.thirdString(), Goal.health.thirdString(), Goal.other.thirdString()]
         levelPreparationArray = [Level.beginner.thirdString(), Level.middle.thirdString(), Level.advanced.thirdString(), Level.professional.thirdString()]
         datePickerDesign()
@@ -116,7 +116,7 @@ class InfoAboutMeViewController: UIViewController {
     }
 
     func pickerViewDesign() {
-        pickerView.setValue(UIColor.white, forKey: "textColor")
+        pickerView.setValue(UIColor.grayMain, forKey: "textColor")
         viewPV.isHidden = true
     }
 
@@ -132,11 +132,11 @@ class InfoAboutMeViewController: UIViewController {
         }
         if let height = meInfo.height {
             heightTextField.text = "\(height)"
-            heightTextField.textColor = UIColor.white
+            heightTextField.textColor = UIColor.label
         }
         if let weight = meInfo.weight {
             weightTextField.text = "\(weight)"
-            weightTextField.textColor = UIColor.white
+            weightTextField.textColor = UIColor.label
         }
     }
 
@@ -176,7 +176,7 @@ class InfoAboutMeViewController: UIViewController {
         default:
             break
         }
-        currentLbl.textColor = .white
+        currentLbl.textColor = .label
         currentLbl.text = text
     }
 
@@ -317,7 +317,7 @@ extension InfoAboutMeViewController: UITextFieldDelegate {
         if textField.text == "" {
             textField.textColor = UIColor.forTextFields
         }else {
-            textField.textColor = UIColor.white
+            textField.textColor = UIColor.label
         }
     }
 }

@@ -63,6 +63,15 @@ class CoursesViewController: UIViewController {
             catalogCollectionView.reloadData()
         }
     }
+    
+    private func getPopularCourses() {
+        Task {
+            course = try await Course().getPopularCourses()
+            filteredCourse = course
+            emptyCheck()
+            catalogCollectionView.reloadData()
+        }
+    }
 
     private func getRecomendCourses() {
         Task {
@@ -91,7 +100,8 @@ class CoursesViewController: UIViewController {
             titleLbl.text = "Рекомендованные курсы"
             getRecomendCourses()
         case .popular:
-            break
+            titleLbl.text = "Популярные курсы"
+            getPopularCourses()
         case .celebrity:
             titleLbl.text = "Курсы от знаменитостей"
             getCelebrityCourses()
@@ -116,11 +126,11 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "course", for: indexPath) as! CoursesCollectionViewCell
         cell.image.sd_setImage(with: filteredCourse[indexPath.row].imageURL)
-        cell.nameAuthor.text = filteredCourse[indexPath.row].nameAuthor
+        cell.nameAuthor.text = filteredCourse[indexPath.row].author.userName
         cell.nameCourse.text = filteredCourse[indexPath.row].nameCourse
-        cell.price.text = "\(filteredCourse[indexPath.row].price)Р"
+        cell.price.text = "\(filteredCourse[indexPath.row].price)₽"
         cell.rating.text = "\(filteredCourse[indexPath.row].rating)"
-        cell.daysCount.text = "\(filteredCourse[indexPath.row].daysCount) дней"
+        cell.daysCount.text = "\(filteredCourse[indexPath.row].daysCount) этапов"
         return cell
     }
 
@@ -131,12 +141,13 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if typeCourse == .myCreate {
-            selectIDCourse = course[indexPath.row].id
+            selectIDCourse = filteredCourse[indexPath.row].id
             performSegue(withIdentifier: "changeCourse", sender: self)
         }else {
-            selectCourse = course[indexPath.row]
+            selectCourse = filteredCourse[indexPath.row]
             performSegue(withIdentifier: "infoCourses", sender: self)
         }
+        textField.text = ""
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -148,11 +159,6 @@ extension CoursesViewController: UICollectionViewDelegate, UICollectionViewDataS
         }else if segue.identifier == "infoCourses" {
             let vc = segue.destination as! InfoCoursesViewController
             vc.course = selectCourse
-            if selectCourse.isBought {
-                vc.buy = false
-            }else {
-                vc.buy = true
-            }
         }
     }
 

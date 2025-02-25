@@ -16,17 +16,10 @@ class UD {
     func saveMyInfo(_ user: UserStruct) {
         UserDefaults.standard.set(user.name, forKey: "myName")
         UserDefaults.standard.set(user.surname, forKey: "mySurname")
-        var role = user.role
-        if user.isCoach == true {
-            role = .coach
-        }else {
-            role = .user
-        }
-        UserDefaults.standard.set(role.rawValue, forKey: "myRole")
+        UserDefaults.standard.set(user.role.rawValue, forKey: "myRole")
         UserDefaults.standard.set(user.email, forKey: "myEmail")
         UserDefaults.standard.set(user.phone, forKey: "myPhoneNumber")
         UserDefaults.standard.set(user.id, forKey: "myID")
-        UserDefaults.standard.set(user.isCoach, forKey: "isCoach")
         UserDefaults.standard.set(user.coach.description, forKey: "coachDescription")
     }
 
@@ -39,7 +32,6 @@ class UD {
         user.phone = UserDefaults.standard.string(forKey: "myPhoneNumber") ?? ""
         user.id = UserDefaults.standard.integer(forKey: "myID")
         user.token = UserDefaults.standard.string(forKey: "token") ?? ""
-        user.isCoach = UserDefaults.standard.bool(forKey: "isCoach")
         user.coach.description = UserDefaults.standard.string(forKey: "coachDescription")
         if UserDefaults.standard.string(forKey: "birthday") != "" {
             user.birthday = UserDefaults.standard.string(forKey: "birthday")
@@ -68,14 +60,6 @@ class UD {
         return current
     }
     
-    func saveDaysCompletedInCourse(course: Course, countDaysCompleted: Int) {
-        UserDefaults.standard.set(countDaysCompleted, forKey: "completedDays_\(course.id)")
-    }
-
-    func getDaysCompletedInCourse(courseID: Int) -> Int {
-        let count = UserDefaults.standard.integer(forKey: "completedDays_\(courseID)")
-        return count
-    }
 
 
     func saveInfoAboutMe(_ user: UserStruct) {
@@ -100,7 +84,6 @@ class UD {
         dictionary.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
-        RealmValue().clearRealm()
     }
 
 }

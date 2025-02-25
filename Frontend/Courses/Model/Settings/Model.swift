@@ -11,7 +11,8 @@ import UIKit
 
 class Constants {
     static let url = "https://stridecourses.ru/"
-    static let telegramURL = URL(string: "https://t.me/StrideCoursesBot")!
+    static let telegramURL = URL(string: "https://t.me/+ydJXQ2Xo8PBkYWUy")!
+    static let formsURL = URL(string: "https://forms.yandex.ru/u/670e623ef47e734408a563df/")!
 }
 
 // MARK: - Collection
@@ -26,15 +27,10 @@ struct Objects {
     let imageForBtn: String
 }
 
-struct Category {
-    var nameCategory: String
-    var imageURL: URL
-    var id: Int
-}
-
 
 // MARK: - User
 struct UserStruct {
+    var userName: String
     var role: Role
     var name: String
     var surname: String
@@ -47,17 +43,19 @@ struct UserStruct {
     var level: Level?
     var goal: Goal?
     var coach = Coach()
-    var isCoach: Bool?
     var myCourses = [Course]()
     var id = 0
     var token = ""
 
-    init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "", id: Int = 0) {
+    init(role: Role = .user, name: String = "", surname: String = "", email: String = "", phone: String = "", id: Int = 0, avatarURL: URL? = nil) {
         self.role = role
         self.name = name
         self.surname = surname
         self.email = email
+        self.id = id
         self.phone = phone
+        self.userName = "\(self.name) \(self.surname)"
+        self.avatarURL = avatarURL
     }
 
     init(role: Role, name: String, surname: String, email: String, phone: String, height: Double? = nil, weight: Double? = nil, birthday: String? = nil, description: String? = nil, avatarURL: URL? = nil, level: Level? = nil, goal: Goal? = nil, myCourses: [Course] = [Course](), id: Int = 0) {
@@ -73,6 +71,7 @@ struct UserStruct {
         self.level = level
         self.goal = goal
         self.myCourses = myCourses
+        self.userName = "\(self.name) \(self.surname)"
     }
 }
 
@@ -102,6 +101,11 @@ struct Reviews {
     var text: String
     var date: String
     var courseID: Int
+}
+
+struct Payments {
+    var paymentsInfo: PaymentMethod
+    var paymentID: Int
 }
 
 // MARK: - enum
@@ -228,6 +232,41 @@ enum Goal: String {
     }
 }
 
+enum Verification: String {
+    case proccessVerificate = "VERIFICATION_PROCCESS"
+    case noneVerificate = "NON_VERIFICATE"
+    case proccess = "PROCCESS"
+    case verificate = "VERIFICATE"
+
+    func thirdString() -> String {
+        switch self {
+        case .proccessVerificate:
+            return "VERIFICATION_PROCCESS"
+        case .noneVerificate:
+            return "NON_VERIFICATE"
+        case .proccess:
+            return "PROCCESS"
+        case .verificate:
+            return "VERIFICATE"
+        }
+    }
+
+    static func thirdGoal(_ verificate: String) -> Verification? {
+        switch verificate {
+        case "VERIFICATION_PROCCESS":
+            return .proccessVerificate
+        case "NON_VERIFICATE":
+            return .noneVerificate
+        case "PROCCESS":
+            return .proccess
+        case "VERIFICATE":
+            return .verificate
+        default:
+            return nil
+        }
+    }
+}
+
 enum Role: String {
     case coach = "Coach"
     case user = "User"
@@ -267,6 +306,14 @@ enum DeepLinking: String {
     case user = "user"
 }
 
+enum InfoCourses {
+    case bought
+    case review
+    case send
+    case nothing
+    case adminVerification
+}
+
 // MARK: - Protocol
 
 protocol ChangeInfoModule: AnyObject {
@@ -274,6 +321,16 @@ protocol ChangeInfoModule: AnyObject {
     func deleteModuleDismiss(moduleID: Int)
 }
 
+protocol PromoCodeDelegate: AnyObject {
+    func delete(promoCode: Promocodes)
+    func create(promoCode: Promocodes)
+    func change(promoCode: Promocodes)
+}
+
 protocol AddCategoryDelegate: AnyObject {
     func category(category: Category)
+}
+
+protocol LoadingData {
+    func getData(user: UserStruct, celebrity: [UserStruct], recomended: [Course])
 }

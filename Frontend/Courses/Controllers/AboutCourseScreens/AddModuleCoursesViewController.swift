@@ -10,6 +10,7 @@ import Lottie
 
 class AddModuleCoursesViewController: UIViewController {
 
+    @IBOutlet weak var successBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var nameCourses: UILabel!
     @IBOutlet weak var heightViewDays: NSLayoutConstraint!
@@ -26,6 +27,7 @@ class AddModuleCoursesViewController: UIViewController {
     private var selectDay: Int = 0
     private var selectModule = Modules(name: "", minutes: 0, id: 0)
     var idCourse = 0
+    var role: InfoCourses = .send
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,26 @@ class AddModuleCoursesViewController: UIViewController {
         super.viewWillAppear(animated)
         loadingSettings()
         addCourseInfo()
+    }
+
+    
+    private func checkRole() {
+        guard role != .adminVerification else { successBtn.isHidden = false; return }
+        
+        switch course.verification {
+        case .proccessVerificate:
+            role = .send
+            successBtn.isHidden = true
+        case .noneVerificate:
+            role = .nothing
+            successBtn.isHidden = false
+        case .proccess:
+            role = .nothing
+            successBtn.isHidden = false
+        case .verificate:
+            role = .send
+            successBtn.isHidden = true
+        }
     }
 
     private func addCourseInfo() {
@@ -110,8 +132,8 @@ class AddModuleCoursesViewController: UIViewController {
         Task {
             do {
                 let id = try await Course().addModulesInCourse(dayID: dayID, position: position)
-                course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id))
-                modulesCollectionView.insertItems(at: [IndexPath(item: course.courseDays[selectDay].modules.count - 1, section: 0)])
+                course.courseDays[selectDay].modules.append(Modules(name: "", minutes: 0, id: id, position: position))
+                modulesCollectionView.insertItems(at: [IndexPath(item: position, section: 0)])
             }catch ErrorNetwork.runtimeError(let error) {
                 errorView.isHidden = false
                 errorView.configure(title: "Ошибка", description: error)
@@ -130,11 +152,18 @@ class AddModuleCoursesViewController: UIViewController {
     private func loadingStop() {
         loading.stop()
         loading.isHidden = true
+        checkRole()
     }
     
     private func selectBack(deleteIndex: Int) {
         if selectDay == course.courseDays.count - 1 {
             selectDay -= 1
+        }
+    }
+    
+    private func changePositionModule(module: Modules) {
+        Task {
+            try await Course().changePositionModule(info: module)
         }
     }
     
@@ -160,7 +189,11 @@ class AddModuleCoursesViewController: UIViewController {
     }
 
 
-
+    
+    @IBAction func success(_ sender: UIButton) {
+        performSegue(withIdentifier: "preview", sender: self)
+    }
+    
     @IBAction func longClickInView(_ sender: UILongPressGestureRecognizer) {
         if scaleView == false {
             if sender.state == .began {
@@ -302,6 +335,10 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             let vc = segue.destination as! AddInfoAboutModuleViewController
             vc.module = selectModule
             vc.delegate = self
+        }else if segue.identifier == "preview" {
+            let vc = segue.destination as! InfoCoursesViewController
+            vc.course.id = course.id
+            vc.interface = role
         }
 
     }
@@ -330,8 +367,14 @@ extension AddModuleCoursesViewController: UICollectionViewDelegate, UICollection
             return
         }
         
+        var module = course.courseDays[selectDay].modules[sourceIndexPath.row]
+        module.position = destinationIndexPath.row + 1
+        changePositionModule(module: module)
         
-
+        let movedModule = course.courseDays[selectDay].modules.remove(at: sourceIndexPath.row)
+        course.courseDays[selectDay].modules.insert(movedModule, at: destinationIndexPath.row)
+        
+        
     }
 
     @objc func deleteDayBtn(sender: UIButton) {

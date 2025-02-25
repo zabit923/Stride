@@ -133,7 +133,7 @@ class AddInfoAboutModuleViewController: UIViewController {
             present(imagePicker, animated: true)
         }
     }
-
+    
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: mainView)
         switch sender.state {

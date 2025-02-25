@@ -21,7 +21,7 @@ class PrivacyViewController: UIViewController {
         paragraphStyle.lineHeightMultiple = 20.0
         paragraphStyle.maximumLineHeight = 20.0
         paragraphStyle.minimumLineHeight = 20.0
-        let ats = [NSAttributedString.Key.paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: UIColor.white]
+        let ats = [NSAttributedString.Key.paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: UIColor.label]
         textView.attributedText = NSAttributedString(string: textView.text, attributes: ats)
     }
 
