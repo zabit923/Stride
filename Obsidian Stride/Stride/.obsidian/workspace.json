@@ -11,14 +11,16 @@
             "id": "1d49ac8db489c1ac",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "kanban",
               "state": {
-                "file": "Отдел продаж/Задачи.md",
-                "mode": "source",
-                "source": false
+                "file": "Отдел продаж/Безымянная Kanban-доска.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": []
+                }
               },
-              "icon": "lucide-file",
-              "title": "Задачи"
+              "icon": "lucide-trello",
+              "title": "Безымянная Kanban-доска"
             }
           }
         ]
@@ -180,10 +182,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1d49ac8db489c1ac",
+  "active": "dc406b9f7109f8dc",
   "lastOpenFiles": [
-    "Общая папка/Затраты Excel.md",
     "Отдел продаж/Задачи.md",
+    "Отдел продаж/Безымянная Kanban-доска.md",
+    "Общая папка/Затраты Excel.md",
     "Отдел продаж/Без названия.canvas",
     "images/Таргет/Снимок экрана 2024-07-09 в 00.26.28.png",
     "Технический отдел/Бизнес план.md",
